@@ -30,3 +30,14 @@ when multiple chapters are authored in parallel, isolated sessions.
 2. Add a row with the owning chapter (prefer the more foundational chapter when
    two candidates exist) and a one-line note on scope.
 3. Remove the corresponding proposal from `review/concept-proposals/`.
+
+## Merge log
+
+- **Batch 1 (HTTP + REST pilots)**: merged `review/concept-proposals/http.md`
+  (4 concepts, all owned by HTTP) and `review/concept-proposals/rest.md`
+  (3 concepts, all owned by REST) into the table above. No conflicts — the two
+  chapters proposed disjoint concept sets. The REST chapter's staging file
+  also flagged that its own draft (Section 4) fully re-explained HTTP's
+  status codes/methods/caching headers despite not owning them; see the
+  batch overlap review for the resulting edit.
+
