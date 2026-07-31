@@ -45,6 +45,24 @@ blog-post depth.
    least 1 for a subtopic-length chapter), placed next to the concept they
    illustrate, not batched at the end. Never let a diagram substitute for the
    explanation — always pair it with the text that teaches the *why*.
+9. **Use diagrams/flowcharts wherever possible and applicable** — this applies
+   to every section, not only Section 4/5. If a comparison table, a sequence
+   of steps, an org structure, a trade-off, or a lifecycle can be shown
+   visually, add a diagram in addition to the prose rather than leaving it as
+   text-only, throughout Sections 1-27.
+10. **PDF landscape diagrams**: when a diagram is wide, deeply nested, or has
+    many parallel lanes (for example, a service blueprint, a multi-swimlane
+    journey map, or a large org chart) such that portrait orientation would
+    compress or truncate it, mark it for full-page landscape rendering in the
+    PDF build using the raw-LaTeX landscape wrapper (see "PDF landscape
+    diagrams" under Diagrams below) rather than shrinking the diagram to fit.
+11. **Explain, don't point**: every concept, pattern, or decision must be
+    explained clearly and elaboratively — definition, mechanism, reasoning,
+    and a concrete example — never reduced to a one-line mention, a bare
+    bullet label, or "see X for details" when X doesn't actually exist yet or
+    when the concept is this chapter's own to teach. Recap+link is only for
+    concepts genuinely owned by another chapter per the Concept Ownership
+    Rule below; everything this chapter owns must be taught in full.
 
 ## Section 4 quality bar
 
@@ -133,6 +151,33 @@ Every chapter must include, in this order:
   referenced. Reserve `diagrams/<type>/` files for larger, reusable, or
   workshop-scale assets (e.g. a full org chart, a multi-page journey map) that
   don't fit as an inline block — link to those rather than duplicating them.
+
+### PDF landscape diagrams
+
+When a diagram is too wide/dense for a portrait page (e.g. many parallel
+swimlanes, a wide sequence diagram, a large org chart), wrap it with the
+raw-LaTeX `landscape` environment so the PDF build rotates just that page
+instead of shrinking the diagram to illegibility:
+
+````markdown
+```{=latex}
+\begin{landscape}
+```
+
+```mermaid
+flowchart LR
+    A[...] --> B[...] --> C[...]
+```
+
+```{=latex}
+\end{landscape}
+```
+````
+
+This renders normally (ignored) in Markdown/EPUB and rotates only that page in
+the PDF build, which includes the `pdflscape` LaTeX package for this purpose
+(see `scripts/build-book.ps1`). Use this sparingly — only for diagrams that
+genuinely need the extra width, not as a default for every diagram.
 - **Code**: runnable samples live under `code/<language>/`; chapters reference
   them by relative link rather than embedding large listings inline.
 

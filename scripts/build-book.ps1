@@ -62,7 +62,9 @@ Write-Host "Concatenating $($chapterFiles.Count) file(s) in reading order..."
 
 if ($Format -in @('pdf', 'both')) {
     $pdfEngineArg = if ($pdfEngine.Name -eq 'wkhtmltopdf') { @('--pdf-engine=wkhtmltopdf') } else { @() }
-    pandoc @chapterFiles -o (Join-Path $buildDir 'handbook.pdf') --toc --toc-depth=2 @pdfEngineArg
+    $headerInclude = Join-Path $PSScriptRoot 'pdf-header.tex'
+    $headerArg = if ($pdfEngine.Name -ne 'wkhtmltopdf' -and (Test-Path $headerInclude)) { @('--include-in-header', $headerInclude) } else { @() }
+    pandoc @chapterFiles -o (Join-Path $buildDir 'handbook.pdf') --toc --toc-depth=2 @pdfEngineArg @headerArg
     Write-Host "Wrote $(Join-Path $buildDir 'handbook.pdf')"
 }
 if ($Format -in @('epub', 'both')) {
