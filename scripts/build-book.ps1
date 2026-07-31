@@ -23,6 +23,12 @@ if (-not (Get-Command pandoc -ErrorAction SilentlyContinue)) {
     exit 1
 }
 
+$pdfEngine = Get-Command pdflatex, xelatex, lualatex, wkhtmltopdf -ErrorAction SilentlyContinue | Select-Object -First 1
+if ($Format -in @('pdf', 'both') -and -not $pdfEngine) {
+    Write-Error "No PDF engine found (pdflatex/xelatex/lualatex/wkhtmltopdf). Install a LaTeX distribution (e.g. MiKTeX or TinyTeX: https://miktex.org/ or https://yihui.org/tinytex/) and re-run, or use -Format epub."
+    exit 1
+}
+
 # Ordered list of part folders, matching BOOK_PLAN.md's reading-order table.
 $partFolders = @(
     '01_Architecture_Mindset', '02_Design_Thinking_and_Product_Management',
@@ -49,13 +55,14 @@ foreach ($part in $partFolders) {
 }
 
 if ($chapterFiles.Count -eq 0) {
-    Write-Warning "No chapter files found yet — build will only contain part overviews (if any)."
+    Write-Warning "No chapter files found yet - build will only contain part overviews (if any)."
 }
 
 Write-Host "Concatenating $($chapterFiles.Count) file(s) in reading order..."
 
 if ($Format -in @('pdf', 'both')) {
-    pandoc @chapterFiles -o (Join-Path $buildDir 'handbook.pdf') --toc --toc-depth=2
+    $pdfEngineArg = if ($pdfEngine.Name -eq 'wkhtmltopdf') { @('--pdf-engine=wkhtmltopdf') } else { @() }
+    pandoc @chapterFiles -o (Join-Path $buildDir 'handbook.pdf') --toc --toc-depth=2 @pdfEngineArg
     Write-Host "Wrote $(Join-Path $buildDir 'handbook.pdf')"
 }
 if ($Format -in @('epub', 'both')) {
