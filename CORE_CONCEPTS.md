@@ -74,6 +74,22 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Problem statement canvas | [Problem Framing](02_Design_Thinking_and_Product_Management/CH06_Problem_Framing.md) | Full field-by-field structured brief artifact |
 | Opportunity Solution Tree (Teresa Torres) | [Problem Framing](02_Design_Thinking_and_Product_Management/CH06_Problem_Framing.md) | Continuous-discovery alternative to a one-time problem canvas |
 | "Solution in disguise" detection check | [Problem Framing](02_Design_Thinking_and_Product_Management/CH06_Problem_Framing.md) | Blank-substitution test for a stated "need" that has secretly picked a solution |
+| Divergent vs. convergent ideation cycle | [Ideation](02_Design_Thinking_and_Product_Management/CH07_Ideation.md) | Separation of generation/evaluation phases with phase-purity facilitation controls |
+| Ideation facilitation mechanics | [Ideation](02_Design_Thinking_and_Product_Management/CH07_Ideation.md) | Silent generation, equalized participation, anti-dominance controls, phase-transition governance |
+| Ideation method families | [Ideation](02_Design_Thinking_and_Product_Management/CH07_Ideation.md) | Association, constraint, inversion, analogy, morphological, rapid visual ideation method taxonomy |
+| Idea selection funnel (signal -> criteria -> portfolio) | [Ideation](02_Design_Thinking_and_Product_Management/CH07_Ideation.md) | Structured narrowing from raw idea set to hypothesis-ready candidate portfolio |
+| Anti-premature-convergence practice | [Ideation](02_Design_Thinking_and_Product_Management/CH07_Ideation.md) | Detection and prevention of early lock-in (anchoring/authority-bias countermeasures) |
+| Rapid prototyping loop (assumption -> artifact -> exposure -> evidence -> decision) | [Rapid Prototyping](02_Design_Thinking_and_Product_Management/CH08_Rapid_Prototyping.md) | Operating discipline for converting uncertainty into proceed/pivot/park/stop decisions |
+| Learning velocity (for discovery/prototyping) | [Rapid Prototyping](02_Design_Thinking_and_Product_Management/CH08_Rapid_Prototyping.md) | Primary performance lens for prototype practice |
+| Prototype fidelity ladder (low/medium/high as decision-dependent) | [Rapid Prototyping](02_Design_Thinking_and_Product_Management/CH08_Rapid_Prototyping.md) | Fidelity selection by minimum credible realism for a learning question |
+| Throwaway vs. evolutionary prototype intent model | [Rapid Prototyping](02_Design_Thinking_and_Product_Management/CH08_Rapid_Prototyping.md) | Intent declaration and governance controls to prevent accidental productionization |
+| Timeboxed prototyping cadence | [Rapid Prototyping](02_Design_Thinking_and_Product_Management/CH08_Rapid_Prototyping.md) | Fixed-duration loop discipline and end-of-timebox decision behavior |
+| Prototype decision gate taxonomy (proceed/pivot/park/stop) | [Rapid Prototyping](02_Design_Thinking_and_Product_Management/CH08_Rapid_Prototyping.md) | Standardized outcomes and rationale logging for prototype decisions |
+| Wireframe fidelity ladder (low/mid/high as decision instrument) | [Wireframing](02_Design_Thinking_and_Product_Management/CH09_Wireframing.md) | Fidelity as risk-reduction/decision-timing mechanism rather than polish maturity |
+| Layout semantics (interface region meaning independent of visual styling) | [Wireframing](02_Design_Thinking_and_Product_Management/CH09_Wireframing.md) | Semantic region model for cross-functional design discussion |
+| Interaction-flow annotation grammar for wireframes | [Wireframing](02_Design_Thinking_and_Product_Management/CH09_Wireframing.md) | Trigger-transition-dependency-feedback notation for behavior-complete wireframes |
+| State-completeness model for interface design artifacts | [Wireframing](02_Design_Thinking_and_Product_Management/CH09_Wireframing.md) | Required state set (ready/loading/empty/validation/system error/permission/success) as handoff gate |
+| Wireframe traceability contract (problem/journey -> screen/element mapping) | [Wireframing](02_Design_Thinking_and_Product_Management/CH09_Wireframing.md) | Scope-drift control by linking wireframe decisions to Problem Framing/Journey Mapping inputs |
 
 ## How to add an entry
 
@@ -174,3 +190,13 @@ when multiple chapters are authored in parallel, isolated sessions.
   frontstage/backstage relationship and Problem Framing's JTBD-adjacent
   scope both explicitly defer to not-yet-drafted chapters (Service Design;
   Product Strategy) — revisit once those exist.
+- **Batch 5 (Part 02 batch 3 — Ideation, Rapid Prototyping, Wireframing)**:
+  merged `review/concept-proposals/ideation.md` (5 concepts),
+  `review/concept-proposals/rapid-prototyping.md` (6 concepts), and
+  `review/concept-proposals/wireframing.md` (5 concepts). Ownership split was
+  clean with no direct duplicate claims. One semantics-level near-overlap was
+  reviewed and accepted as complementary, not duplicative: both Rapid
+  Prototyping and Wireframing use a "fidelity ladder" concept, but Rapid
+  Prototyping owns fidelity as experiment strategy across artifact types while
+  Wireframing owns wireframe-specific structural fidelity for interface
+  communication. No cross-chapter trimming required for these three chapters.

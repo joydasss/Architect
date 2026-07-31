@@ -14,9 +14,9 @@ chat's "Suggested Book Sequence" (item 2).
 | User Interviews | Edited (batch-reviewed, no unresolved overlap) |
 | Journey Mapping | Edited (batch-reviewed, no unresolved overlap) |
 | Problem Framing | Edited (batch-reviewed, no unresolved overlap) |
-| Ideation | Not Started |
-| Rapid Prototyping | Not Started |
-| Wireframing | Not Started |
+| Ideation | Edited (batch-reviewed, no unresolved overlap) |
+| Rapid Prototyping | Edited (batch-reviewed, no unresolved overlap) |
+| Wireframing | Edited (batch-reviewed, no unresolved overlap) |
 | Usability Testing | Not Started |
 | Accessibility | Not Started |
 | Service Design | Not Started |

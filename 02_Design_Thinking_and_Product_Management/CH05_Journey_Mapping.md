@@ -1030,8 +1030,8 @@ from scratch.
 
 **Further reading**: [Empathy](CH01_Empathy.md) ·
 [Research](CH02_Research.md) · [Personas](CH03_Personas.md) ·
-Problem Framing (this part, not yet drafted; consumes this chapter's pain
-points and opportunities as its raw input) ·
+[Problem Framing](CH06_Problem_Framing.md) (consumes this chapter's pain
+points and opportunities as raw input) ·
 [Architecture Thinking § Trade-off analysis](../01_Architecture_Mindset/CH03_Architecture_Thinking.md) ·
 [Observability](../12_Observability/PART_OVERVIEW.md) ·
 [Performance Engineering](../16_Performance_Engineering/PART_OVERVIEW.md) ·

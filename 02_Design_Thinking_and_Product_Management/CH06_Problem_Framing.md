@@ -49,13 +49,13 @@ re-teaches, several sibling chapters' outputs:
   its own artifact (Section 4.5), never re-deriving what a persona is or
   how one is built.
 - The User Interviews chapter (this part's Design Thinking subsection,
-  chapter 4 — not yet drafted at the time of this writing; see
-  [PART_OVERVIEW.md](PART_OVERVIEW.md)) owns interview technique; this
+  chapter 4 — [User Interviews](CH04_User_Interviews.md)) owns interview
+  technique; this
   chapter does not teach how to run the validation conversations it
   recommends in Sections 9 and 16, only that they should happen.
 - The Journey Mapping chapter (this part's Design Thinking subsection,
-  chapter 5 — likewise not yet drafted at the time of this writing; see
-  [PART_OVERVIEW.md](PART_OVERVIEW.md)) owns identifying and sequencing a
+  chapter 5 — [Journey Mapping](CH05_Journey_Mapping.md)) owns identifying
+  and sequencing a
   user's pain points across an end-to-end experience. This chapter
   explicitly does **not** claim ownership of pain-point *identification*
   itself — it consumes an already-identified pain point as raw material and
@@ -443,7 +443,7 @@ contains:
 |---|---|---|
 | Background / context | Why this problem is being framed now (a strategic priority, a support-ticket spike, a research finding) | Product strategy, escalation, or research trigger |
 | Target user | The specific persona(s) this problem is framed for | [Personas](CH03_Personas.md) |
-| Evidence citations | Specific, named empathy maps, research findings, and/or journey-map pain points this statement is anchored to | [Empathy](CH01_Empathy.md), [Research](CH02_Research.md), Journey Mapping (this part, not yet drafted) |
+| Evidence citations | Specific, named empathy maps, research findings, and/or journey-map pain points this statement is anchored to | [Empathy](CH01_Empathy.md), [Research](CH02_Research.md), [Journey Mapping](CH05_Journey_Mapping.md) |
 | Current-state pain | The specific, observed friction or unmet need, in the user's own words where possible | Same evidence sources above |
 | POV statement | The Section 4.1 artifact this canvas formalizes | This chapter |
 | Selected HMW(s) | The one to three HMW questions (Section 4.2) chosen to carry forward, and why the others in the generated portfolio were set aside | This chapter |
@@ -672,12 +672,12 @@ flowchart LR
     A[Empathy maps] --> D[Problem Framing<br/>workshop]
     B[Research findings] --> D
     C[Persona goals] --> D
-    J[Journey-map pain points<br/>not yet drafted chapter] --> D
+  J[Journey-map pain points<br/>Journey Mapping chapter] --> D
     D --> E[Published problem<br/>statement canvas]
     E --> F[Central canvas repository]
-    F --> G[Ideation<br/>not yet drafted chapter]
+  F --> G[Ideation<br/>chapter]
     F --> H[Cross-squad reconciliation<br/>review, Section 7]
-    G --> I[Prototyping / Testing<br/>not yet drafted chapters]
+  G --> I[Rapid Prototyping / Testing<br/>chapters]
     I -->|frame invalidated by evidence| D
 ```
 
@@ -1070,8 +1070,8 @@ for the full chapter list and current status of each):
 | Working Backwards / PR-FAQ | Articulate a customer problem and value proposition via a pre-written press release and FAQ | Narrative document | Not covered in depth by this part; named here for disambiguation only (Amazon-specific planning technique) |
 | Empathy map | Synthesize raw evidence about one person's inner experience | Four-to-six-quadrant canvas | [Empathy](CH01_Empathy.md) |
 | Persona | Package synthesized patterns into a reusable archetype | One-page character-style summary | [Personas](CH03_Personas.md) |
-| Journey map pain point | Identify and sequence friction across an end-to-end experience | Timeline/swimlane annotation | Journey Mapping (this part, not yet drafted) |
-| HMW-generated idea | A candidate solution explored against a selected HMW | Sketch, concept description | Ideation (this part, not yet drafted) |
+| Journey map pain point | Identify and sequence friction across an end-to-end experience | Timeline/swimlane annotation | [Journey Mapping](CH05_Journey_Mapping.md) |
+| HMW-generated idea | A candidate solution explored against a selected HMW | Sketch, concept description | [Ideation](CH07_Ideation.md) |
 
 ## 22. Real-World Case Study
 
@@ -1203,9 +1203,9 @@ solving," and nothing past that boundary.
 
 **Further reading**: [Empathy](CH01_Empathy.md) ·
 [Research](CH02_Research.md) · [Personas](CH03_Personas.md) ·
-User Interviews and Journey Mapping (this part, chapters 4 and 5, not yet
-drafted at the time of this writing — see [PART_OVERVIEW.md](PART_OVERVIEW.md)) ·
-Ideation (this part, later chapter, not yet drafted) ·
+[User Interviews](CH04_User_Interviews.md) ·
+[Journey Mapping](CH05_Journey_Mapping.md) ·
+[Ideation](CH07_Ideation.md) ·
 [Architecture Thinking § Architecture Decision
 Records](../01_Architecture_Mindset/CH03_Architecture_Thinking.md#10-architecture-decision-records-adrs) ·
 [What is Software Architecture? § Architecturally Significant
