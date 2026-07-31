@@ -23,6 +23,23 @@ when multiple chapters are authored in parallel, isolated sessions.
 | HATEOAS | [REST](08_API_Architecture/CH01_REST.md) | REST maturity model, hypermedia controls |
 | Richardson Maturity Model | [REST](08_API_Architecture/CH01_REST.md) | REST-specific API design maturity levels |
 | Resource modeling (REST) | [REST](08_API_Architecture/CH01_REST.md) | URI design, nouns vs verbs, resource relationships |
+| Software architecture (definition: elements/form/rationale) | [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) | Perry & Wolf, Bass/Clements/Kazman, ISO/IEC/IEEE 42010 definitions; foundational, assume elsewhere |
+| Architecture vs. design vs. code (granularity/reversibility distinction) | [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) | Scale-dependent boundary between the three |
+| Components, connectors, and configuration | [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) | Shaw & Garlan vocabulary |
+| Coupling and cohesion | [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) | Yourdon/Constantine definitions |
+| Quality attributes / non-functional requirements (taxonomy) | [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) | Umbrella list and framing only; per-attribute deep technique owned elsewhere (Performance, System Design, Security, Observability) |
+| Architecturally Significant Requirements (ASRs) | [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) | Identifying which requirements materially shape structure |
+| Conway's Law / Inverse Conway Maneuver | [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) | Full definition/history; Architecture Thinking recaps + links when using it as a decision input |
+| Technical debt | [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) | Cunningham's metaphor; deliberate vs. accidental |
+| Architecture fitness functions | [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) | Full definition + code examples (Sections 9-10); Architecture Thinking recaps + links when using one as a decision's feedback signal |
+| 4+1 architectural view model (Kruchten) | [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) | Conceptual view/stakeholder framing (Section 4.8); concrete notations (C4, UML) owned by Architecture Documentation (Part 18, not yet drafted) |
+| Architecture Decision Records (ADRs) | [Architecture Thinking](01_Architecture_Mindset/CH03_Architecture_Thinking.md) | Full template, worked example, and review checklist (Section 10); other chapters recap + link |
+| Trade-off analysis / ATAM (Architecture Tradeoff Analysis Method) | [Architecture Thinking](01_Architecture_Mindset/CH03_Architecture_Thinking.md) | Quality-attribute-scenario-driven comparison method |
+| Essential vs. accidental complexity (Brooks) | [Architecture Thinking](01_Architecture_Mindset/CH03_Architecture_Thinking.md) | General reasoning tool for scoping a decision |
+| Reversible vs. irreversible decisions ("one-way door" / "two-way door") | [Architecture Thinking](01_Architecture_Mindset/CH03_Architecture_Thinking.md) | Decision-classification heuristic calibrating process rigor |
+| RACI matrix (for architecture decisions) | [Role of a Solution Architect](01_Architecture_Mindset/CH02_Role_of_a_Solution_Architect.md) | Responsible/Accountable/Consulted/Informed applied to naming who decides |
+| Architecture Review Board (ARB) governance model | [Role of a Solution Architect](01_Architecture_Mindset/CH02_Role_of_a_Solution_Architect.md) | Formal gated review vs. lightweight async review |
+| Centralized vs. embedded vs. federated architecture team topology | [Role of a Solution Architect](01_Architecture_Mindset/CH02_Role_of_a_Solution_Architect.md) | Organizational structures for scaling the architect role |
 
 ## How to add an entry
 
@@ -40,3 +57,43 @@ when multiple chapters are authored in parallel, isolated sessions.
   also flagged that its own draft (Section 4) fully re-explained HTTP's
   status codes/methods/caching headers despite not owning them; see the
   batch overlap review for the resulting edit.
+- **Batch 2 (Part 01 — Architecture Mindset)**: merged
+  `review/concept-proposals/what-is-software-architecture.md` (10 concepts),
+  `review/concept-proposals/role-of-a-solution-architect.md` (6 concepts, 3
+  owned here / 3 pointing to not-yet-drafted parts), and
+  `review/concept-proposals/architecture-thinking.md` (7 concepts) into the
+  table above. Unlike Batch 1, these three chapters were drafted in parallel
+  isolated sessions with no visibility into each other's content, and three
+  real ownership conflicts emerged (each chapter had independently written
+  full teaching content, not just a mention):
+  - **Conway's Law**: claimed by both "What is Software Architecture?" and
+    "Architecture Thinking." Arbitrated to "What is Software Architecture?"
+    (deeper historical/definitional treatment); trimmed "Architecture
+    Thinking"'s bullet to a recap + link.
+  - **Fitness functions**: claimed by both "What is Software Architecture?"
+    (which had already self-declared ownership with code examples) and used
+    at similar depth in "Architecture Thinking" Section 16. Arbitrated to
+    "What is Software Architecture?"; trimmed "Architecture Thinking"'s
+    Testing-section bullet to a recap + link.
+  - **Architecture Decision Records (ADRs)**: "What is Software
+    Architecture?" and "Role of a Solution Architect" both deferred full
+    ownership to Architecture Documentation (Part 18), which doesn't exist
+    yet, while "Architecture Thinking" independently wrote the deepest
+    treatment (template, worked example, review checklist) and claimed
+    ownership outright. Arbitrated to "Architecture Thinking" as the
+    pragmatic current owner; fixed "What is Software Architecture?"'s
+    dangling Part 18 link to point at "Architecture Thinking" instead, and
+    trimmed "Role of a Solution Architect"'s duplicate ADR-014 worked
+    example (and its planned `adr-template.md` file) down to a recap + link,
+    keeping only its RACI-specific framing.
+  - Three Part 15/17/18 forward-references (architecture fitness functions
+    and TOGAF/Zachman from "Role of a Solution Architect"; 4+1 view model's
+    concrete notations from "What is Software Architecture?") point to
+    parts not yet drafted — revisit these links once those parts exist.
+  - "Quality attributes" was proposed by both "What is Software
+    Architecture?" (taxonomy/definition) and "Architecture Thinking"
+    (trade-off-driver framing); reviewed and judged non-duplicative — the
+    latter is an application of the former's taxonomy, not a re-definition —
+    no edit made.
+  - ATAM was mentioned (not taught) in "What is Software Architecture?" and
+    fully owned by "Architecture Thinking" — consistent, no conflict.
