@@ -8,9 +8,9 @@ chat's "Suggested Book Sequence" (item 2).
 
 | Chapter | Status |
 |---|---|
-| Empathy | Not Started |
-| Research | Not Started |
-| Personas | Not Started |
+| Empathy | Edited (batch-reviewed, no unresolved overlap) |
+| Research | Edited (batch-reviewed, timeline fix applied) |
+| Personas | Edited (batch-reviewed, no unresolved overlap) |
 | User Interviews | Not Started |
 | Journey Mapping | Not Started |
 | Problem Framing | Not Started |

@@ -40,6 +40,23 @@ when multiple chapters are authored in parallel, isolated sessions.
 | RACI matrix (for architecture decisions) | [Role of a Solution Architect](01_Architecture_Mindset/CH02_Role_of_a_Solution_Architect.md) | Responsible/Accountable/Consulted/Informed applied to naming who decides |
 | Architecture Review Board (ARB) governance model | [Role of a Solution Architect](01_Architecture_Mindset/CH02_Role_of_a_Solution_Architect.md) | Formal gated review vs. lightweight async review |
 | Centralized vs. embedded vs. federated architecture team topology | [Role of a Solution Architect](01_Architecture_Mindset/CH02_Role_of_a_Solution_Architect.md) | Organizational structures for scaling the architect role |
+| Design-thinking five-stage process (Empathize-Define-Ideate-Prototype-Test) | [Empathy](02_Design_Thinking_and_Product_Management/CH01_Empathy.md) | Overall framework shape/sequencing only; each stage's own technique owned by that stage's chapter |
+| Human-Centered Design (HCD) / ISO 9241-210 | [Empathy](02_Design_Thinking_and_Product_Management/CH01_Empathy.md) | Definition and standards grounding |
+| Empathy map (Says/Thinks/Does/Feels/Pains/Gains) | [Empathy](02_Design_Thinking_and_Product_Management/CH01_Empathy.md) | Full artifact definition, construction discipline, synthesis workflow |
+| Cognitive vs. affective vs. compassionate empathy (Goleman) | [Empathy](02_Design_Thinking_and_Product_Management/CH01_Empathy.md) | Psychological framing for why understanding alone doesn't change decisions |
+| Curse of knowledge / false-consensus effect / ladder of inference | [Empathy](02_Design_Thinking_and_Product_Management/CH01_Empathy.md) | Cognitive biases motivating deliberate empathy work |
+| Stakeholder empathy (beyond end users) | [Empathy](02_Design_Thinking_and_Product_Management/CH01_Empathy.md) | Extension to operators, support, compliance, maintainers |
+| Generative vs. evaluative research; qualitative vs. quantitative (attitudinal/behavioral) taxonomy | [Research](02_Design_Thinking_and_Product_Management/CH02_Research.md) | Core research-methods taxonomy and methods-landscape grid (NN/g framing) |
+| Research synthesis technique (affinity diagramming, thematic/open-axial-selective coding) | [Research](02_Design_Thinking_and_Product_Management/CH02_Research.md) | Turning raw qualitative data into a defensible finding |
+| Sample size / saturation heuristics | [Research](02_Design_Thinking_and_Product_Management/CH02_Research.md) | Qualitative saturation vs. quantitative statistical power |
+| Research bias taxonomy (applied to user research) | [Research](02_Design_Thinking_and_Product_Management/CH02_Research.md) | Confirmation bias, leading questions, social desirability, say-do gap, sampling bias, recency/primacy |
+| ResearchOps / research repository / hub-and-spoke research team topology | [Research](02_Design_Thinking_and_Product_Management/CH02_Research.md) | Operational scaling model for a research capability |
+| Research plan artifact | [Research](02_Design_Thinking_and_Product_Management/CH02_Research.md) | Standard pre-recruitment planning document |
+| Persona (definition, component checklist, construction technique) | [Personas](02_Design_Thinking_and_Product_Management/CH03_Personas.md) | Full teaching of persona construction; the Product Management part's future "Personas" chapter recaps + links here rather than re-deriving |
+| Persona types (primary/secondary/supplemental/negative/served) | [Personas](02_Design_Thinking_and_Product_Management/CH03_Personas.md) | Cooper's taxonomy for ranking whose goals win when personas conflict |
+| Persona spectrum (proto-persona to statistical/data-driven) | [Personas](02_Design_Thinking_and_Product_Management/CH03_Personas.md) | Construction-speed vs. evidentiary-rigor trade-off |
+| Elastic user (fallacy) | [Personas](02_Design_Thinking_and_Product_Management/CH03_Personas.md) | Cooper's term for stakeholders substituting their own mental image of "the user" |
+| Persona governance lifecycle (staleness, revalidation, zombie persona) | [Personas](02_Design_Thinking_and_Product_Management/CH03_Personas.md) | Treating a persona as a living, versioned artifact |
 
 ## How to add an entry
 
@@ -97,3 +114,28 @@ when multiple chapters are authored in parallel, isolated sessions.
     no edit made.
   - ATAM was mentioned (not taught) in "What is Software Architecture?" and
     fully owned by "Architecture Thinking" — consistent, no conflict.
+- **Batch 3 (Part 02 batch 1 — Empathy, Research, Personas)**: merged
+  `review/concept-proposals/empathy.md` (8 concepts),
+  `review/concept-proposals/research.md` (7 concepts), and
+  `review/concept-proposals/personas.md` (5 concepts) into the table above.
+  Unlike Batch 2, these three chapters divided ownership cleanly with no
+  concept independently claimed by two chapters at teaching depth — each
+  correctly recapped + linked instead of re-teaching (verified by grepping
+  all three files for "empathy map", "persona", "affinity diagram", etc.).
+  One factual/consistency issue was found and fixed during batch review:
+  "Research"'s historical timeline conflated the Stanford d.school's
+  five-stage model (which "Empathy" already owns as this part's organizing
+  framework) with the UK Design Council's distinct "Double Diamond" model,
+  and had an incorrect founding date; corrected to name both frameworks
+  accurately and defer to "Empathy" for the one this part actually uses.
+  "Empathy"'s comparison-table forward references to Research/Personas were
+  updated from placeholder text to real links now that both files exist.
+  Two known pending items, not yet fixed: (1) "Research" forward-references
+  a not-yet-drafted `CH04_User_Interviews.md` by its predicted filename (8
+  occurrences) — expected to resolve automatically once that chapter is
+  drafted next, since it is this part's next logical chapter; (2) this
+  part's Product Management subsection will need disambiguated filenames
+  for its own "Personas" and "Journey Mapping" chapters (e.g.
+  `CH18_Personas_Product_Management.md`) per the naming note both this
+  batch's chapters flagged — revisit ownership/recap direction once those
+  are drafted.
