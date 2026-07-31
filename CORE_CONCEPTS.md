@@ -40,4 +40,3 @@ when multiple chapters are authored in parallel, isolated sessions.
   also flagged that its own draft (Section 4) fully re-explained HTTP's
   status codes/methods/caching headers despite not owning them; see the
   batch overlap review for the resulting edit.
-
