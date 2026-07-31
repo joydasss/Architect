@@ -125,6 +125,16 @@ independent of final branding and visual treatment. It communicates:
 Its purpose is shared understanding and decision support, not aesthetic
 approval.
 
+The practical test of a wireframe is interpretive consistency: can design,
+engineering, product, and architecture read the artifact and infer the same
+behavior? If each role sees a different flow, the wireframe is not yet a
+reliable coordination artifact, regardless of how polished it appears.
+
+Wireframing creates leverage by moving ambiguity resolution earlier than code.
+An unresolved interaction question at wireframe stage is inexpensive. The same
+question discovered in integration testing can trigger API contract changes,
+state-management refactors, and delivery date shifts.
+
 ### 4.2 Fidelity Levels: Low, Mid, High
 
 - **Low fidelity:** fast, abstract structure; ideal for option exploration and
@@ -151,6 +161,19 @@ The antidote is to require explicit unresolved-question tracking on every
 wireframe set. If fundamental questions remain open, raising fidelity too early
 usually reduces exploration quality.
 
+It also helps to separate visual fidelity from behavioral fidelity. Visual
+fidelity concerns stylistic realism. Behavioral fidelity concerns whether the
+artifact accurately models transitions, exceptions, and user feedback. In most
+architecture-facing reviews, behavioral fidelity matters earlier than visual
+fidelity.
+
+An operational rule that avoids over-polish is:
+
+- increase visual fidelity only when stylistic realism is needed to answer a
+  specific hypothesis (for example, trust or comprehension)
+- increase behavioral fidelity whenever transition ambiguity blocks
+  implementation planning
+
 ### 4.3 Information Hierarchy
 
 Information hierarchy is the ranking and sequencing of what the interface asks
@@ -174,6 +197,16 @@ check asks whether the user can answer, at every step:
 
 If these answers require inference, hierarchy is under-specified.
 
+Hierarchy must also encode consequence level. High-impact actions (delete,
+approve, submit irreversible changes) should demand clearer framing and stronger
+confirmation pathways than low-impact actions. Interfaces that optimize speed
+uniformly can increase costly operational errors.
+
+A useful architecture-oriented hierarchy check asks whether each screen makes
+the system's current commitment state explicit. If users cannot tell whether an
+action is draft, pending, or committed, downstream recovery logic tends to
+become complex and brittle.
+
 ### 4.4 Layout Semantics
 
 Layout semantics define the functional meaning of regions and components,
@@ -195,6 +228,12 @@ semantic-region dictionary shared by all squads building adjacent experiences.
 This is analogous to an Application Programming Interface (API) contract:
 stable semantics reduce integration friction between teams and reduce user
 cognitive switching costs.
+
+At scale, semantic drift becomes a platform problem. If one product uses a top
+banner for advisory information while another uses the same region for blocking
+errors, users relearn meaning per flow and incident response slows under
+pressure. Mature wireframing practice therefore includes a shared semantic
+registry and review checklist, not just local conventions.
 
 ### 4.5 Interaction Flow Annotation
 
@@ -220,6 +259,19 @@ A robust annotation also includes ownership cues:
 This does not turn wireframing into detailed system design; it ensures the
 behavioral assumptions are explicit enough that architecture and engineering
 teams can evaluate feasibility and risk before implementation starts.
+
+Annotation grammar should be lightweight but mandatory. A minimal,
+consistently-applied notation is better than rich optional notation. If
+transitions are implicit, review quality drops because static layout completeness
+is mistaken for behavioral completeness.
+
+A good baseline rule is that every trigger must have:
+
+- one explicit destination
+- one explicit failure or fallback path
+- one explicit user-visible feedback outcome
+
+That single rule catches a large share of handoff defects before development.
 
 ### 4.6 State Completeness
 
@@ -248,6 +300,16 @@ This gate prevents the common failure where states are "known" verbally but
 never represented in artifacts, leaving developers to invent behavior under
 delivery pressure.
 
+State completeness should be validated across states, not only within each
+state. Cross-state checks include:
+
+- action availability consistency (what becomes enabled/disabled and why)
+- terminology consistency (error names and severity labels)
+- recovery consistency (what next action is available after each failure)
+
+Without these checks, each state can look locally valid while the end-to-end
+experience remains incoherent.
+
 ### 4.7 Content Fidelity and Data Realism
 
 Placeholder text can hide structural problems. Mid and high fidelity
@@ -264,6 +326,15 @@ Data realism should include negative and unusual cases. For example:
 Designs that look clean only with short placeholder strings often collapse in
 production contexts where data is noisy and inconsistent.
 
+Data realism should also include localization and accessibility stress:
+
+- long translations and alternate date/number formats
+- assistive-technology labels and focus order implications
+- regulatory disclaimers that alter content density
+
+Including these early prevents late-stage layout collapse and reduces the need
+for patchwork exceptions in implementation.
+
 ### 4.8 Traceability to Problem and Journey Inputs
 
 Each wireframe flow should trace back to:
@@ -274,6 +345,16 @@ Each wireframe flow should trace back to:
   [Journey Mapping](CH05_Journey_Mapping.md)
 
 If a screen cannot be traced to one of those inputs, it is likely scope drift.
+
+Traceability is also an evidence discipline. For every significant element,
+teams should be able to answer:
+
+- which problem-statement field required this element
+- which journey touchpoint or break-point this element addresses
+- which hypothesis this element enables testing
+
+If those links cannot be produced, the element is often inherited habit rather
+than deliberate design.
 
 ## 5. Internal Working
 

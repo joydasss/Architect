@@ -97,6 +97,22 @@ answer specific questions. A good prototype starts with a question such as:
 If no decision would change based on prototype results, the prototype has no
 clear experiment purpose.
 
+This is the central distinction between demonstration and discovery. A
+demonstration artifact is built to persuade stakeholders that a direction is
+good. A discovery artifact is built to create the possibility that the
+direction is wrong. Rapid prototyping is only effective when teams are willing
+to invalidate their own assumptions early.
+
+A useful discipline is decision framing before build:
+
+- assumption being tested
+- observable evidence signal
+- decision threshold
+- expected action if threshold is not met
+
+Without these fields, teams often produce polished artifacts that generate
+discussion but no concrete decision.
+
 ### 4.2 Learning velocity
 
 Learning velocity is the rate at which a team turns uncertainty into decisions.
@@ -108,6 +124,20 @@ It can be measured using practical signals:
 - Time from invalidation to updated prototype/test loop.
 
 Rapid prototyping optimizes these signals, not output volume.
+
+Learning velocity is not raw speed. Fast loops with low-quality evidence can
+create false confidence and expensive rework later. The target is decision
+throughput with evidence quality preserved.
+
+Two anti-patterns frequently reduce true learning velocity:
+
+- artifact obsession: teams optimize prototype polish rather than uncertainty
+  reduction
+- loop truncation: teams build and demo, but skip explicit decision capture
+
+A simple operational metric is "assumptions retired per week with documented
+decision rationale." This forces teams to track whether each loop changed what
+they believe, not just what they built.
 
 ### 4.3 Fidelity ladder
 
@@ -124,12 +154,36 @@ artifact. Treat fidelity as a ladder, not a binary state:
 Higher fidelity is not automatically better. The right fidelity is the minimum
 that can answer the current question credibly.
 
+Fidelity choice should be tied to hypothesis type:
+
+- comprehension hypotheses ("do users understand this concept?") usually need
+  low to medium fidelity
+- interaction hypotheses ("can users complete this flow without guidance?")
+  usually need medium fidelity with realistic state transitions
+- trust or risk-sensitive hypotheses (for example, payments, permissions,
+  compliance prompts) may require high-fidelity realism to elicit valid
+  behavior
+
+Moving fidelity upward too early often narrows critique scope. Participants
+comment on visual polish and microcopy while structural assumptions remain
+untested.
+
 ### 4.4 Breadth-first then depth-first exploration
 
 Early loops should often explore breadth: multiple concepts tested quickly with
 coarse fidelity. Later loops explore depth: one or two promising directions
 with stronger behavioral realism. This sequencing avoids over-investing in the
 first plausible concept.
+
+Breadth-first is risk management. It keeps option value alive while evidence is
+still weak. Depth-first is execution alignment. It increases confidence on a
+shortlisted path once alternatives are no longer competitive.
+
+Teams that skip breadth can converge quickly but on the wrong concept. Teams
+that stay in breadth too long can delay delivery without increasing insight.
+A practical trigger to move from breadth to depth is repeated evidence that one
+direction outperforms others across at least two independent user cohorts or
+usage contexts.
 
 ### 4.5 Throwaway versus evolutionary prototypes
 
@@ -142,6 +196,16 @@ The key discipline is intent declaration before building. Hidden intent
 mismatch causes common failures: a throwaway prototype silently becoming
 production code, or an evolutionary prototype constrained by shortcuts that were
 acceptable only for throwaway learning.
+
+Intent should be visible in artifact metadata and repository structure. A
+prototype labeled "throwaway" should have explicit constraints: no production
+security assumptions, no long-term maintainability promises, and no implied API
+contract stability. An evolutionary prototype should include baseline coding
+standards and migration expectations from day one.
+
+Many teams incur architecture debt here by treating intent as social knowledge.
+When teams change, undocumented intent is lost and temporary decisions become
+permanent by accident.
 
 ### 4.6 Timeboxed prototyping
 
@@ -156,6 +220,17 @@ patterns include:
 Timebox expiration is a decision point, not an excuse for uncontrolled
 extension.
 
+At timebox end, only four actions should be allowed:
+
+- proceed to next loop with explicit carry-forward assumptions
+- pivot with revised hypothesis
+- park due to dependency or priority shift
+- stop due to failed value case
+
+"Extend timebox until complete" is typically a signal that scope was not
+bounded to a testable question. Timebox discipline protects the team from
+turning prototype work into unplanned mini-projects.
+
 ### 4.7 Test loops and decision gates
 
 A rapid prototyping loop has five stages:
@@ -169,6 +244,22 @@ A rapid prototyping loop has five stages:
 Decision gates protect teams from prototype theater, where artifacts are built
 and shown but no concrete decision follows.
 
+Decision gates also improve organizational trust. Stakeholders can tolerate
+failed prototypes when failure leads to explicit learning and faster better
+choices. They lose trust when teams repeatedly prototype without showing what
+changed in strategy.
+
+A good gate record includes:
+
+- decision outcome
+- evidence cited
+- uncertainty remaining
+- owner of next loop
+- revisit condition if parked
+
+This turns prototyping into a transparent decision system rather than an
+informal craft activity.
+
 ### 4.8 Risk-first sequencing
 
 Not all assumptions are equal. Prototype planning should prioritize
@@ -181,6 +272,16 @@ high-impact/high-uncertainty assumptions first:
 
 Risk-first sequencing prevents low-risk polish work from consuming early cycle
 time.
+
+Risk sequencing should account for dependency structure. Some high-risk
+assumptions are upstream of many others (for example, whether users trust a
+self-serve onboarding path). Testing those first collapses uncertainty across
+multiple downstream design choices.
+
+Teams commonly invert this order by starting with easiest-to-build prototypes.
+This optimizes local productivity while deferring decisive risk. A stronger
+pattern is to rank assumptions by impact x uncertainty and prototype in that
+order, even when the first loop is less visually impressive.
 
 ## 5. Internal Working
 

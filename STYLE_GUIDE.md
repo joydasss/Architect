@@ -27,6 +27,22 @@ blog-post depth.
    use in a chapter (e.g. "Content Delivery Network (CDN)"), and use the
    expanded form consistently thereafter in prose. This applies with no
    exceptions in High-Level Design (HLD) and Low-Level Design (LLD) sections.
+7. **Core Concepts depth rule**: Section 4 must teach each concept in
+   first-principles depth, not as pointers. For each major concept, include:
+   definition, mechanism (how it works), decision implications (when/why to
+   use it), common failure mode, and at least one concrete scenario.
+
+## Section 4 quality bar
+
+Section 4 (Core Concepts) is the conceptual backbone of the chapter. Treat it
+as teachable theory plus applied reasoning, not a glossary.
+
+- Explain cause-and-effect, not just labels.
+- Distinguish adjacent concepts explicitly (for example, strategy vs artifact,
+  structure vs process, visual fidelity vs behavioral fidelity).
+- Include operational heuristics or checks a practitioner can apply.
+- Keep concept-ownership boundaries: if another chapter owns a concept,
+  recap in 2-3 sentences and link; do not duplicate full teaching.
 
 ## Concept ownership rule (anti-repetition)
 
