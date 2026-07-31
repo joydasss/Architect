@@ -22,10 +22,10 @@ Roman-numeral Part numbering (each overview cross-references its original Part).
 | 02 | [Design Thinking and Product Management](02_Design_Thinking_and_Product_Management/PART_OVERVIEW.md) | XV, XIV | 31 | Not Started |
 | 03 | [Software Engineering Foundations](03_Software_Engineering_Foundations/PART_OVERVIEW.md) | II | 5 | Not Started |
 | 04 | [Frontend Architecture](04_Frontend_Architecture/PART_OVERVIEW.md) | III | 8 | Not Started |
-| 05 | [Networking and Operating Systems](05_Networking_and_OS/PART_OVERVIEW.md) | VII + new | 29 | **1 Drafted (HTTP, pilot)** |
+| 05 | [Networking and Operating Systems](05_Networking_and_OS/PART_OVERVIEW.md) | VII + new | 29 | **1 Reviewed (HTTP, pilot)** |
 | 06 | [Databases and Storage](06_Databases_and_Storage/PART_OVERVIEW.md) | VI | 22 | Not Started |
 | 07 | [System Design and Distributed Systems](07_System_Design_and_Distributed_Systems/PART_OVERVIEW.md) | IV | 18 | Not Started |
-| 08 | [API Architecture](08_API_Architecture/PART_OVERVIEW.md) | V | 11 | **1 Drafted (REST, pilot)** |
+| 08 | [API Architecture](08_API_Architecture/PART_OVERVIEW.md) | V | 11 | **1 Edited (REST, pilot)** |
 | 09 | [Cloud Computing](09_Cloud_Computing/PART_OVERVIEW.md) | VIII | 16 | Not Started |
 | 10 | [Kubernetes](10_Kubernetes/PART_OVERVIEW.md) | IX | 15 | Not Started |
 | 11 | [DevOps](11_DevOps/PART_OVERVIEW.md) | X | 17 | Not Started |
@@ -51,11 +51,13 @@ chapter-vs-topic distinction).
 
 | Chapter | Part | File | Status |
 |---|---|---|---|
-| HTTP | 05_Networking_and_OS | [CH01_HTTP.md](05_Networking_and_OS/CH01_HTTP.md) | Drafted |
-| REST | 08_API_Architecture | [CH01_REST.md](08_API_Architecture/CH01_REST.md) | Drafted |
+| HTTP | 05_Networking_and_OS | [CH01_HTTP.md](05_Networking_and_OS/CH01_HTTP.md) | Reviewed (no changes required) |
+| REST | 08_API_Architecture | [CH01_REST.md](08_API_Architecture/CH01_REST.md) | Edited (overlap with HTTP resolved) |
 
-Status will be updated to `Concepts Staged` → `Merged` → `Reviewed` → `Edited`
-as the pipeline in [README.md](README.md#authoring-workflow-per-chapter) runs.
+Full pipeline completed: Drafted → Concepts Staged → Merged →
+[Batch Review](review/http-rest-batch-review.md) → Edited. See
+[CORE_CONCEPTS.md](CORE_CONCEPTS.md#merge-log) for the merge log and the
+review file above for the overlap finding and fix applied to REST.
 
 ## Scaling out
 

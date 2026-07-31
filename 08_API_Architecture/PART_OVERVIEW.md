@@ -6,7 +6,7 @@ Maps to the original catalog's **Part V — API Architecture**.
 
 | Chapter | Status |
 |---|---|
-| REST | **Drafted (pilot)** |
+| REST | **Edited (pilot, overlap with HTTP resolved)** |
 | GraphQL | Not Started |
 | gRPC | Not Started |
 | WebSocket | Not Started |

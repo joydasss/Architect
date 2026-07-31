@@ -11,7 +11,7 @@ the original 21 named parts).
 |---|---|
 | OSI Model | Not Started |
 | TCP/IP | Not Started |
-| HTTP | **Drafted (pilot)** |
+| HTTP | **Reviewed (pilot, no changes required)** |
 | HTTP/2 | Not Started |
 | HTTP/3 | Not Started |
 | TLS (Transport Layer Security) | Not Started |
