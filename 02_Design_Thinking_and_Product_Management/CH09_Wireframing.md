@@ -789,7 +789,7 @@ quality of later prototype-based validation.
 | Problem Statement (POV/HMW) | Bound the right problem before solutioning | Textual framing | [Problem Framing](CH06_Problem_Framing.md) | Statement/canvas |
 | Wireframe | Define interface structure, hierarchy, and flow semantics | Low-to-high structural fidelity | This chapter (Wireframing) | Screen and flow artifact with annotations |
 | Prototype Cycle Strategy | Plan build-test iteration cadence and learning loops | Varies | [Rapid Prototyping](CH08_Rapid_Prototyping.md) | Iteration plan + interactive artifacts |
-| Usability Study Method | Validate task success and usability quality with representative users | Methodological, not layout-specific | Usability Testing (this part, not yet drafted; see [PART_OVERVIEW.md](PART_OVERVIEW.md)) | Study plan, findings, prioritized issues |
+| Usability Study Method | Validate task success and usability quality with representative users | Methodological, not layout-specific | [Usability Testing](CH10_Usability_Testing.md) | Study plan, findings, prioritized issues |
 
 ## 22. Real-World Case Study
 

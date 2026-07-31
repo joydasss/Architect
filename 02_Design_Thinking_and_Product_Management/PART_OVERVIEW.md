@@ -17,9 +17,9 @@ chat's "Suggested Book Sequence" (item 2).
 | Ideation | Edited (batch-reviewed, no unresolved overlap) |
 | Rapid Prototyping | Edited (batch-reviewed, no unresolved overlap) |
 | Wireframing | Edited (batch-reviewed, no unresolved overlap) |
-| Usability Testing | Not Started |
-| Accessibility | Not Started |
-| Service Design | Not Started |
+| Usability Testing | Edited (batch-reviewed, no unresolved overlap) |
+| Accessibility | Edited (batch-reviewed, duplicate-append issue fixed) |
+| Service Design | Edited (batch-reviewed, duplicate-append issue fixed) |
 | Lean UX | Not Started |
 
 ## Chapters — Product Management

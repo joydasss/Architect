@@ -90,6 +90,21 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Interaction-flow annotation grammar for wireframes | [Wireframing](02_Design_Thinking_and_Product_Management/CH09_Wireframing.md) | Trigger-transition-dependency-feedback notation for behavior-complete wireframes |
 | State-completeness model for interface design artifacts | [Wireframing](02_Design_Thinking_and_Product_Management/CH09_Wireframing.md) | Required state set (ready/loading/empty/validation/system error/permission/success) as handoff gate |
 | Wireframe traceability contract (problem/journey -> screen/element mapping) | [Wireframing](02_Design_Thinking_and_Product_Management/CH09_Wireframing.md) | Scope-drift control by linking wireframe decisions to Problem Framing/Journey Mapping inputs |
+| Usability testing protocol architecture (objective -> tasks -> recruitment -> moderation -> synthesis -> decision loop) | [Usability Testing](02_Design_Thinking_and_Product_Management/CH10_Usability_Testing.md) | End-to-end method design/execution model for repeatable usability studies |
+| Usability test-readiness and result-quality gates | [Usability Testing](02_Design_Thinking_and_Product_Management/CH10_Usability_Testing.md) | Pre-study/post-study quality standards and decision closure expectations |
+| Usability issue severity-risk triage matrix | [Usability Testing](02_Design_Thinking_and_Product_Management/CH10_Usability_Testing.md) | Prioritization by user impact, frequency, and domain risk multipliers |
+| Evidence-to-decision closure ledger for usability findings | [Usability Testing](02_Design_Thinking_and_Product_Management/CH10_Usability_Testing.md) | Governance artifact linking findings to outcome, owner, timeline, and retest needs |
+| Accessibility-by-design as an architecture quality attribute | [Accessibility](02_Design_Thinking_and_Product_Management/CH11_Accessibility.md) | Treat accessibility as an ASR-class cross-layer contract, not a late interface audit |
+| Assistive technology interaction model (Document Object Model (DOM) -> accessibility tree -> assistive output) | [Accessibility](02_Design_Thinking_and_Product_Management/CH11_Accessibility.md) | How semantics and state announcements are consumed by assistive technologies |
+| Focus lifecycle contract (entry, trap, return, async updates) | [Accessibility](02_Design_Thinking_and_Product_Management/CH11_Accessibility.md) | Deterministic focus behavior across dialogs, route changes, validation, and async updates |
+| Structured accessibility error contract (field mapping + recovery hints) | [Accessibility](02_Design_Thinking_and_Product_Management/CH11_Accessibility.md) | Cross-boundary error taxonomy enabling actionable and assistive-technology-compatible recovery |
+| Layered accessibility test strategy (automation + manual + assistive-technology task validation) | [Accessibility](02_Design_Thinking_and_Product_Management/CH11_Accessibility.md) | Complementary evidence model and release-gate expectations for accessibility-critical journeys |
+| Service blueprint technique (full depth) | [Service Design](02_Design_Thinking_and_Product_Management/CH12_Service_Design.md) | Full method for blueprint construction: lanes, sequencing, dependency mapping, and delivery linkage |
+| Line of visibility as service control boundary | [Service Design](02_Design_Thinking_and_Product_Management/CH12_Service_Design.md) | Line of visibility/interaction/internal interaction boundaries in blueprint and architecture decisions |
+| Service evidence artifacts | [Service Design](02_Design_Thinking_and_Product_Management/CH12_Service_Design.md) | Visible proof signals (confirmations, status, closure) aligning backstage progress with user trust |
+| Role-handoff contract model (service delivery) | [Service Design](02_Design_Thinking_and_Product_Management/CH12_Service_Design.md) | Trigger, payload, ownership, timeout, and completion semantics across people/systems |
+| Service recovery choreography | [Service Design](02_Design_Thinking_and_Product_Management/CH12_Service_Design.md) | Failure-point design for detection, containment, communication, compensation, and restoration |
+| Service blueprint governance lifecycle | [Service Design](02_Design_Thinking_and_Product_Management/CH12_Service_Design.md) | Versioning, review cadence, ownership, drift detection, and change-trigger controls |
 
 ## How to add an entry
 
@@ -200,3 +215,18 @@ when multiple chapters are authored in parallel, isolated sessions.
   Prototyping owns fidelity as experiment strategy across artifact types while
   Wireframing owns wireframe-specific structural fidelity for interface
   communication. No cross-chapter trimming required for these three chapters.
+- **Batch 6 (Part 02 batch 4 — Usability Testing, Accessibility, Service
+  Design)**: merged `review/concept-proposals/usability-testing.md` (4
+  concepts), `review/concept-proposals/accessibility.md` (5 concepts), and
+  `review/concept-proposals/service-design.md` (6 concepts). Ownership split
+  is clean and extends previously deferred boundaries from earlier chapters:
+  - CH09 previously deferred full usability-method depth to CH10; now resolved.
+  - CH05 previously deferred full service-blueprint/service-design depth to
+    CH12; now resolved.
+  - Accessibility's layered testing strategy is complementary to (not a
+    duplicate of) CH10's generic usability test protocol architecture: CH10
+    owns method mechanics, CH11 owns accessibility-specific evidence layers and
+    pass/fail expectations.
+  Cleanup applied before merge: CH11 and CH12 contained accidental duplicate
+  appended section blocks from authoring-session conflict recovery. Both files
+  were normalized back to one valid 27-section sequence before review/merge.
