@@ -11,9 +11,9 @@ chat's "Suggested Book Sequence" (item 2).
 | Empathy | Edited (batch-reviewed, no unresolved overlap) |
 | Research | Edited (batch-reviewed, timeline fix applied) |
 | Personas | Edited (batch-reviewed, no unresolved overlap) |
-| User Interviews | Not Started |
-| Journey Mapping | Not Started |
-| Problem Framing | Not Started |
+| User Interviews | Edited (batch-reviewed, no unresolved overlap) |
+| Journey Mapping | Edited (batch-reviewed, no unresolved overlap) |
+| Problem Framing | Edited (batch-reviewed, no unresolved overlap) |
 | Ideation | Not Started |
 | Rapid Prototyping | Not Started |
 | Wireframing | Not Started |

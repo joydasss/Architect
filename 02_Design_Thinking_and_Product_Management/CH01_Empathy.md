@@ -701,10 +701,10 @@ status of each):
 | Artifact / Technique | Primary Purpose | Typical Format | Owning Chapter |
 |---|---|---|---|
 | Empathy map | Synthesize one person's/segment's Says/Thinks/Does/Feels/Pains/Gains from raw evidence | Four-to-six-quadrant canvas | This chapter |
-| User interview / contextual inquiry | Collect the raw qualitative evidence an empathy map is synthesized from | Recorded conversation, field notes | [Research](CH02_Research.md) |
+| User interview / contextual inquiry | Collect the raw qualitative evidence an empathy map is synthesized from | Recorded conversation, field notes | [User Interviews](CH04_User_Interviews.md) |
 | Persona | Package synthesized patterns across many empathy maps into a reusable, shareable archetype | One-page character-style summary | [Personas](CH03_Personas.md) |
-| Journey map | Sequence a person's experience (including emotional highs/lows) across a specific end-to-end process over time | Timeline/swimlane diagram | Journey Mapping (this part, later chapter, not yet drafted) |
-| Problem (How-Might-We) statement | Reframe empathy/research findings as an actionable, bounded design problem | Short structured statement | Problem Framing (this part, not yet drafted) |
+| Journey map | Sequence a person's experience (including emotional highs/lows) across a specific end-to-end process over time | Timeline/swimlane diagram | [Journey Mapping](CH05_Journey_Mapping.md) |
+| Problem (How-Might-We) statement | Reframe empathy/research findings as an actionable, bounded design problem | Short structured statement | [Problem Framing](CH06_Problem_Framing.md) |
 
 ## 22. Real-World Case Study
 
@@ -834,6 +834,9 @@ user archetype is covered by the forthcoming Personas chapter.
 
 **Further reading**: [Part 02 Overview](PART_OVERVIEW.md) ·
 [Research](CH02_Research.md) · [Personas](CH03_Personas.md) ·
+[User Interviews](CH04_User_Interviews.md) ·
+[Journey Mapping](CH05_Journey_Mapping.md) ·
+[Problem Framing](CH06_Problem_Framing.md) ·
 [Role of a Solution Architect](../01_Architecture_Mindset/CH02_Role_of_a_Solution_Architect.md) ·
 [Architecture Thinking](../01_Architecture_Mindset/CH03_Architecture_Thinking.md) ·
 [Observability](../12_Observability/PART_OVERVIEW.md) ·

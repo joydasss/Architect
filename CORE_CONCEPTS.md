@@ -57,6 +57,23 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Persona spectrum (proto-persona to statistical/data-driven) | [Personas](02_Design_Thinking_and_Product_Management/CH03_Personas.md) | Construction-speed vs. evidentiary-rigor trade-off |
 | Elastic user (fallacy) | [Personas](02_Design_Thinking_and_Product_Management/CH03_Personas.md) | Cooper's term for stakeholders substituting their own mental image of "the user" |
 | Persona governance lifecycle (staleness, revalidation, zombie persona) | [Personas](02_Design_Thinking_and_Product_Management/CH03_Personas.md) | Treating a persona as a living, versioned artifact |
+| Interview format spectrum (structured/semi-structured/unstructured) + discussion guide artifact | [User Interviews](02_Design_Thinking_and_Product_Management/CH04_User_Interviews.md) | Instrument design for one-on-one interviews; the "instrument outline" Research's research plan defers to this chapter |
+| Question design/wording technique (Mom Test, leading-question patterns, laddering, critical incident technique) | [User Interviews](02_Design_Thinking_and_Product_Management/CH04_User_Interviews.md) | In-session wording craft; a specific application of Research's general bias taxonomy, not a re-derivation |
+| Rapport-building and moderation/probing technique | [User Interviews](02_Design_Thinking_and_Product_Management/CH04_User_Interviews.md) | Real-time conversational skill for one-on-one sessions |
+| Contextual inquiry's master-apprentice model (Beyer & Holtzblatt) | [User Interviews](02_Design_Thinking_and_Product_Management/CH04_User_Interviews.md) | How to run a contextual inquiry session; Research owns only the method-category definition |
+| Moderator / note-taker role split | [User Interviews](02_Design_Thinking_and_Product_Management/CH04_User_Interviews.md) | Data-quality rationale for splitting the two jobs |
+| Journey map (definition, anatomy, construction pipeline) | [Journey Mapping](02_Design_Thinking_and_Product_Management/CH05_Journey_Mapping.md) | Full artifact/technique; the Product Management part's future "Journey Mapping" chapter (commercial/funnel journey) recaps + links here rather than re-deriving swimlane construction |
+| Emotional curve / peak-end rule (applied to journey mapping) | [Journey Mapping](02_Design_Thinking_and_Product_Management/CH05_Journey_Mapping.md) | Construction methods and the Kahneman justification for weighting the low point and ending |
+| Current-state vs. future-state journey map | [Journey Mapping](02_Design_Thinking_and_Product_Management/CH05_Journey_Mapping.md) | Ordering discipline; the "leapfrog" anti-pattern of skipping current-state validation |
+| Frontstage/backstage distinction (journey map <-> service blueprint relationship) | [Journey Mapping](02_Design_Thinking_and_Product_Management/CH05_Journey_Mapping.md) | Line-of-visibility concept and the relationship only; full service-blueprint technique owned by the not-yet-drafted Service Design chapter |
+| Touchpoint-to-system architecture linkage | [Journey Mapping](02_Design_Thinking_and_Product_Management/CH05_Journey_Mapping.md) | Framing a journey map's emotional lows as traceable to system/API boundaries |
+| Point-of-View (POV) statement | [Problem Framing](02_Design_Thinking_and_Product_Management/CH06_Problem_Framing.md) | User/need/insight construction discipline |
+| How-Might-We (HMW) statement | [Problem Framing](02_Design_Thinking_and_Product_Management/CH06_Problem_Framing.md) | Full construction technique plus the seven reframing lenses |
+| Abstraction laddering (laddering up/down) | [Problem Framing](02_Design_Thinking_and_Product_Management/CH06_Problem_Framing.md) | Scope-calibration technique, distinct from root-cause analysis |
+| Five Whys applied to problem statements | [Problem Framing](02_Design_Thinking_and_Product_Management/CH06_Problem_Framing.md) | Root-cause vs. symptom framing technique for problem statements specifically |
+| Problem statement canvas | [Problem Framing](02_Design_Thinking_and_Product_Management/CH06_Problem_Framing.md) | Full field-by-field structured brief artifact |
+| Opportunity Solution Tree (Teresa Torres) | [Problem Framing](02_Design_Thinking_and_Product_Management/CH06_Problem_Framing.md) | Continuous-discovery alternative to a one-time problem canvas |
+| "Solution in disguise" detection check | [Problem Framing](02_Design_Thinking_and_Product_Management/CH06_Problem_Framing.md) | Blank-substitution test for a stated "need" that has secretly picked a solution |
 
 ## How to add an entry
 
@@ -139,3 +156,21 @@ when multiple chapters are authored in parallel, isolated sessions.
   `CH18_Personas_Product_Management.md`) per the naming note both this
   batch's chapters flagged — revisit ownership/recap direction once those
   are drafted.
+- **Batch 4 (Part 02 batch 2 — User Interviews, Journey Mapping, Problem
+  Framing)**: merged `review/concept-proposals/user-interviews.md` (7
+  concepts), `review/concept-proposals/journey-mapping.md` (5 concepts), and
+  `review/concept-proposals/problem-framing.md` (8 concepts). All three
+  chapters correctly fulfilled forward references "Empathy" and "Research"
+  had already staged for them (User Interviews confirmed Research's 8
+  assumed links to `CH04_User_Interviews.md` were accurate; Journey Mapping
+  and Problem Framing confirmed Empathy's Section 21 comparison-table
+  forward references). No ownership conflicts found (verified by grepping
+  all three files plus the existing three for "How-Might-We", "touchpoint",
+  "leading question", "Mom Test", "JTBD" — each concept taught in exactly
+  one chapter). Fixed: "Empathy"'s comparison table and Further Reading
+  still had placeholder text/an incorrect owner (its "User interview" row
+  pointed at Research instead of the more specific User Interviews) for all
+  three new siblings — updated to real links. Pending: Journey Mapping's
+  frontstage/backstage relationship and Problem Framing's JTBD-adjacent
+  scope both explicitly defer to not-yet-drafted chapters (Service Design;
+  Product Strategy) — revisit once those exist.
