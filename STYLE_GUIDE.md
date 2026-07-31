@@ -30,7 +30,21 @@ blog-post depth.
 7. **Core Concepts depth rule**: Section 4 must teach each concept in
    first-principles depth, not as pointers. For each major concept, include:
    definition, mechanism (how it works), decision implications (when/why to
-   use it), common failure mode, and at least one concrete scenario.
+   use it), common failure mode, and at least one concrete scenario. A
+   concept is not fully taught until a reader unfamiliar with it could explain
+   it back correctly, including edge cases and reasoning — bullet lists of
+   labels or one-line mentions do not satisfy this rule.
+8. **Diagram rule**: every chapter must include inline diagrams (Mermaid
+   flowcharts/sequence/state diagrams, or ASCII diagrams for byte/packet-level
+   detail) directly in the prose wherever a process, decision flow, state
+   machine, pipeline, or structural relationship is being explained — not only
+   as an external reference under `diagrams/`. Prose explains the reasoning;
+   the diagram makes the shape of the process or structure visually scannable.
+   As a floor, Section 4 (Core Concepts) and Section 5 (Internal Working)
+   together must contain at least 2-3 inline diagrams for a full chapter (at
+   least 1 for a subtopic-length chapter), placed next to the concept they
+   illustrate, not batched at the end. Never let a diagram substitute for the
+   explanation — always pair it with the text that teaches the *why*.
 
 ## Section 4 quality bar
 
@@ -43,6 +57,12 @@ as teachable theory plus applied reasoning, not a glossary.
 - Include operational heuristics or checks a practitioner can apply.
 - Keep concept-ownership boundaries: if another chapter owns a concept,
   recap in 2-3 sentences and link; do not duplicate full teaching.
+- Where a concept has a decision flow, lifecycle, taxonomy branching, or
+  multi-step mechanism, include an inline Mermaid diagram immediately after
+  (or interleaved with) the prose that explains it — see the Diagram rule
+  above. A concept described only as prose bullets when it has an obvious
+  flow/structure shape (for example, a ladder, a state machine, a decision
+  tree) has not met the quality bar.
 
 ## Concept ownership rule (anti-repetition)
 
@@ -107,8 +127,12 @@ Every chapter must include, in this order:
 - **Clouds**: AWS, Azure, and GCP — note provider-specific implications where
   they materially differ; don't pad with trivial "X exists in all three" filler.
 - **Diagrams**: use Mermaid for anything sequence/flow/architecture-shaped, and
-  ASCII diagrams for packet/byte-level detail. Diagram sources live under
-  `diagrams/<type>/` and are referenced (not duplicated) from chapters.
+  ASCII diagrams for packet/byte-level detail. Per the Diagram rule above,
+  diagrams that illustrate a Section 4/5 concept must be embedded inline as a
+  fenced Mermaid (or ASCII) block at the point of explanation, not just
+  referenced. Reserve `diagrams/<type>/` files for larger, reusable, or
+  workshop-scale assets (e.g. a full org chart, a multi-page journey map) that
+  don't fit as an inline block — link to those rather than duplicating them.
 - **Code**: runnable samples live under `code/<language>/`; chapters reference
   them by relative link rather than embedding large listings inline.
 

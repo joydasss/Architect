@@ -166,6 +166,22 @@ A reliable operating pattern is:
 Without this order, teams often believe they "brainstormed broadly" while
 actually selecting the earliest politically safe option.
 
+```mermaid
+flowchart LR
+    A[Framed HMW prompt] --> B[Divergence window\nno evaluation language]
+    B --> C[Silent generation +\nequalized share-out]
+    C --> D[Clustering pass\nno judgment yet]
+    D --> E{Phase gate:\nfacilitator confirms\ncriteria agreed}
+    E -->|Not ready| D
+    E -->|Ready| F[Convergence pass\nscore vs. criteria]
+    F --> G[Selection funnel\nSection 4.5]
+```
+
+The phase gate is the enforcement point: if criteria are not yet agreed,
+the facilitator returns the room to clustering rather than letting
+convergence begin under ambiguous rules — this is what keeps the two modes
+from bleeding into each other.
+
 ### 4.3 Idea quality dimensions
 
 In this chapter, convergence evaluates ideas across four dimensions:
@@ -247,6 +263,17 @@ The output is typically a small portfolio, not one "winner":
 
 This preserves optionality into prototyping without overloading downstream
 execution.
+
+```mermaid
+flowchart TD
+    A[Raw idea set] --> B[Signal filter\nremove duplicates/out-of-scope]
+    B --> C[Criteria filter\nscore vs. desirability/feasibility/\nviability/differentiation]
+    C --> D{Portfolio filter:\nis the shortlist a\nmonoculture?}
+    D -->|Yes, all low-risk| E[Deliberately reinstate\none higher-upside option]
+    D -->|No, mixed risk profile| F[Candidate portfolio]
+    E --> F
+    F --> G[Rapid Prototyping\nCH08]
+```
 
 The portfolio step is critical and often skipped. When teams choose only one
 idea at this stage, they tend to select the least controversial option rather

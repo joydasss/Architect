@@ -103,6 +103,25 @@ navigation confusion and policy-comprehension issues, then a summative round on
 the stabilized flow to confirm task success and time-to-completion targets
 before rollout.
 
+```mermaid
+flowchart TD
+    A[What question are we answering?] --> B{Is the design\nstill changing?}
+    B -->|Yes, actively iterating| C[Formative test]
+    B -->|No, stable candidate| D{Need a benchmark\nor release gate?}
+    D -->|Yes| E[Summative test]
+    D -->|No, still exploring\nalternatives| C
+    C --> F[Findings feed next\ndesign iteration]
+    E --> G[Findings feed\nrelease/go-no-go decision]
+```
+
+The reason this distinction matters more than it first appears is that the
+two test types optimize for opposite things: formative testing rewards a
+facilitator who deviates from script to chase confusion wherever it appears,
+while summative testing punishes exactly that same improvisation because it
+breaks comparability across participants. A team that runs one script but
+lets facilitators freelance mid-study ends up with data that is neither a
+clean diagnostic read nor a defensible benchmark.
+
 ### 4.2 Moderated vs Unmoderated Testing
 
 Definition:
@@ -317,6 +336,27 @@ In checkout testing, one dramatic rare error is less harmful overall than a
 frequent address-validation confusion that affects 40 percent of participants
 and drives abandonment; triage matrix makes this explicit.
 
+```mermaid
+flowchart LR
+    A[Observed issue] --> B[Impact on task outcome\n1-5]
+    A --> C[Frequency across\nparticipants]
+    A --> D[Risk multiplier\ncompliance/financial/safety]
+    B --> E[Severity score =\nimpact x frequency x risk]
+    C --> E
+    D --> E
+    E --> F{Score above\nthreshold?}
+    F -->|Yes| G[Fix now: blocks release]
+    F -->|Borderline| H[Fix later: scheduled]
+    F -->|Low| I[Monitor / accept with rationale]
+```
+
+The multiplier for risk exists precisely because raw frequency alone
+underweights low-frequency, high-consequence failures — a rare but total
+data-loss error in a compliance workflow deserves a higher score than its
+frequency alone would suggest, which is why the formula is multiplicative
+rather than additive: a high risk multiplier should be able to elevate even
+an infrequent issue above the fix-now threshold.
+
 ### 4.9 Evidence-to-Decision Loop
 
 Definition:
@@ -342,6 +382,24 @@ Concrete scenario:
 A platform team runs three test rounds but ships unresolved critical errors due
 to missing decision governance. After introducing explicit closure categories
 and owner deadlines, issue carryover drops and release quality improves.
+
+```mermaid
+flowchart LR
+    A[Coded findings\nSection 4.7] --> B[Consolidate by issue +\nevidence + confidence]
+    B --> C{Decision}
+    C -->|Fix now| D[Owner + deadline +\nretest plan]
+    C -->|Fix later| E[Backlog entry +\nrevisit trigger]
+    C -->|Monitor| F[Instrumented signal\nto watch in production]
+    C -->|Reject| G[Logged rationale\nfor not fixing]
+    D --> H[Targeted re-test]
+    H -->|Resolved| I[Close with evidence]
+    H -->|Not resolved| B
+```
+
+The loop closes only at "Close with evidence" — a finding that reaches "Fix
+now" but never gets re-tested is functionally identical to one that was
+never found, because no one can confirm the fix actually changed user
+behavior rather than just changing the code.
 
 ## 5. Internal Working
 

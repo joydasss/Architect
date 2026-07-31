@@ -174,6 +174,22 @@ An operational rule that avoids over-polish is:
 - increase behavioral fidelity whenever transition ambiguity blocks
   implementation planning
 
+```mermaid
+flowchart TD
+    A[Competing flow structures\nunresolved] --> B[Low fidelity]
+    B --> C{Flow stable?}
+    C -->|No| B
+    C -->|Yes, but behavior\nambiguous| D[Mid fidelity\nadd labels + state logic]
+    D --> E{Behavior ambiguity\nresolved?}
+    E -->|No| D
+    E -->|Yes, only\nimplementation detail\nlimits progress| F[High fidelity wireframe\nfull annotation + realistic content]
+    F --> G[Implementation planning /\ntest-readiness]
+```
+
+Each arrow in this ladder is gated by a question, not a calendar date —
+fidelity should only increase when the *specific* open question at the
+current level can no longer be answered without more detail.
+
 ### 4.3 Information Hierarchy
 
 Information hierarchy is the ranking and sequencing of what the interface asks
@@ -309,6 +325,27 @@ state. Cross-state checks include:
 
 Without these checks, each state can look locally valid while the end-to-end
 experience remains incoherent.
+
+```mermaid
+stateDiagram-v2
+    [*] --> Ready
+    Ready --> Loading: user triggers action
+    Loading --> Success: request succeeds
+    Loading --> ValidationError: input rejected
+    Loading --> SystemError: dependency fails
+    Loading --> Empty: no data returned
+    ValidationError --> Ready: user corrects input
+    SystemError --> Ready: retry
+    Empty --> Ready: data becomes available
+    Success --> [*]
+    Ready --> PermissionRestricted: unauthorized
+    PermissionRestricted --> [*]
+```
+
+Every arrow in this diagram must correspond to an explicit annotation from
+Section 4.5 (trigger, destination, feedback) — a state with no inbound or
+outbound transition documented is exactly the kind of unmodeled state that
+becomes a delivery defect under pressure.
 
 ### 4.7 Content Fidelity and Data Realism
 

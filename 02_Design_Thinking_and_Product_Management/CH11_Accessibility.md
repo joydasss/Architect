@@ -126,6 +126,25 @@ Concrete scenario:
 A government self-service portal meets static contrast checks but fails keyboard
 focus visibility and form error recovery, blocking tax filing completion.
 
+```mermaid
+flowchart TD
+    A[WCAG success criteria] --> B[Perceivable\ntext alternatives, contrast,\ncaptions, adaptable layout]
+    A --> C[Operable\nkeyboard access, enough time,\nno seizure triggers]
+    A --> D[Understandable\npredictable behavior,\nclear labels/errors]
+    A --> E[Robust\nassistive-technology-\ncompatible markup]
+    B --> F[Journey-level\nacceptance checks]
+    C --> F
+    D --> F
+    E --> F
+```
+
+The reason POUR is organized as four independent principles rather than one
+checklist is that a system can satisfy one principle while completely
+failing another — perfect color contrast (Perceivable) does nothing for a
+user who cannot reach a control by keyboard (Operable), which is exactly why
+"WCAG compliant" claims are only meaningful when verified per journey against
+all four principles, not as a single aggregate score.
+
 ### 4.3 Assistive technology interaction model
 
 Definition:
@@ -155,6 +174,31 @@ Concrete scenario:
 A search page updates results count after filter changes, but no live-region
 announcement is emitted. Screen-reader users cannot confirm whether filter
 actions succeeded.
+
+```mermaid
+sequenceDiagram
+    participant U as User (assistive tech)
+    participant AT as Assistive Technology
+    participant AX as Accessibility Tree
+    participant DOM as DOM / Component
+    U->>AT: Request next control/heading
+    AT->>AX: Query role, name, state, value
+    AX->>DOM: Read semantic markup + ARIA
+    DOM-->>AX: Element role/name/state
+    AX-->>AT: Accessibility node
+    AT-->>U: Announce role + name + state
+    DOM->>DOM: Async update (e.g. filter results)
+    DOM-->>AX: State change
+    AX-->>AT: Live-region event (if declared)
+    AT-->>U: Announcement (only if emitted)
+```
+
+The critical failure point in this pipeline is the last three steps: if the
+component updates the DOM visually but never emits a live-region event, the
+accessibility tree has nothing new to report, and the assistive technology
+has no way to know anything happened — the chain silently breaks one hop
+before the user, which is why this class of bug is invisible to anyone not
+using assistive technology to test.
 
 ### 4.4 Semantic structure and reading order
 
@@ -204,6 +248,25 @@ lose task context.
 Concrete scenario:
 A password-reset dialog closes after submit but does not return focus to the
 triggering element; keyboard users restart navigation from the browser top.
+
+```mermaid
+stateDiagram-v2
+    [*] --> PageFocus
+    PageFocus --> DialogOpen: user triggers dialog
+    DialogOpen --> DialogTrapped: focus moves into dialog,\ntab cycles within it
+    DialogTrapped --> DialogOpen: user interacts\nwithin dialog
+    DialogTrapped --> PageFocus: dialog closes,\nfocus returns to trigger
+    PageFocus --> RouteChange: navigation occurs
+    RouteChange --> PageFocus: focus moves to\nnew page heading
+    DialogTrapped --> AsyncUpdate: async validation\ncompletes
+    AsyncUpdate --> DialogTrapped: focus stays or moves\nto error summary
+```
+
+Every transition in this diagram is a place where focus can be silently lost
+if the implementation is incomplete — the most common defect is the
+`DialogTrapped -> PageFocus` edge being unimplemented, which leaves users at
+`[*]` (effectively the browser chrome) instead of back at a predictable,
+named location in the page.
 
 ### 4.6 Color, contrast, readability, and non-color cues
 

@@ -149,6 +149,43 @@ triggered by three different systems with inconsistent language. The team
 standardizes evidence artifacts and notification ownership to reduce support
 calls.
 
+```mermaid
+flowchart TB
+    subgraph Customer[Customer Actions]
+        A1[File claim] --> A2[Check status] --> A3[Receive payout]
+    end
+    subgraph Frontstage[Frontstage - visible]
+        B1[Claim form] --> B2[Status page] --> B3[Payout confirmation]
+    end
+    subgraph Backstage[Backstage - hidden]
+        C1[Fraud review] --> C2[Adjuster assignment] --> C3[Payment processing]
+    end
+    subgraph Support[Support Processes]
+        D1[Document verification] --> D2[Policy lookup]
+    end
+    subgraph Evidence[Evidence Artifacts]
+        E1[Claim number] --> E2[Status notification] --> E3[Payout receipt]
+    end
+    A1 --> B1 --> C1
+    D1 --> C1
+    D2 --> C2
+    C1 --> C2 --> C3
+    C2 -.line of visibility.-> B2
+    C3 --> B3
+    B1 --> E1
+    C2 --> E2
+    C3 --> E3
+    E1 --> A2
+    E2 --> A2
+    E3 --> A3
+```
+
+The lanes are ordered deliberately: customer actions and frontstage sit above
+the line of visibility, backstage and support processes sit below it, and
+evidence artifacts are the only elements deliberately designed to cross that
+line — they are backstage progress translated into something the customer can
+see and trust.
+
 ### 4.3 Frontstage, Backstage, and the Line of Visibility
 
 Definition:
@@ -176,6 +213,28 @@ Concrete scenario:
 A loan application includes a manual fraud review. Instead of exposing a generic
 pending state, the service explicitly communicates review progress and expected
 turnaround windows, reducing abandonment and duplicate submissions.
+
+```mermaid
+flowchart LR
+    subgraph Above["Above the line of visibility (frontstage)"]
+        F1[Customer submits\napplication] --> F2[Status: 'Under review']
+        F2 --> F3[Status: 'Decision ready']
+    end
+    subgraph Below["Below the line of visibility (backstage)"]
+        B1[Fraud review queue] --> B2[Adjuster investigates] --> B3[Decision recorded]
+    end
+    F1 -.triggers.-> B1
+    B1 -.progress signal.-> F2
+    B2 -.progress signal.-> F2
+    B3 -.result.-> F3
+```
+
+The line of visibility is not a fixed wall; it is a design decision about
+which backstage progress gets translated into a frontstage signal. Moving
+the line — exposing more backstage state — costs engineering effort to
+instrument and communicate, but not moving it risks customers interpreting
+silence as failure, which is exactly the trade-off this concept forces teams
+to make explicit rather than leaving to default engineering convenience.
 
 ### 4.4 Support Processes and Enabling Systems
 
@@ -279,6 +338,30 @@ Concrete scenario:
 A same-day delivery promise fails due to inventory mismatch. Instead of a late
 failure message, the blueprint defines proactive notification, substitute
 recommendations, and compensation policy before checkout confirmation.
+
+```mermaid
+flowchart TD
+    A[Failure point identified\nper blueprint step] --> B{Severity +\nrecoverability}
+    B -->|Low severity,\nauto-recoverable| C[Retry]
+    B -->|Medium severity,\nalternate path exists| D[Fallback /\nsubstitute offer]
+    B -->|High severity,\nneeds human judgment| E[Manual intervention]
+    B -->|Cannot recover,\nvalue already lost| F[Compensation]
+    C --> G{Recovered?}
+    G -->|Yes| H[Resume happy path]
+    G -->|No| D
+    D --> G2{Accepted?}
+    G2 -->|Yes| H
+    G2 -->|No| E
+    E --> I[Safe abort +\nexplicit customer communication]
+    F --> I
+```
+
+Designing this flow at discovery time, before the failure happens in
+production, is what separates service design's failure-point work from
+incident response: the choice between retry, fallback, manual intervention,
+compensation, and safe abort should be a deliberate policy decision made with
+full context, not an improvised judgment call made by whichever on-call
+engineer encounters the failure first.
 
 ### 4.8 Service Blueprint Governance
 
