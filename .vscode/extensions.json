@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "bierner.markdown-mermaid",
+    "eamodio.gitlens",
+    "davidanson.vscode-markdownlint",
+    "chrischinchilla.vale-vscode",
+    "yzhang.markdown-all-in-one"
+  ]
+}
