@@ -126,6 +126,24 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Portfolio sequencing logic / Three Horizons model | [Product Strategy](02_Design_Thinking_and_Product_Management/CH15_Product_Strategy.md) | Risk/funding buckets plus strategic-fit/timing/capability/opportunity-cost sequencing test |
 | Strategy-to-roadmap translation contract | [Product Strategy](02_Design_Thinking_and_Product_Management/CH15_Product_Strategy.md) | What a strategy owes a roadmap; stops short of roadmap/backlog artifact mechanics (future chapters) |
 | Objectives and Key Results (OKRs) as a strategy-execution cascade | [Product Strategy](02_Design_Thinking_and_Product_Management/CH15_Product_Strategy.md) | Company->product-line->team cascade and the "disguised task list" failure mode |
+| Market definition / boundary-setting | [Market Analysis](02_Design_Thinking_and_Product_Management/CH16_Market_Analysis.md) | Category/job/segment/geography basis for drawing a market's boundary; why disputed size is often disputed boundary in disguise |
+| Market sizing: TAM/SAM/SOM, top-down vs. bottom-up, triangulation | [Market Analysis](02_Design_Thinking_and_Product_Management/CH16_Market_Analysis.md) | Full sizing method plus the "TAM inflation" failure mode |
+| Market segmentation methods (geographic, demographic/firmographic, behavioral, needs-based) | [Market Analysis](02_Design_Thinking_and_Product_Management/CH16_Market_Analysis.md) | Population-level bucketing, distinct from Personas' individual-archetype construction |
+| Market maturity / lifecycle stages + adopter categories + "crossing the chasm" | [Market Analysis](02_Design_Thinking_and_Product_Management/CH16_Market_Analysis.md) | S-curve stages, Rogers's adopter categories, Moore's chasm gap |
+| Demand analysis (stated vs. revealed vs. latent demand) | [Market Analysis](02_Design_Thinking_and_Product_Management/CH16_Market_Analysis.md) | Why stated demand alone overstates real conversion |
+| PESTEL macro-trend analysis (applied to product decisions) | [Market Analysis](02_Design_Thinking_and_Product_Management/CH16_Market_Analysis.md) | Political/Economic/Social/Technological/Environmental/Legal, with the "checklist" failure mode |
+| Market-analysis-to-strategy handoff contract | [Market Analysis](02_Design_Thinking_and_Product_Management/CH16_Market_Analysis.md) | Bounded definition + triangulated sizing + prioritized segments + dated macro-risk register owed to Product Strategy |
+| Competitor identification taxonomy (direct/indirect/substitute) | [Competitive Analysis](02_Design_Thinking_and_Product_Management/CH17_Competitive_Analysis.md) | Job-based classification and the incumbent tunnel-vision failure mode |
+| Competitive teardown methodology | [Competitive Analysis](02_Design_Thinking_and_Product_Management/CH17_Competitive_Analysis.md) | Sourcing-to-synthesis pipeline with refresh cadence and ethical/legal sourcing boundary |
+| Positioning maps (perceptual map + Blue Ocean strategy canvas) | [Competitive Analysis](02_Design_Thinking_and_Product_Management/CH17_Competitive_Analysis.md) | Axis-selection discipline and the strategy-canvas white-space technique |
+| Feature/capability comparison matrix (battlecard) with confidence tagging | [Competitive Analysis](02_Design_Thinking_and_Product_Management/CH17_Competitive_Analysis.md) | Per-cell verified/reported/inferred tagging and the checkbox-parity-race failure mode |
+| Win/loss analysis methodology | [Competitive Analysis](02_Design_Thinking_and_Product_Management/CH17_Competitive_Analysis.md) | Independent-interviewer discipline and causal tagging taxonomy |
+| Competitive-response strategy menu (ignore/match/differentiate/flank/judo) | [Competitive Analysis](02_Design_Thinking_and_Product_Management/CH17_Competitive_Analysis.md) | Five-type response menu with an evidence-threshold gate; hands off capacity allocation to Product Strategy |
+| Persona-weighted opportunity scoring | [Personas (Product Management)](02_Design_Thinking_and_Product_Management/CH18_Personas_Product_Management.md) | Base score x persona value weight; the "reach-only weighting reintroduces majority-rule bias" failure mode |
+| Persona-to-segment-value alignment | [Personas (Product Management)](02_Design_Thinking_and_Product_Management/CH18_Personas_Product_Management.md) | Mapping a persona to segment revenue/strategic value as a separate, explicitly linked layer |
+| Persona-based stakeholder arbitration protocol | [Personas (Product Management)](02_Design_Thinking_and_Product_Management/CH18_Personas_Product_Management.md) | Name-the-persona -> check-ranking -> compare-weighted-score -> escalate sequence |
+| Persona council (governance body) | [Personas (Product Management)](02_Design_Thinking_and_Product_Management/CH18_Personas_Product_Management.md) | Standing, product-owned forum for contested prioritization disputes and value-weighting review |
+| Persona weight as a portfolio-sequencing input | [Personas (Product Management)](02_Design_Thinking_and_Product_Management/CH18_Personas_Product_Management.md) | One added input to Product Strategy's existing strategic-fit test; does not restate Three Horizons |
 
 ## How to add an entry
 
@@ -285,4 +303,30 @@ when multiple chapters are authored in parallel, isolated sessions.
   - Both "Product Discovery" and "Lean UX" independently, correctly deferred
     MVP (Minimum Viable Product) construction to a not-yet-drafted future
     Product Management chapter — consistent, no conflict.
+- **Batch 8 (Part 02 batch 6 — Market Analysis, Competitive Analysis,
+  Personas [Product Management])**: merged `review/concept-proposals/market-analysis.md`
+  (7 concepts), `review/concept-proposals/competitive-analysis.md` (6
+  concepts), and `review/concept-proposals/personas-product-management.md`
+  (5 concepts). This is the disambiguated Product Management "Personas"
+  chapter flagged since Batch 3 — file named `CH18_Personas_Product_Management.md`
+  per the established naming convention, opening with a recap+link to
+  [Personas](02_Design_Thinking_and_Product_Management/CH03_Personas.md)
+  rather than re-deriving persona construction.
+  - **Market Analysis vs. Competitive Analysis**: both chapters were
+    explicitly written with the same boundary statement (Market Analysis =
+    aggregate market view: sizing, segmentation, maturity, demand, macro
+    trends; Competitive Analysis = named-rival view: identification,
+    teardown, positioning, feature matrices, win/loss, response strategy) —
+    verified by grepping both files for TAM/SAM/SOM, segmentation, and
+    positioning-map content; each concept appears fully taught in exactly
+    one chapter. No conflict, no edit needed.
+  - **Persona-weighted opportunity scoring / persona council**: verified
+    "Personas (Product Management)" does not re-derive persona construction,
+    JTBD, or Product Strategy's Three Horizons/sequencing test — each is
+    recapped and linked, with exactly one new input (persona weight) added
+    to Product Strategy's existing strategic-fit question. No conflict.
+  - Minor historical-mention overlap noted (both "Competitive Analysis" and
+    "Product Strategy" cite Porter's 1980 generic competitive positions at
+    the same date) — not a registered ownership row for either chapter,
+    both merely recap the vocabulary; no action needed.
 

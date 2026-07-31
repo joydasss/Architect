@@ -29,6 +29,16 @@ if ($Format -in @('pdf', 'both') -and -not $pdfEngine) {
     exit 1
 }
 
+# mermaid-filter converts ```mermaid code blocks to rendered images before Pandoc
+# lays out the page - without it, Mermaid blocks show up as raw text in the PDF.
+# Install via `npm install` in the repo root (see package.json). Missing filter is
+# non-fatal: the build still runs, diagrams just won't be rendered as images.
+$mermaidFilter = Join-Path $root 'node_modules/.bin/mermaid-filter.cmd'
+$mermaidFilterAvailable = Test-Path $mermaidFilter
+if ($Format -in @('pdf', 'both') -and -not $mermaidFilterAvailable) {
+    Write-Warning "mermaid-filter not found at $mermaidFilter - Mermaid diagrams will render as plain code text in the PDF, not images. Run 'npm install' in the repo root to fix this."
+}
+
 # Ordered list of part folders, matching BOOK_PLAN.md's reading-order table.
 $partFolders = @(
     '01_Architecture_Mindset', '02_Design_Thinking_and_Product_Management',
@@ -64,10 +74,12 @@ if ($Format -in @('pdf', 'both')) {
     $pdfEngineArg = if ($pdfEngine.Name -eq 'wkhtmltopdf') { @('--pdf-engine=wkhtmltopdf') } else { @() }
     $headerInclude = Join-Path $PSScriptRoot 'pdf-header.tex'
     $headerArg = if ($pdfEngine.Name -ne 'wkhtmltopdf' -and (Test-Path $headerInclude)) { @('--include-in-header', $headerInclude) } else { @() }
-    pandoc @chapterFiles -o (Join-Path $buildDir 'handbook.pdf') --toc --toc-depth=2 @pdfEngineArg @headerArg
+    $filterArg = if ($mermaidFilterAvailable) { @('--filter', $mermaidFilter) } else { @() }
+    pandoc @chapterFiles -o (Join-Path $buildDir 'handbook.pdf') --toc --toc-depth=2 @filterArg @pdfEngineArg @headerArg
     Write-Host "Wrote $(Join-Path $buildDir 'handbook.pdf')"
 }
 if ($Format -in @('epub', 'both')) {
-    pandoc @chapterFiles -o (Join-Path $buildDir 'handbook.epub') --toc --toc-depth=2
+    $filterArg = if ($mermaidFilterAvailable) { @('--filter', $mermaidFilter) } else { @() }
+    pandoc @chapterFiles -o (Join-Path $buildDir 'handbook.epub') --toc --toc-depth=2 @filterArg
     Write-Host "Wrote $(Join-Path $buildDir 'handbook.epub')"
 }

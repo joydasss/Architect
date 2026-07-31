@@ -28,9 +28,9 @@ chat's "Suggested Book Sequence" (item 2).
 |---|---|
 | Product Discovery | Edited (batch-reviewed, no unresolved overlap) |
 | Product Strategy | Edited (batch-reviewed, JTBD/PR-FAQ ownership resolved) |
-| Market Analysis | Not Started |
-| Competitive Analysis | Not Started |
-| Personas | Not Started |
+| Market Analysis | Edited (batch-reviewed, no unresolved overlap) |
+| Competitive Analysis | Edited (batch-reviewed, no unresolved overlap) |
+| Personas | Edited — file: `CH18_Personas_Product_Management.md` (disambiguated from Design Thinking's `CH03_Personas.md`); recaps + links core definition, owns only the PM application layer |
 | Journey Mapping | Not Started |
 | Story Mapping | Not Started |
 | Roadmaps | Not Started |

@@ -1,0 +1,9 @@
+{
+  "name": "architect-handbook-build",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Build-time tooling for the Modern Solution Architecture Handbook (Pandoc filters).",
+  "devDependencies": {
+    "mermaid-filter": "^1.4.7"
+  }
+}

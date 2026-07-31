@@ -174,6 +174,20 @@ flowchart LR
 ```
 ````
 
+### Mermaid rendering in the PDF build
+
+Authors always write plain ```` ```mermaid ```` fenced code blocks in the
+Markdown source — never embed pre-rendered images for diagrams that are
+naturally Mermaid-shaped. The PDF build (`scripts/build-book.ps1`) runs
+Pandoc with the `mermaid-filter` filter (installed via `npm install` at the
+repo root, see `package.json`), which converts every Mermaid code block into
+a rendered image before layout, so diagrams appear as real graphics in the
+PDF rather than as literal code text. Markdown/EPUB readers that render
+Mermaid natively (e.g. GitHub, most EPUB readers) are unaffected — the source
+stays the same either way. If `mermaid-filter` isn't installed, the build
+still runs (non-fatal) but Mermaid blocks fall back to plain code text in the
+PDF, so always run `npm install` once before a PDF build.
+
 This renders normally (ignored) in Markdown/EPUB and rotates only that page in
 the PDF build, which includes the `pdflscape` LaTeX package for this purpose
 (see `scripts/build-book.ps1`). Use this sparingly — only for diagrams that
