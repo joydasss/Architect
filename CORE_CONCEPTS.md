@@ -105,6 +105,27 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Role-handoff contract model (service delivery) | [Service Design](02_Design_Thinking_and_Product_Management/CH12_Service_Design.md) | Trigger, payload, ownership, timeout, and completion semantics across people/systems |
 | Service recovery choreography | [Service Design](02_Design_Thinking_and_Product_Management/CH12_Service_Design.md) | Failure-point design for detection, containment, communication, compensation, and restoration |
 | Service blueprint governance lifecycle | [Service Design](02_Design_Thinking_and_Product_Management/CH12_Service_Design.md) | Versioning, review cadence, ownership, drift detection, and change-trigger controls |
+| Lean Startup / Build-Measure-Learn loop (general, business-scoped) | [Research](02_Design_Thinking_and_Product_Management/CH02_Research.md) | Earliest/deepest existing mention (historical evolution); general business-validation loop, not design-specific |
+| Lean UX canvas / assumptions worksheet | [Lean UX](02_Design_Thinking_and_Product_Management/CH13_Lean_UX.md) | Eight-box canvas from business problem through smallest experiment |
+| Hypothesis-driven design statement | [Lean UX](02_Design_Thinking_and_Product_Management/CH13_Lean_UX.md) | "We believe / for / will result in / we will know when" template, falsifiability requirement |
+| Assumption mapping (importance x certainty risk grid, design-scoped) | [Lean UX](02_Design_Thinking_and_Product_Management/CH13_Lean_UX.md) | Riskiest-assumption prioritization feeding the Lean UX canvas |
+| Build-Measure-Learn loop applied to design | [Lean UX](02_Design_Thinking_and_Product_Management/CH13_Lean_UX.md) | Design-artifact-scoped application; recaps + links to the general Lean Startup loop owned by Research |
+| Collaborative design studio practice | [Lean UX](02_Design_Thinking_and_Product_Management/CH13_Lean_UX.md) | Four-round timeboxed cross-functional convergence method; a compressed application of Ideation's divergence/convergence, not a replacement |
+| Outcome-over-output framing | [Lean UX](02_Design_Thinking_and_Product_Management/CH13_Lean_UX.md) | Accountability model distinguishing measurable behavioral outcomes from shipped artifacts |
+| Continuous small-batch validation cadence | [Lean UX](02_Design_Thinking_and_Product_Management/CH13_Lean_UX.md) | Cycle-length/batch-size discipline within a Lean UX loop; distinct from Product Discovery's weekly customer-contact cadence |
+| Discovery/delivery track split (dual-track agile) | [Product Discovery](02_Design_Thinking_and_Product_Management/CH14_Product_Discovery.md) | Full first-principles teaching; other chapters recap + link (e.g. Lean UX Section 7) |
+| Four big risks framework (value, usability, feasibility, business viability) | [Product Discovery](02_Design_Thinking_and_Product_Management/CH14_Product_Discovery.md) | Cagan's risk taxonomy for opportunity commitment decisions |
+| Product trio (team topology) | [Product Discovery](02_Design_Thinking_and_Product_Management/CH14_Product_Discovery.md) | Standing PM/design/engineering unit for continuous discovery ownership |
+| Continuous discovery cadence | [Product Discovery](02_Design_Thinking_and_Product_Management/CH14_Product_Discovery.md) | Weekly customer-touchpoint habit (Torres); distinct from Lean UX's batch-size validation cadence |
+| Opportunity assessment (risk-ranked assumption testing) | [Product Discovery](02_Design_Thinking_and_Product_Management/CH14_Product_Discovery.md) | Per-opportunity assumption ranking; operates within, and is distinct from, Problem Framing's Opportunity Solution Tree |
+| Discovery artifacts (opportunity backlog, assumption map, discovery decision log) | [Product Discovery](02_Design_Thinking_and_Product_Management/CH14_Product_Discovery.md) | Decision-oriented artifact set distinct from design-research artifacts (personas, journey maps) |
+| Jobs-to-be-Done (JTBD): job story, functional/emotional/social dimensions, Four Forces of Progress | [Product Strategy](02_Design_Thinking_and_Product_Management/CH15_Product_Strategy.md) | Full teaching; resolves the ownership deferred by Personas and Problem Framing in earlier batches |
+| PR-FAQ ("Working Backwards") vision-setting technique | [Product Strategy](02_Design_Thinking_and_Product_Management/CH15_Product_Strategy.md) | Full construction/review process; resolves the ownership deferred by Problem Framing |
+| Strategy stack (mission -> vision -> strategy -> objectives -> initiatives) | [Product Strategy](02_Design_Thinking_and_Product_Management/CH15_Product_Strategy.md) | Altitude-ladder framing for diagnosing which rung a strategy disagreement lives on |
+| Product principles (as reusable decision heuristics) | [Product Strategy](02_Design_Thinking_and_Product_Management/CH15_Product_Strategy.md) | Full teaching including the "opposite choice equally principled" platitude test |
+| Portfolio sequencing logic / Three Horizons model | [Product Strategy](02_Design_Thinking_and_Product_Management/CH15_Product_Strategy.md) | Risk/funding buckets plus strategic-fit/timing/capability/opportunity-cost sequencing test |
+| Strategy-to-roadmap translation contract | [Product Strategy](02_Design_Thinking_and_Product_Management/CH15_Product_Strategy.md) | What a strategy owes a roadmap; stops short of roadmap/backlog artifact mechanics (future chapters) |
+| Objectives and Key Results (OKRs) as a strategy-execution cascade | [Product Strategy](02_Design_Thinking_and_Product_Management/CH15_Product_Strategy.md) | Company->product-line->team cascade and the "disguised task list" failure mode |
 
 ## How to add an entry
 
@@ -230,3 +251,38 @@ when multiple chapters are authored in parallel, isolated sessions.
   Cleanup applied before merge: CH11 and CH12 contained accidental duplicate
   appended section blocks from authoring-session conflict recovery. Both files
   were normalized back to one valid 27-section sequence before review/merge.
+- **Batch 7 (Part 02 batch 5 — Lean UX, Product Discovery, Product
+  Strategy)**: merged `review/concept-proposals/lean-ux.md` (7 concepts),
+  `review/concept-proposals/product-discovery.md` (6 concepts), and
+  `review/concept-proposals/product-strategy.md` (7 concepts). This closes
+  out the Design Thinking subsection (13/13) and opens the Product
+  Management subsection (2/18). Key resolutions:
+  - **Jobs-to-be-Done (JTBD)** and **PR-FAQ / "Working Backwards"**: both had
+    been explicitly flagged as deferred-not-taught by "Personas" and
+    "Problem Framing" in earlier batches, pointing to a future Product
+    Strategy chapter. "Product Strategy" is that chapter and now fully owns
+    both — resolves two long-pending forward references cleanly, no
+    conflict.
+  - **"Dual-track agile" / discovery-delivery split**: "Lean UX" only
+    mentions this at architecture-pattern depth with an explicit recap+link
+    note (not a full-ownership claim); "Product Discovery" independently
+    wrote the full first-principles treatment. Arbitrated to "Product
+    Discovery" (the more foundational, dedicated chapter for this concept);
+    no edit needed since "Lean UX" already recapped rather than re-taught.
+  - **"Continuous discovery cadence" (Product Discovery) vs. "Continuous
+    small-batch validation cadence" (Lean UX)**: reviewed in full and judged
+    non-duplicative — the former is the weekly customer-contact habit at the
+    opportunity level (Torres); the latter is cycle-length/batch-size
+    discipline for what gets built and tested per Lean UX iteration. No edit
+    made.
+  - **General Lean Startup / Build-Measure-Learn loop**: previously
+    mentioned only at historical-evolution depth in "Research" and "Rapid
+    Prototyping" with no formal ownership row. Added a new row owning it to
+    "Research" (earliest/deepest existing mention) so "Lean UX"'s
+    design-scoped Build-Measure-Learn application, and future
+    Experimentation/A-B Testing chapters, have a clear recap target instead
+    of re-deriving Lean Startup from scratch.
+  - Both "Product Discovery" and "Lean UX" independently, correctly deferred
+    MVP (Minimum Viable Product) construction to a not-yet-drafted future
+    Product Management chapter — consistent, no conflict.
+

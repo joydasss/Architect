@@ -20,14 +20,14 @@ chat's "Suggested Book Sequence" (item 2).
 | Usability Testing | Edited (batch-reviewed, no unresolved overlap) |
 | Accessibility | Edited (batch-reviewed, duplicate-append issue fixed) |
 | Service Design | Edited (batch-reviewed, duplicate-append issue fixed) |
-| Lean UX | Not Started |
+| Lean UX | Edited (batch-reviewed, no unresolved overlap) |
 
 ## Chapters — Product Management
 
 | Chapter | Status |
 |---|---|
-| Product Discovery | Not Started |
-| Product Strategy | Not Started |
+| Product Discovery | Edited (batch-reviewed, no unresolved overlap) |
+| Product Strategy | Edited (batch-reviewed, JTBD/PR-FAQ ownership resolved) |
 | Market Analysis | Not Started |
 | Competitive Analysis | Not Started |
 | Personas | Not Started |
