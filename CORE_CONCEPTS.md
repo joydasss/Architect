@@ -269,6 +269,49 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Feedback Bias and Representativeness | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Selection bias (self-selected respondents), response bias (power users over-represented), confirmation bias; mitigated via triangulation with behavioral data |
 | Feedback Quality Validation | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Framework assessing whether feedback corpus is actionable (representative, sufficient sample size, recent, high confidence); marks provisional conclusions for low-quality feedback |
 | Privacy-by-Design in Feedback Infrastructure | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Architectural principle including consent management, PII masking, access controls, and retention policies from the start, not retrofitted |
+| JVM (Java Virtual Machine) architecture (four-subsystem model) | [Java Architecture](03_Software_Engineering_Foundations/CH01_Java_Architecture.md) | Class loader subsystem, runtime data areas, execution engine, native interface |
+| Class loading & parent-delegation model | [Java Architecture](03_Software_Engineering_Foundations/CH01_Java_Architecture.md) | Bootstrap/platform/application class loader hierarchy; loading/linking/initialization phases |
+| Classloader identity (class name + defining loader) | [Java Architecture](03_Software_Engineering_Foundations/CH01_Java_Architecture.md) | Why identical class names loaded by different loaders are incompatible types; root cause of classloader-mismatch `ClassCastException` |
+| Bytecode verification | [Java Architecture](03_Software_Engineering_Foundations/CH01_Java_Architecture.md) | Mandatory JVM data-flow-analysis pass over loaded bytecode establishing type/memory safety independent of the compiler that produced it |
+| Java Memory Model (JMM) `happens-before` relation | [Java Architecture](03_Software_Engineering_Foundations/CH01_Java_Architecture.md) | JVM-specific portable contract for cross-thread memory visibility (volatile, monitor unlock/lock, thread start/join) |
+| Generational garbage collection hypothesis (young/old generation) | [Java Architecture](03_Software_Engineering_Foundations/CH01_Java_Architecture.md) | JVM heap organization based on "most objects die young"; G1/ZGC/Shenandoah collector family |
+| JIT tiered compilation (C1/C2) and escape analysis | [Java Architecture](03_Software_Engineering_Foundations/CH01_Java_Architecture.md) | HotSpot's progressive interpreter to C1 to C2 pipeline; scalar replacement eliminating heap allocation for non-escaping objects |
+| Virtual threads (Project Loom) & carrier threads | [Java Architecture](03_Software_Engineering_Foundations/CH01_Java_Architecture.md) | JVM-scheduled lightweight M:N threads unmounted/remounted around blocking operations; carrier-thread pinning failure mode |
+| Java Platform Module System (JPMS) | [Java Architecture](03_Software_Engineering_Foundations/CH01_Java_Architecture.md) | Compiler- and runtime-enforced encapsulation boundaries (requires/exports/opens) beyond classpath visibility |
+| Spring IoC container bean lifecycle & auto-configuration | [Java Architecture](03_Software_Engineering_Foundations/CH01_Java_Architecture.md) | Scan to BeanDefinition to instantiate to inject to proxy-wrap pipeline; conditional auto-configuration; self-invocation proxy bypass failure mode |
+| GraalVM native image & closed-world reachability analysis | [Java Architecture](03_Software_Engineering_Foundations/CH01_Java_Architecture.md) | AOT compilation to standalone executable; incompatibility with unconstrained runtime reflection |
+| Global Interpreter Lock (GIL) | [Python Architecture](03_Software_Engineering_Foundations/CH02_Python_Architecture.md) | CPython's single-mutex bytecode-execution serialization model; release semantics around blocking I/O vs. CPU-bound work; 3.13+ free-threading (PEP 703) |
+| Reference counting and cyclic garbage collection (CPython) | [Python Architecture](03_Software_Engineering_Foundations/CH02_Python_Architecture.md) | Deterministic immediate deallocation on refcount zero; generational `gc` reclaiming reference cycles refcounting alone cannot free |
+| CPython bytecode compilation + evaluation loop | [Python Architecture](03_Software_Engineering_Foundations/CH02_Python_Architecture.md) | AST to bytecode to frame-based interpreter loop; `pymalloc` small-object allocator; small-int/string interning |
+| Threading vs. multiprocessing vs. asyncio decision model (Python) | [Python Architecture](03_Software_Engineering_Foundations/CH02_Python_Architecture.md) | Workload-classification (CPU-bound vs. I/O-bound) driven concurrency-mechanism selection specific to CPython's GIL constraint |
+| `asyncio` event loop / cooperative scheduling model | [Python Architecture](03_Software_Engineering_Foundations/CH02_Python_Architecture.md) | Single-threaded coroutine scheduling via `await` suspension points; event-loop-blocking failure mode |
+| Gradual typing (PEP 484) as an architecture quality gate | [Python Architecture](03_Software_Engineering_Foundations/CH02_Python_Architecture.md) | Optional, unenforced-at-runtime static type annotations; mypy/pyright as a CI fitness function; Pydantic as opt-in runtime enforcement |
+| WSGI vs. ASGI protocol architecture | [Python Architecture](03_Software_Engineering_Foundations/CH02_Python_Architecture.md) | Synchronous one-worker-per-request contract vs. asynchronous coroutine-native long-lived-connection contract |
+| Python dependency/packaging architecture (wheels, venv, lock files) | [Python Architecture](03_Software_Engineering_Foundations/CH02_Python_Architecture.md) | Virtual environment isolation, wheel vs. source distribution, backtracking resolution with pip/Poetry/uv |
+| Process-based horizontal scaling rationale (Python-specific) | [Python Architecture](03_Software_Engineering_Foundations/CH02_Python_Architecture.md) | Why GIL-bound CPython services scale primarily via process replication rather than in-process thread parallelism |
+| Event Loop Phases (Node.js/libuv) | [Node.js](03_Software_Engineering_Foundations/CH03_Nodejs.md) | libuv's fixed-order phase cycle (timers, pending callbacks, poll, check, close) determining callback execution order |
+| Single-Threaded Non-Blocking I/O Model (Node.js) | [Node.js](03_Software_Engineering_Foundations/CH03_Nodejs.md) | One JS thread, all I/O delegated asynchronously via libuv thread pool; blocking work stalls the whole process |
+| Microtask Queue vs. Macrotask Queue | [Node.js](03_Software_Engineering_Foundations/CH03_Nodejs.md) | Promise/`process.nextTick` microtasks drained between every callback vs. event-loop-phase macrotasks; starvation risk |
+| V8 JIT Compilation Tiers and Hidden Classes | [Node.js](03_Software_Engineering_Foundations/CH03_Nodejs.md) | Ignition/TurboFan tiered execution; shape-sharing mechanism for fast dynamically-typed property access |
+| `worker_threads` and `cluster` module architecture | [Node.js](03_Software_Engineering_Foundations/CH03_Nodejs.md) | True-parallelism primitive (separate V8 isolates) vs. process-level fan-out for scaling across CPU cores |
+| CommonJS vs. ECMAScript Modules (ESM) loading semantics | [Node.js](03_Software_Engineering_Foundations/CH03_Nodejs.md) | Synchronous eager `require()` resolution vs. static-graph-then-execute ESM resolution with live bindings; dual-package hazard |
+| `node_modules` resolution algorithm and phantom dependencies | [Node.js](03_Software_Engineering_Foundations/CH03_Nodejs.md) | Upward directory-walk resolution algorithm; undeclared dependencies resolving via flat/hoisted layout |
+| Streams and backpressure (Node.js) | [Node.js](03_Software_Engineering_Foundations/CH03_Nodejs.md) | Chunked data-processing abstraction with `highWaterMark`/`drain`-event protocol bounding memory for large payloads |
+| Goroutine (M:N threading model) and G-M-P scheduler | [Go](03_Software_Engineering_Foundations/CH04_Go.md) | Lightweight runtime-scheduled concurrency unit multiplexed onto OS threads via work-stealing scheduler |
+| Channels (CSP concurrency model) and `select` statement | [Go](03_Software_Engineering_Foundations/CH04_Go.md) | Typed, synchronized conduits implementing Communicating Sequential Processes; "share memory by communicating" |
+| Concurrent tricolor mark-and-sweep GC (Go) | [Go](03_Software_Engineering_Foundations/CH04_Go.md) | Go's specific low-latency garbage collector design: tricolor invariant, write barrier, brief STW pauses; GOGC/GOMEMLIMIT tuning |
+| Go module system (go.mod, SIV, MVS) | [Go](03_Software_Engineering_Foundations/CH04_Go.md) | Semantic Import Versioning for major-version coexistence; Minimal Version Selection resolution algorithm |
+| Go static compilation & cross-compilation (GOOS/GOARCH) | [Go](03_Software_Engineering_Foundations/CH04_Go.md) | Dependency-free static binary output; trivial cross-compilation without target toolchain |
+| Go implicit structural interfaces and composition (embedding) | [Go](03_Software_Engineering_Foundations/CH04_Go.md) | Compile-time structural (not nominal) interface satisfaction; struct/interface embedding as sole code-reuse mechanism |
+| Go explicit error handling architecture | [Go](03_Software_Engineering_Foundations/CH04_Go.md) | `error` as an ordinary return value vs. exceptions; Go 1.13 error wrapping (errors.Is/As/Unwrap) |
+| Ownership and move semantics (Rust) | [Rust](03_Software_Engineering_Foundations/CH05_Rust.md) | Compile-time single-owner memory model as an alternative to garbage collection; deterministic `drop` |
+| Borrow checker / aliasing-XOR-mutability rule | [Rust](03_Software_Engineering_Foundations/CH05_Rust.md) | Static enforcement of shared-vs-exclusive reference rules, eliminating aliasing bugs and data races with one mechanism |
+| Lifetimes (Rust) | [Rust](03_Software_Engineering_Foundations/CH05_Rust.md) | Compile-time-only annotations proving a reference cannot outlive the data it points to; zero-copy API design implication |
+| Static vs. dynamic trait dispatch (monomorphization vs. vtable) | [Rust](03_Software_Engineering_Foundations/CH05_Rust.md) | Explicit per-call-site choice between zero-cost generic specialization and runtime polymorphism |
+| `Send`/`Sync` and fearless concurrency | [Rust](03_Software_Engineering_Foundations/CH05_Rust.md) | Compile-time-checked thread-safety marker traits; guarantees data-race freedom, not deadlock freedom |
+| `Result`/`Option`-based error architecture and the `?` operator | [Rust](03_Software_Engineering_Foundations/CH05_Rust.md) | Value-based, type-checked recoverable-error propagation as an alternative to exceptions |
+| `unsafe` boundary and FFI safety-proof obligation | [Rust](03_Software_Engineering_Foundations/CH05_Rust.md) | Scoped escape hatch for operations the compiler cannot verify; `// SAFETY:` audit discipline |
+| Async/await executor model (Future trait + Tokio) | [Rust](03_Software_Engineering_Foundations/CH05_Rust.md) | Poll-based, GC-free lightweight concurrency substrate for high-connection-count I/O workloads |
 
 ## How to add an entry
 
@@ -558,4 +601,42 @@ when multiple chapters are authored in parallel, isolated sessions.
   - **Part 02 finalization**: All 31 chapters of Part 02 (Design Thinking 13/13 + Product Management
     18/18) are now drafted, edited, and published with comprehensive concept ownership documented.
     Overall handbook progress: 31/296 chapters (Part 01: 3/3; Part 02: 27/31; Pilot: 2/2).
+- **Batch 13 (Part 03 — Software Engineering Foundations: Java, Python, Node.js, Go, Rust)**: merged
+  `review/concept-proposals/java-architecture.md` (24 concepts, condensed to 9 rows),
+  `review/concept-proposals/python-architecture.md` (19 concepts, condensed to 8 rows),
+  `review/concept-proposals/nodejs.md` (16 concepts, condensed to 7 rows),
+  `review/concept-proposals/go.md` (16 concepts, condensed to 8 rows), and
+  `review/concept-proposals/rust.md` (11 concepts, condensed to 7 rows) into the table above (some
+  closely related concepts from the same chapter were merged into a single row to keep the registry
+  scannable — e.g. Java's GC family collapsed into one "generational garbage collection hypothesis"
+  row referencing G1/ZGC/Shenandoah). This opens Part 03 (5/5 chapters drafted) and is the handbook's
+  first "language architecture" batch. Key observations:
+  - **Clean per-language ownership with zero conflicts**: each chapter proposed concepts scoped
+    tightly to its own runtime/compiler mechanism (JVM internals, CPython internals, libuv/V8,
+    Go runtime, Rust compiler) with no two chapters claiming the same concept at teaching depth —
+    verified by cross-referencing all five proposal files for overlapping terms (garbage collection,
+    concurrency model, static compilation, module system, error handling).
+  - **Parallel concepts, distinct mechanisms (not duplicates)**: several concepts appear once per
+    language chapter under different names describing the *same category* of architectural decision —
+    e.g. concurrency models (Java virtual threads vs. Python asyncio/GIL vs. Node.js event loop vs.
+    Go goroutines/CSP vs. Rust async/await+ownership), garbage collection (Java G1/ZGC vs. Go tricolor
+    vs. Python refcounting+cyclic GC vs. Node.js V8 generational GC vs. Rust's GC-free ownership
+    model), and module/dependency systems (JPMS vs. Python packaging vs. Node.js CJS/ESM vs. Go
+    modules vs. Cargo). These are intentionally NOT merged into one shared "concurrency model" or
+    "garbage collection" row — each language's mechanism is architecturally distinct enough (JVM
+    stop-the-world tuning vs. Python's GIL serialization vs. Rust's compile-time ownership proof)
+    that forcing a single owner would require one chapter to fully re-teach another's runtime
+    internals. A future cross-language comparison chapter (if added, e.g. under Part 03 or Part 17
+    Architecture Patterns) should recap + link to all five rather than re-deriving any of them.
+  - **Architecture fitness functions (Java/ArchUnit)**: Java Architecture's proposal explicitly
+    flagged that "architecture fitness functions" as a general concept is already owned by
+    [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md);
+    its ArchUnit entry was narrowed to the Java-specific tooling instance rather than re-claiming
+    the general concept — no edit needed, the chapter already recapped correctly.
+  - **HTTP/REST recap discipline**: Python Architecture's WSGI/ASGI section correctly recapped +
+    linked to HTTP/REST rather than re-teaching HTTP semantics — verified, no conflict.
+  - **Pending cross-batch note**: if a future OS/concurrency-fundamentals chapter is added (e.g.
+    under `05_Networking_and_OS`), Go's proposal flagged that its GC/threading entries should be
+    narrowed to "Go's specific mechanism" with the general concept deferred to that new chapter —
+    revisit when such a chapter exists.
 
