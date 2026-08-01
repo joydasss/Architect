@@ -522,31 +522,34 @@ flowchart TD
 Below is the production deployment architecture for an enterprise-grade **Backlog Synchronization and Event-Driven Integration Engine**. This architecture connects a Product Management SaaS tool (Productboard) with an Engineering Delivery Platform (Jira) and a Cloud Security Platform (Snyk) via an event-driven AWS serverless pipeline.
 
 ```mermaid
-architecture-beta
-    group source_cloud(cloud)[SaaS Layer]
-    service pb(internet)[Productboard API] in source_cloud
-    service snyk(internet)[Snyk Security API] in source_cloud
-
-    group aws_vpc(cloud)[AWS Cloud Platform]
-    service apigw(server)[API Gateway Webhook Endpoint] in aws_vpc
-    service eventbridge(queue)[Amazon EventBridge Custom Bus] in aws_vpc
-    service lambda_ingest(server)[Ingestion Lambda Worker] in aws_vpc
-    service ddb_ledger(database)[DynamoDB State & Mapping Ledger] in aws_vpc
-    service sqs_deadletter(queue)[SQS Dead Letter Queue] in aws_vpc
-    service lambda_transform(server)[Sync & Transform Lambda Worker] in aws_vpc
-
-    group target_cloud(cloud)[Delivery Layer]
-    service jira(internet)[Jira Cloud REST API] in target_cloud
-
-    pb --> apigw
-    snyk --> apigw
-    apigw --> lambda_ingest
-    lambda_ingest --> ddb_ledger
-    lambda_ingest --> eventbridge
-    eventbridge --> lambda_transform
-    eventbridge --> sqs_deadletter
-    lambda_transform --> ddb_ledger
-    lambda_transform --> jira
+graph TB
+    subgraph saas["SaaS Layer"]
+        pb["Productboard API<br/>(Product Events)"]
+        snyk["Snyk Security API<br/>(Security Alerts)"]
+    end
+    
+    subgraph aws["AWS Cloud Platform"]
+        apigw["API Gateway<br/>Webhook Endpoint"]
+        lambda_ingest["Ingestion Lambda<br/>(Deduplication)"]
+        eventbridge["Amazon EventBridge<br/>Custom Bus"]
+        ddb["DynamoDB<br/>State & Mapping Ledger"]
+        lambda_transform["Sync & Transform Lambda<br/>(Field Mapper)"]
+        dlq["SQS Dead Letter<br/>Queue"]
+    end
+    
+    subgraph delivery["Delivery Layer"]
+        jira["Jira Cloud<br/>REST API v3"]
+    end
+    
+    pb -->|HTTPS Webhook| apigw
+    snyk -->|HTTPS Webhook| apigw
+    apigw -->|Parse & Validate| lambda_ingest
+    lambda_ingest -->|Query Idempotency| ddb
+    lambda_ingest -->|Route Event| eventbridge
+    eventbridge -->|Async Transform| lambda_transform
+    eventbridge -->|Failed Events| dlq
+    lambda_transform -->|Update Mapping| ddb
+    lambda_transform -->|Create/Update Issue| jira
 ```
 
 ### Architectural Component Breakdown
