@@ -20,6 +20,14 @@ when multiple chapters are authored in parallel, isolated sessions.
 | HTTP caching headers (`Cache-Control`, `ETag`, etc.) | [HTTP](05_Networking_and_OS/CH01_HTTP.md) | Browser/CDN/proxy caching layers |
 | HTTP methods (GET/POST/PUT/PATCH/DELETE) | [HTTP](05_Networking_and_OS/CH01_HTTP.md) | Semantics, idempotency, safety |
 | TLS handshake (TLS 1.2 and 1.3, full mechanics) | [TLS](05_Networking_and_OS/CH06_TLS.md) | Moved from HTTP (Batch 15) — HTTP recaps only 2-3 sentences; full byte-level handshake mechanics, cipher suites, SNI, ALPN mechanism, mTLS, session resumption now owned by TLS |
+| Content negotiation (`Accept`, `Accept-Language`, `Accept-Encoding`, `Accept-Charset`, q-factors) | [HTTP](05_Networking_and_OS/CH01_HTTP.md) | Server-driven vs. agent-driven negotiation of representation format/language/encoding via quality-value-weighted header matching |
+| Conditional requests and validators (`ETag`/`If-None-Match`, `Last-Modified`/`If-Modified-Since`, `If-Match`/`If-Unmodified-Since`) | [HTTP](05_Networking_and_OS/CH01_HTTP.md) | Weak vs. strong validator semantics and the 304 Not Modified revalidation flow; deepens HTTP's existing caching-headers ownership |
+| HTTP compression (`Content-Encoding`: gzip/br/deflate) | [HTTP](05_Networking_and_OS/CH01_HTTP.md) | Transparent response-body compression negotiation; don't-compress-already-compressed-media heuristic |
+| Cookies (`Set-Cookie` attributes: `HttpOnly`, `Secure`, `SameSite`, `Domain`, `Path`, `Max-Age`/`Expires`) | [HTTP](05_Networking_and_OS/CH01_HTTP.md) | Wire-level cookie mechanics and first-party vs. third-party scoping; CSRF/session-fixation attack mechanics recapped only, owned by the future Security part |
+| CORS (Cross-Origin Resource Sharing) | [HTTP](05_Networking_and_OS/CH01_HTTP.md) | Simple vs. preflighted request classification, the `OPTIONS` preflight exchange, and the `Access-Control-Allow-*` response contract |
+| Connection management (HTTP/1.1 persistent connections, pipelining, client-side pooling) | [HTTP](05_Networking_and_OS/CH01_HTTP.md) | `Connection: keep-alive` lifecycle, why pipelining was specified but never safely deployed, client connection-pool sizing |
+| Chunked transfer encoding | [HTTP](05_Networking_and_OS/CH01_HTTP.md) | Streaming a response body of unknown length as length-prefixed chunks, plus optional trailer headers |
+| URI structure and semantics (scheme/authority/path/query/fragment) | [HTTP](05_Networking_and_OS/CH01_HTTP.md) | Wire-level anatomy of a URI; REST's resource-modeling/URI-design conventions remain owned by REST, recapped here only |
 | HATEOAS | [REST](08_API_Architecture/CH01_REST.md) | REST maturity model, hypermedia controls |
 | Richardson Maturity Model | [REST](08_API_Architecture/CH01_REST.md) | REST-specific API design maturity levels |
 | Resource modeling (REST) | [REST](08_API_Architecture/CH01_REST.md) | URI design, nouns vs verbs, resource relationships |
@@ -970,3 +978,28 @@ when multiple chapters are authored in parallel, isolated sessions.
     labels — zero matches; (4) subgraph/end balance was verified chapter-by-chapter during
     authoring; (5) no `timeline` diagrams exist in Part 05 (all historical evolution diagrams use
     `flowchart LR` instead), eliminating the multi-line-continuation risk class entirely.
+- **Batch 16 (HTTP pilot chapter enrichment)**: [HTTP](05_Networking_and_OS/CH01_HTTP.md) was the
+  original pilot chapter (drafted before the full 27-section/first-principles depth bar was
+  established) and had grown noticeably thinner than every chapter authored since Part 01 — it
+  also still over-explained the TLS handshake and HTTP/2 framing in its own Section 5 despite
+  those concepts having since moved to CH06_TLS and CH04_HTTP2 (Batch 15). This batch re-authored
+  CH01_HTTP.md in place (no new file) to the same depth bar as the rest of the handbook: 27
+  sections retained, Section 4 (Core Concepts) rewritten with first-principles subsections
+  (definition/mechanism/decision-implications/common-failure-mode/scenario) for HTTP methods,
+  status codes, and caching headers, plus 8 newly claimed concepts (see below); all diagram
+  references converted from links to `diagrams/*.md` files into 15 inline Mermaid diagrams (9
+  flowchart, 5 sequenceDiagram, 1 stateDiagram-v2); Section 5's TLS-handshake and HTTP/2-framing
+  walkthroughs trimmed down to 2-3 sentence recaps with links, freeing space for a full HTTP/1.1
+  wire-level request/response lifecycle diagram (including a conditional-request 304 revalidation
+  sequence and a CORS preflight sequence) instead. Merged `review/concept-proposals/
+  http-enrichment.md` (8 new concepts, all verified as not previously owned by any chapter):
+  content negotiation; conditional requests and validators (deepens the existing HTTP caching-
+  headers row rather than a fully separate one); HTTP compression; cookies (`Set-Cookie`
+  attributes — CSRF/session-fixation mechanics recapped only, flagged for the future Security
+  part); CORS; connection management (keep-alive/pipelining/pooling); chunked transfer encoding;
+  URI structure and semantics (recaps REST's resource-modeling conventions rather than
+  re-deriving them). File grew from ~330 lines/~12.5KB to 1,244 lines/~72KB. Mermaid verification
+  independently re-run after the rewrite: 27/27 exact section headers, zero reserved
+  sequenceDiagram participant aliases, zero backslash-escaped quotes, subgraph/`end` balance 1/1
+  (single `alt`/`end` pair), zero `timeline` diagrams present (none used). Staging file deleted
+  after merge.

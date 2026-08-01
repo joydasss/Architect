@@ -51,7 +51,7 @@ chapter-vs-topic distinction).
 
 | Chapter | Part | File | Status |
 |---|---|---|---|
-| HTTP | 05_Networking_and_OS | [CH01_HTTP.md](05_Networking_and_OS/CH01_HTTP.md) | Reviewed (no changes required) |
+| HTTP | 05_Networking_and_OS | [CH01_HTTP.md](05_Networking_and_OS/CH01_HTTP.md) | Edited (enriched to full depth, Batch 16) |
 | REST | 08_API_Architecture | [CH01_REST.md](08_API_Architecture/CH01_REST.md) | Edited (overlap with HTTP resolved) |
 
 Full pipeline completed: Drafted → Concepts Staged → Merged →
