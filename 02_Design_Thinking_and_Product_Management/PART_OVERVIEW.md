@@ -40,7 +40,7 @@ chat's "Suggested Book Sequence" (item 2).
 | North Star Metrics | Edited (batch-reviewed, resolves Product Strategy North Star alignment) |
 | Experimentation | Edited (batch-reviewed, hypothesis-driven design framework) |
 | A/B Testing | Edited (batch-reviewed, statistical machinery and implementation) |
-| Prioritization (RICE, MoSCoW, Kano) | Not Started |
-| Pricing | Not Started |
-| Go-to-Market | Not Started |
-| Customer Feedback | Not Started |
+| Prioritization (RICE, MoSCoW, Kano) | Edited (batch 12, 27 sections, 11 Mermaid diagrams, 5 production code examples, 20 owned concepts) |
+| Pricing | Edited (batch 12, 27 sections, 14 Mermaid diagrams, 3 production code examples, 11 owned concepts) |
+| Go-to-Market | Edited (batch 12, 27 sections, 11 Mermaid diagrams, 4 production code examples, 28 owned concepts; 2 detailed real case studies) |
+| Customer Feedback | Edited (batch 12, 27 sections, 12 Mermaid diagrams, 4 production code examples, 14 owned concepts; 1 detailed case study) |

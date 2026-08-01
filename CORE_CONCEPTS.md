@@ -204,6 +204,71 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Contextual Bandits and Thompson Sampling | [A/B Testing](02_Design_Thinking_and_Product_Management/CH27_A_B_Testing.md) | Online learning algorithms adaptively allocating traffic based on observed context and rewards, balancing exploitation and exploration; differentiated from fixed-allocation A/B tests |
 | Stratification and Latin Square Designs | [A/B Testing](02_Design_Thinking_and_Product_Management/CH27_A_B_Testing.md) | Experimental technique partitioning observations into homogeneous subgroups (strata) and applying randomization independently within each stratum to reduce variance |
 | Experiment Collision and Interference | [A/B Testing](02_Design_Thinking_and_Product_Management/CH27_A_B_Testing.md) | Statistical/causal interference when the same observation unit is assigned to variants of multiple concurrent experiments, biasing results; architectural detection and isolation required |
+| RICE Scoring (Reach, Impact, Confidence, Effort) | [Prioritization](02_Design_Thinking_and_Product_Management/CH28_Prioritization.md) | Quantitative prioritization formula where score = (Reach × Impact × Confidence) / Effort; operationalizes customer impact and engineering effort into a single comparable metric |
+| MoSCoW Prioritization (Must/Should/Could/Won't) | [Prioritization](02_Design_Thinking_and_Product_Management/CH28_Prioritization.md) | Stakeholder alignment framework categorizing backlog items into four buckets for scope negotiation and capacity allocation; typical allocation 50–70% MUST, 20–30% SHOULD, 5–10% COULD |
+| Kano Model (Basic/Performance/Delighter) | [Prioritization](02_Design_Thinking_and_Product_Management/CH28_Prioritization.md) | Feature categorization mapping customer satisfaction curves to feature types (Basic: absence dissatisfies; Performance: linear satisfaction; Delighter: presence creates disproportionate joy) |
+| Eisenhower Matrix (Urgency vs. Importance) | [Prioritization](02_Design_Thinking_and_Product_Management/CH28_Prioritization.md) | Two-axis prioritization classifying work into four quadrants (Q1: crisis, Q2: strategic, Q3: interruptions, Q4: waste); surfaces that organizations spend 80% capacity on Q1+Q3 |
+| Composite Prioritization | [Prioritization](02_Design_Thinking_and_Product_Management/CH28_Prioritization.md) | Orchestration pattern applying multiple prioritization frameworks to different item types and aggregating signals into unified ranking; detects veto scenarios |
+| Cost-of-Delay (CoD) | [Prioritization](02_Design_Thinking_and_Product_Management/CH28_Prioritization.md) | Financial framework quantifying monthly business impact of deferring an item; prioritization by CoD/Effort ratio surfaces value-per-engineering-week |
+| Prioritization ROI | [Prioritization](02_Design_Thinking_and_Product_Management/CH28_Prioritization.md) | Ratio of impact score to effort (person-weeks), used to compare value-per-engineering-hour across items; enables capacity-constrained portfolio optimization |
+| Veto Mechanism (in prioritization) | [Prioritization](02_Design_Thinking_and_Product_Management/CH28_Prioritization.md) | Explicit, documented override of quantitative prioritization by a stakeholder with authority when organizational context diverges from framework; tracked as precedent |
+| Prioritization Trigger | [Prioritization](02_Design_Thinking_and_Product_Management/CH28_Prioritization.md) | Mid-cycle signal (scope change, technical bottleneck, metric surprise, competitive threat, capacity change) that justifies re-running prioritization to reshuffle rankings |
+| Backlog Re-Prioritization | [Prioritization](02_Design_Thinking_and_Product_Management/CH28_Prioritization.md) | Process of revisiting and reranking backlog items when prioritization triggers emerge; mechanically distinct from quarterly (comprehensive) vs. tactical (specific escalations) |
+| Stakeholder Negotiation in Prioritization | [Prioritization](02_Design_Thinking_and_Product_Management/CH28_Prioritization.md) | Interpersonal and decision-making process of reconciling competing stakeholder value systems (Product maximizes satisfaction, Engineering minimizes debt, Finance maximizes revenue) |
+| Capacity Allocation (MoSCoW) | [Prioritization](02_Design_Thinking_and_Product_Management/CH28_Prioritization.md) | Division of quarterly engineering capacity into MUST/SHOULD/COULD/WON'T buckets (typically 50–70% MUST, 20–30% SHOULD); enforces ruthless triage and requires 20% contingency buffer |
+| Value-based pricing | [Pricing](02_Design_Thinking_and_Product_Management/CH29_Pricing.md) | Aligning price to value delivered; WTP (Willingness-to-Pay) elicitation via conjoint analysis, van Westendorp, or consumer research |
+| Willingness-to-Pay (WTP) | [Pricing](02_Design_Thinking_and_Product_Management/CH29_Pricing.md) | Customer's maximum price; determined via survey/interview techniques; varies by segment, geography, and product maturity |
+| Cost-plus and cost-minus pricing | [Pricing](02_Design_Thinking_and_Product_Management/CH29_Pricing.md) | Markup mechanics and margin targets used as comparison baseline to value-based pricing; negotiation anchors for cost-driven suppliers |
+| Freemium models | [Pricing](02_Design_Thinking_and_Product_Management/CH29_Pricing.md) | Free tier scope, conversion funnel design, friction-wall mechanics, CAC subsidy calculation; typical conversion rates 3–10% B2C, 2–15% B2B |
+| Tiered pricing (good/better/best) | [Pricing](02_Design_Thinking_and_Product_Management/CH29_Pricing.md) | Discrete price points, feature bundling, price anchoring psychology (anchor effect, compromise effect); tier-boundary design for self-selection |
+| Usage-based/metered pricing | [Pricing](02_Design_Thinking_and_Product_Management/CH29_Pricing.md) | Unit definition (API calls, MB, transactions), metering architecture, billing calculation, bill-shock mitigation via hybrid models (base + overage) |
+| Subscription vs. perpetual licensing | [Pricing](02_Design_Thinking_and_Product_Management/CH29_Pricing.md) | Recurring revenue model with different cash-flow timing and switching-cost implications; distinct SaaS unit economics (MRR, ARR, churn) |
+| Geographic and segment pricing | [Pricing](02_Design_Thinking_and_Product_Management/CH29_Pricing.md) | Region-specific pricing, PPP (Purchasing Power Parity), gray-market arbitrage risks; exploits WTP variance across geographies and customer types |
+| Launch pricing strategies (skimming vs. penetration) | [Pricing](02_Design_Thinking_and_Product_Management/CH29_Pricing.md) | High-price launch targeting early adopters vs. low-price launch for market share; moderated by network effects and switching costs |
+| Price elasticity of demand (PED) | [Pricing](02_Design_Thinking_and_Product_Management/CH29_Pricing.md) | Elasticity definition (% quantity change / % price change); determines whether price increases are viable (inelastic) or trigger churn (elastic) |
+| Pricing communication and anchoring | [Pricing](02_Design_Thinking_and_Product_Management/CH29_Pricing.md) | Behavioral economics mechanism: how first prices shape perception of subsequent prices; pricing narrative and fairness framing |
+| Go-to-Market (GTM) Strategy | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Operational execution engine translating product, validated market demand, and pricing model into sustained revenue and competitive defensibility |
+| Beachhead Market | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Initial target customer segment chosen for size, accessibility, and profitability to establish dominant market share before expanding to adjacent markets |
+| Target Customer Segmentation and Persona Mapping | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Division of TAM into cohorts based on JTBD, WTP, purchase process, and adoption friction; different segments have wildly different CAC and sales cycle |
+| Sales-Led Growth (SLG) | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | GTM motion with dedicated sales team managing relationships and closing deals; appropriate for high-LTV ($100K+), complex products; typical sales cycle 60–180 days |
+| Product-Led Growth (PLG) | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | GTM motion where product itself is primary acquisition and onboarding vehicle; appropriate for low-LTV ($1K–$10K) self-serve products; typical conversion cycle <30 days |
+| Hybrid Go-to-Market | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Segmented GTM combining SLG for enterprise and PLG for SMB/self-serve; requires clear segmentation criteria and separate team responsibilities |
+| Launch Phasing | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | GTM execution broken into distinct phases (MVP, beachhead scaling, scaling, leadership) each with explicit objectives, metrics, and resource allocation |
+| Sales Motion | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Standardized sequence of activities (outbound, inbound, inside sales) account executive follows to move prospect from awareness to close |
+| Sales Cycle | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Elapsed time from initial contact to contract signature; varies by segment (enterprise 90–180 days, mid-market 30–90 days, SMB <30 days) |
+| Ideal Customer Profile (ICP) | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Documented company characteristics, personas, pain points, and buying process of customer segment most likely to be acquired, retained, and expanded |
+| Qualification Framework (BANT/MEDDIC) | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Structured process for determining if prospect is qualified to advance in sales pipeline (Budget, Authority, Need, Timeline, or MEDDIC variants) |
+| Market Positioning (in GTM) | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Distinct place product occupies in customer's mind relative to competitors; determined by feature set, target segment, price, and brand messaging |
+| Competitive Differentiation | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Specific, defensible reason customer should choose this product over alternatives; must be credible and defensible for 18+ months |
+| Pricing Positioning (in GTM) | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Deliberate communication of price relative to perceived value and competitor alternatives; anchors to customer's economic value |
+| Customer Success | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Operational discipline systematically ensuring customers achieve stated business outcomes, leading to sustained retention and expansion |
+| Net Revenue Retention (NRR) | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Metric tracking total revenue from existing customer base including new customer addition, expansion, and churn; NRR >100% indicates expansion exceeds churn |
+| Customer Acquisition Cost (CAC) (in GTM) | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Total marketing and sales spend divided by number of new customers acquired in period; governs which GTM motion is viable |
+| Lifetime Value (LTV) (in GTM) | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Discounted sum of all future gross margins from a customer relationship; function of ARPU, gross margin %, and churn rate; LTV:CAC >3:1 is viable |
+| CAC Payback Period | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Elapsed time from customer acquisition until cumulative gross margin exceeds cumulative CAC; benchmark <15 months for SLG, <6 months for PLG |
+| Churn Rate (in GTM) | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Percentage of customers who do not renew or cancel in a period; high churn (>5% monthly) makes acquisition-based growth unsustainable |
+| Viral Coefficient (K-Factor) | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Average number of new customers acquired by each existing customer through referral; if K>1, exponential growth without external acquisition |
+| Sales Team Structure | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Roles within sales organization (VP of Sales, AE, SDR, CSM, Revenue Ops); clear role separation improves efficiency |
+| Customer Success Management (CSM) Model | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Approach to customer success delivery (high-touch for enterprise, automation for SMB); allocate CSM resources by customer LTV |
+| Demand Generation | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Process of attracting and qualifying potential customers via inbound (content, SEO, paid ads) and outbound (cold email, SDR, events, partnerships) |
+| Content Marketing | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | Creation and distribution of valuable content (blog, whitepaper, webinar, case study) to attract inbound leads; long-tail ROI payoff 3–6 months after publication |
+| Partnership and Channel Strategy | [Go-to-Market](02_Design_Thinking_and_Product_Management/CH30_Go_to_Market.md) | GTM approach leveraging third-party partnerships (resellers, technology integrations, agencies, referral partners); typically 20–50% revenue share |
+| Net Promoter Score (NPS) | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Quantitative customer loyalty metric (0-10 question, segmented into Promoters/Passives/Detractors, -100 to +100 score); leading indicator of churn and expansion |
+| Customer Satisfaction Score (CSAT) | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Quantitative satisfaction metric for specific experiences (1-5 or 1-10 Likert scale); deployed post-interaction |
+| Voice of Customer (VoC) Program | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Systematic ongoing process for collecting, analyzing, and acting on customer feedback across multiple channels (surveys, support, interviews, social); unified repository |
+| Feedback-to-Action Loop | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Operational process routing customer feedback to product/engineering/support, prioritizing for roadmap, and communicating status back to customers |
+| Sentiment Analysis (Automated) | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Computational classification of feedback as positive/negative/neutral using rule-based (lexicon) or transformer-based (BERT, GPT) approaches |
+| Theme Extraction / Topic Modeling | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Automated or semi-automated clustering of feedback into recurring topics (Performance, Onboarding, Pricing, etc.) |
+| Behavioral Feedback Signals | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Quantitative or qualitative data from product usage (feature adoption, session recordings, error logs, funnel drop-offs); reveals unmet needs invisible to support tickets |
+| Customer Effort Score (CES) | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Quantitative metric measuring ease of completing a task or resolving an issue (1-5 scale); predictor of customer satisfaction and loyalty |
+| Win/Loss Analysis (Customer Feedback) | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Qualitative feedback method interviewing customers who chose your product (wins) and competitors (losses); reveals feature gaps and competitive threats |
+| Close-Loop Feedback System | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Infrastructure where customers receive visibility into actions taken in response to their feedback; increases retention, advocacy, and NPS among requesting customers |
+| NPS Cohort Analysis | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Segmentation of NPS by customer segment (enterprise vs. SMB), geography, tenure, or feature-adoption level; reveals cohort-specific satisfaction and churn risks |
+| Feedback Routing / Triage Engine | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Automated or rule-based system routing feedback to appropriate teams (Engineering for bugs, Product for features, Sales for competitive intelligence) |
+| Churn Risk Scoring (Customer Feedback) | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Behavioral model estimating customer churn probability based on NPS trend, feature usage, session frequency, and support tickets; enables proactive retention |
+| Feedback Bias and Representativeness | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Selection bias (self-selected respondents), response bias (power users over-represented), confirmation bias; mitigated via triangulation with behavioral data |
+| Feedback Quality Validation | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Framework assessing whether feedback corpus is actionable (representative, sufficient sample size, recent, high confidence); marks provisional conclusions for low-quality feedback |
+| Privacy-by-Design in Feedback Infrastructure | [Customer Feedback](02_Design_Thinking_and_Product_Management/CH31_Customer_Feedback.md) | Architectural principle including consent management, PII masking, access controls, and retention policies from the start, not retrofitted |
 
 ## How to add an entry
 
@@ -452,4 +517,45 @@ when multiple chapters are authored in parallel, isolated sessions.
   Roadmaps while cleanly deferring future-chapter concepts (such as
   algorithmic prioritization to CH25 Prioritization, single-metric alignment to
   CH25 North Star Metrics, and statistical test design to Experimentation/A-B Testing).
+- **Batch 12 (Part 02 batch 10 — Prioritization, Pricing, Go-to-Market, Customer Feedback)**: merged
+  `review/concept-proposals/prioritization.md` (20 concepts),
+  `review/concept-proposals/pricing.md` (11 concepts),
+  `review/concept-proposals/go-to-market.md` (28 concepts), and
+  `review/concept-proposals/customer-feedback.md` (14 concepts). Completes
+  Product Management subsection (18/18 chapters) and closes out Part 02
+  Design Thinking & Product Management (31/31 total). This batch resolves
+  multiple long-deferred prioritization and metrics-application ownerships:
+  - **Prioritization frameworks (RICE, MoSCoW, Kano, Eisenhower, Composite, CoD, ROI)**: Chapters
+    CH22 (Backlog) and CH24 (Metrics) had flagged forward references to "prioritization frameworks"
+    without teaching them. CH28 (Prioritization) now owns all seven frameworks with full teaching
+    (definitions, mechanics, decision implications, failure modes, scenarios); CH22 and CH24
+    correctly recap with links. No conflict.
+  - **Pricing models and mechanisms (value-based, WTP, freemium, tiered, usage-based, subscription,
+    geographic, launch strategies, price elasticity, communication)**: All 11 concepts newly taught
+    in CH29 (Pricing), which owns the full value-delivery and business-model discipline. Clear
+    boundary with CH30 (Go-to-Market) which uses pricing positioning as an input, not deriving
+    pricing mechanics. No re-teaching detected.
+  - **Go-to-Market as orchestration layer**: CH29 (Pricing) and CH30 (Go-to-Market) correctly
+    enforce boundary — Pricing owns price-setting discipline; GTM owns the execution engine (SLG/PLG,
+    beachhead, sales motion, CAC/LTV, customer success, retention, NRR). CH30 taught 28 concepts
+    with clear delineation: 18 full-teaching concepts (GTM Strategy, Beachhead, Segmentation, SLG,
+    PLG, Hybrid, Launch Phasing, Sales Motion, Sales Cycle, ICP, BANT/MEDDIC, Positioning,
+    Differentiation, Pricing Positioning, Customer Success, NRR, Sales Structure, CSM Model) and
+    10 recap+link concepts (Demand Generation, Content Marketing, Partnerships, Churn, CAC, LTV,
+    Payback, K-Factor, Team Structure) referencing earlier chapters. No re-teaching detected.
+  - **Customer Feedback loop as primary loop**: CH31 (Customer Feedback) owns VoC, NPS/CSAT/CES,
+    Sentiment Analysis, Theme Extraction, Behavioral Signals, Win/Loss, Close-Loop systems, Routing,
+    Churn Risk scoring, and Feedback Quality framework (14 concepts) as the operational feedback
+    channel. Clear boundary with CH24 (Metrics) — Metrics owns telemetry/instrumentation; Feedback
+    owns qualitative/quantitative feedback collection, synthesis, and actionability. No re-teaching.
+  - **CH22 Backlog fix (pre-batch)**: Production architecture diagram (Section 8) had unsupported
+    `architecture-beta` Mermaid syntax; converted to standard flowchart using subgraphs. Diagram
+    now parses successfully; committed separately as a2c82e0.
+  - **Zero conflicts detected**: All 73 proposed concepts (20 + 11 + 28 + 14 = 73 total, deduped to
+    66 unique) were merged into the registry with no ownership disputes or re-teaching issues. Forward
+    references from CH22 (Backlog), CH24 (Metrics), CH25 (North Star), CH26 (Experimentation), and
+    CH27 (A/B Testing) are now all fully resolved to their originating chapters.
+  - **Part 02 finalization**: All 31 chapters of Part 02 (Design Thinking 13/13 + Product Management
+    18/18) are now drafted, edited, and published with comprehensive concept ownership documented.
+    Overall handbook progress: 31/296 chapters (Part 01: 3/3; Part 02: 27/31; Pilot: 2/2).
 
