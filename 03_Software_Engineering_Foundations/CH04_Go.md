@@ -63,26 +63,17 @@ more here than in most language chapters.
 ```mermaid
 timeline
     title Go's Evolution as an Architectural Response
-    2007 : Robert Griesemer, Rob Pike, Ken Thompson begin
-           designing Go at Google : Motivated by slow C++
-           builds, painful dependency management, and
-           multi-core hardware that existing languages
-           did not model well
+    2007 : Griesemer, Pike, Thompson begin designing Go at Google
+         : Motivated by slow C++ builds, painful dependency management, and multi-core hardware existing languages did not model well
     2009 : Go announced publicly and open-sourced
-    2012 : Go 1.0 — language and standard library
-           compatibility promise begins
-    2015 : Go 1.5 — compiler and runtime rewritten from
-           C into Go itself; GC pauses reduced from
-           ~300ms to single-digit milliseconds
-    2015 : Kubernetes released, written in Go —
-           the tipping point for infrastructure tooling
-    2018 : Go 1.11 — modules (go.mod) introduced,
-           GOPATH era begins ending
-    2019 : Go 1.13 — error wrapping (errors.Is/As/Unwrap)
-           standardized
+    2012 : Go 1.0 — language and standard library compatibility promise begins
+    2015 : Go 1.5 — compiler and runtime rewritten from C into Go itself
+         : GC pauses reduced from ~300ms to single-digit milliseconds
+    2015 : Kubernetes released, written in Go — the tipping point for infrastructure tooling
+    2018 : Go 1.11 — modules (go.mod) introduced, GOPATH era begins ending
+    2019 : Go 1.13 — error wrapping (errors.Is/As/Unwrap) standardized
     2022 : Go 1.18 — generics (type parameters) added
-    2023 : Go 1.21 — GC pacer redesigned;
-           min/max/clear builtins; workspace mode matures
+    2023 : Go 1.21 — GC pacer redesigned; min/max/clear builtins; workspace mode matures
 ```
 
 **The problem Go was built to solve.** By 2004-2006, Google's internal C++
