@@ -161,6 +161,25 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Audience-tiered roadmap communication (single-source, multiple-views) | [Roadmaps](02_Design_Thinking_and_Product_Management/CH21_Roadmaps.md) | Deriving exec/sales, engineering, and customer views from one internal source-of-truth record |
 | Tiered external roadmap disclosure policy | [Roadmaps](02_Design_Thinking_and_Product_Management/CH21_Roadmaps.md) | Horizon-stability-based lag rules for customer-facing roadmap content; fulfills Product Strategy's Section 13 forward reference |
 | Roadmap governance and revision cadence | [Roadmaps](02_Design_Thinking_and_Product_Management/CH21_Roadmaps.md) | Scheduled review vs. event-triggered revision, scaled by disclosure tier |
+| Backlog Item Taxonomy & Mechanics | [Backlog](02_Design_Thinking_and_Product_Management/CH22_Backlog.md) | Structured item classification (User Stories, Spikes, Architecture Enablers, Tech Debt, Bugs) and estimation profiles; Section 4.1 |
+| DEEP Framework (Detailed, Estimated, Emergent, Prioritized) | [Backlog](02_Design_Thinking_and_Product_Management/CH22_Backlog.md) | Operational quality criteria for a living product backlog (Pichler / Cohn); Section 4.2 |
+| Definition of Ready (DoR) vs. Definition of Done (DoD) Contracts | [Backlog](02_Design_Thinking_and_Product_Management/CH22_Backlog.md) | Dual-gate execution contract between discovery, team execution, and production release; Section 4.3 |
+| Backlog Refinement Loop Mechanics | [Backlog](02_Design_Thinking_and_Product_Management/CH22_Backlog.md) | Continuous intake-to-sprint-ready pipeline, cadence, and progressive elaboration; Section 4.4 |
+| Backlog Debt and Entropy Decay | [Backlog](02_Design_Thinking_and_Product_Management/CH22_Backlog.md) | Accumulation of stale items, decay rates, triage algorithms, and backlog pruning discipline; Section 4.5 |
+| Item Dependency Topology & Coupling Analysis | [Backlog](02_Design_Thinking_and_Product_Management/CH22_Backlog.md) | Directed Acyclic Graph (DAG) mapping of hard/soft/external dependencies and cross-team coupling; Section 4.6 |
+| Backlog Tooling Synchronization Architecture | [Backlog](02_Design_Thinking_and_Product_Management/CH22_Backlog.md) | Event-driven integration, outbox patterns, state reconciliation, and conflict resolution across tools (Jira, GitHub); Section 4.7 |
+| MVP Taxonomy (Concierge, Wizard of Oz, Piecemeal, Landing Page, Single-Feature) | [MVP](02_Design_Thinking_and_Product_Management/CH23_MVP.md) | Five-type operational taxonomy of Minimum Viable Products categorized by technical mechanism, overhead, and evidence fidelity |
+| Architectural Strategy for Throwaway vs. Evolutionary MVPs | [MVP](02_Design_Thinking_and_Product_Management/CH23_MVP.md) | Decision criteria and technical boundaries between disposable facades and production-grade evolutionary foundations |
+| Riskiest Assumption Testing (RAT) | [MVP](02_Design_Thinking_and_Product_Management/CH23_MVP.md) | Methodology for isolating, prioritizing, and falsifying critical value, feasibility, and viability assumptions prior to full feature development |
+| Quality and Security-Preserving Scope Reduction ("Vertical Slice" Model) | [MVP](02_Design_Thinking_and_Product_Management/CH23_MVP.md) | Slicing strategy for reducing feature breadth without compromising non-functional quality attributes or security boundaries |
+| Post-Launch Pivot vs. Persevere Decision Engine | [MVP](02_Design_Thinking_and_Product_Management/CH23_MVP.md) | Structured quantitative/qualitative evaluation engine for determining whether to iterate, pivot, or terminate based on telemetry |
+| Output vs. Outcome Metrics | [Metrics](02_Design_Thinking_and_Product_Management/CH24_Metrics.md) | Structural distinction between volume/delivery shipped (output) and human/business behavioral change (outcome) |
+| Input / Output Metric Tree (Metric Trees) | [Metrics](02_Design_Thinking_and_Product_Management/CH24_Metrics.md) | Directed acyclic graph mapping controllable input levers to downstream outcome metrics |
+| HEART Framework | [Metrics](02_Design_Thinking_and_Product_Management/CH24_Metrics.md) | User-experience metric framework across Happiness, Engagement, Adoption, Retention, and Task Success |
+| AARRR Acquisition Funnel Metrics (Pirate Metrics) | [Metrics](02_Design_Thinking_and_Product_Management/CH24_Metrics.md) | Product lifecycle conversion metric framework (Acquisition, Activation, Retention, Referral, Revenue) |
+| Counter-Metrics / Guardrail Metrics | [Metrics](02_Design_Thinking_and_Product_Management/CH24_Metrics.md) | Metrics tracked specifically to detect systemic side effects, gaming, or trade-off degradation caused by optimizing a target metric |
+| Telemetry Instrumentation Architecture | [Metrics](02_Design_Thinking_and_Product_Management/CH24_Metrics.md) | Client/server event emission schema, telemetry pipeline topology, processing semantics, and schema governance contract |
+| Vanity Metrics vs. Actionable Metrics | [Metrics](02_Design_Thinking_and_Product_Management/CH24_Metrics.md) | Diagnostic taxonomy separating non-falsifiable, monotonic upward indicators from causal, decision-driving metrics |
 
 ## How to add an entry
 
@@ -377,4 +396,12 @@ when multiple chapters are authored in parallel, isolated sessions.
     contract; controlled external roadmap disclosure) are now fully
     resolved by "Roadmaps" with no re-teaching of Product Strategy's
     Three Horizons, strategy stack, or JTBD.
+- **Batch 10 (Part 02 batch 8 — Backlog, MVP, Metrics)**: merged `review/concept-proposals/backlog.md`
+  (7 concepts), `review/concept-proposals/mvp.md` (5 concepts), and
+  `review/concept-proposals/metrics.md` (7 concepts). All three chapters
+  maintained clean boundaries with earlier chapters, grounding high-level
+  forward references from Lean UX, Product Discovery, Story Mapping, and
+  Roadmaps while cleanly deferring future-chapter concepts (such as
+  algorithmic prioritization to CH25 Prioritization, single-metric alignment to
+  CH25 North Star Metrics, and statistical test design to Experimentation/A-B Testing).
 

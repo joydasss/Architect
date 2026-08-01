@@ -34,9 +34,9 @@ chat's "Suggested Book Sequence" (item 2).
 | Journey Mapping | Edited — file: `CH19_Journey_Mapping_Product_Management.md` (disambiguated from Design Thinking's `CH05_Journey_Mapping.md`); recaps + links core artifact, owns only the commercial-lifecycle layer |
 | Story Mapping | Edited (batch-reviewed, no unresolved overlap) |
 | Roadmaps | Edited (batch-reviewed, resolves Product Strategy's Section 4.7/13 forward references) |
-| Backlog | Not Started |
-| MVP (Minimum Viable Product) | Not Started |
-| Metrics | Not Started |
+| Backlog | Edited (batch-reviewed, resolves Story Mapping/Roadmaps backlog queue links) |
+| MVP (Minimum Viable Product) | Edited (batch-reviewed, resolves Product Discovery/Lean UX MVP links) |
+| Metrics | Edited (batch-reviewed, resolves Product Strategy/Journey Mapping telemetry links) |
 | North Star Metrics | Not Started |
 | Experimentation | Not Started |
 | A/B Testing | Not Started |
