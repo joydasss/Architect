@@ -9,37 +9,37 @@ the original 21 named parts).
 
 | Chapter | Status |
 |---|---|
-| OSI Model | Not Started |
-| TCP/IP | Not Started |
-| HTTP | **Reviewed (pilot, no changes required)** |
-| HTTP/2 | Not Started |
-| HTTP/3 | Not Started |
-| TLS (Transport Layer Security) | Not Started |
-| SSL (Secure Sockets Layer) | Not Started |
-| DNS (Domain Name System) | Not Started |
-| CDN (Content Delivery Network) | Not Started |
-| Load Balancer | Not Started |
-| Reverse Proxy | Not Started |
-| NAT (Network Address Translation) | Not Started |
-| VPN (Virtual Private Network) | Not Started |
-| Firewalls | Not Started |
-| Certificates | Not Started |
-| Sockets | Not Started |
-| WebSockets | Not Started |
-| QUIC | Not Started |
-| OAuth | Not Started |
-| OIDC (OpenID Connect) | Not Started |
-| SAML (Security Assertion Markup Language) | Not Started |
-| JWT (JSON Web Token) | Not Started |
-| PingFederate | Not Started |
+| HTTP | **Edited — 27 sections, 0 diagrams, 2 code examples** *(pilot chapter)* |
+| OSI Model | Edited — 27 sections, 12 diagrams, 8 code examples |
+| TCP/IP | Edited — 27 sections, 14 diagrams, 16 code examples |
+| HTTP/2 | Edited — 27 sections, 13 diagrams, 10 code examples |
+| HTTP/3 | Edited — 27 sections, 13 diagrams, 12 code examples |
+| TLS (Transport Layer Security) | Edited — 27 sections, 18 diagrams, 10 code examples |
+| SSL (Secure Sockets Layer) | Edited — 27 sections, 11 diagrams, 6 code examples |
+| DNS (Domain Name System) | Edited — 27 sections, 16 diagrams, 10 code examples |
+| CDN (Content Delivery Network) | Edited — 27 sections, 15 diagrams, 8 code examples |
+| Load Balancer | Edited — 27 sections, 17 diagrams, 8 code examples |
+| Reverse Proxy | Edited — 27 sections, 16 diagrams, 6 code examples |
+| NAT (Network Address Translation) | Edited — 27 sections, 19 diagrams, 14 code examples |
+| VPN (Virtual Private Network) | Edited — 27 sections, 16 diagrams, 12 code examples |
+| Firewalls | Edited — 27 sections, 21 diagrams, 8 code examples |
+| Certificates | Edited — 27 sections, 18 diagrams, 12 code examples |
+| Sockets | Edited — 27 sections, 13 diagrams, 6 code examples |
+| WebSockets | Edited — 27 sections, 19 diagrams, 10 code examples |
+| QUIC | Edited — 27 sections, 15 diagrams, 8 code examples |
+| OAuth | Edited — 27 sections, 15 diagrams, 6 code examples |
+| OIDC (OpenID Connect) | Edited — 27 sections, 16 diagrams, 10 code examples |
+| SAML (Security Assertion Markup Language) | Edited — 27 sections, 16 diagrams, 6 code examples |
+| JWT (JSON Web Token) | Edited — 27 sections, 16 diagrams, 8 code examples |
+| PingFederate | Edited — 27 sections, 17 diagrams, 6 code examples |
 
 ## Chapters — Operating Systems (new)
 
 | Chapter | Status |
 |---|---|
-| Processes and Threads | Not Started |
-| Memory Management | Not Started |
-| File Systems | Not Started |
-| I/O and Scheduling | Not Started |
-| Virtualization and Container Fundamentals | Not Started |
-| Linux Internals for Architects | Not Started |
+| Processes and Threads | Edited — 27 sections, 17 diagrams, 8 code examples |
+| Memory Management | Edited — 27 sections, 16 diagrams, 8 code examples |
+| File Systems | Edited — 27 sections, 13 diagrams, 10 code examples |
+| I/O and Scheduling | Edited — 27 sections, 14 diagrams, 8 code examples |
+| Virtualization and Container Fundamentals | Edited — 27 sections, 20 diagrams, 8 code examples |
+| Linux Internals for Architects | Edited — 27 sections, 15 diagrams, 8 code examples |

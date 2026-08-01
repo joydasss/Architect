@@ -19,7 +19,7 @@ when multiple chapters are authored in parallel, isolated sessions.
 | HTTP status codes | [HTTP](05_Networking_and_OS/CH01_HTTP.md) | Full taxonomy (1xx-5xx), semantics, retry implications |
 | HTTP caching headers (`Cache-Control`, `ETag`, etc.) | [HTTP](05_Networking_and_OS/CH01_HTTP.md) | Browser/CDN/proxy caching layers |
 | HTTP methods (GET/POST/PUT/PATCH/DELETE) | [HTTP](05_Networking_and_OS/CH01_HTTP.md) | Semantics, idempotency, safety |
-| TLS handshake | [HTTP](05_Networking_and_OS/CH01_HTTP.md) | Covered at the transport-security level relevant to HTTP/HTTPS |
+| TLS handshake (TLS 1.2 and 1.3, full mechanics) | [TLS](05_Networking_and_OS/CH06_TLS.md) | Moved from HTTP (Batch 15) — HTTP recaps only 2-3 sentences; full byte-level handshake mechanics, cipher suites, SNI, ALPN mechanism, mTLS, session resumption now owned by TLS |
 | HATEOAS | [REST](08_API_Architecture/CH01_REST.md) | REST maturity model, hypermedia controls |
 | Richardson Maturity Model | [REST](08_API_Architecture/CH01_REST.md) | REST-specific API design maturity levels |
 | Resource modeling (REST) | [REST](08_API_Architecture/CH01_REST.md) | URI design, nouns vs verbs, resource relationships |
@@ -373,6 +373,187 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Cross-micro-frontend communication pattern spectrum | [Micro Frontends](04_Frontend_Architecture/CH08_Micro_Frontends.md) | Coupling-ordered coordination options: custom events, shared state store, URL-based routing coordination |
 | Disjoint DOM mount point rule; remote registry/manifest service | [Micro Frontends](04_Frontend_Architecture/CH08_Micro_Frontends.md) | Non-overlapping DOM ownership rule and shell-side remote discovery without rebuild |
 | Server-side/edge-side composition and stitching; horizontal vs. vertical MFE split | [Micro Frontends](04_Frontend_Architecture/CH08_Micro_Frontends.md) | Pre-browser fragment assembly (ESI/SSI/edge compute), and page-region vs. route-based composition topology |
+| OSI (Open Systems Interconnection) 7-layer reference model | [OSI Model](05_Networking_and_OS/CH02_OSI_Model.md) | Full teaching of all seven layers, mechanism/decision/failure-mode per layer |
+| Layering as an architectural principle | [OSI Model](05_Networking_and_OS/CH02_OSI_Model.md) | General per-layer-service-interface decomposition principle, applied to networking |
+| Encapsulation/de-encapsulation (network PDU nesting) | [OSI Model](05_Networking_and_OS/CH02_OSI_Model.md) | Header-wrapping/unwrapping mechanism moving data down/up the stack |
+| OSI vs. TCP/IP 4-layer model mapping | [OSI Model](05_Networking_and_OS/CH02_OSI_Model.md) | Why TCP/IP collapses OSI's 7 layers to 4, and why the internet runs on TCP/IP |
+| "Which layer is this problem at" diagnostic framework; layer-violation anti-pattern | [OSI Model](05_Networking_and_OS/CH02_OSI_Model.md) | Bottom-up fault-isolation discipline, and the named anti-pattern for cross-layer coupling |
+| MTU / encapsulation overhead and fragmentation | [OSI Model](05_Networking_and_OS/CH02_OSI_Model.md) | Header overhead accumulation, Path MTU/fragmentation failure mode, tunneling's MTU-reduction effect |
+| Session-layer responsibility externalization; defense-in-depth controls mapped to OSI layers | [OSI Model](05_Networking_and_OS/CH02_OSI_Model.md) | Why session state lives in app code/session stores, not a Session-layer protocol; per-layer security control taxonomy |
+| IP addressing fundamentals and IPv4 exhaustion (NAT/IPv6 as responses) | [TCP/IP](05_Networking_and_OS/CH03_TCPIP.md) | Address structure, classful addressing's waste, exhaustion history |
+| CIDR and subnetting as address-space allocation architecture | [TCP/IP](05_Networking_and_OS/CH03_TCPIP.md) | Prefix notation, route summarization, subnet sizing |
+| Ports and sockets (OS-level transport addressing, 4-tuple) | [TCP/IP](05_Networking_and_OS/CH03_TCPIP.md) | Well-known/registered/ephemeral ranges, socket 4-tuple demultiplexing |
+| TCP three-way handshake and connection state machine (incl. TIME_WAIT) | [TCP/IP](05_Networking_and_OS/CH03_TCPIP.md) | SYN/SYN-ACK/ACK establishment, full state machine, four-way close |
+| TCP reliability, sliding-window flow control, and congestion control (BDP) | [TCP/IP](05_Networking_and_OS/CH03_TCPIP.md) | Sequence/ACK/retransmission, receiver window vs. congestion window, slow start/avoidance |
+| UDP as connectionless transport and selection criteria | [TCP/IP](05_Networking_and_OS/CH03_TCPIP.md) | When to choose UDP over TCP |
+| Nagle's algorithm / TCP_NODELAY; ephemeral port exhaustion | [TCP/IP](05_Networking_and_OS/CH03_TCPIP.md) | Delayed-ACK interaction and tuning heuristic; TIME_WAIT-driven single-host port exhaustion failure mode |
+| HTTP/2 binary framing layer and stream multiplexing | [HTTP/2](05_Networking_and_OS/CH04_HTTP2.md) | 9-byte frame header + frame-type taxonomy; concurrent streams over one TCP connection |
+| Application-layer vs. transport-layer head-of-line (HOL) blocking | [HTTP/2](05_Networking_and_OS/CH04_HTTP2.md) | HTTP/2 solves only app-layer HOL blocking; TCP-level HOL blocking remains (motivates HTTP/3) |
+| HPACK header compression | [HTTP/2](05_Networking_and_OS/CH04_HTTP2.md) | Static/dynamic table + Huffman coding, designed to avoid CRIME/BREACH-class attacks |
+| HTTP/2 stream prioritization and flow control (SETTINGS-tunable) | [HTTP/2](05_Networking_and_OS/CH04_HTTP2.md) | Weighted dependency trees (RFC 7540, superseded by RFC 9218) and credit-based WINDOW_UPDATE |
+| HTTP/2 server push and its deprecation | [HTTP/2](05_Networking_and_OS/CH04_HTTP2.md) | PUSH_PROMISE mechanism; case study in a fully-specified feature failing in production |
+| h2 vs. h2c; HTTP/1.1-to-HTTP/2 migration anti-patterns | [HTTP/2](05_Networking_and_OS/CH04_HTTP2.md) | TLS vs. cleartext HTTP/2; domain sharding/concatenation/spriting becoming counterproductive post-multiplexing |
+| HTTP/2 Rapid Reset attack class | [HTTP/2](05_Networking_and_OS/CH04_HTTP2.md) | Stream open/RST_STREAM resource-exhaustion attack; flagged for future Security part co-ownership |
+| QPACK header compression; Alt-Svc-based HTTP/3 discovery | [HTTP/3](05_Networking_and_OS/CH05_HTTP3.md) | QUIC-compatible HPACK successor tolerating out-of-order delivery; client discovery/negotiation mechanism |
+| UDP deployment risk (firewall/middlebox blocking); HTTP/3 extensible priority scheme | [HTTP/3](05_Networking_and_OS/CH05_HTTP3.md) | Corporate middlebox UDP blocking and mandatory TCP fallback; simplified Urgency/Incremental signaling replacing server push |
+| Symmetric vs. asymmetric cryptography (TLS's dual use) | [TLS](05_Networking_and_OS/CH06_TLS.md) | Asymmetric key exchange, symmetric bulk encryption |
+| Perfect Forward Secrecy (PFS) via ephemeral Diffie-Hellman | [TLS](05_Networking_and_OS/CH06_TLS.md) | Why ephemeral (EC)DHE prevents retroactive decryption |
+| Cipher suite negotiation; Server Name Indication (SNI) | [TLS](05_Networking_and_OS/CH06_TLS.md) | Negotiation mechanics + TLS 1.3's AEAD-only suite shrink; plaintext hostname-in-ClientHello multi-tenant termination |
+| ALPN (Application-Layer Protocol Negotiation) mechanism | [TLS](05_Networking_and_OS/CH06_TLS.md) | The handshake extension itself; per-protocol policy recapped by HTTP/2 and HTTP/3 |
+| TLS termination architecture patterns (edge / end-to-end / passthrough) | [TLS](05_Networking_and_OS/CH06_TLS.md) | Trade-offs choosing where a TLS connection is decrypted |
+| Mutual TLS (mTLS); session resumption (IDs/tickets/PSK) | [TLS](05_Networking_and_OS/CH06_TLS.md) | Client+server certificate auth; abbreviated handshake mechanics, prerequisite for 0-RTT |
+| SSL version history, SSL-to-TLS rename, and vocabulary persistence | [SSL](05_Networking_and_OS/CH07_SSL.md) | Proprietary Netscape origin, SSLv2/3 flaws, why "SSL certificate" persists in industry usage |
+| POODLE / BEAST / CRIME / BREACH attack class | [SSL](05_Networking_and_OS/CH07_SSL.md) | CBC padding-oracle and compression side-channel attacks; flagged for future Security part co-ownership |
+| PCI DSS legacy-protocol disable deadline; legacy protocol audit methodology | [SSL](05_Networking_and_OS/CH07_SSL.md) | Compliance-driven forced removal of SSL/early TLS; live protocol-negotiation probing as ground truth |
+| Isolate-and-bridge pattern for legacy protocol exceptions | [SSL](05_Networking_and_OS/CH07_SSL.md) | Narrowly-scoped, monitored bridge proxy instead of estate-wide relaxation |
+| DNS hierarchy (root/TLD/authoritative/recursive) and zones/delegation/SOA | [DNS](05_Networking_and_OS/CH08_DNS.md) | Four-layer delegation model, referral/glue mechanics, administrative-authority unit |
+| DNS resource record types (A/AAAA/CNAME/MX/TXT/NS/SOA/PTR/SRV/CAA) | [DNS](05_Networking_and_OS/CH08_DNS.md) | Per-type architectural purpose and coexistence rules |
+| CNAME flattening/ALIAS; TXT-based verification and SPF/DKIM/DMARC | [DNS](05_Networking_and_OS/CH08_DNS.md) | Zone-apex CNAME workaround; machine-readable ownership/email-auth metadata |
+| TTL as a deploy-latency/rollback-speed architectural lever; negative caching | [DNS](05_Networking_and_OS/CH08_DNS.md) | Propagation-speed vs. query-volume trade-off; NXDOMAIN/NODATA caching via SOA minimum TTL |
+| DNS-based load balancing and traffic steering (GSLB substrate) | [DNS](05_Networking_and_OS/CH08_DNS.md) | Resolution-time distribution and its blindness to real-time backend health |
+| DNSSEC chain of trust | [DNS](05_Networking_and_OS/CH08_DNS.md) | ZSK/KSK/DS/RRSIG signature chain authenticating answers against spoofing |
+| Split-horizon DNS / internal service discovery; glue records | [DNS](05_Networking_and_OS/CH08_DNS.md) | Location-dependent answers; breaking circular NS-in-own-zone dependency |
+| Anycast (DNS root/authoritative scaling context) | [DNS](05_Networking_and_OS/CH08_DNS.md) | Same-IP-many-sites BGP routing; general anycast mechanism co-taught by CDN in the PoP-routing context |
+| DNS amplification/reflection DDoS; multi-provider DNS delegation pattern | [DNS](05_Networking_and_OS/CH08_DNS.md) | Spoofed-source open-resolver abuse; 2016 Dyn-incident-driven dual-provider resilience pattern |
+| Physics floor of latency (speed-of-light-bound propagation delay) | [CDN](05_Networking_and_OS/CH09_CDN.md) | Distance-based latency floor as the core CDN placement motivation |
+| Points of Presence (PoPs) and anycast routing (general mechanism) | [CDN](05_Networking_and_OS/CH09_CDN.md) | BGP-based same-IP-many-locations routing steering users to the nearest edge |
+| Origin shield (fan-in caching tier); CDN cache-key design | [CDN](05_Networking_and_OS/CH09_CDN.md) | Collapsing simultaneous edge-PoP misses into one origin fetch; deliberate cache-identity dimension selection |
+| Dynamic content acceleration; CDN-based DDoS mitigation and WAF integration | [CDN](05_Networking_and_OS/CH09_CDN.md) | Transport-level route/protocol optimization for uncacheable content; edge-absorbed filtering |
+| Edge computing architecture (edge workers/functions) | [CDN](05_Networking_and_OS/CH09_CDN.md) | Replicated application logic across every PoP, distinct from traditional caching |
+| Cache invalidation trade-off (TTL expiry vs. instant purge); multi-CDN architecture | [CDN](05_Networking_and_OS/CH09_CDN.md) | Bounded staleness vs. expensive active purge; dual-vendor resilience with RUM-driven steering |
+| Origin-ingress restriction to CDN IP ranges | [CDN](05_Networking_and_OS/CH09_CDN.md) | Firewalling the origin to close the direct-bypass gap defeating CDN protection |
+| Layer 4 (L4) vs. Layer 7 (L7) load balancing (full mechanical depth) | [Load Balancer](05_Networking_and_OS/CH10_Load_Balancer.md) | NAT/DSR, TLS termination, HTTP parsing; OSI Model keeps only the high-level placement recap |
+| Load-balancing algorithms and consistent hashing | [Load Balancer](05_Networking_and_OS/CH10_Load_Balancer.md) | Round robin/least-connections/weighted variants; ring + virtual-node mechanism |
+| Health-checking architecture (active vs. passive); session affinity/sticky sessions | [Load Balancer](05_Networking_and_OS/CH10_Load_Balancer.md) | Detection-speed vs. false-positive trade-off; cookie/IP-hash affinity vs. stateless scaling tension |
+| Global Server Load Balancing (GSLB); LB high-availability architecture | [Load Balancer](05_Networking_and_OS/CH10_Load_Balancer.md) | DNS-substrate multi-region steering; active-passive vs. active-active pairs |
+| Connection draining; slow-start for newly added backends | [Load Balancer](05_Networking_and_OS/CH10_Load_Balancer.md) | Graceful backend removal; ramping new-backend weight to avoid thundering herd |
+| Hardware-to-software-to-cloud-managed LB evolution (decision framework) | [Load Balancer](05_Networking_and_OS/CH10_Load_Balancer.md) | Historical narrative + present-day deployment-tier decision heuristic |
+| Forward proxy vs. reverse proxy distinction | [Reverse Proxy](05_Networking_and_OS/CH11_Reverse_Proxy.md) | Whose interest is represented; trust-direction difference |
+| Reverse proxy as a superset pattern of load balancing | [Reverse Proxy](05_Networking_and_OS/CH11_Reverse_Proxy.md) | LB is one policy among several (TLS termination, rewriting, caching, compression) |
+| Request/response rewriting and header manipulation; reverse-proxy caching/compression | [Reverse Proxy](05_Networking_and_OS/CH11_Reverse_Proxy.md) | Path rewriting, header injection/stripping; proxy-local caching narrower than CDN edge caching |
+| API Gateway as reverse-proxy-plus-application-awareness | [Reverse Proxy](05_Networking_and_OS/CH11_Reverse_Proxy.md) | Consumer/contract-aware policy layer added to the reverse-proxy primitive; full product architecture deferred to Part 08 |
+| Sidecar proxy architecture | [Reverse Proxy](05_Networking_and_OS/CH11_Reverse_Proxy.md) | Per-service-instance proxy as the east-west building block for a service mesh |
+| Reverse proxy as a security boundary; path/host-based routing | [Reverse Proxy](05_Networking_and_OS/CH11_Reverse_Proxy.md) | "Never expose origin directly" invariant; routing mechanics for strangler-fig migrations |
+| Reverse proxy technology landscape; layered reverse-proxy architecture | [Reverse Proxy](05_Networking_and_OS/CH11_Reverse_Proxy.md) | nginx/HAProxy/Envoy/Traefik sweet spots; stacking CDN + edge proxy + internal gateway/mesh ingress |
+| Mesh-wide retry amplification anti-pattern | [Reverse Proxy](05_Networking_and_OS/CH11_Reverse_Proxy.md) | Uniform aggressive sidecar retries without circuit-breaking cascading a dependency's degradation |
+| SNAT vs. DNAT; NAT translation table/conntrack; PAT (NAT overload) | [NAT](05_Networking_and_OS/CH12_NAT.md) | Two translation directions; stateful 5-tuple mapping; port-multiplexing for shared public IPs |
+| NAT type taxonomy (full-cone/restricted/port-restricted/symmetric); STUN/TURN/ICE | [NAT](05_Networking_and_OS/CH12_NAT.md) | Inbound-reachability classification central to P2P traversal; discovery/relay/negotiation mechanisms |
+| Cloud NAT Gateway architecture; VPC endpoint/PrivateLink NAT-bypass pattern | [NAT](05_Networking_and_OS/CH12_NAT.md) | Managed outbound-only egress + AZ-scoping; cost/latency-motivated private routing bypass |
+| "NAT is not a security boundary" misconception | [NAT](05_Networking_and_OS/CH12_NAT.md) | Incidental connection-tracking drop vs. deliberate firewall policy enforcement |
+| NAT66 and CGNAT (Carrier-Grade NAT); per-destination port exhaustion (NAT Gateway) | [NAT](05_Networking_and_OS/CH12_NAT.md) | Why NAT persists under IPv6; finite shared port budget behind PAT distinct from single-host exhaustion |
+| Site-to-site vs. remote-access VPN architecture | [VPN](05_Networking_and_OS/CH13_VPN.md) | Gateway-to-gateway whole-network tunnels vs. individual client-to-concentrator model |
+| IPsec protocol suite architecture (IKE phases, AH/ESP, tunnel/transport mode) | [VPN](05_Networking_and_OS/CH13_VPN.md) | Two-phase negotiation and mode split, built on TLS-adjacent crypto primitives |
+| WireGuard minimal-attack-surface architecture; legacy VPN protocol deprecation (PPTP/L2TP) | [VPN](05_Networking_and_OS/CH13_VPN.md) | Fixed crypto suite, Cryptokey Routing; MS-CHAPv2 breakage, L2TP's no-encryption-alone gap |
+| Split-tunnel vs. full-tunnel routing architecture | [VPN](05_Networking_and_OS/CH13_VPN.md) | Security-visibility vs. cost/UX trade-off |
+| Zero Trust Network Access (ZTNA) as VPN's architectural successor | [VPN](05_Networking_and_OS/CH13_VPN.md) | Per-application continuously-verified access replacing perimeter "trusted once connected" model; broader Zero Trust Architecture flagged for a future Security-part chapter |
+| VPN concentrator scaling model; hub-and-spoke vs. full-mesh topology | [VPN](05_Networking_and_OS/CH13_VPN.md) | Per-session cost driving horizontal scaling/ZTNA case; tunnel-count/latency/bottleneck trade-off |
+| Stateless vs. stateful vs. application-layer (proxy) firewalls; NGFW | [Firewalls](05_Networking_and_OS/CH14_Firewalls.md) | Header-only, connection-tracking, and full-reassembly filtering tiers; convergence into Next-Gen Firewall |
+| Default-deny vs. default-allow posture; first-match-wins rule evaluation | [Firewalls](05_Networking_and_OS/CH14_Firewalls.md) | Fail-safe-closed vs. fail-open posture; rule-ordering-dependent "shadowed rule" failure mode |
+| Rule sprawl; network segmentation / DMZ architecture | [Firewalls](05_Networking_and_OS/CH14_Firewalls.md) | Unbounded unaudited policy growth risk; trust-zone division and public-facing-service isolation |
+| Host-based vs. network-based firewalls (defense in depth) | [Firewalls](05_Networking_and_OS/CH14_Firewalls.md) | Two enforcement layers protecting against partially overlapping failure modes |
+| Security Groups vs. Network ACLs (cloud VPC) | [Firewalls](05_Networking_and_OS/CH14_Firewalls.md) | Stateful/instance-level vs. stateless/subnet-level cloud-native primitives |
+| Web Application Firewall (WAF) as a category; micro-segmentation | [Firewalls](05_Networking_and_OS/CH14_Firewalls.md) | HTTP-borne-attack-specific application-layer firewall; per-workload/identity policy enforcement |
+| X.509 certificate anatomy and extensions (SAN/Key Usage/EKU) | [Certificates](05_Networking_and_OS/CH15_Certificates.md) | Field-by-field structure; hostname/purpose validation extensions |
+| CA trust hierarchy / chain of trust; DV/OV/EV validation levels | [Certificates](05_Networking_and_OS/CH15_Certificates.md) | Root/intermediate/leaf structure; what each validation level actually verifies |
+| Certificate lifecycle (issuance/renewal); revocation (CRL/OCSP/OCSP stapling) | [Certificates](05_Networking_and_OS/CH15_Certificates.md) | CSR-to-renewal recurring process; stapling solving latency + privacy of client-side OCSP |
+| ACME protocol and automation-first PKI | [Certificates](05_Networking_and_OS/CH15_Certificates.md) | RFC 8555 challenge types; shift from manual/annual to automated/short-lived issuance |
+| Private CA / internal PKI architecture; root key custody / offline root principle | [Certificates](05_Networking_and_OS/CH15_Certificates.md) | Internal root/intermediate custody model; highest-value signing key kept offline |
+| SPIFFE/SPIRE workload identity | [Certificates](05_Networking_and_OS/CH15_Certificates.md) | SPIFFE ID format, SVID issuance, node attestation for short-lived workload mTLS |
+| Certificate pinning and its operational risk; Certificate Transparency (CT logs) | [Certificates](05_Networking_and_OS/CH15_Certificates.md) | Forced-upgrade outage failure mode; public append-only mis-issuance detective control |
+| Socket-as-file-descriptor abstraction; Berkeley sockets API lifecycle | [Sockets](05_Networking_and_OS/CH16_Sockets.md) | Kernel object + per-process FD-table model; fixed socket/bind/listen/accept/connect/send/recv/close sequence |
+| Two-stage connection backlog (SYN queue + accept queue); blocking vs. non-blocking socket I/O | [Sockets](05_Networking_and_OS/CH16_Sockets.md) | Kernel queuing between handshake completion and accept(); O_NONBLOCK's effect on I/O calls |
+| I/O multiplexing evolution (select→poll→epoll/kqueue) and the C10K problem | [Sockets](05_Networking_and_OS/CH16_Sockets.md) | O(n)-to-O(1) shift letting servers scale past ~10K connections |
+| Level-triggered vs. edge-triggered epoll notification | [Sockets](05_Networking_and_OS/CH16_Sockets.md) | Two readiness-reporting modes and the starvation bug edge-triggered mode risks |
+| Server concurrency models (thread-per-connection/event loop/async I/O); Reactor pattern | [Sockets](05_Networking_and_OS/CH16_Sockets.md) | Three architectural patterns turning socket readiness into a working server |
+| SO_REUSEADDR / SO_REUSEPORT; Unix domain sockets vs. TCP sockets | [Sockets](05_Networking_and_OS/CH16_Sockets.md) | Fast-restart rebind and kernel-level multi-process port sharing; local-IPC bypass of the network stack |
+| File-descriptor/connection-limit operational ceiling (RLIMIT_NOFILE, EMFILE) | [Sockets](05_Networking_and_OS/CH16_Sockets.md) | Per-process/system-wide open-FD limits as a capacity-planning input |
+| WebSocket handshake (HTTP Upgrade/101) and framing protocol | [WebSockets](05_Networking_and_OS/CH17_WebSockets.md) | Upgrade-to-WebSocket mechanism; binary frame format with opcodes/masking |
+| Full-duplex decision framework (WebSockets vs. polling vs. SSE); Server-Sent Events (SSE) | [WebSockets](05_Networking_and_OS/CH17_WebSockets.md) | Bidirectional-communication selection criteria; one-way server push over plain HTTP (no dedicated SSE chapter exists yet) |
+| Stateful-connection scaling problem; pub/sub backplane pattern | [WebSockets](05_Networking_and_OS/CH17_WebSockets.md) | Long-lived connections pinning a client to one server process; shared pub/sub fan-out for cross-server delivery |
+| WebSocket heartbeat (ping/pong); reconnection with exponential backoff and jitter | [WebSockets](05_Networking_and_OS/CH17_WebSockets.md) | Application-level liveness detection; thundering-herd-safe client reconnection strategy |
+| Cross-site WebSocket hijacking; connection draining for stateful long-lived-connection servers | [WebSockets](05_Networking_and_OS/CH17_WebSockets.md) | Same-Origin-Policy gap requiring explicit Origin validation; grace-period deployment pattern distinct from stateless rolling deploys |
+| QUIC-on-UDP deployability rationale; encrypt-by-default/anti-ossification design | [QUIC](05_Networking_and_OS/CH18_QUIC.md) | Middlebox-deployability argument for building on UDP; near-total packet encryption defeating plaintext-field dependency |
+| QUIC integrated transport+TLS 1.3 handshake; per-encryption-level packet number spaces | [QUIC](05_Networking_and_OS/CH18_QUIC.md) | CRYPTO frames across four encryption levels; independent loss detection per space (RFC 9002) |
+| Transport-layer stream multiplexing without head-of-line blocking | [QUIC](05_Networking_and_OS/CH18_QUIC.md) | STREAM frames with independent per-stream reassembly |
+| Connection ID (CID) and connection migration wire mechanics | [QUIC](05_Networking_and_OS/CH18_QUIC.md) | NEW_CONNECTION_ID issuance, PATH_CHALLENGE/PATH_RESPONSE validation, full migration sequence |
+| QUIC congestion control adaptation; QUIC short-header wire format | [QUIC](05_Networking_and_OS/CH18_QUIC.md) | NewReno/CUBIC/BBR reuse with per-packet-number-space ACK bookkeeping; annotated byte-level layout |
+| QUIC userspace implementation architecture and CPU cost shift | [QUIC](05_Networking_and_OS/CH18_QUIC.md) | Structural CPU-cost consequence of living outside the kernel vs. TCP's hardware-offloaded path |
+| Connection-ID-aware load balancing; multipath QUIC | [QUIC](05_Networking_and_OS/CH18_QUIC.md) | Why four-tuple LB breaks migration; simultaneous multi-path use as a specialized extension |
+| QUIC-specific 0-RTT mechanics and anti-amplification limit | [QUIC](05_Networking_and_OS/CH18_QUIC.md) | Early data as 0-RTT STREAM frames plus the mandatory 3x anti-amplification limit |
+| OAuth 2.0 four-party delegated-authorization model | [OAuth](05_Networking_and_OS/CH19_OAuth.md) | Resource Owner/Client/Authorization Server/Resource Server role taxonomy |
+| Confidential vs. public client classification; Authorization Code flow with PKCE | [OAuth](05_Networking_and_OS/CH19_OAuth.md) | Client-secret-holding capability drives grant-type safety; code-verifier/challenge extension |
+| Client Credentials flow; Implicit/ROPC flow deprecation | [OAuth](05_Networking_and_OS/CH19_OAuth.md) | Machine-to-machine grant with no Resource Owner; architecture-evolution case study in deprecated grants |
+| Access token vs. refresh token lifetime/rotation architecture; OAuth scopes | [OAuth](05_Networking_and_OS/CH19_OAuth.md) | Short-lived access + rotatable refresh with reuse detection; named permission-string granularity |
+| Token introspection (RFC 7662) and revocation (RFC 7009) | [OAuth](05_Networking_and_OS/CH19_OAuth.md) | Real-time validity check endpoint; proactive invalidation before natural expiry |
+| OAuth is authorization, not authentication (anti-pattern) | [OAuth](05_Networking_and_OS/CH19_OAuth.md) | The distinction motivating OIDC; "OAuth for login" anti-pattern |
+| Backend-for-Frontend (BFF) pattern (OAuth); token exchange (RFC 8693) | [OAuth](05_Networking_and_OS/CH19_OAuth.md) | Server-side token custody for browser clients; minting narrower per-hop tokens for downstream calls |
+| OIDC as OAuth 2.0 + identity layer; ID Token vs. Access Token distinction | [OIDC](05_Networking_and_OS/CH20_OIDC.md) | Three additions (ID Token/Discovery/UserInfo) bolted onto unmodified OAuth flows |
+| OAuth-as-login anti-pattern / confused-deputy identity gap | [OIDC](05_Networking_and_OS/CH20_OIDC.md) | Why a bare access token is unsafe as identity proof |
+| OIDC standard ID token claims (sub/iss/aud/exp/iat/auth_time/nonce/amr) | [OIDC](05_Networking_and_OS/CH20_OIDC.md) | Full semantics/architectural role of each claim |
+| UserInfo Endpoint; OIDC Discovery (`/.well-known/openid-configuration`) | [OIDC](05_Networking_and_OS/CH20_OIDC.md) | Supplemental-claims endpoint with sub cross-check; dynamic standardized client configuration |
+| JWKS + signature validation checklist (OIDC ID token flow) | [OIDC](05_Networking_and_OS/CH20_OIDC.md) | Six-step full validation sequence; partial implementation as a nameable vulnerability class |
+| Standard OIDC scopes/claim vocabulary; authentication vs. authorization as separate concerns | [OIDC](05_Networking_and_OS/CH20_OIDC.md) | Fixed cross-provider vocabulary; why "who are you" and "what can you do" need different artifacts |
+| SSO via shared OpenID Provider session; front-channel vs. back-channel logout | [OIDC](05_Networking_and_OS/CH20_OIDC.md) | One authentication event, independent per-RP tokens; best-effort distributed logout problem |
+| BFF token-handling pattern (OIDC); `sub` as durable identity primary key | [OIDC](05_Networking_and_OS/CH20_OIDC.md) | Server-side exchange eliminating client-side token exposure; linking external identity safely across email changes |
+| JWT structure (header.payload.signature) and Base64URL encoding | [JWT](05_Networking_and_OS/CH21_JWT.md) | Three-segment JWS-serialized shape; why payload is readable, not encrypted |
+| Self-contained vs. opaque reference token architecture; JOSE family (JWS vs. JWE) | [JWT](05_Networking_and_OS/CH21_JWT.md) | Local stateless verification vs. centrally-checked lookup; umbrella spec family, conventionally JWS-only |
+| Symmetric (HMAC) vs. asymmetric (RSA/ECDSA) signing; alg:none / algorithm-confusion vulnerabilities | [JWT](05_Networking_and_OS/CH21_JWT.md) | Why asymmetric signing is required when a verifier must not mint tokens; mandatory algorithm allow-listing fix |
+| Stateless authentication trade-off and the JWT revocation problem | [JWT](05_Networking_and_OS/CH21_JWT.md) | Scalable shared-state-free verification purchased at the cost of pre-expiry revocation difficulty |
+| JWT registered claims registry (iss/sub/aud/exp/nbf/iat/jti) | [JWT](05_Networking_and_OS/CH21_JWT.md) | RFC 7519 standard claim set and per-claim validation purpose |
+| JWKS (JSON Web Key Set) as key-distribution mechanism; kid-based key rotation pattern | [JWT](05_Networking_and_OS/CH21_JWT.md) | kid-based public-key distribution enabling zero-downtime signing-key rotation |
+| SAML actors and assertion structure (AuthnStatement/AttributeStatement/Conditions) | [SAML](05_Networking_and_OS/CH22_SAML.md) | Three-actor federation model; field-by-field signed-assertion teaching |
+| XML Digital Signature (XML-DSig) for federated identity; XML Signature Wrapping (XSW) attack class | [SAML](05_Networking_and_OS/CH22_SAML.md) | Canonicalization/digest/reference-resolution mechanics; forged-element-despite-valid-signature vulnerability |
+| SP-initiated vs. IdP-initiated SSO and the RelayState security gap | [SAML](05_Networking_and_OS/CH22_SAML.md) | Both flow mechanisms and their CSRF-analogous risk difference |
+| SAML metadata exchange; SAML bindings (HTTP-Redirect/HTTP-POST/Artifact) | [SAML](05_Networking_and_OS/CH22_SAML.md) | XML trust-bootstrap document, contrasted with OIDC discovery; per-binding transport mechanics |
+| Protocol persistence (why legacy protocols survive alongside modern replacements) | [SAML](05_Networking_and_OS/CH22_SAML.md) | Illustrated via SAML's continued enterprise/government dominance; scoped here, may generalize if invoked elsewhere later |
+| Federation hub / IdP-of-IdPs pattern; N×M-to-N+M integration-cost collapse | [PingFederate](05_Networking_and_OS/CH23_PingFederate.md) | Standalone federation-broker role; quantitative justification over point-to-point identity integrations |
+| IdP adapter / SP connector extensibility architecture; attribute mapping/claims transformation | [PingFederate](05_Networking_and_OS/CH23_PingFederate.md) | Pluggable bridging of arbitrary auth sources into standard protocols; deny-by-default attribute translation |
+| Federation-server HA/clustering architecture; build-vs-buy decision framework | [PingFederate](05_Networking_and_OS/CH23_PingFederate.md) | Active-active multi-DC clustering for login-blocking-outage infrastructure; structured commercial-vs-custom criteria |
+| Federation hub as migration abstraction layer; federation server vs. directory vs. access-management boundary | [PingFederate](05_Networking_and_OS/CH23_PingFederate.md) | Stable integration seam surviving identity-source changes; product-category distinction from adjacent IAM tools |
+| Connection templating pattern | [PingFederate](05_Networking_and_OS/CH23_PingFederate.md) | Reusable connector/adapter templates preventing configuration sprawl |
+| Process as OS isolation unit vs. thread as OS concurrency unit | [Processes and Threads](05_Networking_and_OS/CH24_Processes_and_Threads.md) | Own address space+FD table (hardware-enforced boundary) vs. shared address space, own stack/registers |
+| Process/thread lifecycle states; context switching mechanics and cost | [Processes and Threads](05_Networking_and_OS/CH24_Processes_and_Threads.md) | Canonical New/Ready/Running/Blocked/Terminated state machine; cost dominated by cache/TLB disruption |
+| Preemptive vs. cooperative scheduling; nice values/priority as a scheduling input | [Processes and Threads](05_Networking_and_OS/CH24_Processes_and_Threads.md) | Timer-interrupt forced suspension vs. voluntary yield, each with a distinct starvation mode; priority as CFS's weighting input (full CFS algorithm owned by I/O and Scheduling) |
+| IPC mechanism taxonomy (pipes/shared memory/message queues/signals) | [Processes and Threads](05_Networking_and_OS/CH24_Processes_and_Threads.md) | How isolated processes cooperate despite separate address spaces |
+| OS synchronization primitives (mutex/semaphore/condition variable); race condition (general mechanism) | [Processes and Threads](05_Networking_and_OS/CH24_Processes_and_Threads.md) | Three foundational coordination primitives; non-deterministic unsynchronized read-modify-write outcome |
+| Deadlock and the four Coffman conditions; priority inversion | [Processes and Threads](05_Networking_and_OS/CH24_Processes_and_Threads.md) | Consistent lock ordering as the standard fix; priority-inheritance fix for indirect high-priority blocking |
+| fork()/exec() POSIX process-creation model | [Processes and Threads](05_Networking_and_OS/CH24_Processes_and_Threads.md) | Two-step copy-on-write duplication then program-image replacement, underlying every POSIX subprocess API |
+| Virtual memory / per-process address space isolation; MMU and multi-level page table walk | [Memory Management](05_Networking_and_OS/CH25_Memory_Management.md) | Hardware-enforced isolation boundary underneath process/container memory safety |
+| Translation Lookaside Buffer (TLB) and huge pages; paging and demand paging | [Memory Management](05_Networking_and_OS/CH25_Memory_Management.md) | On-chip translation cache; lazy first-touch frame commitment |
+| Page faults (minor vs. major); page replacement (clock/second-chance, active/inactive LRU) | [Memory Management](05_Networking_and_OS/CH25_Memory_Management.md) | Not-present-page trap handling; kernel's LRU-approximation eviction |
+| Swapping and thrashing; memory-mapped files (mmap) and shared page cache | [Memory Management](05_Networking_and_OS/CH25_Memory_Management.md) | Self-reinforcing performance collapse when working set exceeds RAM; file-backed shared physical pages |
+| Linux OOM (Out Of Memory) killer; cgroup memory limits and containerized OOM | [Memory Management](05_Networking_and_OS/CH25_Memory_Management.md) | Host-wide SIGKILL-on-unreclaimable mechanism; per-cgroup ceiling underlying Kubernetes requests/limits |
+| Memory fragmentation (external vs. internal); Copy-on-Write (COW) memory sharing | [Memory Management](05_Networking_and_OS/CH25_Memory_Management.md) | Scattered free space vs. allocator rounding waste; lazy per-page copy making fork() cheap |
+| NUMA (Non-Uniform Memory Access) awareness | [Memory Management](05_Networking_and_OS/CH25_Memory_Management.md) | Multi-socket cross-node access cost, relevant to latency-sensitive high-performance systems |
+| "Everything is a file" Unix design philosophy; inode/directory-entry separation | [File Systems](05_Networking_and_OS/CH26_File_Systems.md) | Unified FD interface over files/devices/pipes/sockets/proc; why hard links share data, symlinks can dangle |
+| On-disk allocation structures (superblock/block groups); file system journaling | [File Systems](05_Networking_and_OS/CH26_File_Systems.md) | Free-space/inode bitmaps and per-group locality; write-ahead metadata log bounding crash-recovery time |
+| fsync() as the durability-forcing boundary; write-to-temp+fsync+atomic-rename+fsync(dir) pattern | [File Systems](05_Networking_and_OS/CH26_File_Systems.md) | Gap between write() returning and physical durability; crash-safe atomic file replacement used by databases/package managers |
+| Copy-on-write (COW) file systems and native snapshots | [File Systems](05_Networking_and_OS/CH26_File_Systems.md) | ZFS/Btrfs block-tree COW mechanics, cheap snapshots, checksummed self-healing |
+| Network file system consistency models; distributed file systems/object storage flat-namespace model | [File Systems](05_Networking_and_OS/CH26_File_Systems.md) | Close-to-open/NFSv4 state/pNFS; hierarchical vs. flat key-value namespace |
+| POSIX file system semantics vs. object storage's deliberate relaxation | [File Systems](05_Networking_and_OS/CH26_File_Systems.md) | Atomic rename/byte-range writes/native locking given up for cloud object storage's scale |
+| Small-files problem and inode/block-size tuning | [File Systems](05_Networking_and_OS/CH26_File_Systems.md) | Inode vs. block exhaustion, mkfs bytes-per-inode tuning, directory-index scaling |
+| I/O stack layering (application→syscall→page cache→block layer→driver→device) | [I/O and Scheduling](05_Networking_and_OS/CH27_IO_and_Scheduling.md) | Full path a read/write travels and where latency accumulates |
+| Disk I/O scheduling algorithms (elevator/CFQ vs. none/mq-deadline/kyber/bfq) | [I/O and Scheduling](05_Networking_and_OS/CH27_IO_and_Scheduling.md) | Seek-time-optimizing vs. flash-aware schedulers; hardware-changed-so-architecture-changed lesson |
+| Synchronous vs. asynchronous I/O models; io_uring submission/completion queue architecture | [I/O and Scheduling](05_Networking_and_OS/CH27_IO_and_Scheduling.md) | Blocking read/write, POSIX AIO limits; shared-ring-buffer design eliminating per-operation syscall overhead |
+| Completely Fair Scheduler (CFS) mechanism; real-time scheduling classes (SCHED_FIFO/SCHED_RR) | [I/O and Scheduling](05_Networking_and_OS/CH27_IO_and_Scheduling.md) | vruntime/red-black-tree proportional-share fairness; bounded-latency classes above CFS |
+| CPU affinity and pinning; I/O-bound vs. CPU-bound workload classification | [I/O and Scheduling](05_Networking_and_OS/CH27_IO_and_Scheduling.md) | Cache/NUMA locality vs. scheduler flexibility; capacity-planning discipline tying concurrency model to workload type |
+| Noisy-neighbor problem via cgroup CPU quota throttling; cgroup I/O controller bandwidth/IOPS limiting | [I/O and Scheduling](05_Networking_and_OS/CH27_IO_and_Scheduling.md) | CFS bandwidth-controller quota/period mechanics invisible to application logs; io.max/io.weight storage analogue |
+| OS-level I/O/scheduling observability metric interpretation | [I/O and Scheduling](05_Networking_and_OS/CH27_IO_and_Scheduling.md) | Run-queue length, %iowait, iostat %util/await/queue depth, cgroup throttling counters |
+| Type 1 vs. Type 2 hypervisor architecture; hardware-assisted virtualization (VT-x/AMD-V) | [Virtualization and Container Fundamentals](05_Networking_and_OS/CH28_Virtualization_and_Container_Fundamentals.md) | Bare-metal vs. hosted placement; CPU trap-and-emulate extensions replacing binary translation |
+| VM isolation model (full guest kernel per VM) vs. containers as OS-level virtualization | [Virtualization and Container Fundamentals](05_Networking_and_OS/CH28_Virtualization_and_Container_Fundamentals.md) | Strongest practical isolation boundary and its overhead vs. shared-host-kernel model |
+| Linux namespaces (PID/network/mount/UTS/IPC/user); cgroups (CPU/I/O controllers, v2 hierarchy) | [Virtualization and Container Fundamentals](05_Networking_and_OS/CH28_Virtualization_and_Container_Fundamentals.md) | Six-namespace visibility taxonomy; extends Memory Management's memory-only cgroup coverage to CPU/I/O |
+| Container image layer architecture; Dockerfile layer-caching-aware instruction ordering | [Virtualization and Container Fundamentals](05_Networking_and_OS/CH28_Virtualization_and_Container_Fundamentals.md) | Content-addressable union-filesystem layers; low-churn-before-high-churn practical design rule |
+| OCI (Open Container Initiative) specs; containerd/runc runtime stack | [Virtualization and Container Fundamentals](05_Networking_and_OS/CH28_Virtualization_and_Container_Fundamentals.md) | Standardization collapsing N×M vendor interop to N+M; high-level vs. low-level runtime responsibility split |
+| MicroVMs (Firecracker-style hybrid architecture) | [Virtualization and Container Fundamentals](05_Networking_and_OS/CH28_Virtualization_and_Container_Fundamentals.md) | Near-container startup speed with VM-grade isolation for multi-tenant serverless |
+| Shared-kernel container security boundary limitation; gVisor and Kata Containers | [Virtualization and Container Fundamentals](05_Networking_and_OS/CH28_Virtualization_and_Container_Fundamentals.md) | Host-kernel-vulnerability reachability risk, taught as current/unsolved; userspace interception vs. per-container lightweight VM mitigations |
+| Container-to-orchestration hand-off (Kubernetes Pod namespace composition) | [Virtualization and Container Fundamentals](05_Networking_and_OS/CH28_Virtualization_and_Container_Fundamentals.md) | Recap-only link to how a Pod applies this chapter's namespace model; full orchestration owned by a future Kubernetes part |
+| Kernel/userspace boundary and the system call as the universal interface | [Linux Internals for Architects](05_Networking_and_OS/CH29_Linux_Internals_for_Architects.md) | The single ring-0/ring-3 privilege split every OS-managed resource is reached through |
+| /proc and /sys+cgroup v2 as the architect's introspection toolkit | [Linux Internals for Architects](05_Networking_and_OS/CH29_Linux_Internals_for_Architects.md) | Live per-process/system-wide kernel state and per-workload resource-attribution data as ordinary readable files |
+| Unified production-incident diagnostic framework; two-samples-not-one counter rule | [Linux Internals for Architects](05_Networking_and_OS/CH29_Linux_Internals_for_Architects.md) | Ordered decision tree separating the five OS failure classes; cumulative-counter rate-computation discipline |
+| Cgroup-scoped vs. host-scoped resource attribution | [Linux Internals for Architects](05_Networking_and_OS/CH29_Linux_Internals_for_Architects.md) | Host-wide /proc/meminfo vs. a container's own cgroup limit disagreeing; OOM killer acts on the cgroup |
+| Kernel version/distribution as an architecture decision | [Linux Internals for Architects](05_Networking_and_OS/CH29_Linux_Internals_for_Architects.md) | Enterprise-LTS freeze vs. mainline-tracking feature-gap consequences (cgroups v2, io_uring, eBPF maturity) |
+| eBPF (extended Berkeley Packet Filter) as verified kernel extensibility; verifier+maps+hook lifecycle | [Linux Internals for Architects](05_Networking_and_OS/CH29_Linux_Internals_for_Architects.md) | Sandboxed in-kernel program model for tracing/networking/security without kernel-module crash risk |
+| Toolkit-by-question mapping (top/htop/ss/strace/perf/bpftrace); always-on low-overhead observability sidecar pattern | [Linux Internals for Architects](05_Networking_and_OS/CH29_Linux_Internals_for_Architects.md) | Matching each diagnostic tool to the question it answers; persistent eBPF-based agent enabling pre-collected incident data |
 
 ## How to add an entry
 
@@ -736,4 +917,56 @@ when multiple chapters are authored in parallel, isolated sessions.
     fixed in Part 03's Go chapter (commit c22dc34) — all 7 `timeline` diagrams in this batch use
     single-line-per-period syntax correctly (including valid same-line multi-event `period : event1
     : event2` syntax in CSS's and HTML's timelines), no fix needed.
-
+- **Batch 15 (Part 05 — Networking and Operating Systems: OSI Model, TCP/IP, HTTP/2, HTTP/3, TLS,
+  SSL, DNS, CDN, Load Balancer, Reverse Proxy, NAT, VPN, Firewalls, Certificates, Sockets,
+  WebSockets, QUIC, OAuth, OIDC, JWT, SAML, PingFederate, Processes and Threads, Memory
+  Management, File Systems, I/O and Scheduling, Virtualization and Container Fundamentals, Linux
+  Internals for Architects)**: merged all 28 Part 05 chapters' staging files
+  (`review/concept-proposals/osi-model.md`, `tcp-ip.md`, `http2.md`, `http3.md`, `tls.md`,
+  `ssl.md`, `dns.md`, `cdn.md`, `load-balancer.md`, `reverse-proxy.md`, `nat.md`, `vpn.md`,
+  `firewalls.md`, `certificates.md`, `sockets.md`, `websockets.md`, `quic.md`, `oauth.md`,
+  `oidc.md`, `jwt.md`, `saml.md`, `pingfederate.md`, `processes-and-threads.md`,
+  `memory-management.md`, `file-systems.md`, `io-and-scheduling.md`,
+  `virtualization-and-containers.md`, `linux-internals-for-architects.md` — 28 files) plus the
+  stale `http.md` leftover from Batch 1 (its 4 concepts were already present in the table; the
+  staging file had simply not been cleaned up). Approximately 182 raw concepts condensed into 181
+  ownership rows (OSI Model 7, TCP/IP 7, HTTP/2 7, HTTP/3 2, TLS 7, SSL 4, DNS 9, CDN 7, Load
+  Balancer 6, Reverse Proxy 8, NAT 5, VPN 6, Firewalls 6, Certificates 7, Sockets 7, WebSockets
+  5, QUIC 8, OAuth 7, OIDC 8, JWT 6, SAML 5, PingFederate 5, Processes and Threads 7, Memory
+  Management 7, File Systems 7, I/O and Scheduling 7, Virtualization and Container Fundamentals 8,
+  Linux Internals for Architects 7 — plus the pre-existing HTTP pilot's 3 rows and the TLS
+  Handshake row that was already present from Batch 1). This completes Part 05 (29/29 chapters).
+  Key observations:
+  - **TLS handshake ownership moved from HTTP to TLS (Batch 15 arbitration)**: the TLS handshake
+    row was updated to point to [TLS](05_Networking_and_OS/CH06_TLS.md) instead of HTTP. CH06 now
+    owns the full byte-level handshake mechanics (TLS 1.2 and 1.3 flight sequences, cipher-suite
+    negotiation, SNI, ALPN, mTLS, session resumption, 0-RTT), while CH01 (HTTP) recaps only in
+    2-3 sentences and links back. The prior ownership in CH01 made sense when TLS was not yet its
+    own dedicated chapter; with CH06 now fully drafted and owning the complete treatment, CH01
+    relinquishes the row.
+  - **Two items intentionally left unresolved / flagged for future parts**: (a) the CRIME/BREACH
+    (compression-oracle) and HTTP/2 Rapid Reset attack classes are currently taught inside CH07
+    (SSL) and CH04 (HTTP/2) respectively — if a dedicated Security part (Part 13) is drafted, both
+    should migrate to a Security-owned chapter with the current chapters recapping; flagged in the
+    individual chapter ownership notes above. (b) ZTNA / Zero Trust Architecture is currently
+    owned by the VPN chapter (CH13) as VPN's architectural successor — if Part 13 or a dedicated
+    Zero Trust chapter is drafted later, ownership may broaden; flagged in CH13's row note.
+  - **Clean per-chapter ownership across all 28 staging files, zero conflicts**: each chapter
+    proposed concepts scoped tightly to its protocol or OS-subsystem boundary. Near-overlaps were
+    verified and adjudicated: Load Balancer teaches L4/L7 mechanics in full while OSI Model keeps
+    the high-level layer-placement recap only; CDN and DNS both co-teach anycast but from distinct
+    scopes (CDN owns the PoP-routing application; DNS owns the same IP/many-sites BGP mechanism as
+    used for root/authoritative scaling); Memory Management and Virtualization share cgroup coverage
+    but from different angles (Memory Management owns the memory-only cgroup-limit teaching;
+    Virtualization adds CPU and I/O controllers as a named extension, not a re-derivation); OIDC
+    and OAuth divide clearly (OAuth owns the four-party delegated-authorization model; OIDC owns
+    the identity layer bolted onto it). No cross-chapter re-teaching detected.
+  - **No Mermaid syntax defects found**: all 28 new chapters' Mermaid diagrams (436 total across
+    CH02–CH29) were checked with the standing project static-grep protocol: (1) exactly one
+    "## 27. Summary" header per file — all 29 files pass; (2) no sequenceDiagram `participant`
+    aliases matching reserved words (Loop/Note/Alt/Opt/Par/End/Rect/Activate/Deactivate/Critical/
+    Break/Box/Autonumber) — zero matches found (one false-positive grep hit on "Parent" in
+    CH25 was confirmed context-safe); (3) no backslash-escaped quotes inside flowchart bracket
+    labels — zero matches; (4) subgraph/end balance was verified chapter-by-chapter during
+    authoring; (5) no `timeline` diagrams exist in Part 05 (all historical evolution diagrams use
+    `flowchart LR` instead), eliminating the multi-line-continuation risk class entirely.
