@@ -1341,7 +1341,7 @@ schedule.
 | Strategy memo (Section 10) | What is our diagnosis, guiding policy, and coherent action set? | Annual / assumption-triggered | Product strategy owner | Kernel document | Sequencing and translation reference |
 | Bet card (Section 10) | Why this bet, in this order, with this scope? | Per sequencing cycle | Product strategy owner | Structured sequencing artifact | Handoff into roadmap translation |
 | Objectives and Key Results (Section 4.8) | Is this quarter's execution actually producing the intended outcome? | Quarterly | Team / product line, cascaded | Measurable objective + key results | Execution tracking and cascade |
-| Roadmap (not taught here) | What will we build and roughly when? | Multi-quarter | Roadmaps chapter (not yet drafted) | Sequenced initiative timeline | Downstream of this chapter's translation contract |
+| Roadmap (not taught here) | What will we build and roughly when? | Multi-quarter | [Roadmaps](CH21_Roadmaps.md) | Sequenced initiative timeline | Downstream of this chapter's translation contract |
 | Prioritization score (not taught here) | Which backlog item goes first within an already-scoped theme? | Per planning cycle | Prioritization chapter (not yet drafted) | Scored ranking (RICE, MoSCoW, Kano) | Backlog-level ordering, not strategic bet selection |
 
 The last two rows are named only for disambiguation against this chapter's

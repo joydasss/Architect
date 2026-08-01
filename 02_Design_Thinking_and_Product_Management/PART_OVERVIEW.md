@@ -31,9 +31,9 @@ chat's "Suggested Book Sequence" (item 2).
 | Market Analysis | Edited (batch-reviewed, no unresolved overlap) |
 | Competitive Analysis | Edited (batch-reviewed, no unresolved overlap) |
 | Personas | Edited — file: `CH18_Personas_Product_Management.md` (disambiguated from Design Thinking's `CH03_Personas.md`); recaps + links core definition, owns only the PM application layer |
-| Journey Mapping | Not Started |
-| Story Mapping | Not Started |
-| Roadmaps | Not Started |
+| Journey Mapping | Edited — file: `CH19_Journey_Mapping_Product_Management.md` (disambiguated from Design Thinking's `CH05_Journey_Mapping.md`); recaps + links core artifact, owns only the commercial-lifecycle layer |
+| Story Mapping | Edited (batch-reviewed, no unresolved overlap) |
+| Roadmaps | Edited (batch-reviewed, resolves Product Strategy's Section 4.7/13 forward references) |
 | Backlog | Not Started |
 | MVP (Minimum Viable Product) | Not Started |
 | Metrics | Not Started |

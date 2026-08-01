@@ -890,8 +890,8 @@ more than the drafting team's own confidence in their synthesis:
 | Persona | Who, in general, am I designing for? | Behavioral variables from research | [Personas](CH03_Personas.md) |
 | Experience map | How does a general type of person typically move through a broad category of experience, independent of one specific product? | Cross-product, cross-persona qualitative synthesis | Not separately taught in this handbook; a broader-scope variant of this chapter's technique |
 | Service blueprint | What frontstage experience does this specific backstage process, system, and staffing model produce? | Frontstage timeline + backstage process/systems below the line of visibility | This chapter (Section 4.4) for the frontstage/backstage relationship; full backstage-process design technique is [Service Design](CH12_Service_Design.md) |
-| Product Management "Journey Mapping" (future chapter) | How does this customer move through the commercial relationship — acquisition, activation, retention, churn? | Funnel and lifecycle analytics plus qualitative input | Product Management subsection (this part, not yet drafted; should recap this chapter's technique and link back here rather than re-deriving swimlane construction or emotional-curve scoring) |
-| Story map (future Product Management "Story Mapping" chapter) | In what order should we build the backlog items that support this journey? | Backlog items arranged along a user activity/task spine | Product Management subsection (this part, not yet drafted) |
+| Product Management "Journey Mapping" (commercial/lifecycle journey) | How does this customer move through the commercial relationship — acquisition, activation, retention, churn? | Funnel and lifecycle analytics plus qualitative input | [Journey Mapping (Product Management)](CH19_Journey_Mapping_Product_Management.md) |
+| Story map | In what order should we build the backlog items that support this journey? | Backlog items arranged along a user activity/task spine | [Story Mapping](CH20_Story_Mapping.md) |
 
 ## 22. Real-World Case Study
 

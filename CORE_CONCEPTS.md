@@ -144,6 +144,23 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Persona-based stakeholder arbitration protocol | [Personas (Product Management)](02_Design_Thinking_and_Product_Management/CH18_Personas_Product_Management.md) | Name-the-persona -> check-ranking -> compare-weighted-score -> escalate sequence |
 | Persona council (governance body) | [Personas (Product Management)](02_Design_Thinking_and_Product_Management/CH18_Personas_Product_Management.md) | Standing, product-owned forum for contested prioritization disputes and value-weighting review |
 | Persona weight as a portfolio-sequencing input | [Personas (Product Management)](02_Design_Thinking_and_Product_Management/CH18_Personas_Product_Management.md) | One added input to Product Strategy's existing strategic-fit test; does not restate Three Horizons |
+| Customer lifecycle funnel (Acquisition->Activation->Retention->Expansion->Churn/Win-back) | [Journey Mapping (Product Management)](02_Design_Thinking_and_Product_Management/CH19_Journey_Mapping_Product_Management.md) | Commercial-relationship stage model, distinct from CH05's single end-to-end experience journey and from a generic funnel chart |
+| Lifecycle-stage-to-business-metric / revenue-event mapping | [Journey Mapping (Product Management)](02_Design_Thinking_and_Product_Management/CH19_Journey_Mapping_Product_Management.md) | Entry signal + primary metric + revenue event + owner per stage; the "vanity-metric mapping" failure mode |
+| Stage-drop diagnostic (revenue-at-stake sequencing input) | [Journey Mapping (Product Management)](02_Design_Thinking_and_Product_Management/CH19_Journey_Mapping_Product_Management.md) | Converts stage-to-stage conversion/retention drops into a projected, segment-cross-checked revenue figure for Product Strategy's sequencing test |
+| Journey-stage health / leading-indicator dashboard | [Journey Mapping (Product Management)](02_Design_Thinking_and_Product_Management/CH19_Journey_Mapping_Product_Management.md) | Paired leading+lagging indicator per lifecycle stage with owner and alert threshold; the "lagging-only dashboard" failure mode |
+| Story map (definition, anatomy: backbone, tasks, release lines) | [Story Mapping](02_Design_Thinking_and_Product_Management/CH20_Story_Mapping.md) | Full artifact/technique (Jeff Patton) |
+| Backbone / activities row (narrative spine) | [Story Mapping](02_Design_Thinking_and_Product_Management/CH20_Story_Mapping.md) | User-narrative-order discipline, distinct from build/system order |
+| Walking skeleton (story-mapping application) | [Story Mapping](02_Design_Thinking_and_Product_Management/CH20_Story_Mapping.md) | "Minimum sufficient, not easiest" task per activity; scoped narrowly to story mapping - see merge log for the general-software-delivery-meaning flag |
+| Vertical slicing by release / release lines (Now/Next/Later, within-release) | [Story Mapping](02_Design_Thinking_and_Product_Management/CH20_Story_Mapping.md) | Task-level backlog ordering within a single release's scope; distinct from Roadmaps' initiative-level Now/Next/Later format |
+| Flat backlog failure mode | [Story Mapping](02_Design_Thinking_and_Product_Management/CH20_Story_Mapping.md) | Loss of narrative arc when a backlog is worked as a single priority-ranked column |
+| Roadmap format taxonomy (outcome-based / feature-based / timeline-based) | [Roadmaps](02_Design_Thinking_and_Product_Management/CH21_Roadmaps.md) | What each format commits to; why outcome-based is the preferred default |
+| "Roadmap as promise" anti-pattern | [Roadmaps](02_Design_Thinking_and_Product_Management/CH21_Roadmaps.md) | How a timeline-based roadmap's estimate becomes a contractual-liability broken commitment |
+| Now/Next/Later horizon format (roadmap-level) | [Roadmaps](02_Design_Thinking_and_Product_Management/CH21_Roadmaps.md) | Initiative/theme-level, multi-quarter communication format; distinct from Story Mapping's within-release release lines and from Product Strategy's Three Horizons (orthogonal axes) |
+| Roadmap confidence/certainty decay by horizon | [Roadmaps](02_Design_Thinking_and_Product_Management/CH21_Roadmaps.md) | Reliability of a roadmap claim decreases with horizon distance and must be communicated explicitly |
+| Strategy-to-roadmap contract construction pipeline | [Roadmaps](02_Design_Thinking_and_Product_Management/CH21_Roadmaps.md) | Six-step mechanism fulfilling Product Strategy's Section 4.7 forward reference |
+| Audience-tiered roadmap communication (single-source, multiple-views) | [Roadmaps](02_Design_Thinking_and_Product_Management/CH21_Roadmaps.md) | Deriving exec/sales, engineering, and customer views from one internal source-of-truth record |
+| Tiered external roadmap disclosure policy | [Roadmaps](02_Design_Thinking_and_Product_Management/CH21_Roadmaps.md) | Horizon-stability-based lag rules for customer-facing roadmap content; fulfills Product Strategy's Section 13 forward reference |
+| Roadmap governance and revision cadence | [Roadmaps](02_Design_Thinking_and_Product_Management/CH21_Roadmaps.md) | Scheduled review vs. event-triggered revision, scaled by disclosure tier |
 
 ## How to add an entry
 
@@ -329,4 +346,35 @@ when multiple chapters are authored in parallel, isolated sessions.
     "Product Strategy" cite Porter's 1980 generic competitive positions at
     the same date) — not a registered ownership row for either chapter,
     both merely recap the vocabulary; no action needed.
+- **Batch 9 (Part 02 batch 7 — Journey Mapping [Product Management], Story
+  Mapping, Roadmaps)**: merged `review/concept-proposals/journey-mapping-product-management.md`
+  (4 concepts), `review/concept-proposals/story-mapping.md` (5 concepts),
+  and `review/concept-proposals/roadmaps.md` (8 concepts). Resolves two
+  more long-pending forward references (Product Strategy's Section 4.7
+  strategy-to-roadmap contract and Section 13 external-disclosure note),
+  and the disambiguated Product Management "Journey Mapping" chapter
+  flagged since Batch 4/6 — file named
+  `CH19_Journey_Mapping_Product_Management.md`, opening with a recap+link
+  to [Journey Mapping](02_Design_Thinking_and_Product_Management/CH05_Journey_Mapping.md)
+  rather than re-deriving swimlane construction.
+  - **"Now/Next/Later" used by both Story Mapping and Roadmaps**: reviewed
+    in full — Story Mapping's version labels within-release backlog cuts
+    (task-level, weeks-to-months horizon, explicitly deferring to the
+    not-yet-drafted Roadmaps chapter for anything coarser); Roadmaps'
+    version is a multi-quarter, initiative/theme-level communication
+    format. Both chapters explicitly draw this distinction themselves
+    (Story Mapping Section 4.7's altitude diagram; Roadmaps Section 4.4's
+    comparison to Product Strategy's Three Horizons). Non-duplicative,
+    same label at two different altitudes — no edit needed.
+  - **"Walking skeleton" flagged for future awareness**: "Story Mapping"
+    scoped this term narrowly to its own application (minimum-sufficient
+    task per activity) and flagged that the general software-delivery
+    meaning (Cockburn/Crystal, continuous-delivery thin-slice
+    architecture proof) may later be independently claimed by a Software
+    Engineering Foundations or DevOps chapter. No conflict today since no
+    such chapter exists yet — revisit when Part 03 or Part 11 is drafted.
+  - Both Product Strategy forward references (strategy-to-roadmap
+    contract; controlled external roadmap disclosure) are now fully
+    resolved by "Roadmaps" with no re-teaching of Product Strategy's
+    Three Horizons, strategy stack, or JTBD.
 

@@ -1250,7 +1250,7 @@ relying on secondhand reporting alone.
 | Feature/capability matrix and battlecard (Section 4.5) | What specific capability differences decide live deals? | Continuously refreshed | Sales enablement + competitive-intelligence owner | Structured, confidence-tagged comparison table | Sales objection handling; gap-analysis input to strategy |
 | Win/loss report (Section 4.6) | Why was this specific deal actually won or lost? | Per closed deal, trended over time | Independent interviewer / win-loss program owner | Interview findings + causal tags | Every material competitive deal closure |
 | Competitive-response memo (Section 4.7) | How, or whether, should we react to this move or gap? | Per triggering event | Competitive-analysis + product strategy owner | Decision record with evidence and rationale | When a threshold-crossing move or validated gap is detected |
-| Market sizing / segmentation (not taught here) | How big is the opportunity and how is it segmented? | Annual / periodic | Market Analysis chapter (not yet drafted) | Sizing model, segmentation map | Upstream input naming which rivals matter, not head-to-head depth |
+| Market sizing / segmentation (not taught here) | How big is the opportunity and how is it segmented? | Annual / periodic | [Market Analysis](CH16_Market_Analysis.md) | Sizing model, segmentation map | Upstream input naming which rivals matter, not head-to-head depth |
 | Product strategy bet sequencing (not taught here) | Which validated bet gets funded first? | Quarterly / per cycle | Product Strategy chapter (CH15) | Sequenced bet portfolio | Downstream consumer of this chapter's response evidence |
 
 The last two rows are named only for disambiguation against this
