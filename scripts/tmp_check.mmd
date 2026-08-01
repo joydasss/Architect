@@ -1,0 +1,39 @@
+flowchart LR
+    subgraph Inputs["Opportunity sources"]
+        I1[Customer\nconversations]
+        I2[Support ticket\npatterns]
+        I3[Product metrics\n+ regressions]
+        I4[Stakeholder /\nsales requests]
+        I5[Strategy handoff\nfrom Product Strategy]
+    end
+    subgraph Trio_System["Trio operating system"]
+        OB[Opportunity\nbacklog]
+        AM[Assumption\nmap]
+        DL[Discovery\ndecision log]
+        Cadence[Weekly cadence\nSection 4.4]
+    end
+    subgraph Shared["Shared discovery infrastructure"]
+        Panel[Participant\npanel]
+        Repo[Evidence\nrepository]
+        Tooling[Assumption-map /\nboard tooling]
+    end
+    subgraph Delivery_System["Delivery system"]
+        DB[Delivery\nbacklog]
+        Sprint[Delivery\nsprint]
+        Metrics[Production\nmetrics]
+    end
+    I1 --> OB
+    I2 --> OB
+    I3 --> OB
+    I4 --> OB
+    I5 --> OB
+    OB --> Cadence
+    Cadence --> AM
+    AM --> DL
+    DL -->|de-risked| DB
+    DB --> Sprint
+    Sprint --> Metrics
+    Metrics -.new signal.-> I3
+    Panel -.supports.-> Cadence
+    Repo -.supports.-> AM
+    Tooling -.supports.-> OB

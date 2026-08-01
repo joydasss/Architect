@@ -312,6 +312,67 @@ when multiple chapters are authored in parallel, isolated sessions.
 | `Result`/`Option`-based error architecture and the `?` operator | [Rust](03_Software_Engineering_Foundations/CH05_Rust.md) | Value-based, type-checked recoverable-error propagation as an alternative to exceptions |
 | `unsafe` boundary and FFI safety-proof obligation | [Rust](03_Software_Engineering_Foundations/CH05_Rust.md) | Scoped escape hatch for operations the compiler cannot verify; `// SAFETY:` audit discipline |
 | Async/await executor model (Future trait + Tokio) | [Rust](03_Software_Engineering_Foundations/CH05_Rust.md) | Poll-based, GC-free lightweight concurrency substrate for high-connection-count I/O workloads |
+| DOM (Document Object Model) as a tree data structure | [HTML](04_Frontend_Architecture/CH01_HTML.md) | Node types, traversal cost, detached-subtree memory-leak pattern |
+| HTML parsing algorithm (tokenization, tree construction, error recovery) | [HTML](04_Frontend_Architecture/CH01_HTML.md) | WHATWG spec's two-stage, spec-mandated fault-tolerant ("tag soup") parsing pipeline |
+| Semantic HTML's architectural payoff (implicit roles, SEO, progressive enhancement) | [HTML](04_Frontend_Architecture/CH01_HTML.md) | DOM-side mechanics only; general accessibility principles owned by [Accessibility](02_Design_Thinking_and_Product_Management/CH11_Accessibility.md) |
+| Critical rendering path (HTML→DOM→CSSOM→Render Tree→Layout→Paint→Composite) | [HTML](04_Frontend_Architecture/CH01_HTML.md) | Full pipeline mechanics; CSS chapter recaps + links rather than re-deriving |
+| Resource loading hints & script loading strategies (preload/preconnect/async/defer/module) | [HTML](04_Frontend_Architecture/CH01_HTML.md) | Declarative network-scheduling hints and parser-blocking/async/defer/module execution semantics |
+| Web Components (Custom Elements, Shadow DOM, `<template>`) | [HTML](04_Frontend_Architecture/CH01_HTML.md) | Framework-agnostic native component model; CSS/Micro Frontends chapters recap + link this ownership rather than re-teaching |
+| HTML Constraint Validation API | [HTML](04_Frontend_Architecture/CH01_HTML.md) | Native form-validation pipeline; explicit non-substitution for server-side validation |
+| SSR vs. CSR vs. SSG vs. islands architecture; hydration & hydration mismatch | [HTML](04_Frontend_Architecture/CH01_HTML.md) | Rendering-strategy decision framework and the client re-attachment failure class; Next.js recaps + links for its concrete implementation |
+| The Cascade Algorithm, specificity, and Cascade Layers (`@layer`) | [CSS](04_Frontend_Architecture/CH02_CSS.md) | Four-step conflict-resolution order and the explicit-precedence override layer on top of it |
+| The Box Model, Flexbox, and CSS Grid layout engines | [CSS](04_Frontend_Architecture/CH02_CSS.md) | Sizing algorithm plus one-dimensional vs. two-dimensional layout engines and their decision framework |
+| CSS Custom Properties as design-token architecture | [CSS](04_Frontend_Architecture/CH02_CSS.md) | Cascade/inheritance-participating runtime variables underlying theming systems |
+| Responsive design architecture (media queries / container queries / fluid typography) | [CSS](04_Frontend_Architecture/CH02_CSS.md) | Three-layer scope-of-responsiveness model |
+| CSS Shadow DOM style encapsulation | [CSS](04_Frontend_Architecture/CH02_CSS.md) | Browser-enforced style scoping boundary vs. convention-based scoping; Micro Frontends recaps + links for applied multi-team use |
+| The browser rendering pipeline (style/layout/paint/composite) and layout thrashing | [CSS](04_Frontend_Architecture/CH02_CSS.md) | Four-stage pipeline, reflow/repaint/composite-only cost model, and the forced-synchronous-layout failure mode |
+| CSS architecture methodologies at scale (BEM, utility-first, CSS Modules, CSS-in-JS, ITCSS) | [CSS](04_Frontend_Architecture/CH02_CSS.md) | Comparative scoping/specificity/runtime-cost trade-offs among large-scale CSS organization strategies |
+| Critical CSS extraction / render-blocking CSS; `content-visibility`/`contain` | [CSS](04_Frontend_Architecture/CH02_CSS.md) | Above-the-fold extraction strategy and off-screen render-cost isolation |
+| Prototypal inheritance / prototype chain | [JavaScript](04_Frontend_Architecture/CH03_JavaScript.md) | Object-to-object delegation model underlying `class` syntax sugar |
+| Closures and lexical scoping (as an architecture mechanism) | [JavaScript](04_Frontend_Architecture/CH03_JavaScript.md) | Basis for the module pattern, memoization, and encapsulated per-instance state |
+| JavaScript module system evolution (Global Scripts → CommonJS → AMD/UMD → ESM) | [JavaScript](04_Frontend_Architecture/CH03_JavaScript.md) | Browser-facing motivations (async loading, static analyzability); Node.js's server-side resolution mechanics remain owned by [Node.js](03_Software_Engineering_Foundations/CH03_Nodejs.md) |
+| Browser event loop (task queues, microtasks, render step) | [JavaScript](04_Frontend_Architecture/CH03_JavaScript.md) | HTML Living Standard's model, explicitly distinct from Node.js/libuv's phase model |
+| `requestAnimationFrame` / `requestIdleCallback` scheduling | [JavaScript](04_Frontend_Architecture/CH03_JavaScript.md) | Rendering-synchronized and idle-time browser scheduling primitives |
+| Browser memory management via closures, `WeakMap`, `WeakRef` | [JavaScript](04_Frontend_Architecture/CH03_JavaScript.md) | Closure-driven leak patterns and the weak-reference architectural mitigation |
+| Asynchronous programming evolution (callbacks → Promises → async/await) | [JavaScript](04_Frontend_Architecture/CH03_JavaScript.md) | Three generations of the same scheduling mechanism and the composition/error-handling problems each fixed |
+| Browser JavaScript sandbox and Same-Origin Policy (SOP) | [JavaScript](04_Frontend_Architecture/CH03_JavaScript.md) | Origin-based script isolation model and process/site isolation as defense-in-depth |
+| Web Workers architecture (Dedicated/Shared/Service) | [JavaScript](04_Frontend_Architecture/CH03_JavaScript.md) | Browser-native true-parallelism primitive via message-passing, no DOM access |
+| Build/bundling architecture (bundling, tree-shaking, code-splitting) | [JavaScript](04_Frontend_Architecture/CH03_JavaScript.md) | ESM's static graph as tree-shaking's prerequisite; code-splitting as deliberate anti-bundling for lazy loading |
+| Structural typing and excess property checking (TypeScript) | [TypeScript](04_Frontend_Architecture/CH04_TypeScript.md) | Shape-based compile-time compatibility, contrasted with Java/C#'s nominal typing |
+| Type erasure and the `tsc` four-stage compiler pipeline | [TypeScript](04_Frontend_Architecture/CH04_TypeScript.md) | All type syntax deleted before JS emission; parse/bind/check/emit internal architecture |
+| Generics, discriminated unions + exhaustiveness checking, mapped/conditional types | [TypeScript](04_Frontend_Architecture/CH04_TypeScript.md) | Type-parameterized reuse, tagged-union state modeling with compiler-proved exhaustiveness, and type-level transformation/branching |
+| Declaration files (`.d.ts`) and DefinitelyTyped/`@types` | [TypeScript](04_Frontend_Architecture/CH04_TypeScript.md) | Type-only description of untyped JavaScript; community-maintained type declarations |
+| Strict mode flags as compile-time fitness functions | [TypeScript](04_Frontend_Architecture/CH04_TypeScript.md) | TypeScript-specific application of the general fitness-function concept owned by [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md); individually toggleable, CI-enforceable strictness flags |
+| `tsc` vs. transpilation-only build split (esbuild/swc) | [TypeScript](04_Frontend_Architecture/CH04_TypeScript.md) | Whole-program type-checking vs. single-file syntax-only transpilation trade-off |
+| Schema-derived types at runtime boundaries (Zod-style `z.infer`) | [TypeScript](04_Frontend_Architecture/CH04_TypeScript.md) | Deriving compile-time types from runtime validation schemas so the two cannot drift |
+| Project references / composite builds | [TypeScript](04_Frontend_Architecture/CH04_TypeScript.md) | Incremental, per-package type-checking mechanism for monorepos |
+| "Framework as architecture" vs. "library" philosophy | [Angular](04_Frontend_Architecture/CH05_Angular.md) | Integrated opinionated toolchain vs. compositional ecosystem-assembled approach; contrasted from the opposite side in [React](04_Frontend_Architecture/CH06_React.md) |
+| Hierarchical dependency injection (injector tree) and DI tokens | [Angular](04_Frontend_Architecture/CH05_Angular.md) | Component-tree-mirroring DI architecture distinct from a flat backend container; contrasted briefly against Java/Spring DI |
+| Zone.js dirty-checking vs. Signals-based fine-grained reactivity (Angular) | [Angular](04_Frontend_Architecture/CH05_Angular.md) | Whole-tree async-interception change detection vs. dependency-tracked precise-update model, plus `OnPush`/zoneless migration path |
+| RxJS Observable/operator composition & HTTP interceptor pipeline (Angular) | [Angular](04_Frontend_Architecture/CH05_Angular.md) | Declarative async stream composition and DI-composed ordered request/response middleware |
+| Ivy compiler architecture (per-component AOT) | [Angular](04_Frontend_Architecture/CH05_Angular.md) | Component-granular Ahead-of-Time compilation enabling tree-shakable providers |
+| Angular route guards as navigation policy (not security) | [Angular](04_Frontend_Architecture/CH05_Angular.md) | Client-side navigation control explicitly requiring server-side authorization pairing |
+| Smart/dumb component pattern and facade service pattern (Angular) | [Angular](04_Frontend_Architecture/CH05_Angular.md) | Angular-idiomatic state-ownership split and DI-provided wiring-simplification pattern |
+| Virtual DOM and reconciliation algorithm heuristics | [React](04_Frontend_Architecture/CH06_React.md) | In-memory diffing device and the type-based/key-based heuristics making tree diffing tractable at scale |
+| Fiber architecture and double buffering | [React](04_Frontend_Architecture/CH06_React.md) | Interruptible/resumable per-component work units and the current/work-in-progress tree swap enabling concurrent rendering |
+| Hooks as a closure-based state model and Rules of Hooks | [React](04_Frontend_Architecture/CH06_React.md) | Per-fiber, call-order-indexed hook-state array; why conditional/looped hook calls corrupt state |
+| Render phase vs. commit phase; concurrent rendering, transitions, Suspense | [React](04_Frontend_Architecture/CH06_React.md) | Pure/interruptible compute phase vs. synchronous apply phase; scheduler-level interruption and declarative async boundaries |
+| React Server Components (RSC) — general client/server component primitive | [React](04_Frontend_Architecture/CH06_React.md) | The framework-agnostic RSC payload/component-boundary model; [Next.js](04_Frontend_Architecture/CH07_Nextjs.md) owns the concrete `"use client"` module-boundary mechanics built on top of it |
+| State management architecture decision spectrum (local → lifted → Context → external store) | [React](04_Frontend_Architecture/CH06_React.md) | Concrete criteria for choosing a point on the spectrum, not exhaustive library teaching |
+| Controlled vs. uncontrolled components; compound components pattern | [React](04_Frontend_Architecture/CH06_React.md) | State-driven vs. DOM-owned input value; parent/child implicit-Context composition API pattern |
+| File-system-based routing and App Router conventions (Next.js) | [Next.js](04_Frontend_Architecture/CH07_Nextjs.md) | `pages/`/`app/` directory-as-routing-table conventions, nested layouts, route groups/parallel/intercepting routes |
+| Rendering-mode decision architecture (SSG/SSR/ISR/CSR) and ISR mechanism | [Next.js](04_Frontend_Architecture/CH07_Nextjs.md) | Per-route/per-fetch rendering-mode choice; stale-while-revalidate cache-swap mechanism and its cache-stampede failure mode |
+| Server/Client Component boundary (`"use client"` mechanics) | [Next.js](04_Frontend_Architecture/CH07_Nextjs.md) | Concrete module-boundary implementation of React's general RSC primitive (owned by React) |
+| Route Handlers and Middleware/Edge Runtime (Next.js) | [Next.js](04_Frontend_Architecture/CH07_Nextjs.md) | Backend-in-frontend HTTP handlers colocated with the UI project, and edge-point request interception ahead of routing |
+| Edge Runtime vs. Node.js runtime trade-off; static export vs. server deployment | [Next.js](04_Frontend_Architecture/CH07_Nextjs.md) | Restricted V8-isolate execution vs. full Node.js API surface; fully static build vs. default server/serverless deployment |
+| `next/image` and `next/font` optimization pipelines | [Next.js](04_Frontend_Architecture/CH07_Nextjs.md) | Built-in responsive-image and self-hosted-font optimization defaults preventing layout shift |
+| Micro frontend (definition) and independent deployability (frontend-specific) | [Micro Frontends](04_Frontend_Architecture/CH08_Micro_Frontends.md) | Three-property test (independent deploy/runtime lifecycle/team ownership); frontend-scoped formulation, to be arbitrated against a future backend microservices chapter's general concept once Part 07 exists |
+| Composition strategy taxonomy (build-time / run-time / server-edge) | [Micro Frontends](04_Frontend_Architecture/CH08_Micro_Frontends.md) | The three points in time at which independently built frontend fragments can be assembled |
+| Module Federation shared-scope negotiation and `single-spa` lifecycle orchestration | [Micro Frontends](04_Frontend_Architecture/CH08_Micro_Frontends.md) | Runtime dependency-sharing agreement mechanism, and route-driven mount/unmount orchestration of independently built applications |
+| Shared-dependency problem / version skew (frontend) | [Micro Frontends](04_Frontend_Architecture/CH08_Micro_Frontends.md) | Bundle-efficiency vs. team-autonomy trade-off unique to composed frontend fragments |
+| Cross-micro-frontend communication pattern spectrum | [Micro Frontends](04_Frontend_Architecture/CH08_Micro_Frontends.md) | Coupling-ordered coordination options: custom events, shared state store, URL-based routing coordination |
+| Disjoint DOM mount point rule; remote registry/manifest service | [Micro Frontends](04_Frontend_Architecture/CH08_Micro_Frontends.md) | Non-overlapping DOM ownership rule and shell-side remote discovery without rebuild |
+| Server-side/edge-side composition and stitching; horizontal vs. vertical MFE split | [Micro Frontends](04_Frontend_Architecture/CH08_Micro_Frontends.md) | Pre-browser fragment assembly (ESI/SSI/edge compute), and page-region vs. route-based composition topology |
 
 ## How to add an entry
 
@@ -639,4 +700,40 @@ when multiple chapters are authored in parallel, isolated sessions.
     under `05_Networking_and_OS`), Go's proposal flagged that its GC/threading entries should be
     narrowed to "Go's specific mechanism" with the general concept deferred to that new chapter —
     revisit when such a chapter exists.
+- **Batch 14 (Part 04 — Frontend Architecture: HTML, CSS, JavaScript, TypeScript, Angular, React,
+  Next.js, Micro Frontends)**: merged all 8 chapters' staging files
+  (`review/concept-proposals/html.md`, `css.md`, `javascript.md`, `typescript.md`, `angular.md`,
+  `react.md`, `nextjs.md`, `micro-frontends.md` — 12+17+12+22+16+18+17+12 = 126 proposed concepts,
+  condensed to 56 rows above) into the table. This completes Part 04 (8/8 chapters drafted). Key
+  observations:
+  - **Clean layered ownership, zero conflicts**: HTML owns DOM/parsing/rendering-pipeline-entry/Web
+    Components; CSS owns cascade/layout-engines/CSS-specific rendering-pipeline stages; JavaScript
+    owns browser-specific language/runtime mechanics (explicitly deferring Node.js/V8/libuv internals
+    to Part 03's Node.js chapter); TypeScript owns the type system/compiler (deferring JS language
+    fundamentals to the JavaScript chapter); Angular and React each own their own internals and only
+    contrast each other's philosophy at a high level (verified no re-teaching in either direction);
+    Next.js correctly recaps React's general RSC primitive and owns only its own concrete
+    `"use client"` module-boundary mechanics, file-system routing, and rendering-mode architecture;
+    Micro Frontends recaps Web Components (HTML), Shadow DOM encapsulation (CSS), and Conway's Law
+    (Part 01) rather than re-teaching any of them.
+  - **RSC split resolved as designed**: both React's and Next.js's proposals independently flagged
+    the same boundary — React owns the general Server/Client Component primitive and payload model;
+    Next.js owns the concrete framework implementation (`"use client"` directive mechanics,
+    serialization constraints, App Router integration). No duplication found; merged as two distinct
+    rows with an explicit cross-reference note.
+  - **Micro frontend "independent deployability" flagged for future arbitration**: Micro Frontends'
+    proposal notes that once Part 07 (System Design and Distributed Systems, not yet started) drafts
+    a microservices/independent-deployability chapter, the general concept and this chapter's
+    frontend-specific formulation should be cross-linked rather than merged into one row, since the
+    two apply the same principle to structurally different deployment units (services vs. frontend
+    bundles). No action needed until Part 07 exists — flagged here for that future merge.
+  - **CSS-based data exfiltration and CSP/clickjacking scoping**: CSS's proposal correctly scoped its
+    security section to the CSS-specific attribute-selector side-channel mechanism, deferring general
+    HTTP-header-level mitigations (CSP `frame-ancestors`, `X-Frame-Options`) to the not-yet-drafted
+    Security part (13) — no ownership claimed there, no action needed.
+  - **No Mermaid syntax defects found**: all 8 chapters' Mermaid diagrams (131 total across the
+    batch) were checked for the same `timeline`-diagram multi-line-continuation defect found and
+    fixed in Part 03's Go chapter (commit c22dc34) — all 7 `timeline` diagrams in this batch use
+    single-line-per-period syntax correctly (including valid same-line multi-event `period : event1
+    : event2` syntax in CSS's and HTML's timelines), no fix needed.
 

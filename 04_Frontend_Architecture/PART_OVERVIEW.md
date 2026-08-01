@@ -6,11 +6,11 @@ Maps to the original catalog's **Part III — Frontend Architecture**.
 
 | Chapter | Status |
 |---|---|
-| HTML | Not Started |
-| CSS | Not Started |
-| JavaScript | Not Started |
-| TypeScript | Not Started |
-| Angular | Not Started |
-| React | Not Started |
-| Next.js | Not Started |
-| Micro Frontends | Not Started |
+| HTML | Edited — 27 sections, 13 diagrams, 5 code examples |
+| CSS | Edited — 27 sections, 15 diagrams, 5 code examples |
+| JavaScript | Edited — 27 sections, 16 diagrams, 12 code examples |
+| TypeScript | Edited — 27 sections, 14 diagrams, 13 code examples |
+| Angular | Edited — 27 sections, 14 diagrams, 7 code examples |
+| React | Edited — 27 sections, 18 diagrams, 11 code examples |
+| Next.js | Edited — 27 sections, 14 diagrams, 5 code examples |
+| Micro Frontends | Edited — 27 sections, 12 diagrams, 4 code examples |

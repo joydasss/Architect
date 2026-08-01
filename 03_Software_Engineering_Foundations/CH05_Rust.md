@@ -109,7 +109,7 @@ other still reads (use-after-free).
 
 ```mermaid
 flowchart LR
-    A["let s1 = String::from(\"hi\")<br/>s1 owns heap data"] -->|"let s2 = s1;<br/>(move)"| B["s2 owns heap data<br/>s1 is now invalid"]
+    A["let s1 = String::from(&quot;hi&quot;)<br/>s1 owns heap data"] -->|"let s2 = s1;<br/>(move)"| B["s2 owns heap data<br/>s1 is now invalid"]
     B -->|"s2 goes out of scope"| C["drop(s2) called<br/>heap memory freed"]
     A -.->|"attempt to use s1 after move"| X["compile error:<br/>value borrowed after move"]
     style X fill:#f66,stroke:#900,color:#fff
@@ -660,7 +660,7 @@ verified-by-hand `unsafe` block sits underneath.
 flowchart TD
     Safe1["Safe Rust caller code<br/>(normal borrow-checked calls)"] --> Wrapper["Safe public wrapper function<br/>fn safe_api(...) -> Result<T, E>"]
     Wrapper --> UnsafeBlock["unsafe { ... }<br/>— raw pointer deref,<br/>FFI call, etc."]
-    UnsafeBlock --> FFI["extern \"C\" fn from<br/>a C library (libpq, zlib, ...)"]
+    UnsafeBlock --> FFI["extern &quot;C&quot; fn from<br/>a C library (libpq, zlib, ...)"]
     Wrapper -.->|"proof obligation:<br/>author manually verifies<br/>invariants the compiler can't"| Note["invariants documented<br/>in a // SAFETY: comment"]
     style UnsafeBlock fill:#fc6,stroke:#a60
 ```

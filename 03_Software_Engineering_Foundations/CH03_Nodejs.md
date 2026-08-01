@@ -804,20 +804,20 @@ then query a database, then respond.
 ```mermaid
 sequenceDiagram
     participant OS as OS Network Stack
-    participant Loop as Event Loop (poll phase)
+    participant EvLoop as Event Loop (poll phase)
     participant JS as JS Callback (your handler)
     participant Pool as libuv Thread Pool
     participant DB as DB Driver (async socket I/O)
 
-    OS->>Loop: New connection / data ready
-    Loop->>JS: Invoke request handler
+    OS->>EvLoop: New connection / data ready
+    EvLoop->>JS: Invoke request handler
     JS->>Pool: fs.readFile(path, cb)\n(no true async FS syscall\non this OS, so libuv\nuses its thread pool)
     JS->>DB: db.query(sql, cb)\n(driver uses async sockets,\nno thread pool needed)
-    Note over JS,Loop: JS handler returns immediately;\nmain thread free for other requests
-    Pool-->>Loop: File read complete, callback queued
-    DB-->>Loop: Query result ready, callback queued
-    Loop->>JS: Run fs callback (poll phase)
-    Loop->>JS: Run db callback (poll phase)
+    Note over JS,EvLoop: JS handler returns immediately;\nmain thread free for other requests
+    Pool-->>EvLoop: File read complete, callback queued
+    DB-->>EvLoop: Query result ready, callback queued
+    EvLoop->>JS: Run fs callback (poll phase)
+    EvLoop->>JS: Run db callback (poll phase)
     JS->>OS: res.end(responseBody)
 ```
 

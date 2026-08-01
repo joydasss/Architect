@@ -714,21 +714,21 @@ rather than being preempted mid-instruction the way OS threads are.
 
 ```mermaid
 sequenceDiagram
-    participant Loop as Event Loop (1 thread)
+    participant EvLoop as Event Loop (1 thread)
     participant T1 as Task A
     participant T2 as Task B
     participant IO as OS I/O multiplexer (epoll/kqueue)
 
-    Loop->>T1: resume (run until next await)
+    EvLoop->>T1: resume (run until next await)
     T1->>IO: await socket.recv() -- registers interest, suspends
-    Loop->>T2: resume (run until next await)
+    EvLoop->>T2: resume (run until next await)
     T2->>IO: await db.query() -- registers interest, suspends
-    IO-->>Loop: socket ready (Task A's fd)
-    Loop->>T1: resume from await point
-    T1-->>Loop: task complete
-    IO-->>Loop: db result ready (Task B's fd)
-    Loop->>T2: resume from await point
-    T2-->>Loop: task complete
+    IO-->>EvLoop: socket ready (Task A's fd)
+    EvLoop->>T1: resume from await point
+    T1-->>EvLoop: task complete
+    IO-->>EvLoop: db result ready (Task B's fd)
+    EvLoop->>T2: resume from await point
+    T2-->>EvLoop: task complete
 ```
 
 **Decision implications.** `asyncio` achieves extremely high I/O
@@ -1182,22 +1182,22 @@ sequenceDiagram
     participant Client
     participant OS as OS socket layer
     participant Server as ASGI server (uvicorn)
-    participant Loop as asyncio event loop
+    participant EvLoop as asyncio event loop
     participant App as FastAPI app
     participant DI as Dependency-injected resources
     participant DB as Database driver (async)
 
     Client->>OS: TCP connection + HTTP request bytes
     OS->>Server: epoll/kqueue reports socket readable
-    Server->>Loop: schedule coroutine to parse request
-    Loop->>App: await app(scope, receive, send)
+    Server->>EvLoop: schedule coroutine to parse request
+    EvLoop->>App: await app(scope, receive, send)
     App->>DI: resolve Depends() parameters\n(type-hint-driven, Section 4.11)
     DI->>DB: await db.fetch(query) -- GIL released\nduring actual I/O wait
-    Note over Loop: other coroutines run on\nthis same thread while awaiting
+    Note over EvLoop: other coroutines run on\nthis same thread while awaiting
     DB-->>DI: rows returned
     DI-->>App: validated response model\n(Pydantic, Section 4.8)
-    App-->>Loop: await send(response bytes)
-    Loop-->>Server: bytes written to socket
+    App-->>EvLoop: await send(response bytes)
+    EvLoop-->>Server: bytes written to socket
     Server-->>Client: HTTP response
 ```
 
