@@ -180,6 +180,30 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Counter-Metrics / Guardrail Metrics | [Metrics](02_Design_Thinking_and_Product_Management/CH24_Metrics.md) | Metrics tracked specifically to detect systemic side effects, gaming, or trade-off degradation caused by optimizing a target metric |
 | Telemetry Instrumentation Architecture | [Metrics](02_Design_Thinking_and_Product_Management/CH24_Metrics.md) | Client/server event emission schema, telemetry pipeline topology, processing semantics, and schema governance contract |
 | Vanity Metrics vs. Actionable Metrics | [Metrics](02_Design_Thinking_and_Product_Management/CH24_Metrics.md) | Diagnostic taxonomy separating non-falsifiable, monotonic upward indicators from causal, decision-driving metrics |
+| North Star Metric | [North Star Metrics](02_Design_Thinking_and_Product_Management/CH25_North_Star_Metrics.md) | Single, quantitative measure of core customer value serving as the primary focal point for product, engineering, and operational decisions across an organization |
+| North Star Selection Frameworks (Contextual, Strategic, Opportunity-Based) | [North Star Metrics](02_Design_Thinking_and_Product_Management/CH25_North_Star_Metrics.md) | Systematic approaches for choosing which metric to elevate to North Star status using customer value, competitive advantage, or market positioning lenses |
+| North Star Metrics vs. OKRs Arbitration and Synchronized Governance | [North Star Metrics](02_Design_Thinking_and_Product_Management/CH25_North_Star_Metrics.md) | Operational discipline for managing relationships between organization-wide North Star optimization and team-level OKRs on different timescales; includes conflict resolution rules |
+| The North Star Cascade (company → product-line → team proxy metrics) | [North Star Metrics](02_Design_Thinking_and_Product_Management/CH25_North_Star_Metrics.md) | Multi-tier system of metrics flowing from company North Star down through product lines and teams with monotonic alignment and aggregation consistency |
+| North Star Metric Lifecycle (Selection, Evolution, Retirement, Pivoting) | [North Star Metrics](02_Design_Thinking_and_Product_Management/CH25_North_Star_Metrics.md) | Operational progression of North Star Metrics from initial selection through active optimization to evolution or retirement as market/business needs change |
+| Multi-Product and Cross-Product North Star Structures | [North Star Metrics](02_Design_Thinking_and_Product_Management/CH25_North_Star_Metrics.md) | Organizational frameworks for defining and governing North Star Metrics across multiple independent or interdependent products with tiered structure (company + product-line + optional platform health) |
+| North Star Telemetry Foundation | [North Star Metrics](02_Design_Thinking_and_Product_Management/CH25_North_Star_Metrics.md) | End-to-end instrumentation pipeline (event schemas, collection, data warehousing, metric definitions, data quality assertions) that makes measuring North Star Metrics reliable and attributable |
+| Hypothesis Formulation (falsifiability, specificity, success thresholds) | [Experimentation](02_Design_Thinking_and_Product_Management/CH26_Experimentation.md) | Discipline of expressing experimental goals as explicit, falsifiable hypotheses with measurable outcome definitions and success/failure thresholds before execution |
+| Treatment Randomization (unit of randomization, deterministic hashing) | [Experimentation](02_Design_Thinking_and_Product_Management/CH26_Experimentation.md) | Mechanism for assigning observations to experimental variants using cryptographic hashing to ensure uniform, independent, reproducible allocation |
+| Control Groups and Counterfactual Construction (pure vs. active control) | [Experimentation](02_Design_Thinking_and_Product_Management/CH26_Experimentation.md) | Structural comparison groups (pure control receiving no treatment or active control receiving alternative treatment) necessary for estimating causal treatment effects |
+| Sample-Size Calculation and Statistical Power (Type I/II error, power analysis) | [Experimentation](02_Design_Thinking_and_Product_Management/CH26_Experimentation.md) | Pre-experimental statistical calculation determining required observation count per variant to achieve target power (true-positive rate) and significance level |
+| Confounding Variables and Internal Validity (definition, SUTVA, balance checks) | [Experimentation](02_Design_Thinking_and_Product_Management/CH26_Experimentation.md) | Discipline of identifying third-party variables that could bias treatment effect estimates, validating SUTVA (Stable Unit Treatment Value Assumption), and conducting balance checks |
+| Sequential Testing and Adaptive Designs (interim analyses, stopping rules, group-sequential) | [Experimentation](02_Design_Thinking_and_Product_Management/CH26_Experimentation.md) | Architectural pattern permitting continuous monitoring of accumulated experimental data with formal decision boundaries enabling early stopping while maintaining error control |
+| Experimentation Governance and Multiple-Comparison Correction (pre-registration, FDR, registry) | [Experimentation](02_Design_Thinking_and_Product_Management/CH26_Experimentation.md) | Organizational pattern for managing multiple concurrent experiments, pre-registering hypotheses to prevent HARKing, correcting false-discovery rates, and maintaining experiment registries |
+| Randomization and Hash-Based Assignment | [A/B Testing](02_Design_Thinking_and_Product_Management/CH27_A_B_Testing.md) | Deterministic, reproducible assignment of observations to experimental variants using cryptographic hash functions ensuring uniformity and independence |
+| Power Analysis and Sample Size Calculation (MDE, effect size) | [A/B Testing](02_Design_Thinking_and_Product_Management/CH27_A_B_Testing.md) | Pre-experimental statistical calculation determining required observation count per variant to achieve target power and significance level for a specified effect size |
+| Frequentist Hypothesis Testing and *p*-Values | [A/B Testing](02_Design_Thinking_and_Product_Management/CH27_A_B_Testing.md) | Statistical inference framework computing *p*-values as probability of observing data as extreme or more extreme than observed assuming null hypothesis is true |
+| Bayesian Posterior Inference | [A/B Testing](02_Design_Thinking_and_Product_Management/CH27_A_B_Testing.md) | Statistical inference framework treating model parameters as random variables, updating from prior beliefs to posterior beliefs using Bayes' theorem after observing data |
+| Multiple Comparison Problem (MCP) and False Discovery Rate (FDR) | [A/B Testing](02_Design_Thinking_and_Product_Management/CH27_A_B_Testing.md) | Statistical phenomenon where false-positive rate inflates with number of tests; Family-Wise Error Rate (FWER) and False Discovery Rate (FDR) control strategies to mitigate |
+| Sequential Probability Ratio Test (SPRT) | [A/B Testing](02_Design_Thinking_and_Product_Management/CH27_A_B_Testing.md) | Sequential statistical procedure permitting continuous monitoring of accumulated data with likelihood ratio thresholds for early stopping while maintaining error control |
+| Factorial and Multivariate Experimental Design | [A/B Testing](02_Design_Thinking_and_Product_Management/CH27_A_B_Testing.md) | Experimental design testing multiple factors simultaneously using 2^k or higher-order designs, enabling estimation of main effects and interaction effects efficiently |
+| Contextual Bandits and Thompson Sampling | [A/B Testing](02_Design_Thinking_and_Product_Management/CH27_A_B_Testing.md) | Online learning algorithms adaptively allocating traffic based on observed context and rewards, balancing exploitation and exploration; differentiated from fixed-allocation A/B tests |
+| Stratification and Latin Square Designs | [A/B Testing](02_Design_Thinking_and_Product_Management/CH27_A_B_Testing.md) | Experimental technique partitioning observations into homogeneous subgroups (strata) and applying randomization independently within each stratum to reduce variance |
+| Experiment Collision and Interference | [A/B Testing](02_Design_Thinking_and_Product_Management/CH27_A_B_Testing.md) | Statistical/causal interference when the same observation unit is assigned to variants of multiple concurrent experiments, biasing results; architectural detection and isolation required |
 
 ## How to add an entry
 
@@ -396,6 +420,30 @@ when multiple chapters are authored in parallel, isolated sessions.
     contract; controlled external roadmap disclosure) are now fully
     resolved by "Roadmaps" with no re-teaching of Product Strategy's
     Three Horizons, strategy stack, or JTBD.
+- **Batch 10 (Part 02 batch 8 — Backlog, MVP, Metrics)**: merged `review/concept-proposals/backlog.md`
+  (7 concepts), `review/concept-proposals/mvp.md` (5 concepts), and
+  `review/concept-proposals/metrics.md` (7 concepts). All three chapters
+  maintained clean boundaries with earlier chapters, grounding high-level
+  forward references from Lean UX, Product Discovery, Story Mapping, and
+  Roadmaps while cleanly deferring future-chapter concepts (such as
+  algorithmic prioritization to CH25 Prioritization, single-metric alignment to
+  CH25 North Star Metrics, and statistical test design to Experimentation/A-B Testing).
+- **Batch 11 (Part 02 batch 9 — North Star Metrics, Experimentation, A/B Testing)**: merged
+  `review/concept-proposals/north-star-metrics.md` (7 concepts),
+  `review/concept-proposals/experimentation.md` (7 concepts), and
+  `review/concept-proposals/a-b-testing.md` (10 concepts). This batch resolves
+  three long-deferred concept ownerships:
+  - **North Star Metrics vs. OKRs**: Both Product Strategy (CH15) and North Star Metrics (CH25)
+    reference these at high levels; CH25 now owns the operational arbitration discipline
+    for synchronized governance. Product Strategy recaps Strategy Stack and OKRs without re-teaching.
+  - **Experimentation as a distinct concept**: Hypothesis formulation, randomization,
+    control groups, sample-size calculation, confounding variables, sequential testing, and
+    experimentation governance are all new. A/B Testing (CH27) defers these to Experimentation
+    (CH26) and owns the statistical machinery (power analysis, frequentist/Bayesian testing,
+    MCP correction, SPRT, factorial designs, bandits, stratification, collision detection).
+  - **North Star Telemetry Foundation**: Shared ownership with Metrics (CH24), which owns
+    broader telemetry architecture; CH25 specifies North Star-specific quality gates (versioned
+    metric definitions, data quality checks, aggregation consistency, 12-24 month retention).
 - **Batch 10 (Part 02 batch 8 — Backlog, MVP, Metrics)**: merged `review/concept-proposals/backlog.md`
   (7 concepts), `review/concept-proposals/mvp.md` (5 concepts), and
   `review/concept-proposals/metrics.md` (7 concepts). All three chapters

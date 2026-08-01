@@ -37,9 +37,9 @@ chat's "Suggested Book Sequence" (item 2).
 | Backlog | Edited (batch-reviewed, resolves Story Mapping/Roadmaps backlog queue links) |
 | MVP (Minimum Viable Product) | Edited (batch-reviewed, resolves Product Discovery/Lean UX MVP links) |
 | Metrics | Edited (batch-reviewed, resolves Product Strategy/Journey Mapping telemetry links) |
-| North Star Metrics | Not Started |
-| Experimentation | Not Started |
-| A/B Testing | Not Started |
+| North Star Metrics | Edited (batch-reviewed, resolves Product Strategy North Star alignment) |
+| Experimentation | Edited (batch-reviewed, hypothesis-driven design framework) |
+| A/B Testing | Edited (batch-reviewed, statistical machinery and implementation) |
 | Prioritization (RICE, MoSCoW, Kano) | Not Started |
 | Pricing | Not Started |
 | Go-to-Market | Not Started |

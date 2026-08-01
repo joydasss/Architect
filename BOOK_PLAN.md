@@ -19,7 +19,7 @@ Roman-numeral Part numbering (each overview cross-references its original Part).
 | # | Part | Original Part(s) | Chapters | Status |
 |---|---|---|---|---|
 | 01 | [Architecture Mindset](01_Architecture_Mindset/PART_OVERVIEW.md) | I | 3 | **3 Edited (first full-scale batch)** |
-| 02 | [Design Thinking and Product Management](02_Design_Thinking_and_Product_Management/PART_OVERVIEW.md) | XV, XIV | 31 | **24/31 Edited (Design Thinking complete 13/13; Product Mgmt 11/18)** |
+| 02 | [Design Thinking and Product Management](02_Design_Thinking_and_Product_Management/PART_OVERVIEW.md) | XV, XIV | 31 | **27/31 Edited (Design Thinking complete 13/13; Product Mgmt 14/18)** |
 | 03 | [Software Engineering Foundations](03_Software_Engineering_Foundations/PART_OVERVIEW.md) | II | 5 | Not Started |
 | 04 | [Frontend Architecture](04_Frontend_Architecture/PART_OVERVIEW.md) | III | 8 | Not Started |
 | 05 | [Networking and Operating Systems](05_Networking_and_OS/PART_OVERVIEW.md) | VII + new | 29 | **1 Reviewed (HTTP, pilot)** |
