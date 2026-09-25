@@ -602,6 +602,16 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Lock types/compatibility matrix (shared/exclusive/intent); lock granularity and escalation | [Locking](06_Databases_and_Storage/CH10_Locking.md) | Multi-granularity conflict-check mechanism; row/page/table-level concurrency-vs-overhead trade-off and escalation stall failure mode |
 | Pessimistic vs. optimistic concurrency control | [Locking](06_Databases_and_Storage/CH10_Locking.md) | Acquire-before-access (`SELECT ... FOR UPDATE`) vs. validate-at-commit-time (version-column CAS with bounded retry) |
 | Database-specific deadlock detection (wait-for graph, victim selection); lock timeouts; advisory locks | [Locking](06_Databases_and_Storage/CH10_Locking.md) | Lock-manager wait-for graph and engine-specific victim selection, distinct from Part 05's OS-level Coffman-conditions treatment; FIFO lock-wait queuing; unenforced application-coordination locks |
+| PostgreSQL MVCC (heap tuples/xmin-xmax), VACUUM/bloat, WAL, streaming/logical replication | [PostgreSQL](06_Databases_and_Storage/CH11_PostgreSQL.md) | Copy-on-write heap-tuple MVCC (vs. undo-log-based engines); dead-tuple reclamation and wraparound protection; WAL sender/receiver and logical decoding |
+| PostgreSQL GIN/GiST/BRIN/partial/expression indexes; JSONB; declarative partitioning | [PostgreSQL](06_Databases_and_Storage/CH11_PostgreSQL.md) | Specialized index structures for containment/spatial/append-only workloads; binary JSON storage; native `PARTITION BY` with planner pruning |
+| PostgreSQL process-per-connection model; PgBouncer pooling; planner specifics (cost constants, EXPLAIN ANALYZE) | [PostgreSQL](06_Databases_and_Storage/CH11_PostgreSQL.md) | Per-backend OS process memory/scheduling cost driving pooling necessity; transaction-mode pooling's session-state breakage risk |
+| MySQL pluggable storage engines (InnoDB vs. MyISAM); InnoDB clustered-index table organization; Buffer Pool | [MySQL](06_Databases_and_Storage/CH12_MySQL.md) | Handler-API storage-engine seam; primary-key-as-data physical layout and its two-tree secondary-index lookup cost; midpoint-insertion LRU page cache |
+| MySQL next-key/gap locking; binlog formats (STATEMENT/ROW/MIXED) and GTIDs; replication topology spectrum; query cache history | [MySQL](06_Databases_and_Storage/CH12_MySQL.md) | InnoDB's phantom-read-closing lock combination; server-layer change log independent of InnoDB redo log; Group Replication consensus; deprecated global-mutex result cache case study |
+| Oracle SGA/PGA memory architecture and background-process roster (PMON/SMON/DBWn/LGWR/CKPT/ARCn) | [Oracle](06_Databases_and_Storage/CH13_Oracle.md) | Shared vs. per-session memory; LGWR-synchronous commit-durability critical path and instance-recovery roll-forward/roll-back |
+| Oracle undo-segment/SCN read consistency; tablespace/datafile physical model; PL/SQL | [Oracle](06_Databases_and_Storage/CH13_Oracle.md) | Oracle's concrete MVCC realization (`ORA-01555` failure mode); backup-scope/I/O-isolation tablespace design; in-process procedural extension |
+| Oracle RAC (Cache Fusion) shared-everything clustering; Data Guard standby databases | [Oracle](06_Databases_and_Storage/CH13_Oracle.md) | Distributed lock manager memory-to-memory block transfer; physical/logical standby with protection modes and Fast-Start Failover |
+| SQL Server transaction log (LSN/VLF/checkpoint/truncation) and ARIES recovery; clustered index as physical row storage | [SQL Server](06_Databases_and_Storage/CH14_SQLServer.md) | SQL Server-specific WAL and three-phase Analysis/Redo/Undo recovery plus Accelerated Database Recovery; table rows ARE the clustered index leaf level |
+| SQL Server Always On Availability Groups; In-Memory OLTP (Hekaton); Query Store; columnstore indexes | [SQL Server](06_Databases_and_Storage/CH14_SQLServer.md) | Listener-based quorum failover; lock-free optimistic in-process engine; persistent plan-regression diagnosis; column-major analytical storage |
 
 ## How to add an entry
 
@@ -1125,3 +1135,29 @@ when multiple chapters are authored in parallel, isolated sessions.
   reserved sequenceDiagram participant aliases; zero backslash-escaped quotes (only `&quot;`/`&gt;`
   entities used); subgraph/`loop`/`end` balance verified per file (Caching 6/6, Locking 11/11);
   zero `timeline` diagrams used in either chapter. Both staging files deleted after merge.
+- **Batch 20 (Part 06 — Databases and Storage, batch 4 of 6: PostgreSQL, MySQL, Oracle, SQL
+  Server — completes the "Relational Databases" subsection, 4/4)**: merged
+  `review/concept-proposals/postgresql.md`, `mysql.md`, `oracle.md`, `sqlserver.md` (CH11-CH14).
+  38 raw concepts condensed into 11 ownership rows (3 per engine, except Oracle's 3 and SQL
+  Server's 2 rows folding closely-related items). All four chapters independently recapped
+  (rather than re-taught) the Database Design subsection's generic concepts: MVCC/read-consistency
+  (Transactions CH08 — each engine's row explicitly frames its own mechanism, e.g. Oracle's
+  undo-segment/SCN model or PostgreSQL's heap-tuple xmin/xmax, as a concrete realization, not a
+  re-derivation), locking/concurrency-control (Locking CH10 — InnoDB next-key/gap locks and SQL
+  Server's Hekaton lock-free design both explicitly contrasted against, not duplicating, the
+  generic lock-type/CC taxonomy), replication (Replication CH07 — streaming/logical replication,
+  MySQL Group Replication, Data Guard, and Always On Availability Groups all framed as
+  product-specific leader/follower implementations), indexing (Indexes CH03 and Query Optimizers
+  CH04 — GIN/GiST/BRIN, InnoDB clustered organization, and SQL Server columnstore all framed as
+  engine-specific physical structures atop the generic B-tree/cost-based-optimization model), and
+  partitioning (Partitioning CH05 — PostgreSQL's declarative `PARTITION BY` framed as one concrete
+  implementation). Zero ownership conflicts found between the four sibling chapters themselves or
+  against CH01-CH10; each engine's mechanism (Oracle RAC/Cache Fusion, SQL Server In-Memory
+  OLTP/Hekaton, MySQL pluggable storage engines, PostgreSQL extension architecture) is a genuinely
+  distinct, non-overlapping product feature. No Mermaid syntax defects found: all 4 chapters'
+  diagrams (23 + 12 + 16 + 13 = 64 total) independently re-verified — 27/27 exact section headers
+  per file; zero reserved sequenceDiagram participant aliases; zero backslash-escaped quotes
+  (PostgreSQL's subagent self-corrected one instance found in its own JSONB diagram before
+  reporting); subgraph/alt/`end` balance verified per file (PostgreSQL 5/5, MySQL 5/5, Oracle
+  10/10, SQL Server 10/10); zero `timeline` diagrams used in any of the four chapters. All 4
+  staging files deleted after merge.

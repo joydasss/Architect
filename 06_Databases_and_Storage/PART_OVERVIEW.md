@@ -6,10 +6,10 @@ Maps to the original catalog's **Part VI — Databases**.
 
 | Chapter | Status |
 |---|---|
-| PostgreSQL | Not Started |
-| MySQL | Not Started |
-| Oracle | Not Started |
-| SQL Server | Not Started |
+| PostgreSQL | Edited — 27 sections, 23 diagrams, 4 code examples ([CH11_PostgreSQL.md](CH11_PostgreSQL.md)) |
+| MySQL | Edited — 27 sections, 12 diagrams, 4 code examples ([CH12_MySQL.md](CH12_MySQL.md)) |
+| Oracle | Edited — 27 sections, 16 diagrams, 5 code examples ([CH13_Oracle.md](CH13_Oracle.md)) |
+| SQL Server | Edited — 27 sections, 13 diagrams, 4 code examples ([CH14_SQLServer.md](CH14_SQLServer.md)) |
 
 ## Chapters — NoSQL
 
