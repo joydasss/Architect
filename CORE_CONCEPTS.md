@@ -591,7 +591,7 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Leader/follower replication mechanics (WAL shipping/streaming); sync/async/semi-sync trade-off | [Replication](06_Databases_and_Storage/CH07_Replication.md) | Single-writer topology and durability-vs-write-latency spectrum per acknowledgment mode |
 | Replication lag and read-your-writes consistency; multi-leader conflict resolution | [Replication](06_Databases_and_Storage/CH07_Replication.md) | Transfer/apply lag decomposition and session-stickiness mitigation; active-active write-write conflict detection/resolution (LWW, merge, CRDTs) |
 | Leaderless/quorum-based replication (Dynamo-style N/W/R, sloppy quorum, hinted handoff, read repair) | [Replication](06_Databases_and_Storage/CH07_Replication.md) | W+R>N overlap correctness rule; per-request tunable consistency |
-| Failover mechanics and split-brain risk (fencing tokens, STONITH); CAP theorem/PACELC framing | [Replication](06_Databases_and_Storage/CH07_Replication.md) | Leader-unreachable vs. leader-dead distinction; unifying trade-off framing, flagged for possible move to a future System Design part |
+| Failover mechanics and split-brain risk (fencing tokens, STONITH) | [Replication](06_Databases_and_Storage/CH07_Replication.md) | Leader-unreachable vs. leader-dead distinction; recaps CAP theorem/PACELC framing (moved to Part 07's dedicated chapters below) rather than owning it |
 | ACID properties (Atomicity, Consistency, Isolation, Durability) and their mechanisms | [Transactions](06_Databases_and_Storage/CH08_Transactions.md) | WAL-based redo/undo, constraint enforcement, anomaly-prevention spectrum, fsync'd durability |
 | Isolation levels and anomaly taxonomy (dirty read, non-repeatable read, phantom read, write skew) | [Transactions](06_Databases_and_Storage/CH08_Transactions.md) | Four SQL-standard isolation levels mapped against which anomalies each prevents; write skew as the anomaly only Serializable catches |
 | Multi-Version Concurrency Control (MVCC) | [Transactions](06_Databases_and_Storage/CH08_Transactions.md) | Version-chain/snapshot mechanism avoiding reader/writer blocking; vacuum/undo-purge cleanup cost |
@@ -637,6 +637,11 @@ when multiple chapters are authored in parallel, isolated sessions.
 | HLD workflow (component ID -> boundary/responsibility -> data-flow/storage-choice -> API/contract -> bottleneck/SPOF); communicating HLD to stakeholders | [High-Level Design](07_System_Design_and_Distributed_Systems/CH03_High_Level_Design.md) | Five-step repeatable workflow; audience-tiered artifact selection and diagram-as-documentation discipline, recapping ADRs (Architecture Thinking CH03) rather than re-teaching them |
 | SOLID principles (SRP/OCP/LSP/ISP/DIP); representative GoF design patterns (Factory Method/Strategy/Observer/Decorator/Singleton) | [Low-Level Design](07_System_Design_and_Distributed_Systems/CH04_Low_Level_Design.md) | Violation-then-fix code pairs for all five SOLID principles; representative, not exhaustive, class/module-level pattern set |
 | DDD tactical patterns (Entity/Value Object/Aggregate/Repository/Domain Event); Event Modeling (class/module-level technique) | [Low-Level Design](07_System_Design_and_Distributed_Systems/CH04_Low_Level_Design.md) | Code/class-level building blocks only; strategic DDD (bounded contexts) and system-level patterns forward-referenced to a future Part 17 Architecture Patterns |
+| CAP theorem (formal C/A/P definitions, Brewer's conjecture, Gilbert/Lynch proof sketch, "2 of 3" fallacy) | [CAP Theorem](07_System_Design_and_Distributed_Systems/CH05_CAP_Theorem.md) | Canonical, book-wide owner of CAP; CP vs. AP system classification and the consistency-during-partition-then-reconcile pattern also owned here |
+| PACELC formula (partition-branch A-or-C, else-branch L-or-C) and four-quadrant classification (PA/EL, PC/EC, PA/EC, PC/EL) | [PACELC](07_System_Design_and_Distributed_Systems/CH06_PACELC.md) | Extends CAP Theorem's partition-only analysis to normal-operation latency-vs-consistency trade-offs; maps quadrants to concrete sync/async replication and quorum configuration |
+| Consensus problem (Agreement/Validity/Termination) and FLP impossibility; Basic Paxos/Multi-Paxos; Raft (terms, election, log replication, commit rules) | [Consensus](07_System_Design_and_Distributed_Systems/CH07_Consensus.md) | Canonical owner of Paxos/Raft mechanics recapped by Part 06's MongoDB/Neo4j (Raft) and Cassandra (Paxos CAS) chapters |
+| Byzantine Fault Tolerance (PBFT three-phase protocol); blockchain consensus (Proof of Work, Proof of Stake) | [Consensus](07_System_Design_and_Distributed_Systems/CH07_Consensus.md) | Crash-fault (2f+1) vs. Byzantine-fault (3f+1) model distinction; PoW/PoS covered as an application area, not a full blockchain-architecture treatment |
+| Bully and Ring (Chang-Roberts) leader-election algorithms; coordination-service election (ZooKeeper/etcd/Consul); split-brain and fencing tokens | [Leader Election](07_System_Design_and_Distributed_Systems/CH08_Leader_Election.md) | General, Raft-independent leader-election problem; recaps Raft's internal election mechanism (Consensus CH07) as one concrete implementation |
 
 ## How to add an entry
 
@@ -1277,3 +1282,40 @@ when multiple chapters are authored in parallel, isolated sessions.
   (Functional Requirements 2/2, Non-Functional Requirements 5/5, High-Level Design 4/4 plus
   balanced C4 `Container_Boundary { }` braces, Low-Level Design 3/3). All 4 staging files deleted
   after merge.
+- **Batch 24 (Part 07 — System Design and Distributed Systems, batch 2 of 5: CAP Theorem, PACELC,
+  Consensus, Leader Election — the "Distributed Systems Theory" grouping, 8/19)**: merged
+  `review/concept-proposals/cap-theorem.md`, `pacelc.md`, `consensus.md`, `leader-election.md`
+  (CH05-CH08). 14 raw concepts condensed into 6 ownership rows. This batch's headline arbitration
+  item, flagged since Part 06's Replication chapter (Batch 20) explicitly anticipated it: CAP
+  Theorem's staging file requested Replication's existing "CAP theorem/PACELC framing" ownership
+  clause be removed and replaced with a recap-only note, now that this part supplies dedicated
+  chapters; applied exactly as requested — Replication's row now reads "recaps CAP theorem/PACELC
+  framing (moved to Part 07's dedicated chapters below) rather than owning it." CAP Theorem is now
+  the canonical, book-wide owner of the formal C/A/P definitions, Gilbert/Lynch proof sketch, and
+  CP/AP classification; PACELC (authored in parallel with CAP Theorem this same batch, confirmed
+  via both staging files' forward-reference notes to contain zero duplicate full-formula teaching)
+  extends it to the non-partition latency-vs-consistency trade-off and the four-quadrant
+  classification, recapping CAP Theorem's definitions rather than re-deriving them and recapping
+  Replication's synchronous/asynchronous replication and N/W/R quorum mechanics rather than
+  re-teaching them. Consensus is now the canonical owner of the Paxos/Raft/Byzantine Fault
+  Tolerance mechanics already correctly recapped (per their own existing CORE_CONCEPTS.md rows) by
+  Part 06's MongoDB (Raft-based replica-set elections), Neo4j (Raft-based Causal Clustering), and
+  Cassandra (Paxos Lightweight Transactions) — confirmed no conflicting or duplicated ownership
+  language exists in any of those three rows, so no edit was needed to them beyond this
+  confirmation. Leader Election (authored in parallel with Consensus this same batch) recaps
+  Raft's internal election mechanism from Consensus Section 4.4 and instead owns the general,
+  protocol-independent leader-election problem (Bully/Ring algorithms, ZooKeeper/etcd/Consul
+  coordination-service election, split-brain and fencing tokens) — the two sibling chapters'
+  staging files each explicitly named the other as the complementary scope boundary, with no
+  overlap found. Authoring-process note: two of this batch's four subagents (Consensus, Leader
+  Election) returned truncated or empty final reports; both chapters were independently confirmed
+  complete on disk (27/27 sections each) via direct grep, and both missing concept-proposal
+  staging files were reconstructed directly from the chapters' own Section 4 content rather than
+  re-running the subagents — the same recovery approach used successfully in Batch 23. No Mermaid
+  syntax defects found: all 4 chapters' diagrams (15 + 11 + ~14 + ~10 = ~50 total, including
+  sequence diagrams for Paxos/PBFT message flows and a Raft `stateDiagram-v2`) independently
+  re-verified — 27/27 exact section headers per file; zero reserved sequenceDiagram participant
+  aliases; zero backslash-escaped quotes; subgraph/alt/`end` balance verified per file (CAP Theorem
+  7 subgraph + 1 alt = 8/8, PACELC 13/13, Consensus 3/3, Leader Election 2/2); Leader Election's
+  one genuine `timeline` diagram (Section 2 historical milestones) manually confirmed to have every
+  period's event text on one physical line. All 4 staging files deleted after merge.
