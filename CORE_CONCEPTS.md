@@ -591,7 +591,7 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Leader/follower replication mechanics (WAL shipping/streaming); sync/async/semi-sync trade-off | [Replication](06_Databases_and_Storage/CH07_Replication.md) | Single-writer topology and durability-vs-write-latency spectrum per acknowledgment mode |
 | Replication lag and read-your-writes consistency; multi-leader conflict resolution | [Replication](06_Databases_and_Storage/CH07_Replication.md) | Transfer/apply lag decomposition and session-stickiness mitigation; active-active write-write conflict detection/resolution (LWW, merge, CRDTs) |
 | Leaderless/quorum-based replication (Dynamo-style N/W/R, sloppy quorum, hinted handoff, read repair) | [Replication](06_Databases_and_Storage/CH07_Replication.md) | W+R>N overlap correctness rule; per-request tunable consistency |
-| Failover mechanics and split-brain risk (fencing tokens, STONITH) | [Replication](06_Databases_and_Storage/CH07_Replication.md) | Leader-unreachable vs. leader-dead distinction; recaps CAP theorem/PACELC framing (moved to Part 07's dedicated chapters below) rather than owning it |
+| Failover mechanics and split-brain risk (fencing tokens, STONITH) | [Replication](06_Databases_and_Storage/CH07_Replication.md) | Leader-unreachable vs. leader-dead distinction; recaps CAP theorem/PACELC framing (moved to Part 07's dedicated chapters below) rather than owning it; database-specific WAL/sync-async/N-W-R/failover mechanics recapped (not re-taught) by Part 07's general [Replication](07_System_Design_and_Distributed_Systems/CH10_Replication.md) chapter for CRDTs/vector clocks/queue-log/non-database replication |
 | ACID properties (Atomicity, Consistency, Isolation, Durability) and their mechanisms | [Transactions](06_Databases_and_Storage/CH08_Transactions.md) | WAL-based redo/undo, constraint enforcement, anomaly-prevention spectrum, fsync'd durability |
 | Isolation levels and anomaly taxonomy (dirty read, non-repeatable read, phantom read, write skew) | [Transactions](06_Databases_and_Storage/CH08_Transactions.md) | Four SQL-standard isolation levels mapped against which anomalies each prevents; write skew as the anomaly only Serializable catches |
 | Multi-Version Concurrency Control (MVCC) | [Transactions](06_Databases_and_Storage/CH08_Transactions.md) | Version-chain/snapshot mechanism avoiding reader/writer blocking; vacuum/undo-purge cleanup cost |
@@ -618,7 +618,7 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Redis Cluster hash-slot sharding/gossip; Sentinel failover; pub/sub; maxmemory/approximated LRU-LFU eviction | [Redis](06_Databases_and_Storage/CH16_Redis.md) | Redis's sampling-based approximated eviction mechanism, a more specific claim than Caching's abstract LRU/LFU taxonomy |
 | DynamoDB partition-key/sort-key single-table design; managed partition-splitting; capacity modes (RCU/WCU, adaptive capacity) | [DynamoDB](06_Databases_and_Storage/CH17_DynamoDB.md) | Access-patterns-first modeling discipline; engine-specific consistent-hashing and per-partition throughput-ceiling realizations |
 | DynamoDB GSI/LSI; Streams; tunable per-request consistency; Transactions; Global Tables | [DynamoDB](06_Databases_and_Storage/CH17_DynamoDB.md) | Engine-specific applications of generic indexing/2PC/leaderless-replication concepts already owned elsewhere |
-| Cassandra ring architecture (vnodes, Murmur3Partitioner); named consistency levels; gossip/Phi Accrual failure detection | [Cassandra](06_Databases_and_Storage/CH18_Cassandra.md) | Engine-specific consistent-hashing and Dynamo-style quorum realizations, recapping Sharding/Replication generic theory |
+| Cassandra ring architecture (vnodes, Murmur3Partitioner); named consistency levels | [Cassandra](06_Databases_and_Storage/CH18_Cassandra.md) | Engine-specific consistent-hashing and Dynamo-style quorum realizations, recapping Sharding/Replication generic theory; Cassandra's gossip-based ring membership and Phi Accrual failure detector are concrete applications of the general theory owned by [Gossip Protocols](07_System_Design_and_Distributed_Systems/CH09_Gossip_Protocols.md) |
 | Cassandra LSM-tree storage engine (memtable/SSTable/compaction); query-first CQL data modeling; Paxos Lightweight Transactions | [Cassandra](06_Databases_and_Storage/CH18_Cassandra.md) | Denormalize-for-query-pattern discipline distinct from relational normalization; Paxos-based compare-and-set as an engine-specific CAS mechanism |
 | Neo4j property graph model; index-free adjacency; native fixed-size-record storage engine | [Neo4j](06_Databases_and_Storage/CH19_Neo4j.md) | Labeled Property Graph distinct from RDF triples; O(1)-per-hop traversal via direct pointer chains vs. index lookups; supernode hotspot failure mode |
 | Cypher pattern matching; Graph Data Science algorithm catalog; graph-vs-relational decision framework; Causal Clustering/Raft | [Neo4j](06_Databases_and_Storage/CH19_Neo4j.md) | ASCII-art declarative query syntax; Neo4j's Raft-based consensus implementation recapping Replication's generic leader/follower theory |
@@ -642,6 +642,10 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Consensus problem (Agreement/Validity/Termination) and FLP impossibility; Basic Paxos/Multi-Paxos; Raft (terms, election, log replication, commit rules) | [Consensus](07_System_Design_and_Distributed_Systems/CH07_Consensus.md) | Canonical owner of Paxos/Raft mechanics recapped by Part 06's MongoDB/Neo4j (Raft) and Cassandra (Paxos CAS) chapters |
 | Byzantine Fault Tolerance (PBFT three-phase protocol); blockchain consensus (Proof of Work, Proof of Stake) | [Consensus](07_System_Design_and_Distributed_Systems/CH07_Consensus.md) | Crash-fault (2f+1) vs. Byzantine-fault (3f+1) model distinction; PoW/PoS covered as an application area, not a full blockchain-architecture treatment |
 | Bully and Ring (Chang-Roberts) leader-election algorithms; coordination-service election (ZooKeeper/etcd/Consul); split-brain and fencing tokens | [Leader Election](07_System_Design_and_Distributed_Systems/CH08_Leader_Election.md) | General, Raft-independent leader-election problem; recaps Raft's internal election mechanism (Consensus CH07) as one concrete implementation |
+| Gossip/epidemic dissemination (push/pull/push-pull, anti-entropy vs. rumor-mongering); SWIM membership protocol; Phi Accrual adaptive failure detector | [Gossip Protocols](07_System_Design_and_Distributed_Systems/CH09_Gossip_Protocols.md) | Canonical, general owner recapped by Part 06's Cassandra (gossip-based ring membership and Phi Accrual as concrete applications) |
+| Replication as a general distributed-systems pattern: CRDTs, vector clocks, queue/log replication (Kafka In-Sync Replicas), non-database stateful-service replication | [Replication (Distributed Systems)](07_System_Design_and_Distributed_Systems/CH10_Replication.md) | Recaps Part 06's Replication (WAL shipping, sync/async, N/W/R quorum, failover/fencing, all database-scoped) and this part's CAP Theorem/PACELC rather than re-teaching them |
+| Partitioning as a general cluster-scale pattern: consistent hashing/hash ring, virtual nodes (vnodes), cluster-scale rebalancing and hotspot mitigation, partitioning in queues/caches/stream-processing | [Partitioning (Distributed Systems)](07_System_Design_and_Distributed_Systems/CH11_Partitioning.md) | Recaps Part 06's Partitioning (single-engine range/list/hash) and Sharding (database-shard routing/rebalancing) rather than re-deriving either; generalizes to non-database domains |
+| Distributed transaction/dual-write problem; in-doubt transaction 2PC coordinator-crash recovery; Three-Phase Commit (3PC); transactional outbox pattern; boundary-redesign avoidance strategies | [Distributed Transactions](07_System_Design_and_Distributed_Systems/CH12_Distributed_Transactions.md) | Recaps Part 06's Transactions (2PC protocol mechanics, Saga mechanism) rather than re-teaching them; Saga's full choreography/orchestration design depth remains flagged for this part's forthcoming dedicated Saga Pattern chapter |
 
 ## How to add an entry
 
@@ -1319,3 +1323,40 @@ when multiple chapters are authored in parallel, isolated sessions.
   7 subgraph + 1 alt = 8/8, PACELC 13/13, Consensus 3/3, Leader Election 2/2); Leader Election's
   one genuine `timeline` diagram (Section 2 historical milestones) manually confirmed to have every
   period's event text on one physical line. All 4 staging files deleted after merge.
+- **Batch 25 (Part 07 — System Design and Distributed Systems, batch 3 of 5: Gossip Protocols,
+  Replication, Partitioning, Distributed Transactions — the "Distributed Data Patterns" grouping,
+  12/19)**: merged `review/concept-proposals/gossip-protocols.md`, `distributed-replication.md`,
+  `distributed-partitioning.md`, `distributed-transactions.md` (CH09-CH12). 19 raw concepts
+  condensed into 5 ownership rows (including a correction to an existing Cassandra row). This
+  batch's Replication (CH10) and Partitioning (CH11) chapters deliberately share exact titles with
+  existing Part 06 chapters (`06_Databases_and_Storage/CH07_Replication.md` and `CH05_Partitioning.md`,
+  plus the related `CH06_Sharding.md`), by design: each Part 07 chapter was explicitly briefed to
+  recap (not re-derive) its Part 06 namesake's single-engine/single-database-scoped mechanics and
+  instead teach the general, cluster-scale, cross-domain pattern (CRDTs/vector clocks/queue-log/
+  non-database replication for CH10; consistent hashing/vnodes/cluster rebalancing/queue-cache-
+  stream partitioning for CH11) — confirmed via each chapter's own Section 4.0/Section 1 explicit
+  recap-boundary prose before merging, with no duplicated teaching found. Gossip Protocols becomes
+  the canonical, general owner of gossip/epidemic dissemination and the Phi Accrual failure
+  detector, correcting Part 06's Cassandra (CH18) row, which previously implied it owned
+  "gossip/Phi Accrual failure detection" outright — that row is now reworded to frame Cassandra's
+  gossip-based ring membership as a recap-only application of this new chapter's general theory.
+  Distributed Transactions extends Part 06's Transactions (CH08) 2PC/Saga row with genuinely new
+  distributed-systems-specific depth (in-doubt-transaction coordinator-crash recovery, Three-Phase
+  Commit, the transactional outbox pattern in full definition/mechanism/failure-mode/scenario
+  depth) while explicitly declining to move Saga's mechanism-level ownership away from
+  Transactions, instead flagging that decision for re-evaluation once this same part's forthcoming,
+  not-yet-drafted Saga Pattern chapter (Batch 4) exists — a deliberate, reasoned deferral rather
+  than an oversight, since prematurely relocating an already-substantial existing Section 4.15
+  treatment risked duplicating content still being planned. Authoring-process note: three of this
+  batch's four subagents (Gossip Protocols, Partitioning, Distributed Transactions) returned
+  truncated or empty final reports; all three chapters were independently confirmed complete on
+  disk (27/27 sections each) via direct grep, and the one missing concept-proposal staging file
+  (Partitioning's `distributed-partitioning.md`) was reconstructed directly from the chapter's own
+  Section 4 content, following the same recovery approach used successfully in Batches 23 and 24.
+  No Mermaid syntax defects found: all 4 chapters' diagrams independently re-verified — 27/27 exact
+  section headers per file; zero reserved sequenceDiagram participant aliases; zero
+  backslash-escaped quotes; subgraph/`end` balance verified per file (Gossip Protocols 9/9,
+  Replication 9/9, Partitioning 18/18, Distributed Transactions 5/5); two genuine `timeline`
+  diagrams (Partitioning's and Distributed Transactions' historical-milestones diagrams) manually
+  confirmed to have every period's event text on one physical line. All 4 staging files deleted
+  after merge.

@@ -15,10 +15,10 @@ Maps to the original catalog's **Part IV — System Design** (which included a
 | Distributed Systems — PACELC | Edited — 27 sections, 11 diagrams, 3 artifacts ([CH06_PACELC.md](CH06_PACELC.md)) |
 | Distributed Systems — Consensus | Edited — 27 sections, code examples ([CH07_Consensus.md](CH07_Consensus.md)) |
 | Distributed Systems — Leader Election | Edited — 27 sections, code examples ([CH08_Leader_Election.md](CH08_Leader_Election.md)) |
-| Distributed Systems — Gossip Protocols | Not Started |
-| Distributed Systems — Replication | Not Started |
-| Distributed Systems — Partitioning | Not Started |
-| Distributed Systems — Distributed Transactions | Not Started |
+| Distributed Systems — Gossip Protocols | Edited — 27 sections, code examples ([CH09_Gossip_Protocols.md](CH09_Gossip_Protocols.md)) |
+| Distributed Systems — Replication | Edited — 27 sections, 14 diagrams, code examples ([CH10_Replication.md](CH10_Replication.md)) |
+| Distributed Systems — Partitioning | Edited — 27 sections, code examples ([CH11_Partitioning.md](CH11_Partitioning.md)) |
+| Distributed Systems — Distributed Transactions | Edited — 27 sections, code examples ([CH12_Distributed_Transactions.md](CH12_Distributed_Transactions.md)) |
 | Distributed Systems — Saga Pattern | Not Started |
 | Distributed Systems — CQRS (Command Query Responsibility Segregation) | Not Started |
 | Distributed Systems — Event Sourcing | Not Started |
