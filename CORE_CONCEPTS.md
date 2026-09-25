@@ -583,6 +583,19 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Join order search (dynamic programming + greedy heuristics) | [Query Optimizers](06_Databases_and_Storage/CH04_Query_Optimizers.md) | System R-style exhaustive DP for small joins, greedy/randomized heuristics beyond the exhaustive threshold |
 | Join algorithms: nested loop, hash join, sort-merge join | [Query Optimizers](06_Databases_and_Storage/CH04_Query_Optimizers.md) | Full mechanism, cost model, and win-conditions for each join strategy |
 | EXPLAIN/execution-plan reading model; plan caching and parameter sniffing | [Query Optimizers](06_Databases_and_Storage/CH04_Query_Optimizers.md) | Bottom-up plan-tree reading discipline; parameterized-plan reuse and the atypical-first-execution failure mode |
+| Horizontal partitioning (range/list/hash strategies) and partition-key selection framework | [Partitioning](06_Databases_and_Storage/CH05_Partitioning.md) | Single-node key-based splitting; decision tree by dominant predicate/retention/hotspot risk. Note: Sharding (CH06) recaps this rather than re-deriving it |
+| Vertical partitioning; partition pruning | [Partitioning](06_Databases_and_Storage/CH05_Partitioning.md) | Hot/cold column split by access pattern; rewrite-time elimination of non-matching partitions ahead of the optimizer |
+| Partition maintenance/rolling-window pattern; local vs. global indexes; composite sub-partitioning; storage tiering | [Partitioning](06_Databases_and_Storage/CH05_Partitioning.md) | Time-series retention automation; per-partition vs. spanning index structures; nested partitioning strategies; partition-to-tablespace hot/warm/cold mapping |
+| Shard-key selection criteria; shard-map/directory routing; consistent hashing (ring + virtual nodes) vs. hash-mod routing | [Sharding](06_Databases_and_Storage/CH06_Sharding.md) | Distributed (multi-node) routing layer built atop Partitioning's key strategies; consistent hashing bounds remap cost to ~1/N vs. hash-mod's ~(N-1)/N |
+| Rebalancing/live data migration; cross-shard queries (scatter-gather); cross-shard transactions/2PC cost; hot-shard mitigation | [Sharding](06_Databases_and_Storage/CH06_Sharding.md) | Zero-downtime backfill-dual-write-verify-cutover-drain sequence; fan-out/merge cost; blocking-coordinator cost of cross-shard atomicity; key/temporal/access-pattern skew remediation |
+| Leader/follower replication mechanics (WAL shipping/streaming); sync/async/semi-sync trade-off | [Replication](06_Databases_and_Storage/CH07_Replication.md) | Single-writer topology and durability-vs-write-latency spectrum per acknowledgment mode |
+| Replication lag and read-your-writes consistency; multi-leader conflict resolution | [Replication](06_Databases_and_Storage/CH07_Replication.md) | Transfer/apply lag decomposition and session-stickiness mitigation; active-active write-write conflict detection/resolution (LWW, merge, CRDTs) |
+| Leaderless/quorum-based replication (Dynamo-style N/W/R, sloppy quorum, hinted handoff, read repair) | [Replication](06_Databases_and_Storage/CH07_Replication.md) | W+R>N overlap correctness rule; per-request tunable consistency |
+| Failover mechanics and split-brain risk (fencing tokens, STONITH); CAP theorem/PACELC framing | [Replication](06_Databases_and_Storage/CH07_Replication.md) | Leader-unreachable vs. leader-dead distinction; unifying trade-off framing, flagged for possible move to a future System Design part |
+| ACID properties (Atomicity, Consistency, Isolation, Durability) and their mechanisms | [Transactions](06_Databases_and_Storage/CH08_Transactions.md) | WAL-based redo/undo, constraint enforcement, anomaly-prevention spectrum, fsync'd durability |
+| Isolation levels and anomaly taxonomy (dirty read, non-repeatable read, phantom read, write skew) | [Transactions](06_Databases_and_Storage/CH08_Transactions.md) | Four SQL-standard isolation levels mapped against which anomalies each prevents; write skew as the anomaly only Serializable catches |
+| Multi-Version Concurrency Control (MVCC) | [Transactions](06_Databases_and_Storage/CH08_Transactions.md) | Version-chain/snapshot mechanism avoiding reader/writer blocking; vacuum/undo-purge cleanup cost |
+| Two-Phase Commit (2PC); Saga pattern (choreography vs. orchestration, compensating transactions) | [Transactions](06_Databases_and_Storage/CH08_Transactions.md) | Prepare/commit protocol and its coordinator-crash blocking weakness; eventually-consistent alternative with compensating actions |
 
 ## How to add an entry
 
@@ -1049,3 +1062,36 @@ when multiple chapters are authored in parallel, isolated sessions.
   participant alias); zero backslash-escaped quotes; subgraph/`end` balance verified per file
   (Normalization 11/11, Denormalization 1/1, Indexes 4/4, Query Optimizers 9/9); zero `timeline`
   diagrams used in any of the 4 chapters. All 4 staging files deleted after merge.
+- **Batch 18 (Part 06 — Databases and Storage, batch 2 of 6: Partitioning, Sharding, Replication,
+  Transactions)**: merged `review/concept-proposals/partitioning.md`, `sharding.md`,
+  `replication.md`, and `transactions.md` (CH05-CH08). 27 raw concepts condensed into 14 ownership
+  rows: Partitioning 3 rows (range/list/hash + key-selection framework combined, vertical
+  partitioning + pruning combined, maintenance/local-vs-global-indexes/sub-partitioning/tiering
+  combined), Sharding 2 rows (shard-key/routing/consistent-hashing combined, rebalancing/cross-
+  shard-query/transaction/hotspot combined), Replication 4 rows (leader-follower/sync-async
+  combined, lag/multi-leader-conflict combined, leaderless/quorum, failover/split-brain/CAP
+  combined), Transactions 4 rows (ACID, isolation levels/anomaly taxonomy, MVCC, 2PC/Saga
+  combined). **Key arbitration resolved as pre-negotiated by the chapters themselves**:
+  Partitioning's staging file explicitly recommended Sharding recap (not re-derive) its range/
+  list/hash key-selection reasoning, and Sharding's own staging file independently confirmed it
+  had already done exactly that (verified: Sharding proposed only genuinely distributed concepts —
+  routing, rebalancing, cross-shard cost, hotspots — with zero overlap against Partitioning's
+  rows). No merge-step intervention was needed for this boundary, a clean example of chapters
+  self-resolving ownership per the STYLE_GUIDE.md convention. Two items flagged for future
+  arbitration, left as-is for now: (a) Replication's CAP theorem/PACELC framing — proposed here
+  since no System Design part exists yet; should move to a dedicated Part 07 (System Design and
+  Distributed Systems) chapter with Replication recapping, once that part is drafted; (b)
+  Transactions' deliberate hand-off of lock-mechanics depth to a not-yet-drafted `CH10_Locking.md`
+  (recapping Part 05's existing Coffman-conditions ownership in `Processes and Threads` rather than
+  re-proposing it) — noted for continuity when Locking is authored in a later batch. All four
+  chapters' forward references to each other (all four were authored in parallel and mostly did
+  not exist on disk at their siblings' authoring time) were checked against the final file set:
+  section numbering and anchors referenced all resolved correctly, no broken links found. No
+  Mermaid syntax defects found: all 4 chapters' diagrams (16 + 19 + 15 + 12 = 62 total)
+  independently re-verified — 27/27 exact section headers per file; zero reserved sequenceDiagram
+  participant aliases; zero backslash-escaped quotes; subgraph/`end` balance verified per file
+  (Partitioning 8/8, Sharding 7/7, Replication 5/5, Transactions 5/5); one false-positive grep hit
+  on the literal word "timeline" inside Replication's prose (Section 14, not an actual `timeline`
+  diagram declaration) and one subgraph literally named `Timeline` inside Partitioning (a label,
+  not a diagram-type keyword) — both confirmed context-safe, zero actual `timeline` diagrams used
+  across all 4 chapters. All 4 staging files deleted after merge.

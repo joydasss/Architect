@@ -1,6 +1,8 @@
 build/
 node_modules/
 mermaid-filter.err
+__pycache__/
+*.pyc
 
 # Vale downloads style packages (e.g. Google) into here via `vale sync`;
 # only the handbook's own vocab config is tracked.
