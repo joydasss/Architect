@@ -562,6 +562,27 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Kernel version/distribution as an architecture decision | [Linux Internals for Architects](05_Networking_and_OS/CH29_Linux_Internals_for_Architects.md) | Enterprise-LTS freeze vs. mainline-tracking feature-gap consequences (cgroups v2, io_uring, eBPF maturity) |
 | eBPF (extended Berkeley Packet Filter) as verified kernel extensibility; verifier+maps+hook lifecycle | [Linux Internals for Architects](05_Networking_and_OS/CH29_Linux_Internals_for_Architects.md) | Sandboxed in-kernel program model for tracing/networking/security without kernel-module crash risk |
 | Toolkit-by-question mapping (top/htop/ss/strace/perf/bpftrace); always-on low-overhead observability sidecar pattern | [Linux Internals for Architects](05_Networking_and_OS/CH29_Linux_Internals_for_Architects.md) | Matching each diagnostic tool to the question it answers; persistent eBPF-based agent enabling pre-collected incident data |
+| Functional dependencies (definition, determinant, discovery methodology) | [Normalization](06_Databases_and_Storage/CH01_Normalization.md) | Foundational relational-algebra dependency concept underlying every normal form |
+| First Normal Form (1NF) | [Normalization](06_Databases_and_Storage/CH01_Normalization.md) | Atomic-value/no-repeating-groups requirement |
+| Second Normal Form (2NF) | [Normalization](06_Databases_and_Storage/CH01_Normalization.md) | No partial dependency on a composite key |
+| Third Normal Form (3NF) | [Normalization](06_Databases_and_Storage/CH01_Normalization.md) | No transitive dependency between non-key columns |
+| Boyce-Codd Normal Form (BCNF) | [Normalization](06_Databases_and_Storage/CH01_Normalization.md) | Every determinant must be a candidate key; closes 3NF's overlapping-candidate-key gap |
+| Fourth Normal Form (4NF) / Fifth Normal Form (5NF) | [Normalization](06_Databases_and_Storage/CH01_Normalization.md) | Multivalued dependencies (4NF) and non-decomposable join dependencies across 3+ tables (5NF/PJNF) |
+| Normal-form violation detection (audit methodology); update/insert/delete anomaly taxonomy | [Normalization](06_Databases_and_Storage/CH01_Normalization.md) | Mechanical 1NF-to-BCNF audit process; the three data-integrity failure modes normalization eliminates |
+| Materialized views (definition + eager/lazy/incremental refresh strategies) | [Denormalization](06_Databases_and_Storage/CH02_Denormalization.md) | Precomputed, persisted query results and their staleness/write-cost trade-offs per refresh strategy |
+| Precomputed aggregates/rollups; read-model duplication (CQRS-style) | [Denormalization](06_Databases_and_Storage/CH02_Denormalization.md) | Write-time vs. read-time cost shift; purpose-built denormalized read representations synced via events/CDC |
+| Star schema vs. snowflake schema (OLAP/analytics modeling) | [Denormalization](06_Databases_and_Storage/CH02_Denormalization.md) | Fact-table-plus-denormalized-dimension vs. fact-table-plus-normalized-dimension-hierarchy trade-off |
+| Write amplification / staleness trade-off (general denormalization cost model) | [Denormalization](06_Databases_and_Storage/CH02_Denormalization.md) | General cost model for any redundant derived copy: write propagation cost vs. bounded staleness window |
+| B-tree / B+tree index structure (fanout, leaf linking, node split/merge) | [Indexes](06_Databases_and_Storage/CH03_Indexes.md) | Disk-backed sorted-tree structure underlying most relational and many NoSQL secondary indexes |
+| Hash indexes | [Indexes](06_Databases_and_Storage/CH03_Indexes.md) | Hash-bucket structure supporting O(1) equality lookups but no range scan or ordering |
+| Composite / covering indexes | [Indexes](06_Databases_and_Storage/CH03_Indexes.md) | Multi-column leftmost-prefix column-order sensitivity; covering indexes enabling index-only scans |
+| Clustered vs. non-clustered (secondary) indexes | [Indexes](06_Databases_and_Storage/CH03_Indexes.md) | Whether row data is physically stored in index leaf order vs. a separate heap addressed by a row locator |
+| Index selectivity and cardinality estimation; index maintenance cost/write amplification | [Indexes](06_Databases_and_Storage/CH03_Indexes.md) | Distinct-value-ratio heuristic for index-candidate profitability; per-write cost every index adds |
+| Cost-based query optimization (vs. rule-based); query processing pipeline (parse/bind/rewrite/optimize/execute) | [Query Optimizers](06_Databases_and_Storage/CH04_Query_Optimizers.md) | Dynamic data-distribution-aware plan costing; full pipeline including predicate pushdown/subquery unnesting |
+| Table/column statistics and histograms | [Query Optimizers](06_Databases_and_Storage/CH04_Query_Optimizers.md) | Cardinality-estimation inputs, equi-depth histogram mechanics, and the stale-statistics failure mode |
+| Join order search (dynamic programming + greedy heuristics) | [Query Optimizers](06_Databases_and_Storage/CH04_Query_Optimizers.md) | System R-style exhaustive DP for small joins, greedy/randomized heuristics beyond the exhaustive threshold |
+| Join algorithms: nested loop, hash join, sort-merge join | [Query Optimizers](06_Databases_and_Storage/CH04_Query_Optimizers.md) | Full mechanism, cost model, and win-conditions for each join strategy |
+| EXPLAIN/execution-plan reading model; plan caching and parameter sniffing | [Query Optimizers](06_Databases_and_Storage/CH04_Query_Optimizers.md) | Bottom-up plan-tree reading discipline; parameterized-plan reuse and the atypical-first-execution failure mode |
 
 ## How to add an entry
 
@@ -1003,3 +1024,28 @@ when multiple chapters are authored in parallel, isolated sessions.
   sequenceDiagram participant aliases, zero backslash-escaped quotes, subgraph/`end` balance 1/1
   (single `alt`/`end` pair), zero `timeline` diagrams present (none used). Staging file deleted
   after merge.
+- **Batch 17 (Part 06 — Databases and Storage, batch 1 of 6: Normalization, Denormalization,
+  Indexes, Query Optimizers)**: merged `review/concept-proposals/normalization.md`,
+  `denormalization.md`, `indexes.md`, and `query-optimizers.md` — the first 4 of Part 06's 22
+  planned chapters (CH01-CH04, the "Database Design" foundational subsection, authored before the
+  specific-database chapters so those can recap rather than re-teach). 26 raw concepts condensed
+  into 22 ownership rows: Normalization 8 rows (functional dependencies, 1NF, 2NF, 3NF, BCNF,
+  4NF/5NF combined, violation-detection/anomaly-taxonomy combined), Denormalization 4 rows
+  (materialized views, aggregates/read-model-duplication combined, star/snowflake schema, write-
+  amplification/staleness trade-off), Indexes 5 rows (B-tree/B+tree, hash indexes, composite/
+  covering, clustered/non-clustered, selectivity/maintenance-cost combined), Query Optimizers 5
+  rows (cost-based optimization/pipeline combined, statistics/histograms, join-order search, join
+  algorithms, EXPLAIN/plan-caching combined). Clean per-chapter ownership, zero conflicts: each
+  chapter recapped rather than re-taught its predecessors' concepts as instructed (Denormalization
+  recaps Normalization's normal forms; Indexes recaps both; Query Optimizers recaps Indexes' B-tree
+  mechanics while owning the separate concern of *when the optimizer chooses* to use an index).
+  Query Optimizers' staging file flagged its forward-reference links to the other three sibling
+  files (authored in parallel, not yet on disk at its own authoring time) for reconciliation —
+  checked during this merge, all three sibling chapters exist with the expected Section 4
+  subsection numbering referenced, no fix needed. No Mermaid syntax defects found: all 4 chapters'
+  diagrams (18 + 20 + 17 + 14 = 69 total) independently re-verified — 27/27 exact section headers
+  per file; zero reserved sequenceDiagram participant aliases (one false-positive grep hit on
+  "Par" matching inside the node label "Parser" in CH04, confirmed context-safe — not an actual
+  participant alias); zero backslash-escaped quotes; subgraph/`end` balance verified per file
+  (Normalization 11/11, Denormalization 1/1, Indexes 4/4, Query Optimizers 9/9); zero `timeline`
+  diagrams used in any of the 4 chapters. All 4 staging files deleted after merge.
