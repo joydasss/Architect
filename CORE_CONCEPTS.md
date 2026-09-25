@@ -628,6 +628,15 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Hybrid search (vector + metadata filtering, RRF fusion); Retrieval-Augmented Generation (RAG) retrieval-side architecture | [Vector Databases](06_Databases_and_Storage/CH21_Vector_Databases.md) | Retrieval-engine half only; a future Part 14 AI/GenAI chapter may own the generation-side RAG treatment — arbitration flagged, not yet conflicting |
 | Time-series data model (metric/tags/timestamp/value); write-optimized time-partitioned chunk storage; high-cardinality problem | [Time Series Databases](06_Databases_and_Storage/CH22_Time_Series_Databases.md) | Cartesian-product tag-explosion cost; recaps Partitioning's (CH05) rolling-window mechanics for chunk immutability's write-optimization rationale |
 | Downsampling/rollups/retention policies; delta-of-delta timestamp compression; XOR/Gorilla value compression; Prometheus pull architecture | [Time Series Databases](06_Databases_and_Storage/CH22_Time_Series_Databases.md) | Rollups classified as durable materialized views (recapping Caching's CH09 cache-vs-materialized-view distinction), not ephemeral caches; pull-vs-push ingestion trade-off |
+| Functional-vs-non-functional requirement classification test; requirements workshops; use cases (actor/main-flow/alt-flow) | [Functional Requirements](07_System_Design_and_Distributed_Systems/CH01_Functional_Requirements.md) | Verification-shape distinction test; workshop surfaces cross-stakeholder conflicts a single interview cannot; use cases recap-distinguished from Backlog's (Part 02) lightweight user-story format |
+| EARS testable-requirement writing discipline; requirement traceability (forward/backward RTM, traceability drift); scoping ambiguity under interview time pressure | [Functional Requirements](07_System_Design_and_Distributed_Systems/CH01_Functional_Requirements.md) | Five fixed sentence shapes plus ambiguous-word blocklist; coverage-gap vs. scope-creep detection; six-step clarifying-question sequence for System Design Interviews |
+| Availability as "nines"; SLA/SLO/SLI framing and error-budget derivation; Reliability (MTBF/MTTR) distinguished from Availability | [Non-Functional Requirements](07_System_Design_and_Distributed_Systems/CH02_Non_Functional_Requirements.md) | Core SLA/SLO/SLI vocabulary and nines-to-downtime table used book-wide; a future Part 12 Observability chapter recaps this and owns burn-rate-alerting operational mechanics |
+| Scalability vs. Elasticity; latency percentiles (p50/p95/p99) vs. throughput and Little's Law; Durability as compounding annual data-loss probability | [Non-Functional Requirements](07_System_Design_and_Distributed_Systems/CH02_Non_Functional_Requirements.md) | Ceiling/cost-shape vs. automatic demand-tracking; percentile-over-average reporting discipline; p^N independent-failure-domain framing |
+| NFR trade-off analysis methodology; back-of-the-envelope capacity estimation (traffic-storage-bandwidth pipeline); Cost as a first-class NFR | [Non-Functional Requirements](07_System_Design_and_Distributed_Systems/CH02_Non_Functional_Requirements.md) | General framework naming competing quality attributes; CAP/PACELC's formal treatment explicitly deferred to this part's dedicated sibling chapters |
+| C4 model (Context/Container/Component/Code levels); UML diagram types for HLD (deployment/component/sequence) | [High-Level Design](07_System_Design_and_Distributed_Systems/CH03_High_Level_Design.md) | Four-level teaching with C4-Component-vs-UML-Component distinction; a future Part 18 Architecture Documentation may re-arbitrate general notation ownership once drafted |
+| HLD workflow (component ID -> boundary/responsibility -> data-flow/storage-choice -> API/contract -> bottleneck/SPOF); communicating HLD to stakeholders | [High-Level Design](07_System_Design_and_Distributed_Systems/CH03_High_Level_Design.md) | Five-step repeatable workflow; audience-tiered artifact selection and diagram-as-documentation discipline, recapping ADRs (Architecture Thinking CH03) rather than re-teaching them |
+| SOLID principles (SRP/OCP/LSP/ISP/DIP); representative GoF design patterns (Factory Method/Strategy/Observer/Decorator/Singleton) | [Low-Level Design](07_System_Design_and_Distributed_Systems/CH04_Low_Level_Design.md) | Violation-then-fix code pairs for all five SOLID principles; representative, not exhaustive, class/module-level pattern set |
+| DDD tactical patterns (Entity/Value Object/Aggregate/Repository/Domain Event); Event Modeling (class/module-level technique) | [Low-Level Design](07_System_Design_and_Distributed_Systems/CH04_Low_Level_Design.md) | Code/class-level building blocks only; strategic DDD (bounded contexts) and system-level patterns forward-referenced to a future Part 17 Architecture Patterns |
 
 ## How to add an entry
 
@@ -1237,3 +1246,34 @@ when multiple chapters are authored in parallel, isolated sessions.
   line. All 4 staging files deleted after merge. **This completes Part 06 (Databases and Storage)
   in full: 22/22 chapters across Database Design (10), Relational (4), and NoSQL (8)
   subsections.**
+- **Batch 23 (Part 07 — System Design and Distributed Systems, batch 1 of 5: Functional
+  Requirements, Non-Functional Requirements, High-Level Design, Low-Level Design — the "System
+  Design Fundamentals" grouping, first 4 of 19)**: merged `review/concept-proposals/
+  functional-requirements.md`, `non-functional-requirements.md`, `high-level-design.md`,
+  `low-level-design.md` (CH01-CH04). 23 raw concepts condensed into 10 ownership rows. This is the
+  first batch of a new part, so most recap targets point backward to Parts 01/02/06 rather than
+  sideways within the part: Functional Requirements recaps User Interviews and Backlog (Part 02)
+  for interview craft and user-story format, and Prioritization (Part 02) for MoSCoW/Kano
+  mechanics, while owning EARS testable-requirement writing and requirement traceability as
+  genuinely new concepts; Non-Functional Requirements recaps What is Software Architecture's
+  (Part 01) quality-attribute taxonomy while owning the concrete SLA/SLO/SLI vocabulary,
+  percentile/Little's-Law framing, and capacity-estimation methodology, with an explicit
+  forward-reference flag that a future Part 12 (Observability) should recap this chapter's
+  SLA/SLO/SLI definitions rather than re-deriving them; High-Level Design recaps Architecture
+  Thinking's (Part 01) ADR ownership while filling the C4/UML notation gap left open by the
+  not-yet-drafted Part 18 (Architecture Documentation), flagged for re-arbitration once that part
+  exists; Low-Level Design scopes itself strictly to the code/class level (SOLID, GoF patterns,
+  tactical DDD), explicitly forward-referencing strategic DDD and system-level patterns to a
+  future Part 17 (Architecture Patterns) and this same part's own not-yet-drafted CQRS/Event
+  Sourcing chapters rather than teaching their mechanics prematurely. One authoring-process note:
+  the Functional Requirements chapter's subagent completed the chapter in full (27/27 sections,
+  verified independently) but did not return a concept-proposal staging file in its final report;
+  the staging file was reconstructed directly from the chapter's own Section 4 content rather than
+  re-running the subagent, then verified for recap-boundary correctness before merging — no
+  content gap resulted. No Mermaid syntax defects found: all 4 chapters' diagrams (13 + 17 + 26 +
+  14 = 70 total, including C4Context/C4Container/C4Component diagrams in High-Level Design)
+  independently re-verified — 27/27 exact section headers per file; zero reserved sequenceDiagram
+  participant aliases; zero backslash-escaped quotes; subgraph/alt/`end` balance verified per file
+  (Functional Requirements 2/2, Non-Functional Requirements 5/5, High-Level Design 4/4 plus
+  balanced C4 `Container_Boundary { }` braces, Low-Level Design 3/3). All 4 staging files deleted
+  after merge.
