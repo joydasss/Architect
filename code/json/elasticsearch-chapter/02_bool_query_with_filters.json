@@ -1,0 +1,43 @@
+{
+  "_comment": "Section 4.6 companion example: POST /support-tickets/_search with this body. Demonstrates query-context (must/should, scored) vs. filter-context (filter/must_not, unscored + cacheable) separation from CH20_ElasticSearch.md Section 4.6.",
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "body": "cancel subscription"
+          }
+        }
+      ],
+      "should": [
+        {
+          "match": {
+            "subject": "cancel"
+          }
+        }
+      ],
+      "filter": [
+        {
+          "term": {
+            "status": "open"
+          }
+        },
+        {
+          "range": {
+            "created_at": {
+              "gte": "2026-01-01T00:00:00Z"
+            }
+          }
+        }
+      ],
+      "must_not": [
+        {
+          "term": {
+            "assignee_email": "spam-filter@example.com"
+          }
+        }
+      ]
+    }
+  },
+  "size": 20
+}

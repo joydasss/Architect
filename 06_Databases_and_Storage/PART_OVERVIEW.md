@@ -19,10 +19,10 @@ Maps to the original catalog's **Part VI — Databases**.
 | Redis | Edited — 27 sections, 16 diagrams, 4 code examples ([CH16_Redis.md](CH16_Redis.md)) |
 | DynamoDB | Edited — 27 sections, 13 diagrams, 4 code examples ([CH17_DynamoDB.md](CH17_DynamoDB.md)) |
 | Cassandra | Edited — 27 sections, 18 diagrams, 4 code examples ([CH18_Cassandra.md](CH18_Cassandra.md)) |
-| Neo4j | Not Started |
-| ElasticSearch | Not Started |
-| Vector Databases | Not Started |
-| Time Series Databases | Not Started |
+| Neo4j | Edited — 27 sections, 18 diagrams, 5 code examples ([CH19_Neo4j.md](CH19_Neo4j.md)) |
+| ElasticSearch | Edited — 27 sections, 21 diagrams, 4 code examples ([CH20_ElasticSearch.md](CH20_ElasticSearch.md)) |
+| Vector Databases | Edited — 27 sections, 14 diagrams, 4 code examples ([CH21_Vector_Databases.md](CH21_Vector_Databases.md)) |
+| Time Series Databases | Edited — 27 sections, 20 diagrams, 4 code examples ([CH22_Time_Series_Databases.md](CH22_Time_Series_Databases.md)) |
 
 ## Chapters — Database Design
 

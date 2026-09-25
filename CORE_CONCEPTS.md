@@ -620,6 +620,14 @@ when multiple chapters are authored in parallel, isolated sessions.
 | DynamoDB GSI/LSI; Streams; tunable per-request consistency; Transactions; Global Tables | [DynamoDB](06_Databases_and_Storage/CH17_DynamoDB.md) | Engine-specific applications of generic indexing/2PC/leaderless-replication concepts already owned elsewhere |
 | Cassandra ring architecture (vnodes, Murmur3Partitioner); named consistency levels; gossip/Phi Accrual failure detection | [Cassandra](06_Databases_and_Storage/CH18_Cassandra.md) | Engine-specific consistent-hashing and Dynamo-style quorum realizations, recapping Sharding/Replication generic theory |
 | Cassandra LSM-tree storage engine (memtable/SSTable/compaction); query-first CQL data modeling; Paxos Lightweight Transactions | [Cassandra](06_Databases_and_Storage/CH18_Cassandra.md) | Denormalize-for-query-pattern discipline distinct from relational normalization; Paxos-based compare-and-set as an engine-specific CAS mechanism |
+| Neo4j property graph model; index-free adjacency; native fixed-size-record storage engine | [Neo4j](06_Databases_and_Storage/CH19_Neo4j.md) | Labeled Property Graph distinct from RDF triples; O(1)-per-hop traversal via direct pointer chains vs. index lookups; supernode hotspot failure mode |
+| Cypher pattern matching; Graph Data Science algorithm catalog; graph-vs-relational decision framework; Causal Clustering/Raft | [Neo4j](06_Databases_and_Storage/CH19_Neo4j.md) | ASCII-art declarative query syntax; Neo4j's Raft-based consensus implementation recapping Replication's generic leader/follower theory |
+| Inverted index (term-to-postings-list); tokenization/analysis chain; BM25/TF-IDF relevance scoring | [ElasticSearch](06_Databases_and_Storage/CH20_ElasticSearch.md) | Genuinely different index structure from the B-tree/B+tree owned by Indexes CH03, not a NoSQL restatement of it |
+| Lucene segment architecture; ES cluster/shard/replica/master-election; mapping system; Query DSL/aggregations; near-real-time search | [ElasticSearch](06_Databases_and_Storage/CH20_ElasticSearch.md) | Immutable-segment compaction (contrasted with Cassandra's LSM-tree); refresh-interval/translog durability-vs-searchability trade-off; system-of-record vs. derived-index architectural judgment |
+| Vector embeddings and similarity metrics; curse of dimensionality; HNSW and IVF/product-quantization Approximate Nearest Neighbor (ANN) search | [Vector Databases](06_Databases_and_Storage/CH21_Vector_Databases.md) | ANN index structures are a genuinely different structure from B-tree/GIN indexes (Indexes CH03); pgvector recaps PostgreSQL's (CH11) extension architecture |
+| Hybrid search (vector + metadata filtering, RRF fusion); Retrieval-Augmented Generation (RAG) retrieval-side architecture | [Vector Databases](06_Databases_and_Storage/CH21_Vector_Databases.md) | Retrieval-engine half only; a future Part 14 AI/GenAI chapter may own the generation-side RAG treatment — arbitration flagged, not yet conflicting |
+| Time-series data model (metric/tags/timestamp/value); write-optimized time-partitioned chunk storage; high-cardinality problem | [Time Series Databases](06_Databases_and_Storage/CH22_Time_Series_Databases.md) | Cartesian-product tag-explosion cost; recaps Partitioning's (CH05) rolling-window mechanics for chunk immutability's write-optimization rationale |
+| Downsampling/rollups/retention policies; delta-of-delta timestamp compression; XOR/Gorilla value compression; Prometheus pull architecture | [Time Series Databases](06_Databases_and_Storage/CH22_Time_Series_Databases.md) | Rollups classified as durable materialized views (recapping Caching's CH09 cache-vs-materialized-view distinction), not ephemeral caches; pull-vs-push ingestion trade-off |
 
 ## How to add an entry
 
@@ -1197,3 +1205,35 @@ when multiple chapters are authored in parallel, isolated sessions.
   5/5, Redis 2/2, DynamoDB 9/9, Cassandra 6/6); Cassandra's 2 genuine `timeline` diagrams (Section
   2 historical milestones, Section 22 Discord case study) manually confirmed to have every
   period's event text on one physical line. All 4 staging files deleted after merge.
+- **Batch 22 (Part 06 — Databases and Storage, batch 6 of 6: Neo4j, ElasticSearch, Vector
+  Databases, Time Series Databases — final 4 of the NoSQL subsection, 8/8; PART 06 NOW 100%
+  COMPLETE, 22/22 chapters)**: merged `review/concept-proposals/neo4j.md`, `elasticsearch.md`,
+  `vector-databases.md`, `timeseries.md` (CH19-CH22). 31 raw concepts condensed into 8 ownership
+  rows (2 per engine). Each chapter's genuinely new structural contribution was confirmed
+  non-overlapping with every prior Part 06 chapter: Neo4j's index-free adjacency and native
+  fixed-size-record storage are a fundamentally different physical model from every relational
+  and prior NoSQL engine's storage; ElasticSearch's inverted index is explicitly confirmed (in its
+  own staging file) as a genuinely different structure from the B-tree/B+tree family owned by
+  Indexes (CH03), not a restatement; Vector Databases' HNSW/IVF Approximate Nearest Neighbor (ANN)
+  structures are likewise a distinct index family; Time Series Databases' delta-of-delta/XOR
+  compression and cardinality-as-multiplicative-cost are new to the book. All four continued the
+  established recap-not-re-teach discipline: Neo4j recaps Replication's (CH07) leader/follower
+  theory for its Raft-based Causal Clustering; ElasticSearch recaps Sharding/Replication for its
+  cluster/shard/replica model and explicitly contrasts Lucene's immutable-segment compaction
+  against Cassandra's (CH18) LSM-tree as a related-but-distinct design; Vector Databases recaps
+  PostgreSQL's (CH11) extension architecture for pgvector; Time Series Databases recaps
+  Partitioning's (CH05) rolling-window mechanics and Caching's (CH09) cache-vs-materialized-view
+  distinction to correctly classify rollups as durable materialized views. One forward arbitration
+  note recorded (not a conflict): Vector Databases' staging file flags that a future, not-yet-
+  drafted Part 14 (AI and GenAI) chapter may eventually own the generation-side half of
+  Retrieval-Augmented Generation (RAG) — this chapter (CH21) is confirmed as owning only the
+  retrieval/storage/indexing half; to be resolved when Part 14 is authored. No Mermaid syntax
+  defects found: all 4 chapters' diagrams (18 + 21 + 14 + 20 = 73 total) independently
+  re-verified — 27/27 exact section headers per file; zero reserved sequenceDiagram participant
+  aliases; zero backslash-escaped quotes (only `&quot;`/`&gt;` entities used); subgraph/loop/`end`
+  balance verified per file (Neo4j 12/12, ElasticSearch 7/7, Vector Databases 10/10, Time Series
+  12/12); ElasticSearch's and Time Series' 3 genuine `timeline` diagrams (ElasticSearch Section 2,
+  Time Series Section 2) manually confirmed to have every period's event text on one physical
+  line. All 4 staging files deleted after merge. **This completes Part 06 (Databases and Storage)
+  in full: 22/22 chapters across Database Design (10), Relational (4), and NoSQL (8)
+  subsections.**

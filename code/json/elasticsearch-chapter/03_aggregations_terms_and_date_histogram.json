@@ -1,0 +1,45 @@
+{
+  "_comment": "Section 4.6 companion example: POST /app-logs-*/_search with this body. Filter-context query scopes the aggregated document set (last hour, error-level only); a date_histogram bucket aggregation groups by hour with a nested terms aggregation breaking each hourly bucket down by status_code, per CH20_ElasticSearch.md Section 4.6.",
+  "size": 0,
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "range": {
+            "@timestamp": {
+              "gte": "now-1h",
+              "lte": "now"
+            }
+          }
+        },
+        {
+          "term": {
+            "log_level": "error"
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "logs_over_time": {
+      "date_histogram": {
+        "field": "@timestamp",
+        "fixed_interval": "1h"
+      },
+      "aggs": {
+        "top_status_codes": {
+          "terms": {
+            "field": "status_code",
+            "size": 10
+          }
+        },
+        "top_error_messages": {
+          "terms": {
+            "field": "error_message.raw",
+            "size": 10
+          }
+        }
+      }
+    }
+  }
+}
