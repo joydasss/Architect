@@ -34,7 +34,7 @@ Maps to the original catalog's **Part VI — Databases**.
 | Sharding | Edited — 27 sections, 19 diagrams, 4 code examples ([CH06_Sharding.md](CH06_Sharding.md)) |
 | Indexes | Edited — 27 sections, 17 diagrams, 4 code examples ([CH03_Indexes.md](CH03_Indexes.md)) |
 | Replication | Edited — 27 sections, 15 diagrams, 4 code examples ([CH07_Replication.md](CH07_Replication.md)) |
-| Caching | Not Started |
+| Caching | Edited — 27 sections, 16 diagrams, 4 code examples ([CH09_Caching.md](CH09_Caching.md)) |
 | Transactions | Edited — 27 sections, 12 diagrams, 4 code examples ([CH08_Transactions.md](CH08_Transactions.md)) |
-| Locking | Not Started |
+| Locking | Edited — 27 sections, 16 diagrams, 4 code examples ([CH10_Locking.md](CH10_Locking.md)) |
 | Query Optimizers | Edited — 27 sections, 14 diagrams, 4 code examples ([CH04_Query_Optimizers.md](CH04_Query_Optimizers.md)) |

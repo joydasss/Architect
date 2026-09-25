@@ -596,6 +596,12 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Isolation levels and anomaly taxonomy (dirty read, non-repeatable read, phantom read, write skew) | [Transactions](06_Databases_and_Storage/CH08_Transactions.md) | Four SQL-standard isolation levels mapped against which anomalies each prevents; write skew as the anomaly only Serializable catches |
 | Multi-Version Concurrency Control (MVCC) | [Transactions](06_Databases_and_Storage/CH08_Transactions.md) | Version-chain/snapshot mechanism avoiding reader/writer blocking; vacuum/undo-purge cleanup cost |
 | Two-Phase Commit (2PC); Saga pattern (choreography vs. orchestration, compensating transactions) | [Transactions](06_Databases_and_Storage/CH08_Transactions.md) | Prepare/commit protocol and its coordinator-crash blocking weakness; eventually-consistent alternative with compensating actions |
+| Cache-aside, read-through, write-through, write-behind patterns | [Caching](06_Databases_and_Storage/CH09_Caching.md) | Application-tier cache population/write strategies and each pattern's read-after-write consistency and durability-window trade-offs |
+| Cache invalidation (TTL, explicit, event-driven/distributed) and cache stampede mitigation | [Caching](06_Databases_and_Storage/CH09_Caching.md) | Staleness-bounding vs. distributed-invalidation-is-hard trade-off; mutex/single-flight, request coalescing, probabilistic early expiration |
+| Cache eviction policies (LRU, LFU, FIFO, ARC); cache-vs-materialized-view distinction | [Caching](06_Databases_and_Storage/CH09_Caching.md) | Workload-fit trade-offs per policy; ephemeral application-driven cache vs. durable engine-managed materialized view (recaps Denormalization) |
+| Lock types/compatibility matrix (shared/exclusive/intent); lock granularity and escalation | [Locking](06_Databases_and_Storage/CH10_Locking.md) | Multi-granularity conflict-check mechanism; row/page/table-level concurrency-vs-overhead trade-off and escalation stall failure mode |
+| Pessimistic vs. optimistic concurrency control | [Locking](06_Databases_and_Storage/CH10_Locking.md) | Acquire-before-access (`SELECT ... FOR UPDATE`) vs. validate-at-commit-time (version-column CAS with bounded retry) |
+| Database-specific deadlock detection (wait-for graph, victim selection); lock timeouts; advisory locks | [Locking](06_Databases_and_Storage/CH10_Locking.md) | Lock-manager wait-for graph and engine-specific victim selection, distinct from Part 05's OS-level Coffman-conditions treatment; FIFO lock-wait queuing; unenforced application-coordination locks |
 
 ## How to add an entry
 
@@ -1095,3 +1101,27 @@ when multiple chapters are authored in parallel, isolated sessions.
   diagram declaration) and one subgraph literally named `Timeline` inside Partitioning (a label,
   not a diagram-type keyword) — both confirmed context-safe, zero actual `timeline` diagrams used
   across all 4 chapters. All 4 staging files deleted after merge.
+- **Batch 19 (Part 06 — Databases and Storage, batch 3 of 6: Caching, Locking — completes the
+  "Database Design" subsection, 10/10)**: merged `review/concept-proposals/caching.md` and
+  `locking.md` (CH09-CH10). 16 raw concepts condensed into 6 ownership rows: Caching 3 rows
+  (cache-aside/read-through/write-through/write-behind patterns combined, invalidation/stampede-
+  mitigation combined, eviction-policies/cache-vs-materialized-view-distinction combined), Locking
+  3 rows (lock types/granularity/escalation combined, pessimistic-vs-optimistic concurrency
+  control, deadlock-detection/timeouts/advisory-locks combined). Both chapters pre-negotiated
+  their ownership boundaries cleanly, no merge-step arbitration needed: Caching's staging file
+  explicitly distinguishes itself from HTTP caching headers (CH01_HTTP), CDN edge caching
+  (CH09_CDN), and materialized views (CH02_Denormalization) — all recapped, none re-taught, framing
+  a cache as an ephemeral application-driven copy vs. a durable engine-managed one. Locking's
+  staging file confirms it honored Transactions' (CH08) Section 4.12 hand-off of lock-mechanics
+  depth, and recaps (rather than re-derives) Part 05's existing "Deadlock and the four Coffman
+  conditions" ownership in Processes and Threads (CH24), teaching instead the database-specific
+  wait-for-graph/victim-selection mechanics as a distinct, more specific topic — a second clean
+  example (after Sharding/Partitioning in Batch 18) of sibling chapters self-resolving ownership
+  per the STYLE_GUIDE.md convention without merge-step intervention. This completes Part 06's
+  10-chapter "Database Design" subsection (CH01-CH10); the remaining 12 chapters are the
+  Relational (4) and NoSQL (8) specific-database chapters, which should now recap this subsection's
+  concepts rather than re-teach them. No Mermaid syntax defects found: both chapters' diagrams
+  (16 + 16 = 32 total) independently re-verified — 27/27 exact section headers per file; zero
+  reserved sequenceDiagram participant aliases; zero backslash-escaped quotes (only `&quot;`/`&gt;`
+  entities used); subgraph/`loop`/`end` balance verified per file (Caching 6/6, Locking 11/11);
+  zero `timeline` diagrams used in either chapter. Both staging files deleted after merge.
