@@ -612,6 +612,14 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Oracle RAC (Cache Fusion) shared-everything clustering; Data Guard standby databases | [Oracle](06_Databases_and_Storage/CH13_Oracle.md) | Distributed lock manager memory-to-memory block transfer; physical/logical standby with protection modes and Fast-Start Failover |
 | SQL Server transaction log (LSN/VLF/checkpoint/truncation) and ARIES recovery; clustered index as physical row storage | [SQL Server](06_Databases_and_Storage/CH14_SQLServer.md) | SQL Server-specific WAL and three-phase Analysis/Redo/Undo recovery plus Accelerated Database Recovery; table rows ARE the clustered index leaf level |
 | SQL Server Always On Availability Groups; In-Memory OLTP (Hekaton); Query Store; columnstore indexes | [SQL Server](06_Databases_and_Storage/CH14_SQLServer.md) | Listener-based quorum failover; lock-free optimistic in-process engine; persistent plan-regression diagnosis; column-major analytical storage |
+| MongoDB BSON document model; dynamic schema (schema-on-read) trade-off; embed-vs-reference modeling | [MongoDB](06_Databases_and_Storage/CH15_MongoDB.md) | Binary JSON superset with richer types; schema-on-read vs. schema-on-write framing (first chapter to teach this trade-off directly); document-model-specific modeling discipline |
+| MongoDB replica sets (oplog/elections), sharded-cluster architecture (chunks/mongos/config servers), WiredTiger MVCC/locking, aggregation pipeline, read/write concern | [MongoDB](06_Databases_and_Storage/CH15_MongoDB.md) | Engine-specific realizations recapping Replication/Sharding/Transactions/Locking/Query-Optimizers generic theory |
+| Redis single-threaded event loop; data structures and command complexity; RDB/AOF persistence | [Redis](06_Databases_and_Storage/CH16_Redis.md) | One concrete substrate the generic Caching patterns (CH09) run on top of, not a re-teaching of those patterns |
+| Redis Cluster hash-slot sharding/gossip; Sentinel failover; pub/sub; maxmemory/approximated LRU-LFU eviction | [Redis](06_Databases_and_Storage/CH16_Redis.md) | Redis's sampling-based approximated eviction mechanism, a more specific claim than Caching's abstract LRU/LFU taxonomy |
+| DynamoDB partition-key/sort-key single-table design; managed partition-splitting; capacity modes (RCU/WCU, adaptive capacity) | [DynamoDB](06_Databases_and_Storage/CH17_DynamoDB.md) | Access-patterns-first modeling discipline; engine-specific consistent-hashing and per-partition throughput-ceiling realizations |
+| DynamoDB GSI/LSI; Streams; tunable per-request consistency; Transactions; Global Tables | [DynamoDB](06_Databases_and_Storage/CH17_DynamoDB.md) | Engine-specific applications of generic indexing/2PC/leaderless-replication concepts already owned elsewhere |
+| Cassandra ring architecture (vnodes, Murmur3Partitioner); named consistency levels; gossip/Phi Accrual failure detection | [Cassandra](06_Databases_and_Storage/CH18_Cassandra.md) | Engine-specific consistent-hashing and Dynamo-style quorum realizations, recapping Sharding/Replication generic theory |
+| Cassandra LSM-tree storage engine (memtable/SSTable/compaction); query-first CQL data modeling; Paxos Lightweight Transactions | [Cassandra](06_Databases_and_Storage/CH18_Cassandra.md) | Denormalize-for-query-pattern discipline distinct from relational normalization; Paxos-based compare-and-set as an engine-specific CAS mechanism |
 
 ## How to add an entry
 
@@ -1161,3 +1169,31 @@ when multiple chapters are authored in parallel, isolated sessions.
   reporting); subgraph/alt/`end` balance verified per file (PostgreSQL 5/5, MySQL 5/5, Oracle
   10/10, SQL Server 10/10); zero `timeline` diagrams used in any of the four chapters. All 4
   staging files deleted after merge.
+- **Batch 21 (Part 06 — Databases and Storage, batch 5 of 6: MongoDB, Redis, DynamoDB, Cassandra —
+  first 4 of the NoSQL subsection, 4/8)**: merged `review/concept-proposals/mongodb.md`,
+  `redis.md`, `dynamodb.md`, `cassandra.md` (CH15-CH18). 30 raw concepts condensed into 10
+  ownership rows (2-3 per engine). All four chapters cleanly recapped rather than re-taught the
+  Database Design subsection's generic concepts: replication (Replication CH07 — MongoDB's
+  oplog/election model, DynamoDB's Global Tables last-writer-wins, and Cassandra's Dynamo-style
+  N/R/W quorum/hinted-handoff/read-repair all framed as concrete implementations of the generic
+  leader/follower or leaderless-quorum theory already owned there), sharding (Sharding CH06 —
+  MongoDB's chunk/mongos/config-server mechanics, DynamoDB's managed partition-splitting, and
+  Cassandra's Murmur3Partitioner/vnode ring all framed as engine-specific consistent-hashing
+  realizations), transactions (Transactions CH08 — DynamoDB's TransactWriteItems 2PC-style
+  atomicity and Cassandra's Paxos Lightweight Transactions both framed as concrete CAS/2PC
+  applications), caching (Caching CH09 — Redis's staging file is explicit that this chapter is
+  NOT a re-teaching of cache-aside/read-through/write-through/write-behind patterns or the
+  LRU/LFU/FIFO/ARC taxonomy; Redis's own maxmemory-policy eviction is proposed only as its
+  sampling-based *approximated* implementation detail, a genuinely more specific claim). MongoDB's
+  staging file explicitly establishes the schema-on-read-vs-schema-on-write trade-off as a new
+  concept owned there (first chapter in the book to name it directly), for future document-store
+  siblings to recap. Zero ownership conflicts found between the four sibling chapters or against
+  CH01-CH14; each engine's core architectural distinctive (Redis's single-threaded event loop,
+  MongoDB's WiredTiger MVCC, DynamoDB's fully-managed partition/capacity model, Cassandra's
+  LSM-tree/query-first CQL modeling) is a genuinely distinct, non-overlapping concept. No Mermaid
+  syntax defects found: all 4 chapters' diagrams (17 + 16 + 13 + 18 = 64 total) independently
+  re-verified — 27/27 exact section headers per file; zero reserved sequenceDiagram participant
+  aliases; zero backslash-escaped quotes; subgraph/loop/`end` balance verified per file (MongoDB
+  5/5, Redis 2/2, DynamoDB 9/9, Cassandra 6/6); Cassandra's 2 genuine `timeline` diagrams (Section
+  2 historical milestones, Section 22 Discord case study) manually confirmed to have every
+  period's event text on one physical line. All 4 staging files deleted after merge.

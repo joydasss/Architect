@@ -15,10 +15,10 @@ Maps to the original catalog's **Part VI — Databases**.
 
 | Chapter | Status |
 |---|---|
-| MongoDB | Not Started |
-| Redis | Not Started |
-| DynamoDB | Not Started |
-| Cassandra | Not Started |
+| MongoDB | Edited — 27 sections, 17 diagrams, 4 code examples ([CH15_MongoDB.md](CH15_MongoDB.md)) |
+| Redis | Edited — 27 sections, 16 diagrams, 4 code examples ([CH16_Redis.md](CH16_Redis.md)) |
+| DynamoDB | Edited — 27 sections, 13 diagrams, 4 code examples ([CH17_DynamoDB.md](CH17_DynamoDB.md)) |
+| Cassandra | Edited — 27 sections, 18 diagrams, 4 code examples ([CH18_Cassandra.md](CH18_Cassandra.md)) |
 | Neo4j | Not Started |
 | ElasticSearch | Not Started |
 | Vector Databases | Not Started |
