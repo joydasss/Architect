@@ -440,7 +440,7 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Forward proxy vs. reverse proxy distinction | [Reverse Proxy](05_Networking_and_OS/CH11_Reverse_Proxy.md) | Whose interest is represented; trust-direction difference |
 | Reverse proxy as a superset pattern of load balancing | [Reverse Proxy](05_Networking_and_OS/CH11_Reverse_Proxy.md) | LB is one policy among several (TLS termination, rewriting, caching, compression) |
 | Request/response rewriting and header manipulation; reverse-proxy caching/compression | [Reverse Proxy](05_Networking_and_OS/CH11_Reverse_Proxy.md) | Path rewriting, header injection/stripping; proxy-local caching narrower than CDN edge caching |
-| API Gateway as reverse-proxy-plus-application-awareness | [Reverse Proxy](05_Networking_and_OS/CH11_Reverse_Proxy.md) | Consumer/contract-aware policy layer added to the reverse-proxy primitive; full product architecture deferred to Part 08 |
+| API-aware reverse-proxy concept underlying an API Gateway | [Reverse Proxy](05_Networking_and_OS/CH11_Reverse_Proxy.md) | Generic consumer/contract-aware policy layer added to the proxy primitive; recaps and links to Part 08 CH08 for full API Gateway product/system architecture |
 | Sidecar proxy architecture | [Reverse Proxy](05_Networking_and_OS/CH11_Reverse_Proxy.md) | Per-service-instance proxy as the east-west building block for a service mesh |
 | Reverse proxy as a security boundary; path/host-based routing | [Reverse Proxy](05_Networking_and_OS/CH11_Reverse_Proxy.md) | "Never expose origin directly" invariant; routing mechanics for strangler-fig migrations |
 | Reverse proxy technology landscape; layered reverse-proxy architecture | [Reverse Proxy](05_Networking_and_OS/CH11_Reverse_Proxy.md) | nginx/HAProxy/Envoy/Traefik sweet spots; stacking CDN + edge proxy + internal gateway/mesh ingress |
@@ -678,6 +678,18 @@ when multiple chapters are authored in parallel, isolated sessions.
 | SSE API subscription resources, event names/payload schemas/IDs, and cursor/resume semantics | [Server-Sent Events](08_API_Architecture/CH05_Server_Sent_Events.md) | API event-feed contract; recaps Part 05 CH17's SSE transport and broad protocol-selection ownership |
 | SSE API replay window, retention, gap/reset, and snapshot handoff contract | [Server-Sent Events](08_API_Architecture/CH05_Server_Sent_Events.md) | Explicit bounded-resume promise; does not imply durable application acknowledgment or exactly-once processing |
 | SSE API tenant-scoped feed authorization, filters, schema evolution, and reliability classes | [Server-Sent Events](08_API_Architecture/CH05_Server_Sent_Events.md) | Feed-level contract and honest replay guarantee; recaps future Part 08 API Security/Gateway and Part 07 ordering/dedup/idempotency owners |
+| API-level asynchronous interaction model and acknowledgment stages; long-running operation completion composition | [Async APIs](08_API_Architecture/CH06_Async_APIs.md) | Caller-visible distinction among submitted, durably admitted, executing, and terminal outcomes; recaps REST CH01 operation resources and Part 07 processing guarantees |
+| Webhook registration and delivery lifecycle (attempts, retry classification, replay, recovery) | [Async APIs](08_API_Architecture/CH06_Async_APIs.md) | API delivery contract and attempt history; signature/authentication mechanics recap security owners; effect safety recaps Part 07 Idempotency |
+| Asynchronous API style selection and composition (operation resources, callbacks, messages, progress feeds) | [Async APIs](08_API_Architecture/CH06_Async_APIs.md) | API-level choice across REST, WebSocket, SSE, gRPC streaming, and durable messaging; transport/style mechanics stay with their owners |
+| Acceptance-to-completion observability contract for asynchronous APIs | [Async APIs](08_API_Architecture/CH06_Async_APIs.md) | Distinguishes admission latency, queue wait, execution, terminal outcome, and notification delivery without claiming general observability ownership |
+| OpenAPI Specification document model and HTTP operation contract | [OpenAPI](08_API_Architecture/CH07_OpenAPI.md) | OAS document structure, paths/operations, parameters, request/response schemas, components, servers, callbacks, and webhooks; REST and HTTP retain semantics |
+| OpenAPI schema composition, references, examples, and JSON Schema alignment | [OpenAPI](08_API_Architecture/CH07_OpenAPI.md) | OAS-specific schema reuse and version/dialect behavior; does not claim generic JSON Schema ownership |
+| OpenAPI design-first/code-first tooling and generated contract workflow | [OpenAPI](08_API_Architecture/CH07_OpenAPI.md) | Lint, documentation, mocks, client/server generation, and reproducible toolchains for HTTP API contracts |
+| OpenAPI compatibility governance and specification-based breaking-change checks | [OpenAPI](08_API_Architecture/CH07_OpenAPI.md) | Baseline diffs, CI policy, compatibility limits, and exceptions; cross-style API version policy remains with Part 08 CH10 |
+| API Gateway architecture, north-south API ingress, and gateway responsibility boundary | [API Gateway](08_API_Architecture/CH08_API_Gateway.md) | Canonical full product/system architecture; generic API-aware reverse-proxy primitive remains with Part 05 Reverse Proxy |
+| API Gateway route/service-discovery integration, policy pipeline, and gateway-vs-BFF boundary | [API Gateway](08_API_Architecture/CH08_API_Gateway.md) | API-aware routing, policy composition, consumer aggregation, and ownership decisions; backend selection mechanics remain with Load Balancer |
+| API Gateway protocol mediation/transcoding and trusted-header transformation | [API Gateway](08_API_Architecture/CH08_API_Gateway.md) | Gateway placement and semantic-preservation contracts; protocol schemas remain in REST/GraphQL/gRPC/WebSocket/SSE owners |
+| API Gateway deployment, high availability, multi-region operation, observability, and failure boundary | [API Gateway](08_API_Architecture/CH08_API_Gateway.md) | Gateway-specific topology and bottleneck decisions; security enforcement, version policy, and rate-limit algorithms remain with Part 08 CH09-CH11 |
 
 ## How to add an entry
 
@@ -1462,3 +1474,19 @@ when multiple chapters are authored in parallel, isolated sessions.
   with its JSON config validated. gRPC runtime and `.proto` compilation remain unverified because
   `grpcio`, `grpcio-tools`, and `protoc` are unavailable in the workspace. All five staging files
   deleted after merge; `PART_OVERVIEW.md` and `BOOK_PLAN.md` now record 5/11 chapters complete.
+- **Batch 29 (Part 08 — API Architecture, batch 2 of 3: Async APIs, OpenAPI, API Gateway — 8/11)**:
+  merged `review/concept-proposals/async-apis.md`, `openapi.md`, and `api-gateway.md` (CH06-CH08).
+  20 proposals were consolidated into 12 ownership rows. Async APIs owns caller-visible
+  asynchronous interaction lifecycles and webhook delivery contracts while recapping REST
+  operation resources, WebSocket/SSE/gRPC contracts, and Part 07 idempotency/exactly-once owners.
+  OpenAPI owns the machine-readable HTTP contract model, schema/tooling workflow, and
+  specification compatibility governance; it does not replace REST, HTTP, GraphQL, gRPC, or the
+  future cross-style Versioning chapter. API Gateway becomes the full Part 08 owner, fulfilling
+  Part 05 Reverse Proxy's prior deferral. The Reverse Proxy row and Section 4.6 now retain the
+  generic API-aware reverse-proxy concept and recap-link CH08; the distinct CH08 row owns gateway
+  system architecture. Security enforcement, version policy, and rate-limit algorithms remain
+  with forthcoming Part 08 CH09-CH11. All three chapters independently verified at 27/27 section
+  headers. Mermaid checks: Async APIs 17 diagrams, OpenAPI 25, API Gateway 13; no reserved
+  sequence aliases or escaped quotes, fences balanced, and timeline events manually confirmed on
+  one physical line. All 9 runnable Python examples passed; OpenAPI and gateway YAML artifacts
+  validated. All three proposal files removed after merge; Part 08 tracking now shows 8/11.

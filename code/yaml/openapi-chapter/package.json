@@ -1,0 +1,16 @@
+{
+  "name": "orders-openapi-toolchain",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Illustrative tooling for the OpenAPI orders contract",
+  "scripts": {
+    "lint": "redocly lint openapi.yaml",
+    "mock": "prism mock openapi.yaml",
+    "generate:types": "openapi-typescript openapi.yaml -o generated/orders-api.d.ts"
+  },
+  "devDependencies": {
+    "@redocly/cli": "1.27.1",
+    "@stoplight/prism-cli": "5.14.2",
+    "openapi-typescript": "7.6.1"
+  }
+}

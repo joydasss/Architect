@@ -1,0 +1,64 @@
+static_resources:
+  listeners:
+    - name: public_api
+      address:
+        socket_address:
+          address: 0.0.0.0
+          port_value: 8080
+      filter_chains:
+        - filters:
+            - name: envoy.filters.network.http_connection_manager
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                stat_prefix: rollout_ingress
+                route_config:
+                  name: rollout_routes
+                  virtual_hosts:
+                    - name: orders
+                      domains:
+                        - api.example.test
+                      routes:
+                        - match:
+                            prefix: /v1/orders
+                          route:
+                            weighted_clusters:
+                              clusters:
+                                - name: orders_v1
+                                  weight: 95
+                                - name: orders_v2
+                                  weight: 5
+                              total_weight: 100
+                            timeout: 1s
+                            retry_policy:
+                              retry_on: 5xx,connect-failure,reset
+                              num_retries: 1
+                              per_try_timeout: 300ms
+                http_filters:
+                  - name: envoy.filters.http.router
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+  clusters:
+    - name: orders_v1
+      type: STRICT_DNS
+      connect_timeout: 250ms
+      load_assignment:
+        cluster_name: orders_v1
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: orders-v1.default.svc.cluster.local
+                      port_value: 8080
+    - name: orders_v2
+      type: STRICT_DNS
+      connect_timeout: 250ms
+      load_assignment:
+        cluster_name: orders_v2
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: orders-v2.default.svc.cluster.local
+                      port_value: 8080

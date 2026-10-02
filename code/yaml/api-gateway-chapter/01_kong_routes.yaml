@@ -1,0 +1,37 @@
+_format_version: "3.0"
+_transform: true
+
+# Illustrative Kong Gateway 3.x declarative configuration.
+# Validate with deck file validate against the target Gateway and plugin set.
+services:
+  - name: catalog-api
+    url: http://catalog.internal:8080
+    routes:
+      - name: catalog-v1-read
+        paths:
+          - /v1/catalog
+        methods:
+          - GET
+        strip_path: false
+        protocols:
+          - http
+          - https
+    plugins:
+      - name: key-auth
+        config:
+          key_names:
+            - X-API-Key
+          hide_credentials: true
+      - name: request-transformer
+        config:
+          remove:
+            headers:
+              - X-Internal-Role
+          add:
+            headers:
+              - X-Gateway-Contract:catalog-v1
+
+consumers:
+  - username: retail-partner
+    keyauth_credentials:
+      - key: replace-with-secret-from-a-secret-manager

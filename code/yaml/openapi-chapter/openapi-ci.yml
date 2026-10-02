@@ -1,0 +1,50 @@
+name: OpenAPI contract checks
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    env:
+      BASE_REF: ${{ github.base_ref }}
+      SPEC_PATH: code/yaml/openapi-chapter/openapi.yaml
+    steps:
+      - name: Check out proposed revision
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+
+      - name: Lint OpenAPI description
+        run: npx --yes @redocly/cli@1.27.1 lint "$SPEC_PATH"
+
+      - name: Install OpenAPI compatibility checker
+        run: go install github.com/oasdiff/oasdiff@v1.33.0
+
+      - name: Load released contract baseline
+        run: |
+          git fetch origin "$BASE_REF" --depth=1
+          git show "origin/$BASE_REF:$SPEC_PATH" > openapi-baseline.yaml
+
+      - name: Reject breaking changes
+        run: oasdiff breaking --fail-on ERR openapi-baseline.yaml "$SPEC_PATH"
+
+      - name: Review compatibility warnings not classified as errors
+        if: always()
+        run: |
+          echo "The checker cannot prove business-semantic compatibility. Review security, callbacks, webhooks, examples, and documented runtime behavior as well."

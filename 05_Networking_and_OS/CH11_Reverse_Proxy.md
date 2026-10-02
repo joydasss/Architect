@@ -550,16 +550,13 @@ computation is expensive and identical for every viewer in that window —
 reducing origin load by over 90% during peak viewing hours with an
 acceptable, explicitly agreed staleness window.
 
-### 4.6 API Gateway: Reverse Proxy Plus Application Awareness
+### 4.6 API-Aware Reverse Proxy and the API Gateway Boundary
 
-**Definition.** An API Gateway is a reverse proxy specialized for
-API traffic, adding application-layer awareness that a general-purpose
-reverse proxy does not natively have: per-consumer API key or OAuth
-(Open Authorization) token validation, per-consumer rate-limit quotas
-(distinct from simple per-IP rate limiting), request/response schema
-transformation between a public contract and one or more backend
-protocols, and API-product concerns like usage metering and developer
-portal integration.
+**Definition.** An API-aware reverse proxy applies policy using API
+consumer or contract identity in addition to request routing information.
+It is the generic reverse-proxy concept that underlies an API Gateway; the
+full gateway product and system architecture is owned by Part 08's
+[API Gateway](../08_API_Architecture/CH08_API_Gateway.md) chapter.
 
 ```mermaid
 flowchart TB
@@ -573,27 +570,21 @@ flowchart TB
     GW --> S2[Backend Service B]
 ```
 
-**Mechanism, decision implications, and recap boundary.** Every capability
-an API Gateway offers is implemented on top of the same request-intercept
-mechanism this chapter has already covered — an API Gateway does not use a
-fundamentally different networking primitive than a plain reverse proxy;
-it adds a policy layer that is aware of API *consumers* and API *contracts*
-as first-class concepts, rather than treating every request identically.
-This is why commercial API Gateway products (Kong, Apigee, AWS API Gateway,
-Azure API Management) are frequently built on, or resemble, general-purpose
-reverse proxies (Kong is built on nginx; several cloud gateways are built on
-Envoy) rather than being written from scratch. The full architecture of an
-API Gateway — consumer/product modeling, developer portals, contract-first
-transformation pipelines, gateway-level authentication/authorization
-patterns — is this handbook's Part 08 API Architecture's job to teach in
-full, in a future API Gateway chapter (Part 08's `PART_OVERVIEW.md` lists it
-as chapter 8, `08_API_Architecture/CH08_API_Gateway.md`, not yet drafted at
-the time of writing). This chapter's contribution is the boundary itself:
-an API Gateway is *architecturally* a reverse proxy with an
-application-aware policy layer added, not a categorically different piece
-of infrastructure — an architect deciding "do we need an API Gateway or is
-our existing reverse proxy enough" is really asking "do we need the
-application-aware layer, or does uniform, consumer-blind policy suffice?"
+**Mechanism and decision implication.** The request-intercept mechanism
+remains the reverse-proxy primitive taught in this chapter. The application-
+aware extension lets policy distinguish API consumers or contracts instead
+of treating every request identically. Decide whether this awareness is
+needed at the shared edge or whether uniform routing and proxy policy are
+sufficient. This chapter owns that generic boundary only; Part 08's
+[API Gateway](../08_API_Architecture/CH08_API_Gateway.md) chapter owns full
+consumer/product modeling, developer portals, policy pipelines, protocol
+mediation, and gateway deployment architecture.
+
+**Recap-only boundary.** This section owns the generic API-aware
+reverse-proxy concept and its boundary with ordinary proxy policy. Part 08's
+[API Gateway](../08_API_Architecture/CH08_API_Gateway.md) chapter owns the
+full gateway product/system architecture, including consumer-product models,
+policy pipelines, mediation, deployment, and operational trade-offs.
 
 **Common failure mode.** Introducing a full API Gateway product purely to
 get basic reverse-proxy behavior (TLS termination, path routing) that the
