@@ -653,6 +653,12 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Event Sourcing snapshotting and event-schema evolution/upcasting | [Event Sourcing](07_System_Design_and_Distributed_Systems/CH15_Event_Sourcing.md) | Snapshots are rebuildable checkpoints, not authoritative facts; upcasters preserve historical events as domain schemas evolve |
 | General operation idempotency; caller-generated keys, request fingerprints, and stable outcome replay | [Idempotency](07_System_Design_and_Distributed_Systems/CH16_Idempotency.md) | Application/distributed operation identity beyond HTTP method semantics, which remain owned by HTTP |
 | Idempotency implementation strategies: atomic claim/TTL, natural upsert/conditional writes, versioned transitions, idempotent message consumers | [Idempotency](07_System_Design_and_Distributed_Systems/CH16_Idempotency.md) | Builds repeat-safe effects over at-least-once attempts; full transport/processing guarantees and general deduplication remain with the forthcoming CH17/CH19 chapters |
+| Exactly-once processing semantics and guarantee boundaries (delivery, invocation, state transition, external effect) | [Exactly-Once Processing](07_System_Design_and_Distributed_Systems/CH17_Exactly_Once_Processing.md) | Exactly-once means a committed result within a named boundary, not literal single delivery or execution; composes at-least-once delivery with atomic effects |
+| Transactional input-progress/state/output commits; stream checkpoints/barriers and sink guarantee composition | [Exactly-Once Processing](07_System_Design_and_Distributed_Systems/CH17_Exactly_Once_Processing.md) | Owns processing-level offset/checkpoint atomicity and explains where external sinks require a separate transaction, idempotency contract, or reconciliation |
+| Distributed ordering taxonomy and order-scope decisions (total, partial, causal, per-key/per-partition) | [Ordering Guarantees](07_System_Design_and_Distributed_Systems/CH18_Ordering_Guarantees.md) | Defines ordering contracts and mechanism choices; recaps consensus, partitioning, and vector-clock mechanics from their respective owners |
+| Per-key sequence/reordering; partition-order limits; event-time, watermark, and late-event handling | [Ordering Guarantees](07_System_Design_and_Distributed_Systems/CH18_Ordering_Guarantees.md) | Sequence gaps/buffers and event-time progress policies; dedup identity/window structures remain owned by Deduplication |
+| Deduplication identity/equivalence and exact membership (seen-ID stores, uniqueness, inboxes) | [Deduplication](07_System_Design_and_Distributed_Systems/CH19_Deduplication.md) | General record/event deduplication, broader than operation idempotency; a seen-ID store alone is not an exactly-once processing guarantee |
+| Bounded-window deduplication, retention/replay correctness, and probabilistic membership structures (Bloom filters) | [Deduplication](07_System_Design_and_Distributed_Systems/CH19_Deduplication.md) | Owns state/window trade-offs and safe Bloom-filter prefiltering; false positives must not be the sole authority for dropping legitimate data |
 
 ## How to add an entry
 
@@ -1390,3 +1396,24 @@ when multiple chapters are authored in parallel, isolated sessions.
   backslash-escaped quotes, block balance 0/0, no timeline diagram. All 16 Python examples across
   the four chapters executed successfully (stdlib-only). All four staging files deleted after
   merge.
+- **Batch 27 (Part 07 — System Design and Distributed Systems, batch 5 of 5: Exactly-Once
+  Processing, Ordering Guarantees, Deduplication — final three of 19; PART 07 COMPLETE)**: merged
+  `review/concept-proposals/exactly-once-processing.md`, `ordering-guarantees.md`, and
+  `deduplication.md` (CH17-CH19). 18 proposed concepts consolidated into 6 ownership rows.
+  Exactly-Once Processing owns the semantics and composition of guarantees at explicit input,
+  state, and sink boundaries; it distinguishes delivery, invocation, state transition, and
+  externally visible effect counts, while recapping CH16 Idempotency and CH12 Distributed
+  Transactions. Ordering Guarantees owns the total/partial/causal/per-key taxonomy, sequence and
+  reordering behavior, partition-order limits, and event-time/watermark/late-event policy, while
+  recapping consensus (CH07), vector clocks (CH10), partitioning (CH11), exactly-once processing
+  (CH17), and deduplication (this batch's CH19). Deduplication owns identity/equivalence, exact
+  and probabilistic membership, bounded windows, retention, replay, and operational trade-offs;
+  it is explicitly broader than idempotency and does not by itself provide exactly-once
+  processing. All three chapters independently verified at 27/27 exact section headers. Mermaid
+  checks: Exactly-Once Processing 14 diagrams, no reserved aliases/backslash-escaped quotes, no
+  block constructs (0/0), five timeline events single-line; Ordering Guarantees 26 diagrams, no
+  reserved aliases/backslash-escaped quotes, no block constructs (0/0), no timeline; Deduplication
+  17 diagrams, no reserved aliases/backslash-escaped quotes, no block constructs (0/0), no
+  timeline. All 10 Python examples executed successfully. All three staging files deleted after
+  merge. Updated `PART_OVERVIEW.md` with 19/19 chapter statuses and corrected `BOOK_PLAN.md`'s
+  Part 07 chapter count from 18 to 19, marking the part complete.

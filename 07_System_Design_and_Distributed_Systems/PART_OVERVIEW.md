@@ -23,6 +23,6 @@ Maps to the original catalog's **Part IV — System Design** (which included a
 | Distributed Systems — CQRS (Command Query Responsibility Segregation) | Edited — 27 sections, 15 diagrams, 4 code examples ([CH14_CQRS.md](CH14_CQRS.md)) |
 | Distributed Systems — Event Sourcing | Edited — 27 sections, 19 diagrams, 4 code examples ([CH15_Event_Sourcing.md](CH15_Event_Sourcing.md)) |
 | Distributed Systems — Idempotency | Edited — 27 sections, 20 diagrams, 4 code examples ([CH16_Idempotency.md](CH16_Idempotency.md)) |
-| Distributed Systems — Exactly-Once Processing | Not Started |
-| Distributed Systems — Ordering Guarantees | Not Started |
-| Distributed Systems — Deduplication | Not Started |
+| Distributed Systems — Exactly-Once Processing | Edited — 27 sections, 14 diagrams, 3 code examples ([CH17_Exactly_Once_Processing.md](CH17_Exactly_Once_Processing.md)) |
+| Distributed Systems — Ordering Guarantees | Edited — 27 sections, 26 diagrams, 3 code examples ([CH18_Ordering_Guarantees.md](CH18_Ordering_Guarantees.md)) |
+| Distributed Systems — Deduplication | Edited — 27 sections, 17 diagrams, 4 code examples ([CH19_Deduplication.md](CH19_Deduplication.md)) |
