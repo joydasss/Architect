@@ -46,7 +46,7 @@ practical reality of every one of these audiences, not only the paying
 customer — as a first-class extension of the same discipline, because a
 design that empathizes deeply with end users while ignoring the 3 a.m.
 on-call engineer produces exactly the kind of operational failure covered in
-[Observability](../12_Observability/PART_OVERVIEW.md) and
+[Observability](../14_Observability/PART_OVERVIEW.md) and
 [Failure Scenarios](../07_System_Design_and_Distributed_Systems/PART_OVERVIEW.md).
 
 ## 2. Historical Evolution
@@ -214,7 +214,7 @@ and delivery costs make that change expensive.
   and practical reality, and a design optimized purely for end-user delight
   while ignoring, say, the on-call engineer's 3 a.m. experience of an
   ambiguous alert produces exactly the operational failure patterns discussed
-  in [Observability](../12_Observability/PART_OVERVIEW.md) (owned there in
+  in [Observability](../14_Observability/PART_OVERVIEW.md) (owned there in
   full — this chapter's contribution is treating "who does the interface
   serve" as a question with more than one honest answer).
 - **Empathy vs. sympathy**: sympathy is feeling *for* someone from the
@@ -506,7 +506,7 @@ chapter's scope.
 
 Empathy work is qualitative and human-subject in nature, which introduces a
 narrower but real set of security and privacy obligations distinct from the
-system-level concerns owned by [Security](../13_Security/PART_OVERVIEW.md):
+system-level concerns owned by [Security](../15_Security/PART_OVERVIEW.md):
 
 - **Informed consent and data minimization**: participants in interviews,
   observation sessions, or diary studies must know what is being recorded
@@ -585,7 +585,7 @@ rather than self-reported sentiment:
   well-designed for its end user while its on-call runbook, alert wording,
   or admin tooling reflects zero empathy for the engineer operating it under
   incident pressure — a direct contributor to the failure patterns covered
-  in [Observability](../12_Observability/PART_OVERVIEW.md).
+  in [Observability](../14_Observability/PART_OVERVIEW.md).
 
 ## 16. Testing
 
@@ -839,5 +839,5 @@ user archetype is covered by the forthcoming Personas chapter.
 [Problem Framing](CH06_Problem_Framing.md) ·
 [Role of a Solution Architect](../01_Architecture_Mindset/CH02_Role_of_a_Solution_Architect.md) ·
 [Architecture Thinking](../01_Architecture_Mindset/CH03_Architecture_Thinking.md) ·
-[Observability](../12_Observability/PART_OVERVIEW.md) ·
-[Security](../13_Security/PART_OVERVIEW.md)
+[Observability](../14_Observability/PART_OVERVIEW.md) ·
+[Security](../15_Security/PART_OVERVIEW.md)

@@ -1629,7 +1629,7 @@ many worker processes consuming from it. This is a materially different
 default scaling posture than, say, a Java Virtual Machine (JVM) service,
 where a single process can meaningfully use many cores via true OS-thread
 parallelism — a distinction a Solution Architect sizing a Kubernetes
-deployment (see [Kubernetes](../10_Kubernetes/PART_OVERVIEW.md)) must
+deployment (see [Kubernetes](../12_Kubernetes/PART_OVERVIEW.md)) must
 account for explicitly: Python replica counts should be sized against
 *process-level* concurrency limits (workers × cores), not assumed to
 auto-scale within a single pod the way a multi-threaded JVM service might.
@@ -1674,7 +1674,7 @@ flowchart TD
 
 Python-specific security concerns this chapter owns (general web/API
 security — authentication, authorization, injection classes — are owned
-by [Security](../13_Security/PART_OVERVIEW.md); recap and link only):
+by [Security](../15_Security/PART_OVERVIEW.md); recap and link only):
 `pickle` deserialization of untrusted data is unsafe by design (`pickle`
 can execute arbitrary code during deserialization — never unpickle data
 from an untrusted source, including `multiprocessing`'s default
@@ -1934,5 +1934,5 @@ rather than about knowing more of the language's syntax.
 **Further reading**: [What is Software Architecture?](../01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) ·
 [HTTP](../05_Networking_and_OS/CH01_HTTP.md) ·
 [REST](../08_API_Architecture/CH01_REST.md) ·
-[Kubernetes](../10_Kubernetes/PART_OVERVIEW.md) ·
-[Performance Engineering](../16_Performance_Engineering/PART_OVERVIEW.md)
+[Kubernetes](../12_Kubernetes/PART_OVERVIEW.md) ·
+[Performance Engineering](../19_Performance_Engineering/PART_OVERVIEW.md)

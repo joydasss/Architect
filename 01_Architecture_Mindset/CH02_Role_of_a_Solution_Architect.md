@@ -42,7 +42,7 @@ delivery, not just at kickoff.
   from building construction and giving Enterprise Architecture its first
   formal vocabulary — a discipline this chapter's role interacts with
   constantly but does not itself own (see
-  [Enterprise Architecture](../15_Enterprise_Architecture/PART_OVERVIEW.md)).
+  [Enterprise Architecture](../18_Enterprise_Architecture/PART_OVERVIEW.md)).
 - **1992 — "Software Architecture" as a named discipline**: Dewayne Perry and
   Alexander Wolf's paper *Foundations for the Study of Software Architecture*
   and Mary Shaw's contemporaneous work gave academic grounding to treating a
@@ -106,7 +106,7 @@ rationale — visible and durable rather than tribal knowledge.
   This is the key distinction from adjacent titles:
   - **Enterprise Architect**: company-wide standards, technology strategy,
     and portfolio-level rationalization across *many* solutions (see
-    [Enterprise Architecture](../15_Enterprise_Architecture/PART_OVERVIEW.md)).
+    [Enterprise Architecture](../18_Enterprise_Architecture/PART_OVERVIEW.md)).
   - **Technical/Application/Staff Engineer**: deep, single-system or
     single-team ownership, often still hands-on with code.
   - **Cloud Architect**: infrastructure- and platform-focused, concentrated
@@ -364,7 +364,7 @@ already-settled ones.
 
 The Solution Architect is rarely the security control expert (that role
 belongs to a Security Architect — see
-[Security](../13_Security/PART_OVERVIEW.md), which owns threat modeling, the
+[Security](../15_Security/PART_OVERVIEW.md), which owns threat modeling, the
 OWASP (Open Worldwide Application Security Project) Top 10, and control
 design in depth), but is typically the person accountable for making sure
 security is considered *at all* during design, specifically:
@@ -432,7 +432,7 @@ assumption:
   verify a system still satisfies an architectural constraint (e.g., a
   dependency-direction rule, a latency budget) as it evolves — full coverage
   of this technique belongs to
-  [Architecture Patterns](../17_Architecture_Patterns/PART_OVERVIEW.md); the
+  [Architecture Patterns](../20_Architecture_Patterns/PART_OVERVIEW.md); the
   Solution Architect's role is deciding which constraints are worth
   encoding this way.
 - **Staged/canary rollout of new patterns**: introducing a new pattern (a
@@ -597,6 +597,6 @@ what architecture itself fundamentally is, is covered in
 
 **Further reading**: [What is Software Architecture?](CH01_What_is_Software_Architecture.md) ·
 [Architecture Thinking](CH03_Architecture_Thinking.md) ·
-[Enterprise Architecture](../15_Enterprise_Architecture/PART_OVERVIEW.md) ·
-[Architecture Documentation](../18_Architecture_Documentation/PART_OVERVIEW.md) ·
-[Soft Skills](../19_Soft_Skills/PART_OVERVIEW.md)
+[Enterprise Architecture](../18_Enterprise_Architecture/PART_OVERVIEW.md) ·
+[Architecture Documentation](../21_Architecture_Documentation/PART_OVERVIEW.md) ·
+[Soft Skills](../23_Soft_Skills/PART_OVERVIEW.md)

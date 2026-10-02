@@ -60,7 +60,7 @@ metadata filtering, and RAG's retrieval-side architecture. It recaps, rather
 than re-teaches, generic sharding/partitioning/replication/caching/locking
 theory and the relational and NoSQL engines already covered, and it
 explicitly flags two forward-looking arbitration notes in this chapter's
-`review/concept-proposals/vector-databases.md` staging file: Part 14 (AI and
+`review/concept-proposals/vector-databases.md` staging file: Part 16 (AI and
 GenAI) lists both a dedicated "Vector Databases" chapter and a dedicated "RAG"
 chapter that do not exist yet, and this chapter stakes out the boundary those
 future chapters should recap rather than re-derive.
@@ -760,7 +760,7 @@ section describes — while the generation-side concerns (prompt-template
 design, hallucination-mitigation techniques specific to the generation step,
 multi-hop/agentic retrieval loops, and answer-quality evaluation frameworks
 like RAGAS) are flagged in this chapter's staging file as belonging to Part
-14's not-yet-drafted dedicated RAG chapter, which should recap this
+16's not-yet-drafted dedicated RAG chapter, which should recap this
 section's retrieval mechanics rather than re-deriving them.
 
 **Mechanism.** A RAG pipeline has two distinct phases that run on very
@@ -1191,7 +1191,7 @@ provisioned capacity before latency visibly degrades).
   in ways that produce a plausible-but-wrong answer, diagnosing a bad RAG
   answer requires first checking *what was actually retrieved* (a retrieval
   problem, owned by this chapter) before assuming the generation model
-  itself is at fault (owned by Part 14's future RAG chapter).
+  itself is at fault (owned by Part 16's future RAG chapter).
 
 ```mermaid
 flowchart TD

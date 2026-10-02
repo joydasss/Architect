@@ -41,7 +41,7 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Conway's Law / Inverse Conway Maneuver | [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) | Full definition/history; Architecture Thinking recaps + links when using it as a decision input |
 | Technical debt | [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) | Cunningham's metaphor; deliberate vs. accidental |
 | Architecture fitness functions | [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) | Full definition + code examples (Sections 9-10); Architecture Thinking recaps + links when using one as a decision's feedback signal |
-| 4+1 architectural view model (Kruchten) | [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) | Conceptual view/stakeholder framing (Section 4.8); concrete notations (C4, UML) owned by Architecture Documentation (Part 18, not yet drafted) |
+| 4+1 architectural view model (Kruchten) | [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) | Conceptual view/stakeholder framing (Section 4.8); concrete notations (C4, UML) owned by Architecture Documentation (Part 21, not yet drafted) |
 | Architecture Decision Records (ADRs) | [Architecture Thinking](01_Architecture_Mindset/CH03_Architecture_Thinking.md) | Full template, worked example, and review checklist (Section 10); other chapters recap + link |
 | Trade-off analysis / ATAM (Architecture Tradeoff Analysis Method) | [Architecture Thinking](01_Architecture_Mindset/CH03_Architecture_Thinking.md) | Quality-attribute-scenario-driven comparison method |
 | Essential vs. accidental complexity (Brooks) | [Architecture Thinking](01_Architecture_Mindset/CH03_Architecture_Thinking.md) | General reasoning tool for scoping a decision |
@@ -626,18 +626,18 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Inverted index (term-to-postings-list); tokenization/analysis chain; BM25/TF-IDF relevance scoring | [ElasticSearch](06_Databases_and_Storage/CH20_ElasticSearch.md) | Genuinely different index structure from the B-tree/B+tree owned by Indexes CH03, not a NoSQL restatement of it |
 | Lucene segment architecture; ES cluster/shard/replica/master-election; mapping system; Query DSL/aggregations; near-real-time search | [ElasticSearch](06_Databases_and_Storage/CH20_ElasticSearch.md) | Immutable-segment compaction (contrasted with Cassandra's LSM-tree); refresh-interval/translog durability-vs-searchability trade-off; system-of-record vs. derived-index architectural judgment |
 | Vector embeddings and similarity metrics; curse of dimensionality; HNSW and IVF/product-quantization Approximate Nearest Neighbor (ANN) search | [Vector Databases](06_Databases_and_Storage/CH21_Vector_Databases.md) | ANN index structures are a genuinely different structure from B-tree/GIN indexes (Indexes CH03); pgvector recaps PostgreSQL's (CH11) extension architecture |
-| Hybrid search (vector + metadata filtering, RRF fusion); Retrieval-Augmented Generation (RAG) retrieval-side architecture | [Vector Databases](06_Databases_and_Storage/CH21_Vector_Databases.md) | Retrieval-engine half only; a future Part 14 AI/GenAI chapter may own the generation-side RAG treatment — arbitration flagged, not yet conflicting |
+| Hybrid search (vector + metadata filtering, RRF fusion); Retrieval-Augmented Generation (RAG) retrieval-side architecture | [Vector Databases](06_Databases_and_Storage/CH21_Vector_Databases.md) | Retrieval-engine half only; a future Part 16 AI/GenAI chapter may own the generation-side RAG treatment — arbitration flagged, not yet conflicting |
 | Time-series data model (metric/tags/timestamp/value); write-optimized time-partitioned chunk storage; high-cardinality problem | [Time Series Databases](06_Databases_and_Storage/CH22_Time_Series_Databases.md) | Cartesian-product tag-explosion cost; recaps Partitioning's (CH05) rolling-window mechanics for chunk immutability's write-optimization rationale |
 | Downsampling/rollups/retention policies; delta-of-delta timestamp compression; XOR/Gorilla value compression; Prometheus pull architecture | [Time Series Databases](06_Databases_and_Storage/CH22_Time_Series_Databases.md) | Rollups classified as durable materialized views (recapping Caching's CH09 cache-vs-materialized-view distinction), not ephemeral caches; pull-vs-push ingestion trade-off |
 | Functional-vs-non-functional requirement classification test; requirements workshops; use cases (actor/main-flow/alt-flow) | [Functional Requirements](07_System_Design_and_Distributed_Systems/CH01_Functional_Requirements.md) | Verification-shape distinction test; workshop surfaces cross-stakeholder conflicts a single interview cannot; use cases recap-distinguished from Backlog's (Part 02) lightweight user-story format |
 | EARS testable-requirement writing discipline; requirement traceability (forward/backward RTM, traceability drift); scoping ambiguity under interview time pressure | [Functional Requirements](07_System_Design_and_Distributed_Systems/CH01_Functional_Requirements.md) | Five fixed sentence shapes plus ambiguous-word blocklist; coverage-gap vs. scope-creep detection; six-step clarifying-question sequence for System Design Interviews |
-| Availability as "nines"; SLA/SLO/SLI framing and error-budget derivation; Reliability (MTBF/MTTR) distinguished from Availability | [Non-Functional Requirements](07_System_Design_and_Distributed_Systems/CH02_Non_Functional_Requirements.md) | Core SLA/SLO/SLI vocabulary and nines-to-downtime table used book-wide; a future Part 12 Observability chapter recaps this and owns burn-rate-alerting operational mechanics |
+| Availability as "nines"; SLA/SLO/SLI framing and error-budget derivation; Reliability (MTBF/MTTR) distinguished from Availability | [Non-Functional Requirements](07_System_Design_and_Distributed_Systems/CH02_Non_Functional_Requirements.md) | Core SLA/SLO/SLI vocabulary and nines-to-downtime table used book-wide; a future Part 14 Observability chapter recaps this and owns burn-rate-alerting operational mechanics |
 | Scalability vs. Elasticity; latency percentiles (p50/p95/p99) vs. throughput and Little's Law; Durability as compounding annual data-loss probability | [Non-Functional Requirements](07_System_Design_and_Distributed_Systems/CH02_Non_Functional_Requirements.md) | Ceiling/cost-shape vs. automatic demand-tracking; percentile-over-average reporting discipline; p^N independent-failure-domain framing |
 | NFR trade-off analysis methodology; back-of-the-envelope capacity estimation (traffic-storage-bandwidth pipeline); Cost as a first-class NFR | [Non-Functional Requirements](07_System_Design_and_Distributed_Systems/CH02_Non_Functional_Requirements.md) | General framework naming competing quality attributes; CAP/PACELC's formal treatment explicitly deferred to this part's dedicated sibling chapters |
-| C4 model (Context/Container/Component/Code levels); UML diagram types for HLD (deployment/component/sequence) | [High-Level Design](07_System_Design_and_Distributed_Systems/CH03_High_Level_Design.md) | Four-level teaching with C4-Component-vs-UML-Component distinction; a future Part 18 Architecture Documentation may re-arbitrate general notation ownership once drafted |
+| C4 model (Context/Container/Component/Code levels); UML diagram types for HLD (deployment/component/sequence) | [High-Level Design](07_System_Design_and_Distributed_Systems/CH03_High_Level_Design.md) | Four-level teaching with C4-Component-vs-UML-Component distinction; a future Part 21 Architecture Documentation may re-arbitrate general notation ownership once drafted |
 | HLD workflow (component ID -> boundary/responsibility -> data-flow/storage-choice -> API/contract -> bottleneck/SPOF); communicating HLD to stakeholders | [High-Level Design](07_System_Design_and_Distributed_Systems/CH03_High_Level_Design.md) | Five-step repeatable workflow; audience-tiered artifact selection and diagram-as-documentation discipline, recapping ADRs (Architecture Thinking CH03) rather than re-teaching them |
 | SOLID principles (SRP/OCP/LSP/ISP/DIP); representative GoF design patterns (Factory Method/Strategy/Observer/Decorator/Singleton) | [Low-Level Design](07_System_Design_and_Distributed_Systems/CH04_Low_Level_Design.md) | Violation-then-fix code pairs for all five SOLID principles; representative, not exhaustive, class/module-level pattern set |
-| DDD tactical patterns (Entity/Value Object/Aggregate/Repository/Domain Event); Event Modeling (class/module-level technique) | [Low-Level Design](07_System_Design_and_Distributed_Systems/CH04_Low_Level_Design.md) | Code/class-level building blocks only; strategic DDD (bounded contexts) and system-level patterns forward-referenced to a future Part 17 Architecture Patterns |
+| DDD tactical patterns (Entity/Value Object/Aggregate/Repository/Domain Event); Event Modeling (class/module-level technique) | [Low-Level Design](07_System_Design_and_Distributed_Systems/CH04_Low_Level_Design.md) | Code/class-level building blocks only; strategic DDD (bounded contexts) and system-level patterns forward-referenced to a future Part 20 Architecture Patterns |
 | CAP theorem (formal C/A/P definitions, Brewer's conjecture, Gilbert/Lynch proof sketch, "2 of 3" fallacy) | [CAP Theorem](07_System_Design_and_Distributed_Systems/CH05_CAP_Theorem.md) | Canonical, book-wide owner of CAP; CP vs. AP system classification and the consistency-during-partition-then-reconcile pattern also owned here |
 | PACELC formula (partition-branch A-or-C, else-branch L-or-C) and four-quadrant classification (PA/EL, PC/EC, PA/EC, PC/EL) | [PACELC](07_System_Design_and_Distributed_Systems/CH06_PACELC.md) | Extends CAP Theorem's partition-only analysis to normal-operation latency-vs-consistency trade-offs; maps quadrants to concrete sync/async replication and quorum configuration |
 | Consensus problem (Agreement/Validity/Termination) and FLP impossibility; Basic Paxos/Multi-Paxos; Raft (terms, election, log replication, commit rules) | [Consensus](07_System_Design_and_Distributed_Systems/CH07_Consensus.md) | Canonical owner of Paxos/Raft mechanics recapped by Part 06's MongoDB/Neo4j (Raft) and Cassandra (Paxos CAS) chapters |
@@ -700,10 +700,10 @@ when multiple chapters are authored in parallel, isolated sessions.
 | API limiter identity keys, hierarchical tenant/route budgets, fairness, and noisy-neighbor isolation | [Rate Limiting](08_API_Architecture/CH11_Rate_Limiting.md) | Trusted key selection and coordinated parent/child budgets across consumer, tenant, route, and weighted request cost |
 | Distributed and multi-region limiter consistency/overshoot trade-offs | [Rate Limiting](08_API_Architecture/CH11_Rate_Limiting.md) | Shared atomic state, local buckets, approximate counters, partitioned quotas, and their fairness/availability consequences |
 | API rate-policy rollout, fail-open/closed behavior, bypass resistance, client retry guidance, and operational metrics | [Rate Limiting](08_API_Architecture/CH11_Rate_Limiting.md) | Limiter-specific policy lifecycle and failure posture; Gateway owns policy-pipeline placement and API Security owns broader threat modeling |
-| AWS global infrastructure scope: Regions, Availability Zones, and edge locations | [AWS](09_Cloud_Computing/CH01_AWS.md) | Provider-specific failure-domain and locality semantics; cross-provider cloud placement belongs to Cloud Architecture (Part 25) |
+| AWS global infrastructure scope: Regions, Availability Zones, and edge locations | [AWS](09_Cloud_Computing/CH01_AWS.md) | Provider-specific failure-domain and locality semantics; cross-provider cloud placement belongs to Cloud Architecture (Part 10) |
 | AWS account and Organizations hierarchy as isolation, guardrail, and billing boundaries | [AWS](09_Cloud_Computing/CH01_AWS.md) | Accounts/OUs and Service Control Policy guardrail role; detailed IAM policy evaluation remains with Part 09 IAM |
 | AWS control-plane/data-plane distinction and service resource scope | [AWS](09_Cloud_Computing/CH01_AWS.md) | Management/configuration path versus workload request path; service-specific regional, zonal, and global scope implications |
-| AWS shared-responsibility and managed-service architecture trade-offs | [AWS](09_Cloud_Computing/CH01_AWS.md) | AWS-specific operational boundary and control/abstraction choices; general cross-provider responsibility is recapped by Cloud Architecture (Part 25) |
+| AWS shared-responsibility and managed-service architecture trade-offs | [AWS](09_Cloud_Computing/CH01_AWS.md) | AWS-specific operational boundary and control/abstraction choices; general cross-provider responsibility is recapped by Cloud Architecture (Part 10) |
 | AWS service-family composition and provider-specific architecture-selection workflow | [AWS](09_Cloud_Computing/CH01_AWS.md) | AWS service map and workload-fit checks; later Part 09 chapters retain compute, networking, storage, IAM, messaging, serverless, and cost mechanics |
 
 ## How to add an entry
@@ -742,16 +742,16 @@ when multiple chapters are authored in parallel, isolated sessions.
     Testing-section bullet to a recap + link.
   - **Architecture Decision Records (ADRs)**: "What is Software
     Architecture?" and "Role of a Solution Architect" both deferred full
-    ownership to Architecture Documentation (Part 18), which doesn't exist
+    ownership to Architecture Documentation (Part 21), which doesn't exist
     yet, while "Architecture Thinking" independently wrote the deepest
     treatment (template, worked example, review checklist) and claimed
     ownership outright. Arbitrated to "Architecture Thinking" as the
     pragmatic current owner; fixed "What is Software Architecture?"'s
-    dangling Part 18 link to point at "Architecture Thinking" instead, and
+    dangling Part 21 link to point at "Architecture Thinking" instead, and
     trimmed "Role of a Solution Architect"'s duplicate ADR-014 worked
     example (and its planned `adr-template.md` file) down to a recap + link,
     keeping only its RACI-specific framing.
-  - Three Part 15/17/18 forward-references (architecture fitness functions
+  - Three Part 18/17/18 forward-references (architecture fitness functions
     and TOGAF/Zachman from "Role of a Solution Architect"; 4+1 view model's
     concrete notations from "What is Software Architecture?") point to
     parts not yet drafted — revisit these links once those parts exist.
@@ -916,7 +916,7 @@ when multiple chapters are authored in parallel, isolated sessions.
     meaning (Cockburn/Crystal, continuous-delivery thin-slice
     architecture proof) may later be independently claimed by a Software
     Engineering Foundations or DevOps chapter. No conflict today since no
-    such chapter exists yet — revisit when Part 03 or Part 11 is drafted.
+    such chapter exists yet — revisit when Part 03 or Part 13 is drafted.
   - Both Product Strategy forward references (strategy-to-roadmap
     contract; controlled external roadmap disclosure) are now fully
     resolved by "Roadmaps" with no re-teaching of Product Strategy's
@@ -1019,7 +1019,7 @@ when multiple chapters are authored in parallel, isolated sessions.
     "garbage collection" row — each language's mechanism is architecturally distinct enough (JVM
     stop-the-world tuning vs. Python's GIL serialization vs. Rust's compile-time ownership proof)
     that forcing a single owner would require one chapter to fully re-teach another's runtime
-    internals. A future cross-language comparison chapter (if added, e.g. under Part 03 or Part 17
+    internals. A future cross-language comparison chapter (if added, e.g. under Part 03 or Part 20
     Architecture Patterns) should recap + link to all five rather than re-deriving any of them.
   - **Architecture fitness functions (Java/ArchUnit)**: Java Architecture's proposal explicitly
     flagged that "architecture fitness functions" as a general concept is already owned by
@@ -1097,10 +1097,10 @@ when multiple chapters are authored in parallel, isolated sessions.
     relinquishes the row.
   - **Two items intentionally left unresolved / flagged for future parts**: (a) the CRIME/BREACH
     (compression-oracle) and HTTP/2 Rapid Reset attack classes are currently taught inside CH07
-    (SSL) and CH04 (HTTP/2) respectively — if a dedicated Security part (Part 13) is drafted, both
+    (SSL) and CH04 (HTTP/2) respectively — if a dedicated Security part (Part 15) is drafted, both
     should migrate to a Security-owned chapter with the current chapters recapping; flagged in the
     individual chapter ownership notes above. (b) ZTNA / Zero Trust Architecture is currently
-    owned by the VPN chapter (CH13) as VPN's architectural successor — if Part 13 or a dedicated
+    owned by the VPN chapter (CH13) as VPN's architectural successor — if Part 15 or a dedicated
     Zero Trust chapter is drafted later, ownership may broaden; flagged in CH13's row note.
   - **Clean per-chapter ownership across all 28 staging files, zero conflicts**: each chapter
     proposed concepts scoped tightly to its protocol or OS-subsystem boundary. Near-overlaps were
@@ -1302,9 +1302,9 @@ when multiple chapters are authored in parallel, isolated sessions.
   Partitioning's (CH05) rolling-window mechanics and Caching's (CH09) cache-vs-materialized-view
   distinction to correctly classify rollups as durable materialized views. One forward arbitration
   note recorded (not a conflict): Vector Databases' staging file flags that a future, not-yet-
-  drafted Part 14 (AI and GenAI) chapter may eventually own the generation-side half of
+  drafted Part 16 (AI and GenAI) chapter may eventually own the generation-side half of
   Retrieval-Augmented Generation (RAG) — this chapter (CH21) is confirmed as owning only the
-  retrieval/storage/indexing half; to be resolved when Part 14 is authored. No Mermaid syntax
+  retrieval/storage/indexing half; to be resolved when Part 16 is authored. No Mermaid syntax
   defects found: all 4 chapters' diagrams (18 + 21 + 14 + 20 = 73 total) independently
   re-verified — 27/27 exact section headers per file; zero reserved sequenceDiagram participant
   aliases; zero backslash-escaped quotes (only `&quot;`/`&gt;` entities used); subgraph/loop/`end`
@@ -1326,13 +1326,13 @@ when multiple chapters are authored in parallel, isolated sessions.
   genuinely new concepts; Non-Functional Requirements recaps What is Software Architecture's
   (Part 01) quality-attribute taxonomy while owning the concrete SLA/SLO/SLI vocabulary,
   percentile/Little's-Law framing, and capacity-estimation methodology, with an explicit
-  forward-reference flag that a future Part 12 (Observability) should recap this chapter's
+  forward-reference flag that a future Part 14 (Observability) should recap this chapter's
   SLA/SLO/SLI definitions rather than re-deriving them; High-Level Design recaps Architecture
   Thinking's (Part 01) ADR ownership while filling the C4/UML notation gap left open by the
-  not-yet-drafted Part 18 (Architecture Documentation), flagged for re-arbitration once that part
+  not-yet-drafted Part 21 (Architecture Documentation), flagged for re-arbitration once that part
   exists; Low-Level Design scopes itself strictly to the code/class level (SOLID, GoF patterns,
   tactical DDD), explicitly forward-referencing strategic DDD and system-level patterns to a
-  future Part 17 (Architecture Patterns) and this same part's own not-yet-drafted CQRS/Event
+  future Part 20 (Architecture Patterns) and this same part's own not-yet-drafted CQRS/Event
   Sourcing chapters rather than teaching their mechanics prematurely. One authoring-process note:
   the Functional Requirements chapter's subagent completed the chapter in full (27/27 sections,
   verified independently) but did not return a concept-proposal staging file in its final report;
@@ -1528,8 +1528,8 @@ when multiple chapters are authored in parallel, isolated sessions.
   establishes the provider-specific map of Regions/AZs/edge scope, Organizations/accounts and
   guardrails, control/data planes, shared responsibility, service families, and AWS architecture
   selection, while deferring detailed service mechanics to later Part 09 chapters. Cross-provider
-  workload architecture is reserved for new Part 25; the six-pillar AWS Well-Architected review
-  framework is reserved for new Part 26; AWS IAM details remain with the planned Part 09 IAM
+  workload architecture is reserved for new Part 10; the six-pillar AWS Well-Architected review
+  framework is reserved for new Part 11; AWS IAM details remain with the planned Part 09 IAM
   chapter. The chapter has 27 sections and 15 inline Mermaid diagrams; all diagrams rendered,
   acronyms were expanded at first use, and all four standard-library Python examples compiled and
   ran. Updated Part 09 tracking to 1/16 chapters complete. Proposal file removed after merge.

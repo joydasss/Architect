@@ -29,23 +29,23 @@ folder IDs (23-26) while appearing beside the related core parts.
 | 07 | [System Design and Distributed Systems](07_System_Design_and_Distributed_Systems/PART_OVERVIEW.md) | IV | 19 | Complete — 19/19 |
 | 08 | [API Architecture](08_API_Architecture/PART_OVERVIEW.md) | V | 11 | Complete — 11/11 |
 | 09 | [Cloud Computing](09_Cloud_Computing/PART_OVERVIEW.md) | VIII | 16 | **1/16 Edited** |
-| 25 | [Cloud Architecture (supplements Part 09)](25_Cloud_Architecture/PART_OVERVIEW.md) | new | 15 | Not Started |
-| 26 | [AWS Well-Architected Framework (supplements Parts 09 and 25)](26_AWS_Well_Architected_Framework/PART_OVERVIEW.md) | new | 10 | Not Started |
-| 10 | [Kubernetes](10_Kubernetes/PART_OVERVIEW.md) | IX | 15 | Not Started |
-| 11 | [DevOps](11_DevOps/PART_OVERVIEW.md) | X | 17 | Not Started |
-| 12 | [Observability](12_Observability/PART_OVERVIEW.md) | XI | 13 | Not Started |
-| 13 | [Security](13_Security/PART_OVERVIEW.md) | XII | 16 | Not Started |
-| 14 | [AI, Machine Learning, and Generative AI](14_AI_and_GenAI/PART_OVERVIEW.md) | XIII | 31 | Not Started |
-| 24 | [AI Architecture (supplements Part 14)](24_AI_Architecture/PART_OVERVIEW.md) | new | 15 | Not Started |
-| 15 | [Enterprise Architecture](15_Enterprise_Architecture/PART_OVERVIEW.md) | XVI | 11 | Not Started |
-| 16 | [Performance Engineering](16_Performance_Engineering/PART_OVERVIEW.md) | XVII | 14 | Not Started |
-| 17 | [Architecture Patterns](17_Architecture_Patterns/PART_OVERVIEW.md) | XVIII | 18 | Not Started |
-| 18 | [Architecture Documentation](18_Architecture_Documentation/PART_OVERVIEW.md) | XIX | 11 | Not Started |
-| 23 | [Architectural Thinking and Decision Practice (supplements Part 01)](23_Architectural_Thinking_and_Decision_Practice/PART_OVERVIEW.md) | new | 10 | Not Started |
-| 19 | [Soft Skills](19_Soft_Skills/PART_OVERVIEW.md) | XX | 15 | Not Started |
-| 20 | [Real-World Case Studies](20_Real_World_Case_Studies/PART_OVERVIEW.md) | XXI | 25 | Not Started |
-| 21 | [Additional Architect Competencies](21_Additional_Architect_Competencies/PART_OVERVIEW.md) | new | 6 | Not Started |
-| 22 | [Appendices and Glossary](22_Appendices_and_Glossary/PART_OVERVIEW.md) | new | 5 | Not Started |
+| 10 | [Cloud Architecture (supplements Part 09)](10_Cloud_Architecture/PART_OVERVIEW.md) | new | 15 | Not Started |
+| 11 | [AWS Well-Architected Framework (supplements Parts 09 and 10)](11_AWS_Well_Architected_Framework/PART_OVERVIEW.md) | new | 10 | Not Started |
+| 12 | [Kubernetes](12_Kubernetes/PART_OVERVIEW.md) | IX | 15 | Not Started |
+| 13 | [DevOps](13_DevOps/PART_OVERVIEW.md) | X | 17 | Not Started |
+| 14 | [Observability](14_Observability/PART_OVERVIEW.md) | XI | 13 | Not Started |
+| 15 | [Security](15_Security/PART_OVERVIEW.md) | XII | 16 | Not Started |
+| 16 | [AI, Machine Learning, and Generative AI](16_AI_and_GenAI/PART_OVERVIEW.md) | XIII | 31 | Not Started |
+| 17 | [AI Architecture (supplements Part 16)](17_AI_Architecture/PART_OVERVIEW.md) | new | 15 | Not Started |
+| 18 | [Enterprise Architecture](18_Enterprise_Architecture/PART_OVERVIEW.md) | XVI | 11 | Not Started |
+| 19 | [Performance Engineering](19_Performance_Engineering/PART_OVERVIEW.md) | XVII | 14 | Not Started |
+| 20 | [Architecture Patterns](20_Architecture_Patterns/PART_OVERVIEW.md) | XVIII | 18 | Not Started |
+| 21 | [Architecture Documentation](21_Architecture_Documentation/PART_OVERVIEW.md) | XIX | 11 | Not Started |
+| 22 | [Architectural Thinking and Decision Practice (supplements Part 01)](22_Architectural_Thinking_and_Decision_Practice/PART_OVERVIEW.md) | new | 10 | Not Started |
+| 23 | [Soft Skills](23_Soft_Skills/PART_OVERVIEW.md) | XX | 15 | Not Started |
+| 24 | [Real-World Case Studies](24_Real_World_Case_Studies/PART_OVERVIEW.md) | XXI | 25 | Not Started |
+| 25 | [Additional Architect Competencies](25_Additional_Architect_Competencies/PART_OVERVIEW.md) | new | 6 | Not Started |
+| 26 | [Appendices and Glossary](26_Appendices_and_Glossary/PART_OVERVIEW.md) | new | 5 | Not Started |
 
 **Total: ~391 planned chapter/topic entries** across 26 parts by the chapter
 counts in this table (the original ~180 "chapter" estimate corresponds more
@@ -53,10 +53,11 @@ closely to the top-level modules; some listed entries may be grouped into
 fewer full chapters after detailed planning, per the Level 3/4
 chapter-versus-topic distinction).
 
-Parts 23-26 are supplemental modules linked from their related parent folders:
-Architectural Thinking from Part 01, AI Architecture from Part 14, and Cloud
-Architecture/AWS Well-Architected from Part 09. Their standalone numbered
-folders preserve stable paths without renumbering the original 22 parts.
+Supplemental modules appear at their contextual place in the sequence:
+Cloud Architecture (10) and AWS Well-Architected (11) follow Cloud Computing;
+AI Architecture (17) follows AI and GenAI; Architectural Thinking and
+Decision Practice (22) precedes Soft Skills and builds on Part 01. Their
+numbered folders match their current sequence positions.
 
 ## Pilot chapters (proof of the anti-repetition pipeline)
 

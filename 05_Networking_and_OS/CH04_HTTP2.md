@@ -359,7 +359,7 @@ secret header values on connections shared across trust boundaries, and
 should never re-introduce general-purpose stream compression over
 attacker-and-secret-mixed content at any layer (see the response-body
 equivalent guidance under BREACH mitigation in
-[Security](../13_Security/PART_OVERVIEW.md), owned there).
+[Security](../15_Security/PART_OVERVIEW.md), owned there).
 
 **Common failure mode.** Assuming HPACK compression eliminates the need to
 think about header size at all — a request with dozens of large custom
@@ -1158,7 +1158,7 @@ many sockets the OS can hold open.
   — mitigations include rate-limiting stream creation/reset per connection
   and capping `SETTINGS_MAX_CONCURRENT_STREAMS` conservatively rather than
   generously. This is owned in full detail by
-  [Security](../13_Security/PART_OVERVIEW.md); this chapter flags it because
+  [Security](../15_Security/PART_OVERVIEW.md); this chapter flags it because
   it is a direct consequence of the multiplexing/frame model taught here.
 - **Validate that intermediaries genuinely support HTTP/2 frame parsing**
   before trusting them to enforce header-based security controls (Section
@@ -1391,6 +1391,6 @@ alongside a new protocol, to realize HTTP/2's actual benefit.
 
 **Further reading**: [HTTP](CH01_HTTP.md) ·
 [REST](../08_API_Architecture/CH01_REST.md) ·
-[Security](../13_Security/PART_OVERVIEW.md) ·
-[Observability](../12_Observability/PART_OVERVIEW.md) · Part 05's forthcoming
+[Security](../15_Security/PART_OVERVIEW.md) ·
+[Observability](../14_Observability/PART_OVERVIEW.md) · Part 05's forthcoming
 HTTP/3 and QUIC chapters

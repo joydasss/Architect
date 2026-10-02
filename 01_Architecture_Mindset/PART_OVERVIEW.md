@@ -12,7 +12,7 @@ Maps to the original catalog's **Part I — Architecture Mindset**.
 
 ## Supplemental Module
 
-[Architectural Thinking and Decision Practice](../23_Architectural_Thinking_and_Decision_Practice/PART_OVERVIEW.md)
+[Architectural Thinking and Decision Practice](../22_Architectural_Thinking_and_Decision_Practice/PART_OVERVIEW.md)
 builds applied workshops and decision clinics on this part's foundational
 reasoning. CH03 remains the owner of ADRs, ATAM, reversibility, and the
 general decision loop; the supplemental module applies those concepts without

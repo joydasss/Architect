@@ -205,7 +205,7 @@ with empathy maps and personas.
   over time — exactly what a journey map, and only a journey map among this
   part's artifacts, is built to surface. This is the same class of blind
   spot that motivates distributed tracing in
-  [Observability](../12_Observability/PART_OVERVIEW.md) and end-to-end
+  [Observability](../14_Observability/PART_OVERVIEW.md) and end-to-end
   scenario thinking in
   [System Design and Distributed Systems](../07_System_Design_and_Distributed_Systems/PART_OVERVIEW.md);
   a journey map is, in effect, a human-experience trace across the same kind
@@ -581,7 +581,7 @@ workshop facilitation and a persisted digital artifact:
 - **Linking touchpoints to the service catalog.** Where an organization
   maintains a service or API catalog (common in mid-to-large engineering
   organizations, and a natural companion to
-  [Architecture Documentation](../18_Architecture_Documentation/PART_OVERVIEW.md),
+  [Architecture Documentation](../21_Architecture_Documentation/PART_OVERVIEW.md),
   not yet drafted), the touchpoint-to-system field in the schema below
   should reference that catalog's canonical service identifier rather than
   a free-text team name, so the link survives team reorganizations and stays
@@ -636,7 +636,7 @@ chapter separates deliberately:
   performance issue. This chapter does not re-teach performance engineering
   technique itself — full treatment (latency budgets, caching, profiling,
   load testing) belongs to
-  [Performance Engineering](../16_Performance_Engineering/PART_OVERVIEW.md)
+  [Performance Engineering](../19_Performance_Engineering/PART_OVERVIEW.md)
   — but it insists that latency and responsiveness be treated as first-class
   candidate explanations whenever a touchpoint's emotional score is
   unexpectedly low, before assuming the cause is purely a copy, layout, or
@@ -709,7 +709,7 @@ A published journey map's emotional curve and pain points are, at the moment
 of publication, a hypothesis about how the mapped experience behaves; they
 decay in accuracy every day the underlying systems, content, and user base
 continue to change without the map being re-checked. This chapter borrows,
-in spirit, the same discipline [Observability](../12_Observability/PART_OVERVIEW.md)
+in spirit, the same discipline [Observability](../14_Observability/PART_OVERVIEW.md)
 teaches for systems (full technique — metrics, tracing, alerting — is that
 part's, not re-taught here) and applies it to the journey map as an artifact:
 
@@ -727,7 +727,7 @@ part's, not re-taught here) and applies it to the journey map as an artifact:
   positively that has since seen a spike in support tickets, for example —
   as an automatic trigger to revisit and re-validate that stage of the map,
   the same way an anomalous metric triggers an incident review in
-  [Observability](../12_Observability/PART_OVERVIEW.md).
+  [Observability](../14_Observability/PART_OVERVIEW.md).
 - **Usage tracking on the map itself.** As with personas' "persona theater"
   failure mode (recap:
   [Personas § Failure Scenarios](CH03_Personas.md#15-failure-scenarios)),
@@ -1033,8 +1033,8 @@ from scratch.
 [Problem Framing](CH06_Problem_Framing.md) (consumes this chapter's pain
 points and opportunities as raw input) ·
 [Architecture Thinking § Trade-off analysis](../01_Architecture_Mindset/CH03_Architecture_Thinking.md) ·
-[Observability](../12_Observability/PART_OVERVIEW.md) ·
-[Performance Engineering](../16_Performance_Engineering/PART_OVERVIEW.md) ·
+[Observability](../14_Observability/PART_OVERVIEW.md) ·
+[Performance Engineering](../19_Performance_Engineering/PART_OVERVIEW.md) ·
 Product Management subsection's future "Journey Mapping" chapter (not yet
 drafted; should recap this chapter's artifact/technique rather than
 re-deriving it, per the scope note in Section 1 and this chapter's staging

@@ -1057,7 +1057,7 @@ explicitly opted into it. Vercel's own platform automates most of this
 topology (CDN, edge functions, and serverless origin functions are
 provisioned automatically from a single deployment); self-hosting the same
 architecture (for example, on Kubernetes or a container platform — see
-[Kubernetes](../10_Kubernetes/PART_OVERVIEW.md) and
+[Kubernetes](../12_Kubernetes/PART_OVERVIEW.md) and
 [Cloud Computing](../09_Cloud_Computing/PART_OVERVIEW.md) for the general
 infrastructure patterns) requires assembling the equivalent tiers
 explicitly: a CDN/reverse proxy layer, a Node.js server fleet with health
@@ -1221,7 +1221,7 @@ structured logging, distributed tracing (propagating trace context through
 Server Component data fetches and Route Handler calls to downstream
 services), and error tracking for both `error.tsx` boundaries and
 uncaught Route Handler exceptions. See
-[Observability](../12_Observability/PART_OVERVIEW.md) for the
+[Observability](../14_Observability/PART_OVERVIEW.md) for the
 general logging/tracing/metrics architecture this chapter's server-side
 code should integrate with; this chapter does not re-teach that
 foundation.
@@ -1436,5 +1436,5 @@ deliberately.
 - [System Design and Distributed Systems](../07_System_Design_and_Distributed_Systems/PART_OVERVIEW.md) —
   general capacity planning and horizontal scaling this chapter's Section
   12 builds on.
-- [Observability](../12_Observability/PART_OVERVIEW.md) — logging,
+- [Observability](../14_Observability/PART_OVERVIEW.md) — logging,
   tracing, and metrics foundations for server-side Next.js code.

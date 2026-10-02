@@ -6,7 +6,7 @@ Part: [09 — Cloud Computing](PART_OVERVIEW.md) · Status: Edited
 
 Amazon Web Services (AWS) is a public cloud platform: a catalog of managed and self-managed infrastructure capabilities delivered through regional data centers and Application Programming Interfaces (APIs), under consumption-based commercial terms. An architect does not design an AWS system by selecting a list of products in isolation. The architecture begins with workload requirements, trust boundaries, data movement, failure tolerance, operational ownership, and cost constraints; AWS services are candidate implementations of those decisions.
 
-This chapter establishes the AWS-specific map needed to read the provider's service catalog: accounts and Organizations, Regions and Availability Zones, service scope, control and data planes, shared responsibility, the main service families, and the choices that shape an AWS deployment. It does not replace the later Part 09 chapters on compute, networking, storage, containers, Identity and Access Management (IAM), serverless, messaging, secrets, cost optimization, landing zones, or migration. It also does not teach the six-pillar AWS Well-Architected Framework in depth; that framework has a separate module in Part 26. Cross-provider workload patterns belong to the new Cloud Architecture module in Part 25.
+This chapter establishes the AWS-specific map needed to read the provider's service catalog: accounts and Organizations, Regions and Availability Zones, service scope, control and data planes, shared responsibility, the main service families, and the choices that shape an AWS deployment. It does not replace the later Part 09 chapters on compute, networking, storage, containers, Identity and Access Management (IAM), serverless, messaging, secrets, cost optimization, landing zones, or migration. It also does not teach the six-pillar AWS Well-Architected Framework in depth; that framework has a separate module in Part 11. Cross-provider workload patterns belong to the new Cloud Architecture module in Part 10.
 
 ## 2. Historical Evolution
 
@@ -222,7 +222,7 @@ flowchart LR
 
 ### 4.9 Resilience, multi-AZ design, and recovery objectives
 
-**Definition.** Availability is a property of a workload's end-to-end behavior, not a checkbox on one resource. Multi-AZ deployment distributes components across AZ failure domains; regional disaster recovery adds a separate geographic boundary. Recovery objectives describe the acceptable time to restore service and the amount of data loss after a disruption. The Resilience and Disaster Recovery part of Part 25 owns cross-cloud patterns; this chapter anchors those choices in AWS failure domains.
+**Definition.** Availability is a property of a workload's end-to-end behavior, not a checkbox on one resource. Multi-AZ deployment distributes components across AZ failure domains; regional disaster recovery adds a separate geographic boundary. Recovery objectives describe the acceptable time to restore service and the amount of data loss after a disruption. The Resilience and Disaster Recovery part of Part 10 owns cross-cloud patterns; this chapter anchors those choices in AWS failure domains.
 
 **Mechanism.** A resilient AWS design removes single-AZ dependencies where required, replicates or backs up state according to recovery objectives, detects health failures, and routes or promotes capacity through a tested process. Stateless application workers can often be replaced more easily than authoritative databases or unique files. Multi-AZ service options have service-specific failover behavior and limits. Multi-Region recovery may be backup/restore, pilot light, warm standby, or active-active; each changes cost, data-loss exposure, and operational complexity.
 
@@ -411,7 +411,7 @@ service-specific partition limits belong in their later Part 09 chapters.
 Use account separation, least-privilege roles, private network paths, and
 service-level resource policies as complementary controls. A VPC is not an
 authorization boundary by itself, and a gateway does not replace object-level
-checks in the application. Part 09's IAM chapter and Part 13 Security own
+checks in the application. Part 09's IAM chapter and Part 15 Security own
 detailed permission evaluation and security architecture; this AWS overview
 identifies where those controls attach. Protect management credentials and
 avoid long-lived access keys in workloads.
@@ -540,7 +540,7 @@ flowchart TD
 
 Azure and Google Cloud Platform (GCP) provide corresponding cloud
 capabilities, but their account/resource hierarchies, network primitives,
-service semantics, and commercial models differ. Part 25 owns cross-provider
+service semantics, and commercial models differ. Part 10 owns cross-provider
 architecture comparisons; this chapter keeps the concrete AWS view.
 
 ## 22. Real-World Case Study
@@ -632,6 +632,6 @@ service limits and recovery behavior, and treats security, performance,
 reliability, and cost as connected architecture concerns.
 
 **Further reading:** [Cloud Computing](PART_OVERVIEW.md) ·
-[Cloud Architecture](../25_Cloud_Architecture/PART_OVERVIEW.md) ·
-[AWS Well-Architected Framework](../26_AWS_Well_Architected_Framework/PART_OVERVIEW.md) ·
-[Security](../13_Security/PART_OVERVIEW.md)
+[Cloud Architecture](../10_Cloud_Architecture/PART_OVERVIEW.md) ·
+[AWS Well-Architected Framework](../11_AWS_Well_Architected_Framework/PART_OVERVIEW.md) ·
+[Security](../15_Security/PART_OVERVIEW.md)

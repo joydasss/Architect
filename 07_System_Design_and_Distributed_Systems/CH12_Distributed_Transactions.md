@@ -889,7 +889,7 @@ flowchart TB
 
 **Observability integration point.** Every one of these mechanisms should
 emit the same class of signal into the platform's existing observability
-stack (recapped from Part 12's forthcoming Observability chapters): a
+stack (recapped from Part 14's forthcoming Observability chapters): a
 named metric for in-flight coordination state (in-doubt-transaction count,
 outbox publish lag, stuck-saga-instance count), so an operator sees one
 consistent picture of "how much unresolved cross-service coordination is

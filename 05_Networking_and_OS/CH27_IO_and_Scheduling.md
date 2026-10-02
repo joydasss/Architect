@@ -1139,7 +1139,7 @@ resource-request and -limit definition, informed by burst profiling rather
 than guesswork; and wiring `iostat`/`vmstat`-equivalent metrics plus cgroup
 throttling counters into the standard observability pipeline (recap:
 general observability pipeline architecture is owned by
-[Observability](../12_Observability/PART_OVERVIEW.md), this chapter owns
+[Observability](../14_Observability/PART_OVERVIEW.md), this chapter owns
 which specific OS-level metrics matter and how to interpret them, Section
 4.10).
 
@@ -1523,6 +1523,6 @@ assuming the application's own code is at fault.
 - [Memory Management](CH25_Memory_Management.md) — page cache as
   reclaimable memory, cgroup memory limits and OOM-killer behavior, NUMA
   locality.
-- [Observability](../12_Observability/PART_OVERVIEW.md) — general
+- [Observability](../14_Observability/PART_OVERVIEW.md) — general
   observability pipeline architecture underlying the metrics collection
   described in Section 4.10 and Section 14.

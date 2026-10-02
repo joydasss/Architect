@@ -848,7 +848,7 @@ architectures now run a persistent, low-overhead eBPF-based agent
 (Section 4.7) on every host or node, continuously exporting the kind of
 `/proc`/`/sys`-derived and syscall-latency signals this chapter describes
 into a centralized observability platform (recapped, not re-taught, from
-[Observability](../../12_Observability/PART_OVERVIEW.md)'s broader
+[Observability](../14_Observability/PART_OVERVIEW.md)'s broader
 metrics/logs/traces architecture). This turns Section 4.4's diagnostic
 framework from something an engineer runs manually during an incident into
 pre-collected data an engineer queries after the fact.
@@ -1072,7 +1072,7 @@ itself — Sections 4.2-4.3 are the raw data sources, Section 4.7 is the
 modern low-overhead collection mechanism, and Section 7's sidecar pattern is
 how those pieces compose into a fleet-wide observability architecture. The
 distinct contribution versus the dedicated
-[Observability](../../12_Observability/PART_OVERVIEW.md) part of this
+[Observability](../14_Observability/PART_OVERVIEW.md) part of this
 handbook is depth at the kernel-signal layer specifically — this chapter
 teaches where the numbers *come from*, while the Observability part (recap
 only, not re-taught here) teaches how to structure metrics, logs, and traces

@@ -21,7 +21,7 @@ budget. This chapter is the owning chapter for defining, measuring, and
 trading off the specific quality attributes that recur across virtually
 every system-design conversation: Availability, Reliability, Scalability,
 Elasticity, Latency, Throughput, Durability, Security (as a brief NFR
-framing only — the deep mechanics belong to Part 13), and Cost.
+framing only — the deep mechanics belong to Part 15), and Cost.
 
 This chapter builds directly on a concept this book has already introduced
 at an umbrella level:
@@ -34,11 +34,11 @@ Performance, System Design, Security, and Observability. This chapter is
 that deferred "System Design" home for the general-purpose quality
 attributes (Availability, Reliability, Scalability, Elasticity, Latency,
 Throughput, Durability, and Cost); Security's deep mechanics remain owned by
-the future Part 13 (not yet drafted), and this chapter deliberately stops at
+the future Part 15 (not yet drafted), and this chapter deliberately stops at
 a brief framing entry point for it (Section 4.6). Likewise, Service Level
 Agreement (SLA), Service Level Objective (SLO), and Service Level Indicator
 (SLI) framing is established here as the *measurement vocabulary* NFRs are
-expressed in, while the future Part 12 — Observability (specifically its
+expressed in, while the future Part 14 — Observability (specifically its
 not-yet-drafted SLO and SLI chapters) will own the deeper operational
 mechanics of monitoring, alerting, and error-budget policy built on top of
 these definitions. This chapter is also the first of Part 07's Distributed
@@ -83,7 +83,7 @@ this same part.
   (SLO) and the measured signal that target is graded against (SLI) —
   vocabulary this chapter adopts and Section 4.1 defines precisely.
   Google's SRE model is the direct intellectual ancestor of the SLO/SLI
-  chapters planned for the future Part 12 — Observability.
+  chapters planned for the future Part 14 — Observability.
 - **Cloud elasticity and pay-as-you-go pricing (Amazon Web Services (AWS)
   launch, 2006 onward)** — Infrastructure-as-a-Service made *elastic*
   capacity (Section 4.3) a purchasable, automatable property rather than a
@@ -183,7 +183,7 @@ SLO is breached; that budget is a resource the organization can consciously
 spend on shipping riskier changes faster, and which forces a slowdown
 (freeze risky deploys, prioritize reliability work) once it is exhausted.
 This SLA/SLO/SLI/error-budget vocabulary is established here as the
-measurement language NFRs are expressed in; the future Part 12 —
+measurement language NFRs are expressed in; the future Part 14 —
 Observability (its not-yet-drafted SLO and SLI chapters) will own the
 deeper operational mechanics — burn-rate alerting, multi-window
 alert design, and error-budget policy automation — built on top of these
@@ -529,7 +529,7 @@ alongside the others introduced above — it is an entry point, not a
 teaching chapter for security mechanics. The full depth of authentication,
 authorization, encryption, threat modeling, and the Open Worldwide
 Application Security Project (OWASP) Top 10 vulnerability classes is owned
-by the future Part 13 — Security (confirmed via that part's
+by the future Part 15 — Security (confirmed via that part's
 `PART_OVERVIEW.md`, currently "Not Started" in full: OWASP Top 10,
 Authentication, Authorization, Role-Based Access Control (RBAC),
 Attribute-Based Access Control (ABAC), OAuth, OpenID Connect (OIDC), Zero
@@ -542,7 +542,7 @@ Availability, Latency, and Cost because it is genuinely a trade-off
 partner with each of them, not merely an independent add-on: encrypting
 data in transit (recapped from
 [TLS](../05_Networking_and_OS/CH06_TLS.md)) adds measurable latency on
-every connection; strict authorization checks (a future Part 13 topic) add
+every connection; strict authorization checks (a future Part 15 topic) add
 processing time to every request; defense-in-depth redundancy overlaps
 with — and sometimes competes for the same budget as — availability
 redundancy. An architect who treats security as something bolted on after
@@ -559,14 +559,14 @@ system's Payment Card Industry Data Security Standard (PCI DSS)
 obligations), and what is the acceptable trade-off between security
 friction and usability/latency. Answering these shapes the rest of the
 design (Section 13 revisits security architecturally at the production
-level) even before Part 13's mechanics are invoked.
+level) even before Part 15's mechanics are invoked.
 
 **Failure mode.** Treating security as a checklist applied at the end of a
 design, rather than an NFR gathered at the start alongside availability
 and latency targets, is the framing-level failure mode this section flags —
 the deep failure modes of specific security mechanisms (broken
 authentication, injection, misconfigured access control) belong to Part
-13's future chapters.
+15's future chapters.
 
 **Scenario.** A system-design interview candidate who states "we'll add
 security later" after spending twenty minutes on availability and
@@ -834,7 +834,7 @@ every hop above should emit latency and error-rate telemetry, aggregated
 centrally into the percentile distributions (Section 4.4) and
 availability ratios that feed the SLO/error-budget calculation. This
 chapter does not teach that telemetry pipeline's mechanics — that
-observability infrastructure is the future Part 12's domain — but the
+observability infrastructure is the future Part 14's domain — but the
 internal-working point stands regardless of which observability stack
 implements it: **an NFR is only real if it is measured**, and the
 measurement instrumentation is therefore as much a part of "internal
@@ -1071,7 +1071,7 @@ for a system whose actual constraint is a single-writer database.
 
 At the production-architecture level (extending Section 4.6's brief
 framing), the security-relevant NFR decisions an architect makes before
-Part 13's deep mechanics are even invoked include: what data classification
+Part 15's deep mechanics are even invoked include: what data classification
 requires encryption at rest and in transit by default (recapped from
 [TLS](../05_Networking_and_OS/CH06_TLS.md)), what the acceptable
 authentication/authorization latency budget is (an NFR trade-off between
@@ -1081,7 +1081,7 @@ allowed to cross (a design constraint that interacts directly with
 Section 7's redundancy patterns). Full authentication mechanics, RBAC/ABAC
 authorization models, Zero Trust network architecture, and the OWASP Top
 10 vulnerability taxonomy are recapped-and-linked here only in outline, and
-are owned entirely by the future Part 13 — Security, which this chapter
+are owned entirely by the future Part 15 — Security, which this chapter
 explicitly does not attempt to substitute for.
 
 ## 14. Observability
@@ -1095,7 +1095,7 @@ success/error ratio per endpoint (feeding the availability SLI of Section
 reliability confidence), and a cost-per-request or cost-per-unit-traffic
 metric (closing the loop back to Section 4.7). This chapter establishes
 *what* must be measured and *why* (the SLA/SLO/SLI vocabulary of Section
-4.1); the future Part 12 — Observability (its dedicated SLO and SLI
+4.1); the future Part 14 — Observability (its dedicated SLO and SLI
 chapters specifically) owns the deeper mechanics of how that measurement
 pipeline is built, alerted on, and operated — this section should be
 recapped, not re-derived, once those chapters exist.
@@ -1251,7 +1251,7 @@ on paper alone.
 | Latency | How long does one operation take? | Milliseconds, at p50/p95/p99 | Fewer sequential hops, caching, proximity |
 | Throughput | How many operations complete per unit time? | Requests/sec, QPS | Batching, horizontal scale-out |
 | Durability | Will committed data survive over time? | Annual loss probability ("nines") | Replication across independent failure domains, WAL/`fsync` |
-| Security (framing only) | Is data/functionality protected from unauthorized access? | Owned in depth by Part 13 | Owned in depth by Part 13 |
+| Security (framing only) | Is data/functionality protected from unauthorized access? | Owned in depth by Part 15 | Owned in depth by Part 15 |
 | Cost | What does achieving the above actually cost? | $/unit traffic, $/month | Right-sizing every other lever to the actual target, not beyond it |
 
 ## 22. Real-World Case Study
@@ -1372,7 +1372,7 @@ percentiles, not averages, and trades directly against throughput through
 Little's Law; durability is a probability of data survival, compounding
 multiplicatively across independent replicas; security earns a place in
 this list as a genuine trade-off partner even though its deep mechanics
-belong to the future Part 13; and cost is the quantifiable price tag every
+belong to the future Part 15; and cost is the quantifiable price tag every
 other target carries, never an afterthought. Back-of-the-envelope capacity
 estimation — traffic, then storage, then bandwidth — is the quantitative
 bridge that turns these abstract quality attributes into a concrete,

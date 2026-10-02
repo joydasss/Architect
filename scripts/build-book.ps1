@@ -45,12 +45,15 @@ $partFolders = @(
     '03_Software_Engineering_Foundations', '04_Frontend_Architecture',
     '05_Networking_and_OS', '06_Databases_and_Storage',
     '07_System_Design_and_Distributed_Systems', '08_API_Architecture',
-    '09_Cloud_Computing', '10_Kubernetes', '11_DevOps', '12_Observability',
-    '13_Security', '14_AI_and_GenAI', '15_Enterprise_Architecture',
-    '16_Performance_Engineering', '17_Architecture_Patterns',
-    '18_Architecture_Documentation', '19_Soft_Skills',
-    '20_Real_World_Case_Studies', '21_Additional_Architect_Competencies',
-    '22_Appendices_and_Glossary'
+    '09_Cloud_Computing', '10_Cloud_Architecture',
+    '11_AWS_Well_Architected_Framework', '12_Kubernetes', '13_DevOps',
+    '14_Observability', '15_Security', '16_AI_and_GenAI',
+    '17_AI_Architecture', '18_Enterprise_Architecture',
+    '19_Performance_Engineering', '20_Architecture_Patterns',
+    '21_Architecture_Documentation',
+    '22_Architectural_Thinking_and_Decision_Practice', '23_Soft_Skills',
+    '24_Real_World_Case_Studies', '25_Additional_Architect_Competencies',
+    '26_Appendices_and_Glossary'
 )
 
 $chapterFiles = New-Object System.Collections.Generic.List[string]

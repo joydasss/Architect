@@ -40,12 +40,12 @@ A short scope note up front, because this chapter sits at a natural seam
 with two other parts of the book. The C4 model and the UML diagram types
 this chapter teaches (deployment, component, sequence) are, per this book's
 concept-ownership registry, ultimately destined to have their own dedicated,
-notation-focused chapters in the not-yet-drafted Part 18 — Architecture
+notation-focused chapters in the not-yet-drafted Part 21 — Architecture
 Documentation. Because those chapters do not exist yet, this chapter takes
 first ownership of teaching C4 and the relevant UML diagram types *as they
 are applied inside the HLD workflow* — reading and drawing them correctly,
 choosing the right diagram for the right question, and using them as
-thinking tools, not just as final artifacts. When Part 18 is eventually
+thinking tools, not just as final artifacts. When Part 21 is eventually
 drafted, it is expected to absorb the deeper notation-only mechanics (for
 example, the full UML specification's exhaustive diagram catalog, or
 Structurizr-specific tooling internals) while this chapter's C4/UML content
@@ -484,7 +484,7 @@ faster-to-produce informal notation C4 offers for the common case. This
 book's own HLD practice, and the worked example in Section 10, uses C4's
 Component notation for exactly that reason. Full strict-UML component
 notation — the lollipop/socket glyphs and formal interface realization — is
-left to Part 18 (Architecture Documentation) once that part exists to teach
+left to Part 21 (Architecture Documentation) once that part exists to teach
 UML's complete notation catalog.
 
 ### 4.8 UML in HLD — Sequence Diagrams for Cross-Service Flows
@@ -922,7 +922,7 @@ HLD is where a team commits to a coarse architectural style — for example,
 a layered monolith, a microservices decomposition, or an event-driven
 architecture built around asynchronous messaging — before descending into
 the Container- and Component-level detail that fills in that style's
-specifics. This book's [Architecture Patterns](../17_Architecture_Patterns/PART_OVERVIEW.md)
+specifics. This book's [Architecture Patterns](../20_Architecture_Patterns/PART_OVERVIEW.md)
 part is the owning treatment of each pattern's full internal mechanics,
 trade-offs, and when to choose one over another; this chapter's role is
 narrower — showing that the pattern choice is itself an HLD-stage decision,
@@ -1223,7 +1223,7 @@ cost of exposing approximate creation order.
 | C4 Code diagram / UML class diagram | Complex class hierarchies, generated from code | Almost everything else at HLD stage | Implementer of one tricky component |
 | UML deployment diagram | Physical placement, availability/failure-domain verification | Logical responsibility/ownership | Site Reliability Engineering (SRE)/operations, security review |
 | UML sequence diagram | Cross-service ordering, conditional/failure branches | Whole-system structure | Engineering team, incident responders |
-| Full strict-UML notation (Part 18, forward reference) | Regulated/safety-critical domains needing formal interface contracts | Speed of iteration for typical HLD work | Specialized/regulatory audiences |
+| Full strict-UML notation (Part 21, forward reference) | Regulated/safety-critical domains needing formal interface contracts | Speed of iteration for typical HLD work | Specialized/regulatory audiences |
 | Freehand whiteboard/draw.io | Early-stage exploration before a design settles | Version control, review discipline | The design team itself, in the moment |
 
 ## 22. Real-World Case Study

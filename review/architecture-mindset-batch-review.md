@@ -40,7 +40,7 @@ trimmed "Architecture Thinking"'s Testing-section bullet to a recap + link.
 
 **Finding**: "What is Software Architecture?" and "Role of a Solution
 Architect" both deferred full ADR ownership to Architecture Documentation
-(Part 18), which doesn't exist yet. "Architecture Thinking" independently
+(Part 21), which doesn't exist yet. "Architecture Thinking" independently
 wrote the deepest treatment (template, worked ADR-007 example, review
 checklist) and claimed ownership outright. "Role of a Solution Architect"
 additionally wrote its own full worked example (ADR-014) and planned a
@@ -48,9 +48,9 @@ second, separate `adr-template.md` file — a genuine content duplicate, not
 just a competing ownership claim.
 
 **Fix applied**: arbitrated ownership to "Architecture Thinking" as the
-pragmatic current owner (best/most complete treatment; Part 18 doesn't exist
+pragmatic current owner (best/most complete treatment; Part 21 doesn't exist
 yet to arbitrate in its favor). Fixed "What is Software Architecture?"'s
-dangling Part 18 link to point at "Architecture Thinking" instead. Trimmed
+dangling Part 21 link to point at "Architecture Thinking" instead. Trimmed
 "Role of a Solution Architect"'s ADR-014 worked example and the planned
 `adr-template.md` file down to a recap + link, keeping only its RACI-specific
 framing (no orphaned code-block fragments remained after the edit — verified).
@@ -104,7 +104,7 @@ Boehm's cost-of-change curve).
   reasoning, CH01 → CH03 for ADRs, CH03 → CH01 for Conway's Law / fitness
   functions) resolve correctly now that all three files exist in the same
   folder — no dangling same-part links found after the edit pass.
-- Forward references to parts 15 (Enterprise Architecture), 17 (Architecture
+- Forward references to parts 18 (Enterprise Architecture), 17 (Architecture
   Patterns), and 18 (Architecture Documentation) point to `PART_OVERVIEW.md`
   stubs since none of those parts have chapters drafted yet — acceptable for
   now, matches the established pattern from the HTTP/REST pilot review;

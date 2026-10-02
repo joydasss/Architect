@@ -48,7 +48,7 @@ does **not** own strategic DDD (bounded contexts, context mapping) or
 system-level architecture patterns such as microservices-as-topology or
 event-driven architecture as a system-wide integration style — those are
 recapped in 2-3 sentences here and forward-referenced to a future **Part
-17 — Architecture Patterns** (`17_Architecture_Patterns/PART_OVERVIEW.md`,
+20 — Architecture Patterns** (`20_Architecture_Patterns/PART_OVERVIEW.md`,
 not yet drafted at the time this chapter was authored). It also does not
 teach the full mechanics of Command Query Responsibility Segregation
 (CQRS) or Event Sourcing — those have their own dedicated, not-yet-drafted
@@ -1201,7 +1201,7 @@ own; it only teaches shaping the events and handlers themselves as
 class/module-level design artifacts. Similarly, event-driven architecture
 as a system-wide integration style (services communicating exclusively
 through a shared event bus/broker) is a system-level pattern, recapped
-here in this one sentence and forward-referenced to the future **Part 17
+here in this one sentence and forward-referenced to the future **Part 20
 — Architecture Patterns**.
 
 **Failure mode.** Treating an in-process domain event's payload as an
@@ -1323,7 +1323,7 @@ flowchart TD
   consistency are triggered by domain events published after a successful
   save, keeping the aggregate itself free of infrastructure dependencies
   — the same seam Section 4.17 flags as the natural hand-off point to a
-  system-level event-driven architecture (forward-referenced to Part 17)
+  system-level event-driven architecture (forward-referenced to Part 20)
   or to CQRS/Event Sourcing (forward-referenced to this Part's dedicated
   chapters) once events must cross service boundaries.
 
@@ -1789,7 +1789,7 @@ and external service classes, and class/module-level event modeling
 (Section 4.17) extends that discipline to event-driven object
 collaboration specifically, while deliberately stopping short of the
 system-level CQRS, Event Sourcing, and event-driven-architecture concerns
-this Part's future chapters and the future Part 17 own. An architect
+this Part's future chapters and the future Part 20 own. An architect
 reviewing any component's LLD should be able to point to each class's
 single reason to change, each invariant's single enforcement point, each
 variation point's chosen pattern and its justification, and each domain
@@ -1811,8 +1811,8 @@ sense that "the code could be cleaner."
   Sourcing** chapters (see [PART_OVERVIEW.md](PART_OVERVIEW.md), not yet
   drafted) — the system-level mechanics this chapter's Section 4.17
   deliberately does not teach.
-- A future **Part 17 — Architecture Patterns**
-  (`17_Architecture_Patterns/PART_OVERVIEW.md`, not yet drafted) — the
+- A future **Part 20 — Architecture Patterns**
+  (`20_Architecture_Patterns/PART_OVERVIEW.md`, not yet drafted) — the
   likely owner of strategic DDD (bounded contexts, context mapping) and
   system-level patterns such as microservices and event-driven
   architecture as a system topology, both recapped only in this chapter.

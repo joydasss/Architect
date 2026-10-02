@@ -902,7 +902,7 @@ latency for live notifications, maximum replay lag for retained feeds,
 minimum retention window, reset correctness, and authorization revocation
 latency. Connection uptime alone is not a useful availability measure if
 events are buffered, filtered incorrectly, or silently skipped. Observability
-taxonomy and SLO mechanics are owned by Part 12; this chapter defines the
+taxonomy and SLO mechanics are owned by Part 14; this chapter defines the
 API-specific signals to expose there.
 
 ## 15. Failure Scenarios

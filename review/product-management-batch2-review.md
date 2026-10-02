@@ -35,7 +35,7 @@ continuous-delivery thin-slice architecture proof).
 **Assessment**: no conflict today — no Software Engineering Foundations or
 DevOps chapter exists yet to compete for the general term. Flagging in this
 review (and in `CORE_CONCEPTS.md`'s merge log) for re-check when Part 03 or
-Part 11 is drafted.
+Part 13 is drafted.
 
 ## [resolution] Product Strategy's two forward references — cleanly closed out
 

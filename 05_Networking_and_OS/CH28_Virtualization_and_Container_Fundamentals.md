@@ -40,7 +40,7 @@ standardized the container ecosystem, and where the shared-kernel security
 model reaches its limits. It stops short of teaching **container
 orchestration** — how a fleet of hosts schedules, network-meshes, and
 self-heals thousands of these containers is Kubernetes' domain, and per the
-Concept Ownership Rule that full teaching belongs to Part 10's dedicated
+Concept Ownership Rule that full teaching belongs to Part 12's dedicated
 Kubernetes chapters (not yet drafted at the time of writing); this chapter
 recaps only the *hand-off point* in Section 4.11 and Section 22 so the
 orchestration layer's forward reference to this chapter's primitives is
@@ -62,7 +62,7 @@ flowchart TB
         SEC["Shared-kernel security boundary:<br/>gVisor, Kata Containers"]
     end
     subgraph Next["Owned elsewhere (recap + link forward only)"]
-        K8S["Multi-host orchestration,<br/>scheduling, service mesh<br/>(Part 10 Kubernetes, future)"]
+        K8S["Multi-host orchestration,<br/>scheduling, service mesh<br/>(Part 12 Kubernetes, future)"]
     end
     Prereq --> ThisChapter --> Next
 ```
@@ -1000,7 +1000,7 @@ flowchart TB
     subgraph PodComposition["Direct application: a Kubernetes Pod"]
         Pod["Pod = shared net + IPC namespace<br/>across its containers,<br/>each container its own mount (+/- PID) namespace"]
     end
-    subgraph OrchLayer["OWNED ELSEWHERE: multi-host orchestration<br/>(Part 10 Kubernetes, future dedicated chapters)"]
+    subgraph OrchLayer["OWNED ELSEWHERE: multi-host orchestration<br/>(Part 12 Kubernetes, future dedicated chapters)"]
         Sched["Scheduling: which host runs this Pod"]
         SVC["Service discovery + cluster networking"]
         Heal["Self-healing: reschedule on host failure"]
@@ -1013,7 +1013,7 @@ flowchart TB
 not a full teaching, per the Concept Ownership Rule: Kubernetes'
 architecture — its control plane, scheduler, networking model (Container
 Network Interface (CNI), Services, Ingress), and storage abstractions — is
-substantial enough to be its own dedicated set of chapters (Part 10, not yet
+substantial enough to be its own dedicated set of chapters (Part 12, not yet
 drafted at the time of writing), and duplicating that teaching here would
 violate the same anti-repetition principle this chapter itself benefited
 from when it recapped rather than re-derived process isolation and virtual
@@ -1595,7 +1595,7 @@ mitigations rather than a closed question (Section 4.10); and, finally, the
 precise hand-off point to container orchestration — Kubernetes Pods as a
 direct, opinionated application of this chapter's own namespace
 composability — while deliberately stopping short of teaching multi-host
-scheduling, cluster networking, or self-healing, which belong to Part 10's
+scheduling, cluster networking, or self-healing, which belong to Part 12's
 future Kubernetes chapters (Section 4.11). The throughline across all 27
 sections is the same isolation-versus-cost dial [Processes and
 Threads](CH24_Processes_and_Threads.md#3-why-it-exists) introduced at the
@@ -1612,6 +1612,6 @@ budget justify — never by default, and never by habit.
   and the cgroup memory-limit/OOM-killer mechanics recapped in Section 4.6.
 - [Sockets](CH16_Sockets.md) — the network-namespace-scoped socket layer
   containers isolate per Section 4.5.
-- Part 10 Kubernetes chapters (not yet drafted) — multi-host orchestration,
+- Part 12 Kubernetes chapters (not yet drafted) — multi-host orchestration,
   scheduling, and cluster networking built on this chapter's primitives
   (Section 4.11).

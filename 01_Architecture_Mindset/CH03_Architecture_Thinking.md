@@ -266,7 +266,7 @@ asset, is referenced at
 
 These are recurring *decision-making* patterns — techniques for structuring
 the thinking process itself, distinct from the system design patterns
-covered in [Part 17 — Architecture Patterns](../17_Architecture_Patterns/PART_OVERVIEW.md).
+covered in [Part 20 — Architecture Patterns](../20_Architecture_Patterns/PART_OVERVIEW.md).
 
 - **ADR-per-decision**: one short document per decision rather than one
   monolithic, perpetually-stale design document (Section 4).
@@ -426,7 +426,7 @@ Denial of service, Elevation of privilege) heuristic to systematically
 enumerate what could go wrong) is architecture thinking's trade-off method
 applied specifically to adversarial quality attributes. The full treatment of
 threat modeling, STRIDE, and the OWASP (Open Worldwide Application Security
-Project) Top 10 is owned by [Security](../13_Security/PART_OVERVIEW.md); the
+Project) Top 10 is owned by [Security](../15_Security/PART_OVERVIEW.md); the
 point for this chapter is narrower: security requirements must be named as
 explicit quality-attribute drivers *before* option evaluation (Section 5,
 step 1), because a security requirement discovered after a decision is made
@@ -440,7 +440,7 @@ that closes the systems-thinking feedback loop (Section 4, Section 5): a
 decision's stated assumptions ("this cache will keep database load under
 40%") should map to a metric that can later confirm or falsify them. Full
 metrics, tracing, and logging design is owned by
-[Observability](../12_Observability/PART_OVERVIEW.md); the point here is that
+[Observability](../14_Observability/PART_OVERVIEW.md); the point here is that
 every non-trivial ADR should name the signal that will tell you if it was
 wrong, not just the reasoning for why it seemed right at decision time.
 
@@ -576,7 +576,7 @@ revisited the same ADR, found its recorded revisit trigger had fired, and
 extracted invoicing into its own service — a change the enforced module
 boundaries made mechanical rather than a rewrite. The full trade-offs of
 monolith-versus-microservices as a *pattern* are owned by
-[Part 17 — Architecture Patterns](../17_Architecture_Patterns/PART_OVERVIEW.md);
+[Part 20 — Architecture Patterns](../20_Architecture_Patterns/PART_OVERVIEW.md);
 what this case illustrates is the thinking process — driver-naming,
 reversibility classification, and instrumented revisit — not the pattern
 itself.
@@ -653,7 +653,7 @@ turned into a defensible, revisitable decision instead of an opinion.
 
 **Further reading**: [Part 01 — Architecture Mindset](PART_OVERVIEW.md) ·
 [Part 07 — System Design and Distributed Systems](../07_System_Design_and_Distributed_Systems/PART_OVERVIEW.md) ·
-[Part 17 — Architecture Patterns](../17_Architecture_Patterns/PART_OVERVIEW.md) ·
-[Part 18 — Architecture Documentation](../18_Architecture_Documentation/PART_OVERVIEW.md) ·
-[Part 12 — Observability](../12_Observability/PART_OVERVIEW.md) ·
-[Part 13 — Security](../13_Security/PART_OVERVIEW.md)
+[Part 20 — Architecture Patterns](../20_Architecture_Patterns/PART_OVERVIEW.md) ·
+[Part 21 — Architecture Documentation](../21_Architecture_Documentation/PART_OVERVIEW.md) ·
+[Part 14 — Observability](../14_Observability/PART_OVERVIEW.md) ·
+[Part 15 — Security](../15_Security/PART_OVERVIEW.md)

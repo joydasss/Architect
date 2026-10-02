@@ -845,7 +845,7 @@ and consensus traffic (recapped from [TLS](../05_Networking_and_OS/CH06_TLS.md))
 and authentication between cluster members (so an attacker cannot forge
 quorum votes or replication messages) are the security-specific controls
 relevant here; the deeper mechanics of both remain owned by their
-respective chapters and by the future Part 13 (Security), not re-taught
+respective chapters and by the future Part 15 (Security), not re-taught
 in this chapter.
 
 ## 14. Observability

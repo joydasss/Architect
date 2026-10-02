@@ -1087,7 +1087,7 @@ flowchart TB
 - **Layer 7 attacks**: injection attacks, credential stuffing, and API abuse
   operate entirely within valid, well-formed traffic at every lower layer —
   full OWASP (Open Worldwide Application Security Project) Top 10 coverage
-  is owned by [Security](../13_Security/PART_OVERVIEW.md); this chapter's
+  is owned by [Security](../15_Security/PART_OVERVIEW.md); this chapter's
   contribution is recognizing that no amount of Layer 2-4 hardening
   substitutes for Layer 7 application-security controls, because a
   perfectly valid TCP connection can still carry a malicious HTTP request.
@@ -1345,5 +1345,5 @@ diagnose a multi-layer failure; when those chapters say "Layer 3" or "Layer
 **Further reading**: [HTTP](CH01_HTTP.md) ·
 [PART_OVERVIEW.md](PART_OVERVIEW.md) ·
 [Architecture Thinking](../01_Architecture_Mindset/CH03_Architecture_Thinking.md) ·
-[Security](../13_Security/PART_OVERVIEW.md) ·
-[Observability](../12_Observability/PART_OVERVIEW.md)
+[Security](../15_Security/PART_OVERVIEW.md) ·
+[Observability](../14_Observability/PART_OVERVIEW.md)

@@ -1221,7 +1221,7 @@ origin capacity remains the actual constrained resource.
   edge workers are still application code and inherit the same
   injection-class risks as any backend service; this general
   input-validation discipline is owned in full by
-  [Security](../13_Security/PART_OVERVIEW.md).
+  [Security](../15_Security/PART_OVERVIEW.md).
 - **Ensure TLS is terminated correctly at every hop** — client-to-PoP TLS
   is necessary but not sufficient; verify the PoP-to-origin leg (Section
   4.7) is also encrypted, not silently downgraded to plaintext on the
@@ -1494,6 +1494,6 @@ the system's actual architecture from the start.
 
 **Further reading**: [HTTP](CH01_HTTP.md) ·
 [HTTP/2](CH04_HTTP2.md) · [HTTP/3](CH05_HTTP3.md) ·
-[Security](../13_Security/PART_OVERVIEW.md) ·
-[Observability](../12_Observability/PART_OVERVIEW.md) · this part's
+[Security](../15_Security/PART_OVERVIEW.md) ·
+[Observability](../14_Observability/PART_OVERVIEW.md) · this part's
 forthcoming DNS, Load Balancer, and Reverse Proxy chapters

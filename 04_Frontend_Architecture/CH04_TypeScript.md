@@ -1730,7 +1730,7 @@ implies verified correctness.
 TypeScript's own compiler surfaces two categories of signal worth wiring
 into observability tooling at the process/organization level, distinct
 from runtime application observability (owned by
-[Part 12 — Observability](../12_Observability/PART_OVERVIEW.md)): **type
+[Part 14 — Observability](../14_Observability/PART_OVERVIEW.md)): **type
 error counts as a leading indicator** (a CI dashboard tracking `tsc
 --noEmit` error counts over time surfaces codebase health trends —
 particularly useful during an incremental-strictness rollout, Section 4.8,

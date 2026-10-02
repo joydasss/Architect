@@ -900,7 +900,7 @@ flowchart LR
 ```
 
 Each hop can add its own headers (`X-Forwarded-For`, `X-Request-Id`) for
-traceability — see [Observability](../12_Observability/PART_OVERVIEW.md) for
+traceability — see [Observability](../14_Observability/PART_OVERVIEW.md) for
 how these threads through distributed tracing (owned there).
 
 ## 9. Implementation
@@ -985,7 +985,7 @@ origin never sees at all.
 - Avoid compressing responses that mix attacker-influenced input with a
   secret value (Section 4.6) to avoid the CRIME/BREACH compression-oracle
   attack class, recapped only here and owned by [SSL](CH07_SSL.md).
-- See [Security](../13_Security/PART_OVERVIEW.md) for OWASP (Open Worldwide
+- See [Security](../15_Security/PART_OVERVIEW.md) for OWASP (Open Worldwide
   Application Security Project) Top 10 coverage (owned there).
 
 ## 14. Observability
@@ -996,7 +996,7 @@ every downstream hop. Also worth tracking per-endpoint: cache hit/miss and
 `304` rates (Sections 4.3-4.4), compression ratio and CPU cost (Section
 4.6), and CORS preflight rejection rates (Section 4.8) as an early signal of
 misconfigured allow-lists. Full tracing/metrics patterns are owned by
-[Observability](../12_Observability/PART_OVERVIEW.md).
+[Observability](../14_Observability/PART_OVERVIEW.md).
 
 ## 15. Failure Scenarios
 
@@ -1244,5 +1244,5 @@ fundamentals.
 [CDN](CH09_CDN.md) · [Load Balancer](CH10_Load_Balancer.md) ·
 [Reverse Proxy](CH11_Reverse_Proxy.md) ·
 [API Gateway](../08_API_Architecture/PART_OVERVIEW.md) ·
-[Observability](../12_Observability/PART_OVERVIEW.md)
+[Observability](../14_Observability/PART_OVERVIEW.md)
 

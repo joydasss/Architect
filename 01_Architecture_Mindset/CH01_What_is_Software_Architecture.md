@@ -28,8 +28,8 @@ debt, architecturally significant requirements — that every later chapter in
 this handbook will use without re-deriving.
 
 This chapter owns that foundational vocabulary. Later chapters that touch
-architectural styles (Part 17), documentation notations (Part 18), enterprise
-frameworks (Part 15), or quality-attribute-specific techniques (Performance,
+architectural styles (Part 20), documentation notations (Part 21), enterprise
+frameworks (Part 18), or quality-attribute-specific techniques (Performance,
 Security, Observability, System Design) will recap the relevant term in two
 or three sentences and link back here rather than re-teaching it — per the
 Concept Ownership Rule in [STYLE_GUIDE.md](../STYLE_GUIDE.md).
@@ -84,7 +84,7 @@ than being a synonym for "system design" in general.
   frameworks.** Large organizations formalized architecture governance
   through frameworks like TOGAF (The Open Group Architecture Framework) and
   the Zachman Framework (both owned by
-  [Enterprise Architecture](../15_Enterprise_Architecture/PART_OVERVIEW.md)),
+  [Enterprise Architecture](../18_Enterprise_Architecture/PART_OVERVIEW.md)),
   treating architecture as an organizational capability with review boards
   and standardized deliverables, not just a technical artifact.
 - **2010s — microservices and evolutionary architecture.** Netflix, Amazon,
@@ -282,15 +282,15 @@ owned in full depth by a later part of this handbook:
 
 - **Performance** and **Scalability** — throughput and latency under load,
   and the ability to handle growth (full treatment:
-  [Performance Engineering](../16_Performance_Engineering/PART_OVERVIEW.md),
+  [Performance Engineering](../19_Performance_Engineering/PART_OVERVIEW.md),
   [System Design and Distributed Systems](../07_System_Design_and_Distributed_Systems/PART_OVERVIEW.md)).
 - **Availability** and **Reliability** — uptime and correct behavior under
   partial failure (full treatment: System Design and Distributed Systems).
 - **Security** — resistance to unauthorized access and data compromise (full
-  treatment: [Security](../13_Security/PART_OVERVIEW.md)).
+  treatment: [Security](../15_Security/PART_OVERVIEW.md)).
 - **Observability** — the ability to understand a running system's internal
   state from its external outputs (full treatment:
-  [Observability](../12_Observability/PART_OVERVIEW.md)).
+  [Observability](../14_Observability/PART_OVERVIEW.md)).
 - **Maintainability**, **Testability**, **Modifiability** — how cheaply the
   system can be understood, verified, and changed — directly downstream of
   the coupling/cohesion properties in Section 4.5.
@@ -338,7 +338,7 @@ This chapter owns the conceptual vocabulary of "an architecture is described
 through multiple views for multiple audiences." The concrete notations used
 to produce those views in practice — C4 diagrams, UML (Unified Modeling
 Language), sequence and deployment diagrams — belong to
-[Architecture Documentation](../18_Architecture_Documentation/PART_OVERVIEW.md);
+[Architecture Documentation](../21_Architecture_Documentation/PART_OVERVIEW.md);
 recap and link there rather than re-deriving notation-level detail.
 
 ### 4.9 Technical debt
@@ -450,7 +450,7 @@ particular way of choosing components, connectors, and constraints that is
 known to produce a particular quality-attribute profile. This chapter
 introduces the *concept* of an architectural style; the full catalog, with
 internal mechanics, trade-offs, and implementation guidance for each, is
-owned by [Architecture Patterns](../17_Architecture_Patterns/PART_OVERVIEW.md).
+owned by [Architecture Patterns](../20_Architecture_Patterns/PART_OVERVIEW.md).
 A brief map of the territory, so the vocabulary is recognizable when it
 appears elsewhere in this handbook:
 
@@ -520,9 +520,9 @@ Physical / deployment view (one valid realization):
 Note what this diagram *is* answering (element decomposition, ownership of
 data per service, synchronous versus asynchronous connectors) and what it is
 deliberately *not* answering: exactly how many instances of each service run,
-how they are scheduled (see [Kubernetes](../10_Kubernetes/PART_OVERVIEW.md)),
+how they are scheduled (see [Kubernetes](../12_Kubernetes/PART_OVERVIEW.md)),
 or how requests are traced across all these hops (see
-[Observability](../12_Observability/PART_OVERVIEW.md)) — those are separate
+[Observability](../14_Observability/PART_OVERVIEW.md)) — those are separate
 views/concerns layered on top of this structural one, consistent with the
 multi-view framing in Section 4.8.
 
@@ -543,7 +543,7 @@ architectural decision into something that persists:
   reviews, architecture review boards) where proposed significant decisions
   are checked against ASRs and existing constraints before being adopted.
   Full treatment of governance structures and review boards is owned by
-  [Enterprise Architecture](../15_Enterprise_Architecture/PART_OVERVIEW.md).
+  [Enterprise Architecture](../18_Enterprise_Architecture/PART_OVERVIEW.md).
 - **Fitness functions** — automated, executable checks that verify a
   structural property continues to hold as the codebase evolves (e.g., "the
   domain module must never import from the web-framework package," or "no
@@ -585,7 +585,7 @@ architecture with five synchronous network hops on the critical path has a
 higher latency floor than one with one hop and an async fan-out, regardless
 of how well each individual service is implemented. Deep, technique-level
 performance work (caching strategies, profiling, database optimization) is
-owned by [Performance Engineering](../16_Performance_Engineering/PART_OVERVIEW.md);
+owned by [Performance Engineering](../19_Performance_Engineering/PART_OVERVIEW.md);
 this chapter's contribution is recognizing that the architecture, not the
 implementation, is usually where the largest performance ceiling is set.
 
@@ -614,7 +614,7 @@ architectural decisions, not something a security team can bolt on after the
 components are already wired together. Full technique-level coverage
 (threat modeling, OWASP (Open Worldwide Application Security Project) Top
 10, authentication/authorization patterns) is owned by
-[Security](../13_Security/PART_OVERVIEW.md). This chapter's contribution:
+[Security](../15_Security/PART_OVERVIEW.md). This chapter's contribution:
 identify security-relevant trust boundaries as part of the architecture's
 component/connector diagram from the start, rather than as an afterthought.
 
@@ -626,7 +626,7 @@ how a single logical request maps across them, and whether a consistent
 correlation identifier can be threaded through every hop are structural
 decisions made at architecture time. Full technique-level coverage (logging,
 metrics, distributed tracing) is owned by
-[Observability](../12_Observability/PART_OVERVIEW.md). The architectural
+[Observability](../14_Observability/PART_OVERVIEW.md). The architectural
 takeaway: the more elements and asynchronous hops a design introduces, the
 more deliberately observability must be designed in, not retrofitted.
 
@@ -870,7 +870,7 @@ establishes — components and connectors, coupling and cohesion, quality
 attributes, architecturally significant requirements, architectural views,
 technical debt, fitness functions — is the foundation the rest of this
 handbook builds on: later chapters on specific architectural styles (Part
-17), documentation notations (Part 18), enterprise governance (Part 15), and
+20), documentation notations (Part 21), enterprise governance (Part 18), and
 every quality-attribute-specific deep dive will assume these terms rather
 than redefine them. The next two chapters in this part build directly on
 this foundation: who does this work, and how do you think through an
@@ -878,7 +878,7 @@ architecture decision once you know what one is.
 
 **Further reading**: [HTTP](../05_Networking_and_OS/CH01_HTTP.md) ·
 [REST](../08_API_Architecture/CH01_REST.md) ·
-[Architecture Patterns](../17_Architecture_Patterns/PART_OVERVIEW.md) ·
-[Architecture Documentation](../18_Architecture_Documentation/PART_OVERVIEW.md) ·
-[Enterprise Architecture](../15_Enterprise_Architecture/PART_OVERVIEW.md) ·
+[Architecture Patterns](../20_Architecture_Patterns/PART_OVERVIEW.md) ·
+[Architecture Documentation](../21_Architecture_Documentation/PART_OVERVIEW.md) ·
+[Enterprise Architecture](../18_Enterprise_Architecture/PART_OVERVIEW.md) ·
 [System Design and Distributed Systems](../07_System_Design_and_Distributed_Systems/PART_OVERVIEW.md)
