@@ -1,0 +1,16 @@
+{
+  "name": "graphql-chapter-examples",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Runnable GraphQL.js examples for The Modern Solution Architecture Handbook",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "dataloader": "^2.2.3",
+    "graphql": "^16.11.0"
+  }
+}

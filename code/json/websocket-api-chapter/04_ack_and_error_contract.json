@@ -1,0 +1,38 @@
+[
+  {
+    "v": 1,
+    "type": "command.accepted",
+    "messageId": "msg-accept-1",
+    "operationId": "op-export-77",
+    "payload": {
+      "stage": "queued",
+      "retryAfterMs": null
+    }
+  },
+  {
+    "v": 1,
+    "type": "command.error",
+    "messageId": "msg-error-1",
+    "operationId": "op-export-78",
+    "payload": {
+      "code": "CAPACITY_TEMPORARILY_UNAVAILABLE",
+      "retryable": true,
+      "retryAfterMs": 2000,
+      "message": "The export service is temporarily busy."
+    }
+  },
+  {
+    "v": 1,
+    "type": "command.error",
+    "messageId": "msg-error-2",
+    "operationId": "op-export-79",
+    "payload": {
+      "code": "INVALID_EXPORT_RANGE",
+      "retryable": false,
+      "message": "The requested range is not valid.",
+      "details": {
+        "field": "from"
+      }
+    }
+  }
+]

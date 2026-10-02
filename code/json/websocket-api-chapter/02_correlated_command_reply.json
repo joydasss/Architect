@@ -1,0 +1,23 @@
+[
+  {
+    "v": 1,
+    "type": "command.accepted",
+    "messageId": "msg-100",
+    "operationId": "op-rename-42",
+    "payload": {
+      "acceptedAt": "2026-10-02T14:30:00Z",
+      "status": "queued"
+    }
+  },
+  {
+    "v": 1,
+    "type": "command.result",
+    "messageId": "msg-101",
+    "operationId": "op-rename-42",
+    "payload": {
+      "status": "committed",
+      "documentId": "doc-42",
+      "revision": 218
+    }
+  }
+]

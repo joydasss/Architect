@@ -30,7 +30,8 @@ when multiple chapters are authored in parallel, isolated sessions.
 | URI structure and semantics (scheme/authority/path/query/fragment) | [HTTP](05_Networking_and_OS/CH01_HTTP.md) | Wire-level anatomy of a URI; REST's resource-modeling/URI-design conventions remain owned by REST, recapped here only |
 | HATEOAS | [REST](08_API_Architecture/CH01_REST.md) | REST maturity model, hypermedia controls |
 | Richardson Maturity Model | [REST](08_API_Architecture/CH01_REST.md) | REST-specific API design maturity levels |
-| Resource modeling (REST) | [REST](08_API_Architecture/CH01_REST.md) | URI design, nouns vs verbs, resource relationships |
+| REST architectural style and constraint trade-offs (client-server, statelessness, cacheability, uniform interface, layering, optional code-on-demand) | [REST](08_API_Architecture/CH01_REST.md) | REST's full constraint set and the scalability/evolution properties and costs each creates; HTTP retains wire-level mechanics |
+| Resource modeling (REST) | [REST](08_API_Architecture/CH01_REST.md) | Stable resource identity; URI, collection/nested-resource, representation, and bounded-pagination design |
 | Software architecture (definition: elements/form/rationale) | [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) | Perry & Wolf, Bass/Clements/Kazman, ISO/IEC/IEEE 42010 definitions; foundational, assume elsewhere |
 | Architecture vs. design vs. code (granularity/reversibility distinction) | [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) | Scale-dependent boundary between the three |
 | Components, connectors, and configuration | [What is Software Architecture?](01_Architecture_Mindset/CH01_What_is_Software_Architecture.md) | Shaw & Garlan vocabulary |
@@ -476,7 +477,7 @@ when multiple chapters are authored in parallel, isolated sessions.
 | SO_REUSEADDR / SO_REUSEPORT; Unix domain sockets vs. TCP sockets | [Sockets](05_Networking_and_OS/CH16_Sockets.md) | Fast-restart rebind and kernel-level multi-process port sharing; local-IPC bypass of the network stack |
 | File-descriptor/connection-limit operational ceiling (RLIMIT_NOFILE, EMFILE) | [Sockets](05_Networking_and_OS/CH16_Sockets.md) | Per-process/system-wide open-FD limits as a capacity-planning input |
 | WebSocket handshake (HTTP Upgrade/101) and framing protocol | [WebSockets](05_Networking_and_OS/CH17_WebSockets.md) | Upgrade-to-WebSocket mechanism; binary frame format with opcodes/masking |
-| Full-duplex decision framework (WebSockets vs. polling vs. SSE); Server-Sent Events (SSE) | [WebSockets](05_Networking_and_OS/CH17_WebSockets.md) | Bidirectional-communication selection criteria; one-way server push over plain HTTP (no dedicated SSE chapter exists yet) |
+| WebSocket/SSE/polling transport selection; SSE over HTTP transport behavior | [WebSockets](05_Networking_and_OS/CH17_WebSockets.md) | Full-duplex choice and SSE's one-way HTTP/EventSource transport recap; Part 08's [Server-Sent Events](08_API_Architecture/CH05_Server_Sent_Events.md) chapter owns event-feed API contracts, schemas, cursors, replay, and retention |
 | Stateful-connection scaling problem; pub/sub backplane pattern | [WebSockets](05_Networking_and_OS/CH17_WebSockets.md) | Long-lived connections pinning a client to one server process; shared pub/sub fan-out for cross-server delivery |
 | WebSocket heartbeat (ping/pong); reconnection with exponential backoff and jitter | [WebSockets](05_Networking_and_OS/CH17_WebSockets.md) | Application-level liveness detection; thundering-herd-safe client reconnection strategy |
 | Cross-site WebSocket hijacking; connection draining for stateful long-lived-connection servers | [WebSockets](05_Networking_and_OS/CH17_WebSockets.md) | Same-Origin-Policy gap requiring explicit Origin validation; grace-period deployment pattern distinct from stateless rolling deploys |
@@ -659,6 +660,24 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Per-key sequence/reordering; partition-order limits; event-time, watermark, and late-event handling | [Ordering Guarantees](07_System_Design_and_Distributed_Systems/CH18_Ordering_Guarantees.md) | Sequence gaps/buffers and event-time progress policies; dedup identity/window structures remain owned by Deduplication |
 | Deduplication identity/equivalence and exact membership (seen-ID stores, uniqueness, inboxes) | [Deduplication](07_System_Design_and_Distributed_Systems/CH19_Deduplication.md) | General record/event deduplication, broader than operation idempotency; a seen-ID store alone is not an exactly-once processing guarantee |
 | Bounded-window deduplication, retention/replay correctness, and probabilistic membership structures (Bloom filters) | [Deduplication](07_System_Design_and_Distributed_Systems/CH19_Deduplication.md) | Owns state/window trade-offs and safe Bloom-filter prefiltering; false positives must not be the sole authority for dropping legitimate data |
+| GraphQL schema and type-system contract (types, input/output separation, nullability); operation and resolver execution semantics | [GraphQL](08_API_Architecture/CH02_GraphQL.md) | Client-selected typed graph and resolver/error execution; distinct from REST resource contracts and database schemas |
+| GraphQL N+1 resolver failure mode and request-scoped DataLoader batching | [GraphQL](08_API_Architecture/CH02_GraphQL.md) | Field-level batching and per-operation cache; not a replacement for general database query optimization |
+| GraphQL cursor connections, bounded lists, and partial-error propagation | [GraphQL](08_API_Architecture/CH02_GraphQL.md) | Stable client traversal and preservation of usable sibling data when nullable fields fail |
+| GraphQL query complexity/depth controls and persisted operations | [GraphQL](08_API_Architecture/CH02_GraphQL.md) | Pre-execution cost limits and approved-operation identification; gateway-wide rate limiting remains a separate concern |
+| GraphQL schema evolution and deprecation compatibility | [GraphQL](08_API_Architecture/CH02_GraphQL.md) | Field, argument, nullability, and enum evolution with client-usage evidence before removal |
+| GraphQL cache identity and resolver/domain authorization boundaries | [GraphQL](08_API_Architecture/CH02_GraphQL.md) | Operation-aware response caching, normalized client caches, and nested object/field authorization; full API security remains in Part 08 CH09 |
+| Protocol Buffers IDL and generated gRPC service contracts; field-number compatibility | [gRPC](08_API_Architecture/CH03_gRPC.md) | Cross-language schema/stub contract and safe message evolution; HTTP/2 framing and transport remain owned by Part 05 |
+| gRPC RPC cardinalities, deadlines/cancellation, status and trailing-metadata semantics | [gRPC](08_API_Architecture/CH03_gRPC.md) | Unary and three streaming shapes plus gRPC-specific call lifecycle and terminal outcome contract |
+| gRPC metadata/interceptors/credential APIs; health service and reflection | [gRPC](08_API_Architecture/CH03_gRPC.md) | Framework-level call context and service discovery; complete authentication/security architecture is deferred to Part 08 CH09 |
+| gRPC service configuration, retry safety, and application-level streaming backpressure | [gRPC](08_API_Architecture/CH03_gRPC.md) | Bounded method policy and application pacing; HTTP/2 transport flow control is recapped, not re-taught |
+| gRPC-Web and HTTP transcoding interoperability contracts | [gRPC](08_API_Architecture/CH03_gRPC.md) | Browser/edge bridges and semantic limitations; general API Gateway architecture remains in Part 08 CH08 |
+| WebSocket API message envelopes, command/event/ack/error categories, and correlation | [WebSocket API](08_API_Architecture/CH04_WebSocket_API.md) | Application-message contract carried inside the WebSocket transport owned by Part 05 CH17 |
+| WebSocket API subscription/channel lifecycle and per-resource authorization | [WebSocket API](08_API_Architecture/CH04_WebSocket_API.md) | Application channel naming, filters, authorization, revocation, and subscription identity; transport handshake/security mechanics remain elsewhere |
+| WebSocket API sequence, acknowledgment, replay, and schema-evolution contract | [WebSocket API](08_API_Architecture/CH04_WebSocket_API.md) | Per-stream API contract only; recaps general ordering (Part 07 CH18), deduplication (CH19), idempotency (CH16), and exactly-once boundaries (CH17) |
+| WebSocket API application-level backpressure and logical-operation observability | [WebSocket API](08_API_Architecture/CH04_WebSocket_API.md) | Message-class queue/coalescing/rejection policy and operation-level telemetry, distinct from transport connection metrics |
+| SSE API subscription resources, event names/payload schemas/IDs, and cursor/resume semantics | [Server-Sent Events](08_API_Architecture/CH05_Server_Sent_Events.md) | API event-feed contract; recaps Part 05 CH17's SSE transport and broad protocol-selection ownership |
+| SSE API replay window, retention, gap/reset, and snapshot handoff contract | [Server-Sent Events](08_API_Architecture/CH05_Server_Sent_Events.md) | Explicit bounded-resume promise; does not imply durable application acknowledgment or exactly-once processing |
+| SSE API tenant-scoped feed authorization, filters, schema evolution, and reliability classes | [Server-Sent Events](08_API_Architecture/CH05_Server_Sent_Events.md) | Feed-level contract and honest replay guarantee; recaps future Part 08 API Security/Gateway and Part 07 ordering/dedup/idempotency owners |
 
 ## How to add an entry
 
@@ -1417,3 +1436,29 @@ when multiple chapters are authored in parallel, isolated sessions.
   timeline. All 10 Python examples executed successfully. All three staging files deleted after
   merge. Updated `PART_OVERVIEW.md` with 19/19 chapter statuses and corrected `BOOK_PLAN.md`'s
   Part 07 chapter count from 18 to 19, marking the part complete.
+- **Batch 28 (Part 08 — API Architecture, batch 1 of 3: REST expansion, GraphQL, gRPC, WebSocket
+  API, Server-Sent Events API — first 5 of 11)**: merged `review/concept-proposals/rest.md`,
+  `graphql.md`, `grpc.md`, `websocket-api.md`, and `sse-api.md` (CH01-CH05). The REST chapter was
+  expanded from its compact pilot to full chapter depth: 27 sections, 11 first-principles Section
+  4 subsections, 24 inline diagrams, and 4 code examples. Existing HATEOAS, Richardson Maturity
+  Model, and resource-modeling ownership remains; the registry now also states REST's architectural
+  constraint set and uniform interface, while HTTP continues to own the wire-level methods,
+  status codes, headers, and cache semantics. The five proposals contained 39 entries; 3 REST
+  concepts were already registered, and the 36 new concepts were consolidated into 19 new
+  ownership rows plus two revisions to existing REST and SSE rows. GraphQL owns its type system,
+  resolver execution, batching, bounded pagination, query-cost
+  controls, schema evolution, and GraphQL-specific caching/authorization boundaries. gRPC owns
+  Protocol Buffers contracts and framework-level RPC semantics above HTTP/2, whose framing and
+  transport remain with Part 05. WebSocket API owns application envelopes, correlation,
+  subscriptions, acknowledgments, and replay contracts, while Part 05 retains transport,
+  full-duplex selection, and connection-scaling ownership. The existing Part 05 SSE row was
+  clarified to retain transport and protocol selection; Part 08 SSE owns API event-feed schemas,
+  IDs, cursors, replay windows, and reset contracts, not exactly-once effects. All five chapters
+  independently verified at 27/27 section headers. Mermaid validation: all 98 diagrams (24 REST,
+  22 GraphQL, 16 gRPC, 19 WebSocket API, 17 SSE API) rendered via the browser-backed CLI with no
+  failures; no reserved aliases or escaped quotes; three timeline diagrams manually checked for
+  single-line events. REST examples compiled/ran, GraphQL's four tests passed, all SSE examples
+  ran, all WebSocket JSON fixtures validated, and the gRPC source passed Python syntax checking
+  with its JSON config validated. gRPC runtime and `.proto` compilation remain unverified because
+  `grpcio`, `grpcio-tools`, and `protoc` are unavailable in the workspace. All five staging files
+  deleted after merge; `PART_OVERVIEW.md` and `BOOK_PLAN.md` now record 5/11 chapters complete.

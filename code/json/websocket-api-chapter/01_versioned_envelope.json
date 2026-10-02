@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "type": "document.rename",
+  "messageId": "msg_01J9F4Q2P7",
+  "operationId": "op_01J9F4Q2P7",
+  "sentAt": "2026-10-02T14:30:00Z",
+  "payload": {
+    "documentId": "doc-42",
+    "newTitle": "Quarterly plan"
+  },
+  "_note": "Illustrative contract fixture; not a JSON Schema and not executable."
+}

@@ -1,0 +1,31 @@
+{
+  "loadBalancingConfig": [
+    {
+      "round_robin": {}
+    }
+  ],
+  "methodConfig": [
+    {
+      "name": [
+        {
+          "service": "acme.orders.v1.OrderService",
+          "method": "GetOrder"
+        }
+      ],
+      "timeout": "1.2s",
+      "waitForReady": false,
+      "retryPolicy": {
+        "maxAttempts": 3,
+        "initialBackoff": "0.1s",
+        "maxBackoff": "0.5s",
+        "backoffMultiplier": 2,
+        "retryableStatusCodes": [
+          "UNAVAILABLE"
+        ]
+      }
+    }
+  ],
+  "healthCheckConfig": {
+    "serviceName": "acme.orders.v1.OrderService"
+  }
+}

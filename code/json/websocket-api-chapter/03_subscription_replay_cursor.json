@@ -1,0 +1,41 @@
+[
+  {
+    "v": 1,
+    "type": "subscription.subscribe",
+    "messageId": "msg-sub-1",
+    "payload": {
+      "channel": "documents/doc-42/activity",
+      "afterCursor": "cur_doc42_104"
+    }
+  },
+  {
+    "v": 1,
+    "type": "subscription.accepted",
+    "messageId": "msg-sub-2",
+    "payload": {
+      "subscriptionId": "sub-91",
+      "startingCursor": "cur_doc42_104"
+    }
+  },
+  {
+    "v": 1,
+    "type": "document.updated",
+    "messageId": "msg-event-105",
+    "eventId": "evt-doc42-105",
+    "stream": "documents/doc-42/activity",
+    "sequence": 105,
+    "payload": {
+      "revision": 105,
+      "change": "title-updated"
+    }
+  },
+  {
+    "v": 1,
+    "type": "subscription.ack",
+    "messageId": "msg-ack-105",
+    "payload": {
+      "subscriptionId": "sub-91",
+      "processedThrough": 105
+    }
+  }
+]

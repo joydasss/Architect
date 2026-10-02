@@ -1,0 +1,10 @@
+query ProductSummary($id: ID!) {
+  product(id: $id) {
+    id
+    title
+    seller {
+      id
+      name
+    }
+  }
+}

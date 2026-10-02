@@ -1,0 +1,8 @@
+{
+  "operations": {
+    "be917bea6b96904c8ce2bfc3a0393238ed6e683c39b44f08dc46fb6cd67272e4": {
+      "name": "ProductSummary",
+      "file": "product_summary.graphql"
+    }
+  }
+}
