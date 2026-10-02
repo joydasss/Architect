@@ -40,16 +40,21 @@ Roman-numeral Part numbering (each overview cross-references its original Part).
 | 20 | [Real-World Case Studies](20_Real_World_Case_Studies/PART_OVERVIEW.md) | XXI | 25 | Not Started |
 | 21 | [Additional Architect Competencies](21_Additional_Architect_Competencies/PART_OVERVIEW.md) | new | 6 | Not Started |
 | 22 | [Appendices and Glossary](22_Appendices_and_Glossary/PART_OVERVIEW.md) | new | 5 | Not Started |
-| 23 | [Architectural Thinking and Decision Practice](23_Architectural_Thinking_and_Decision_Practice/PART_OVERVIEW.md) | new | 10 | Not Started |
-| 24 | [AI Architecture](24_AI_Architecture/PART_OVERVIEW.md) | new | 15 | Not Started |
-| 25 | [Cloud Architecture](25_Cloud_Architecture/PART_OVERVIEW.md) | new | 15 | Not Started |
-| 26 | [AWS Well-Architected Framework](26_AWS_Well_Architected_Framework/PART_OVERVIEW.md) | new | 10 | Not Started |
+| 23 | [Architectural Thinking and Decision Practice (supplements Part 01)](23_Architectural_Thinking_and_Decision_Practice/PART_OVERVIEW.md) | new | 10 | Not Started |
+| 24 | [AI Architecture (supplements Part 14)](24_AI_Architecture/PART_OVERVIEW.md) | new | 15 | Not Started |
+| 25 | [Cloud Architecture (supplements Part 09)](25_Cloud_Architecture/PART_OVERVIEW.md) | new | 15 | Not Started |
+| 26 | [AWS Well-Architected Framework (supplements Parts 09 and 25)](26_AWS_Well_Architected_Framework/PART_OVERVIEW.md) | new | 10 | Not Started |
 
 **Total: ~391 planned chapter/topic entries** across 26 parts by the chapter
 counts in this table (the original ~180 "chapter" estimate corresponds more
 closely to the top-level modules; some listed entries may be grouped into
 fewer full chapters after detailed planning, per the Level 3/4
 chapter-versus-topic distinction).
+
+Parts 23-26 are supplemental modules linked from their related parent folders:
+Architectural Thinking from Part 01, AI Architecture from Part 14, and Cloud
+Architecture/AWS Well-Architected from Part 09. Their standalone numbered
+folders preserve stable paths without renumbering the original 22 parts.
 
 ## Pilot chapters (proof of the anti-repetition pipeline)
 

@@ -56,3 +56,10 @@ use cases and recaps those storage/index owners.
 | Machine Learning Operations (MLOps) and Large Language Model Operations (LLMOps) | Data/model lineage, experiment tracking, registries, deployment, evaluation gates, drift/quality monitoring, rollback, and lifecycle governance. | Not Started |
 | AI Data Governance, Privacy, and Provenance | Consent, licensing, retention, sensitive-data controls, training/retrieval provenance, lineage, auditability, and separation of data-plane and model artifacts. | Not Started |
 | Responsible AI and Safety Governance | Fairness, transparency, accountability, misuse risk, safety testing, human oversight, incident response, and lifecycle governance across AI use cases. | Not Started |
+
+## Supplemental Module
+
+[AI Architecture](../24_AI_Architecture/PART_OVERVIEW.md) composes the model,
+data, retrieval, agent, inference, and platform capabilities introduced here
+into end-to-end systems. This part remains the owner of model families,
+algorithms, GenAI techniques, and AI infrastructure implementation details.
