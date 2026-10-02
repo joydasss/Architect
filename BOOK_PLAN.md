@@ -11,7 +11,7 @@ Per-chapter status values: `Not Started` → `Drafted` → `Concepts Staged` →
 `PART_OVERVIEW.md`; this file tracks part-level progress and the two pilot
 chapters explicitly.
 
-## Reading order (22 parts)
+## Reading order (26 parts)
 
 Ordered per the chat's own "Suggested Book Sequence," not the original
 Roman-numeral Part numbering (each overview cross-references its original Part).
@@ -26,12 +26,12 @@ Roman-numeral Part numbering (each overview cross-references its original Part).
 | 06 | [Databases and Storage](06_Databases_and_Storage/PART_OVERVIEW.md) | VI | 22 | Complete — 22/22 |
 | 07 | [System Design and Distributed Systems](07_System_Design_and_Distributed_Systems/PART_OVERVIEW.md) | IV | 19 | Complete — 19/19 |
 | 08 | [API Architecture](08_API_Architecture/PART_OVERVIEW.md) | V | 11 | Complete — 11/11 |
-| 09 | [Cloud Computing](09_Cloud_Computing/PART_OVERVIEW.md) | VIII | 16 | Not Started |
+| 09 | [Cloud Computing](09_Cloud_Computing/PART_OVERVIEW.md) | VIII | 16 | **1/16 Edited** |
 | 10 | [Kubernetes](10_Kubernetes/PART_OVERVIEW.md) | IX | 15 | Not Started |
 | 11 | [DevOps](11_DevOps/PART_OVERVIEW.md) | X | 17 | Not Started |
 | 12 | [Observability](12_Observability/PART_OVERVIEW.md) | XI | 13 | Not Started |
 | 13 | [Security](13_Security/PART_OVERVIEW.md) | XII | 16 | Not Started |
-| 14 | [AI and GenAI](14_AI_and_GenAI/PART_OVERVIEW.md) | XIII | 19 | Not Started |
+| 14 | [AI, Machine Learning, and Generative AI](14_AI_and_GenAI/PART_OVERVIEW.md) | XIII | 31 | Not Started |
 | 15 | [Enterprise Architecture](15_Enterprise_Architecture/PART_OVERVIEW.md) | XVI | 11 | Not Started |
 | 16 | [Performance Engineering](16_Performance_Engineering/PART_OVERVIEW.md) | XVII | 14 | Not Started |
 | 17 | [Architecture Patterns](17_Architecture_Patterns/PART_OVERVIEW.md) | XVIII | 18 | Not Started |
@@ -40,12 +40,16 @@ Roman-numeral Part numbering (each overview cross-references its original Part).
 | 20 | [Real-World Case Studies](20_Real_World_Case_Studies/PART_OVERVIEW.md) | XXI | 25 | Not Started |
 | 21 | [Additional Architect Competencies](21_Additional_Architect_Competencies/PART_OVERVIEW.md) | new | 6 | Not Started |
 | 22 | [Appendices and Glossary](22_Appendices_and_Glossary/PART_OVERVIEW.md) | new | 5 | Not Started |
+| 23 | [Architectural Thinking and Decision Practice](23_Architectural_Thinking_and_Decision_Practice/PART_OVERVIEW.md) | new | 10 | Not Started |
+| 24 | [AI Architecture](24_AI_Architecture/PART_OVERVIEW.md) | new | 15 | Not Started |
+| 25 | [Cloud Architecture](25_Cloud_Architecture/PART_OVERVIEW.md) | new | 15 | Not Started |
+| 26 | [AWS Well-Architected Framework](26_AWS_Well_Architected_Framework/PART_OVERVIEW.md) | new | 10 | Not Started |
 
-**Total: ~296 chapter/topic entries** across 22 parts (the ~180 "chapter"
-estimate from the chat corresponds roughly to the top-level items above; many
-entries, e.g. under Databases or Networking, will be grouped as topics within
-a smaller number of full chapters once drafted, per the chat's Level 3/4
-chapter-vs-topic distinction).
+**Total: ~391 planned chapter/topic entries** across 26 parts by the chapter
+counts in this table (the original ~180 "chapter" estimate corresponds more
+closely to the top-level modules; some listed entries may be grouped into
+fewer full chapters after detailed planning, per the Level 3/4
+chapter-versus-topic distinction).
 
 ## Pilot chapters (proof of the anti-repetition pipeline)
 
@@ -65,3 +69,11 @@ Once both pilots reach `Edited`, repeat the same
 plan → author → diagram → code → merge → review → edit loop per chapter,
 updating this file's per-part chapter tables (in each `PART_OVERVIEW.md`) as
 chapters move through each status. See README.md § Scaling out.
+
+## Deferred Post-Completion To-Do
+
+Keep this validation open until all planned modules and chapters are complete:
+
+- [ ] Re-run gRPC runtime integration and compile both `.proto` schemas for
+  Part 08 CH03 using `grpcio`, `grpcio-tools`, and `protoc`; these tools were
+  unavailable during the chapter's authored validation.

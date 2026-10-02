@@ -6,7 +6,7 @@ Maps to the original catalog's **Part VIII — Cloud Computing**.
 
 | Chapter | Status |
 |---|---|
-| AWS (Amazon Web Services) | Not Started |
+| AWS (Amazon Web Services) | Edited — 27 sections, 15 diagrams, 4 code examples ([CH01_AWS.md](CH01_AWS.md)) |
 | Azure | Not Started |
 | GCP (Google Cloud Platform) | Not Started |
 | Compute | Not Started |

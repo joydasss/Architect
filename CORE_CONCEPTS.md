@@ -700,6 +700,11 @@ when multiple chapters are authored in parallel, isolated sessions.
 | API limiter identity keys, hierarchical tenant/route budgets, fairness, and noisy-neighbor isolation | [Rate Limiting](08_API_Architecture/CH11_Rate_Limiting.md) | Trusted key selection and coordinated parent/child budgets across consumer, tenant, route, and weighted request cost |
 | Distributed and multi-region limiter consistency/overshoot trade-offs | [Rate Limiting](08_API_Architecture/CH11_Rate_Limiting.md) | Shared atomic state, local buckets, approximate counters, partitioned quotas, and their fairness/availability consequences |
 | API rate-policy rollout, fail-open/closed behavior, bypass resistance, client retry guidance, and operational metrics | [Rate Limiting](08_API_Architecture/CH11_Rate_Limiting.md) | Limiter-specific policy lifecycle and failure posture; Gateway owns policy-pipeline placement and API Security owns broader threat modeling |
+| AWS global infrastructure scope: Regions, Availability Zones, and edge locations | [AWS](09_Cloud_Computing/CH01_AWS.md) | Provider-specific failure-domain and locality semantics; cross-provider cloud placement belongs to Cloud Architecture (Part 25) |
+| AWS account and Organizations hierarchy as isolation, guardrail, and billing boundaries | [AWS](09_Cloud_Computing/CH01_AWS.md) | Accounts/OUs and Service Control Policy guardrail role; detailed IAM policy evaluation remains with Part 09 IAM |
+| AWS control-plane/data-plane distinction and service resource scope | [AWS](09_Cloud_Computing/CH01_AWS.md) | Management/configuration path versus workload request path; service-specific regional, zonal, and global scope implications |
+| AWS shared-responsibility and managed-service architecture trade-offs | [AWS](09_Cloud_Computing/CH01_AWS.md) | AWS-specific operational boundary and control/abstraction choices; general cross-provider responsibility is recapped by Cloud Architecture (Part 25) |
+| AWS service-family composition and provider-specific architecture-selection workflow | [AWS](09_Cloud_Computing/CH01_AWS.md) | AWS service map and workload-fit checks; later Part 09 chapters retain compute, networking, storage, IAM, messaging, serverless, and cost mechanics |
 
 ## How to add an entry
 
@@ -1518,3 +1523,13 @@ when multiple chapters are authored in parallel, isolated sessions.
   concept and recap-links to the now-canonical Part 08 Gateway architecture. All three proposal
   files removed after merge; `PART_OVERVIEW.md` and `BOOK_PLAN.md` now mark Part 08 complete at
   11/11.
+- **Batch 31 (Part 09 — Cloud Computing, batch 1 of 6: AWS — first of 16)**: staged AWS-specific
+  ownership via `review/concept-proposals/aws.md` and merged 6 proposals into 5 rows. CH01_AWS.md
+  establishes the provider-specific map of Regions/AZs/edge scope, Organizations/accounts and
+  guardrails, control/data planes, shared responsibility, service families, and AWS architecture
+  selection, while deferring detailed service mechanics to later Part 09 chapters. Cross-provider
+  workload architecture is reserved for new Part 25; the six-pillar AWS Well-Architected review
+  framework is reserved for new Part 26; AWS IAM details remain with the planned Part 09 IAM
+  chapter. The chapter has 27 sections and 15 inline Mermaid diagrams; all diagrams rendered,
+  acronyms were expanded at first use, and all four standard-library Python examples compiled and
+  ran. Updated Part 09 tracking to 1/16 chapters complete. Proposal file removed after merge.
