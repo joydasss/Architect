@@ -19,10 +19,10 @@ Maps to the original catalog's **Part IV — System Design** (which included a
 | Distributed Systems — Replication | Edited — 27 sections, 14 diagrams, code examples ([CH10_Replication.md](CH10_Replication.md)) |
 | Distributed Systems — Partitioning | Edited — 27 sections, code examples ([CH11_Partitioning.md](CH11_Partitioning.md)) |
 | Distributed Systems — Distributed Transactions | Edited — 27 sections, code examples ([CH12_Distributed_Transactions.md](CH12_Distributed_Transactions.md)) |
-| Distributed Systems — Saga Pattern | Not Started |
-| Distributed Systems — CQRS (Command Query Responsibility Segregation) | Not Started |
-| Distributed Systems — Event Sourcing | Not Started |
-| Distributed Systems — Idempotency | Not Started |
+| Distributed Systems — Saga Pattern | Edited — 27 sections, 11 diagrams, 4 code examples ([CH13_Saga_Pattern.md](CH13_Saga_Pattern.md)) |
+| Distributed Systems — CQRS (Command Query Responsibility Segregation) | Edited — 27 sections, 15 diagrams, 4 code examples ([CH14_CQRS.md](CH14_CQRS.md)) |
+| Distributed Systems — Event Sourcing | Edited — 27 sections, 19 diagrams, 4 code examples ([CH15_Event_Sourcing.md](CH15_Event_Sourcing.md)) |
+| Distributed Systems — Idempotency | Edited — 27 sections, 20 diagrams, 4 code examples ([CH16_Idempotency.md](CH16_Idempotency.md)) |
 | Distributed Systems — Exactly-Once Processing | Not Started |
 | Distributed Systems — Ordering Guarantees | Not Started |
 | Distributed Systems — Deduplication | Not Started |

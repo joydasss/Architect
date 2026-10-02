@@ -645,7 +645,14 @@ when multiple chapters are authored in parallel, isolated sessions.
 | Gossip/epidemic dissemination (push/pull/push-pull, anti-entropy vs. rumor-mongering); SWIM membership protocol; Phi Accrual adaptive failure detector | [Gossip Protocols](07_System_Design_and_Distributed_Systems/CH09_Gossip_Protocols.md) | Canonical, general owner recapped by Part 06's Cassandra (gossip-based ring membership and Phi Accrual as concrete applications) |
 | Replication as a general distributed-systems pattern: CRDTs, vector clocks, queue/log replication (Kafka In-Sync Replicas), non-database stateful-service replication | [Replication (Distributed Systems)](07_System_Design_and_Distributed_Systems/CH10_Replication.md) | Recaps Part 06's Replication (WAL shipping, sync/async, N/W/R quorum, failover/fencing, all database-scoped) and this part's CAP Theorem/PACELC rather than re-teaching them |
 | Partitioning as a general cluster-scale pattern: consistent hashing/hash ring, virtual nodes (vnodes), cluster-scale rebalancing and hotspot mitigation, partitioning in queues/caches/stream-processing | [Partitioning (Distributed Systems)](07_System_Design_and_Distributed_Systems/CH11_Partitioning.md) | Recaps Part 06's Partitioning (single-engine range/list/hash) and Sharding (database-shard routing/rebalancing) rather than re-deriving either; generalizes to non-database domains |
-| Distributed transaction/dual-write problem; in-doubt transaction 2PC coordinator-crash recovery; Three-Phase Commit (3PC); transactional outbox pattern; boundary-redesign avoidance strategies | [Distributed Transactions](07_System_Design_and_Distributed_Systems/CH12_Distributed_Transactions.md) | Recaps Part 06's Transactions (2PC protocol mechanics, Saga mechanism) rather than re-teaching them; Saga's full choreography/orchestration design depth remains flagged for this part's forthcoming dedicated Saga Pattern chapter |
+| Distributed transaction/dual-write problem; in-doubt transaction 2PC coordinator-crash recovery; Three-Phase Commit (3PC); transactional outbox pattern; boundary-redesign avoidance strategies | [Distributed Transactions](07_System_Design_and_Distributed_Systems/CH12_Distributed_Transactions.md) | Recaps Part 06's Transactions (2PC protocol mechanics, Saga mechanism) rather than re-teaching them; Saga's production design depth is owned by this part's [Saga Pattern](07_System_Design_and_Distributed_Systems/CH13_Saga_Pattern.md) chapter |
+| Production Saga orchestrator design; compensating-transaction craftsmanship; Saga failure-recovery patterns; Saga-specific observability | [Saga Pattern](07_System_Design_and_Distributed_Systems/CH13_Saga_Pattern.md) | Durable state-machine/state-store design, literal vs. semantic/non-reversible compensations, pivot/retry/dead-letter handling, and saga-instance tracing; recaps the basic choreography/orchestration mechanism owned by Part 06 Transactions |
+| CQRS (Command Query Responsibility Segregation) core principle and adoption spectrum | [CQRS](07_System_Design_and_Distributed_Systems/CH14_CQRS.md) | Architectural separation of invariant-focused writes from query-shaped reads, from shared-model methods to independently stored models; distinct from Denormalization's read-model duplication/materialized-view mechanics |
+| CQRS projection mechanisms and write/read-model consistency implications | [CQRS](07_System_Design_and_Distributed_Systems/CH14_CQRS.md) | Propagation choices, projection idempotency, and the eventual-consistency/read-your-own-writes window; recaps Event Sourcing as an optional complementary pattern |
+| Event Sourcing: append-only event store as source of truth, aggregate replay, optimistic concurrency | [Event Sourcing](07_System_Design_and_Distributed_Systems/CH15_Event_Sourcing.md) | Durable event-log and expected-version mechanics; distinct from Part 07 LLD's tactical Domain Event class/module concept and CQRS's general read/write split |
+| Event Sourcing snapshotting and event-schema evolution/upcasting | [Event Sourcing](07_System_Design_and_Distributed_Systems/CH15_Event_Sourcing.md) | Snapshots are rebuildable checkpoints, not authoritative facts; upcasters preserve historical events as domain schemas evolve |
+| General operation idempotency; caller-generated keys, request fingerprints, and stable outcome replay | [Idempotency](07_System_Design_and_Distributed_Systems/CH16_Idempotency.md) | Application/distributed operation identity beyond HTTP method semantics, which remain owned by HTTP |
+| Idempotency implementation strategies: atomic claim/TTL, natural upsert/conditional writes, versioned transitions, idempotent message consumers | [Idempotency](07_System_Design_and_Distributed_Systems/CH16_Idempotency.md) | Builds repeat-safe effects over at-least-once attempts; full transport/processing guarantees and general deduplication remain with the forthcoming CH17/CH19 chapters |
 
 ## How to add an entry
 
@@ -1360,3 +1367,26 @@ when multiple chapters are authored in parallel, isolated sessions.
   diagrams (Partitioning's and Distributed Transactions' historical-milestones diagrams) manually
   confirmed to have every period's event text on one physical line. All 4 staging files deleted
   after merge.
+- **Batch 26 (Part 07 — System Design and Distributed Systems, batch 4 of 5: Saga Pattern, CQRS,
+  Event Sourcing, Idempotency — 16/19)**: merged `review/concept-proposals/saga-pattern.md`,
+  `cqrs.md`, `event-sourcing.md`, and `idempotency.md` (CH13-CH16). 16 proposed concepts
+  consolidated into 7 ownership rows. Saga ownership stays deliberately layered: Part 06
+  Transactions retains the basic choreography/orchestration and compensation mechanism, while
+  CH13 owns production orchestrator state, compensation craftsmanship, failure recovery, and
+  saga-specific observability; CH12 Distributed Transactions now links to that completed design
+  chapter. CQRS gains its own architectural split/adoption and projection/consistency rows without
+  displacing Denormalization's ownership of materialized views and read-model duplication.
+  Event Sourcing owns the durable event log, replay, snapshotting, optimistic concurrency, and
+  schema upcasting, while recapping the LLD chapter's tactical Domain Event abstraction and CQRS's
+  projection model. Idempotency becomes the general operation-level owner, extending but not
+  displacing HTTP's method-level semantics; its implementation row covers stable keys, atomic
+  dedup claims, natural writes, versioned transitions, and consumer-side effects, while the future
+  Exactly-Once Processing and Deduplication chapters retain their broader topics. All 4 chapters
+  independently verified at 27/27 exact section headers. Mermaid checks: Saga Pattern 11 diagrams,
+  no reserved aliases/backslash-escaped quotes, block balance 2/2, timeline events single-line;
+  CQRS 15 diagrams, no reserved aliases/backslash-escaped quotes, block balance 12/12, timeline
+  events single-line; Event Sourcing 19 diagrams, no reserved aliases/backslash-escaped quotes,
+  block balance 8/8, timeline events single-line; Idempotency 20 diagrams, no reserved aliases/
+  backslash-escaped quotes, block balance 0/0, no timeline diagram. All 16 Python examples across
+  the four chapters executed successfully (stdlib-only). All four staging files deleted after
+  merge.
