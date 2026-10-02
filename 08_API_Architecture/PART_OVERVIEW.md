@@ -14,6 +14,6 @@ Maps to the original catalog's **Part V — API Architecture**.
 | Async APIs | Edited — 27 sections, 17 diagrams, 3 code examples ([CH06_Async_APIs.md](CH06_Async_APIs.md)) |
 | OpenAPI | Edited — 27 sections, 25 diagrams, 4 contract artifacts ([CH07_OpenAPI.md](CH07_OpenAPI.md)) |
 | API Gateway | Edited — 27 sections, 13 diagrams, 4 examples/configs ([CH08_API_Gateway.md](CH08_API_Gateway.md)) |
-| API Security | Not Started |
-| Versioning | Not Started |
-| Rate Limiting | Not Started |
+| API Security | Edited — 27 sections, 15 diagrams, 3 code examples ([CH09_API_Security.md](CH09_API_Security.md)) |
+| Versioning | Edited — 27 sections, 19 diagrams, 4 contract artifacts ([CH10_Versioning.md](CH10_Versioning.md)) |
+| Rate Limiting | Edited — 27 sections, 21 diagrams, 4 code examples ([CH11_Rate_Limiting.md](CH11_Rate_Limiting.md)) |

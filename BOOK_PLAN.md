@@ -25,7 +25,7 @@ Roman-numeral Part numbering (each overview cross-references its original Part).
 | 05 | [Networking and Operating Systems](05_Networking_and_OS/PART_OVERVIEW.md) | VII + new | 29 | **29/29 Edited — Part 05 COMPLETE** |
 | 06 | [Databases and Storage](06_Databases_and_Storage/PART_OVERVIEW.md) | VI | 22 | Complete — 22/22 |
 | 07 | [System Design and Distributed Systems](07_System_Design_and_Distributed_Systems/PART_OVERVIEW.md) | IV | 19 | Complete — 19/19 |
-| 08 | [API Architecture](08_API_Architecture/PART_OVERVIEW.md) | V | 11 | **8/11 Edited (Part 08 batches 1-2 complete)** |
+| 08 | [API Architecture](08_API_Architecture/PART_OVERVIEW.md) | V | 11 | Complete — 11/11 |
 | 09 | [Cloud Computing](09_Cloud_Computing/PART_OVERVIEW.md) | VIII | 16 | Not Started |
 | 10 | [Kubernetes](10_Kubernetes/PART_OVERVIEW.md) | IX | 15 | Not Started |
 | 11 | [DevOps](11_DevOps/PART_OVERVIEW.md) | X | 17 | Not Started |

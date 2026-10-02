@@ -690,6 +690,16 @@ when multiple chapters are authored in parallel, isolated sessions.
 | API Gateway route/service-discovery integration, policy pipeline, and gateway-vs-BFF boundary | [API Gateway](08_API_Architecture/CH08_API_Gateway.md) | API-aware routing, policy composition, consumer aggregation, and ownership decisions; backend selection mechanics remain with Load Balancer |
 | API Gateway protocol mediation/transcoding and trusted-header transformation | [API Gateway](08_API_Architecture/CH08_API_Gateway.md) | Gateway placement and semantic-preservation contracts; protocol schemas remain in REST/GraphQL/gRPC/WebSocket/SSE owners |
 | API Gateway deployment, high availability, multi-region operation, observability, and failure boundary | [API Gateway](08_API_Architecture/CH08_API_Gateway.md) | Gateway-specific topology and bottleneck decisions; security enforcement, version policy, and rate-limit algorithms remain with Part 08 CH09-CH11 |
+| API security threat model and cross-style control composition; request/connection/message-boundary authentication and authorization | [API Security](08_API_Architecture/CH09_API_Security.md) | API trust boundaries and control placement; OAuth/OIDC/JWT/SAML/TLS protocol mechanics remain with their Part 05 owners |
+| API object/function/property authorization (BOLA/BFLA/BOPLA), tenant isolation, and mass-assignment prevention | [API Security](08_API_Architecture/CH09_API_Security.md) | Bind principal, action, and loaded domain object; explicit writable/readable projections prevent cross-tenant access and property injection |
+| API boundary validation, credential/API-key limitations, injection defense, and privacy-safe security verification | [API Security](08_API_Architecture/CH09_API_Security.md) | API-specific validation and test controls; generic network filtering and protocol authentication mechanics remain elsewhere |
+| Cross-style API contract versioning and directional producer-consumer compatibility | [Versioning](08_API_Architecture/CH10_Versioning.md) | Separates contract identity from deployment release and classifies compatibility in both client/server directions across protocols |
+| API breaking/additive change classification, version-selector decisions, and deprecation/sunset lifecycle | [Versioning](08_API_Architecture/CH10_Versioning.md) | URI/header/media-type/schema identity trade-offs and evidence-based support/retirement policy; protocol-specific schema syntax remains with API-style owners |
+| API coexistence, expand-migrate-contract, compatibility automation, and long-lived consumer version-skew governance | [Versioning](08_API_Architecture/CH10_Versioning.md) | Cross-style migration, compatibility matrix, baselines, retirement controls; OpenAPI owns OAS-specific tooling and Gateway owns route placement |
+| API rate limiting/quota/concurrency/admission control taxonomy; fixed/sliding windows, token bucket, leaky bucket, and GCRA algorithms | [Rate Limiting](08_API_Architecture/CH11_Rate_Limiting.md) | API consumer capacity/fairness algorithms and burst semantics; HTTP owns 429/Retry-After wire meanings and Async APIs owns durable admission semantics |
+| API limiter identity keys, hierarchical tenant/route budgets, fairness, and noisy-neighbor isolation | [Rate Limiting](08_API_Architecture/CH11_Rate_Limiting.md) | Trusted key selection and coordinated parent/child budgets across consumer, tenant, route, and weighted request cost |
+| Distributed and multi-region limiter consistency/overshoot trade-offs | [Rate Limiting](08_API_Architecture/CH11_Rate_Limiting.md) | Shared atomic state, local buckets, approximate counters, partitioned quotas, and their fairness/availability consequences |
+| API rate-policy rollout, fail-open/closed behavior, bypass resistance, client retry guidance, and operational metrics | [Rate Limiting](08_API_Architecture/CH11_Rate_Limiting.md) | Limiter-specific policy lifecycle and failure posture; Gateway owns policy-pipeline placement and API Security owns broader threat modeling |
 
 ## How to add an entry
 
@@ -1490,3 +1500,21 @@ when multiple chapters are authored in parallel, isolated sessions.
   sequence aliases or escaped quotes, fences balanced, and timeline events manually confirmed on
   one physical line. All 9 runnable Python examples passed; OpenAPI and gateway YAML artifacts
   validated. All three proposal files removed after merge; Part 08 tracking now shows 8/11.
+- **Batch 30 (Part 08 — API Architecture, batch 3 of 3: API Security, Versioning, Rate Limiting —
+  final 3 of 11; PART 08 COMPLETE)**: merged `review/concept-proposals/api-security.md`,
+  `versioning.md`, and `rate-limiting.md` (CH09-CH11). 27 proposed concepts consolidated into 11
+  ownership rows. API Security owns the API-boundary threat model, object/function/property
+  authorization, tenant boundaries, validation, and security testing while OAuth/OIDC/JWT/SAML/TLS
+  protocol mechanics remain with Part 05. Versioning owns cross-style compatibility classification,
+  selector choice, deprecation/sunset lifecycle, migration, and retirement while REST/GraphQL/
+  Protobuf/OpenAPI schema-specific mechanics remain with their owners. Rate Limiting owns API
+  limiter/quota/concurrency algorithms, key hierarchy/fairness, distributed state, and policy
+  operations; HTTP retains 429/Retry-After semantics, API Gateway retains placement, and Async APIs
+  retains durable admission. All three chapters independently verified at 27/27 sections. Mermaid
+  validation: all 55 diagrams (15 API Security, 19 Versioning, 21 Rate Limiting) rendered
+  successfully; no reserved aliases or escaped quotes, CH11 structural blocks balanced 4/4, all
+  fences paired. All 8 runnable Python/JavaScript examples passed; JSON/YAML artifacts parsed.
+  Updated the Part 05 Reverse Proxy row and Section 4.6 so it retains the generic API-aware proxy
+  concept and recap-links to the now-canonical Part 08 Gateway architecture. All three proposal
+  files removed after merge; `PART_OVERVIEW.md` and `BOOK_PLAN.md` now mark Part 08 complete at
+  11/11.

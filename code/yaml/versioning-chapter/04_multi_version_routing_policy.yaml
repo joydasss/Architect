@@ -1,0 +1,40 @@
+# Vendor-neutral illustrative policy, not a deployable gateway configuration.
+# Translate and validate against the selected gateway's exact schema/version.
+policy_name: orders-api-contract-support
+default_contract: v2
+selectors:
+  precedence:
+    - explicit_path_major
+    - accepted_media_type_profile
+  reject_conflicting_selectors: true
+contracts:
+  v1:
+    status: deprecated
+    route_target: orders-contract-adapter-v1
+    introduced_on: "2024-05-01"
+    sunset_on: "2027-04-01"
+    owner: orders-api
+    retirement_inventory: orders-rest-v1
+  v2:
+    status: supported
+    route_target: orders-contract-adapter-v2
+    introduced_on: "2026-08-15"
+    owner: orders-api
+unsupported_contract:
+  behavior: reject_with_documented_problem
+  do_not_silently_fallback: true
+rollout:
+  v2_backend_canary_percent: 10
+  require_mixed_client_server_contract_tests: true
+  rollback_requires_storage_shape_compatibility: true
+observability:
+  dimensions:
+    - contract_id
+    - operation_template
+    - outcome_class
+  raw_consumer_identifiers_as_metric_labels: false
+retirement_gate:
+  require_owner_approval: true
+  require_usage_quiet_window_days: 30
+  require_notice_period_complete: true
+  require_replay_window_elapsed: true
