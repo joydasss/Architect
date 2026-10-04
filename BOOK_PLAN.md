@@ -28,24 +28,24 @@ folder IDs (23-26) while appearing beside the related core parts.
 | 06 | [Databases and Storage](06_Databases_and_Storage/PART_OVERVIEW.md) | VI | 22 | Complete — 22/22 |
 | 07 | [System Design and Distributed Systems](07_System_Design_and_Distributed_Systems/PART_OVERVIEW.md) | IV | 19 | Complete — 19/19 |
 | 08 | [API Architecture](08_API_Architecture/PART_OVERVIEW.md) | V | 11 | Complete — 11/11 |
-| 09 | [Cloud Computing](09_Cloud_Computing/PART_OVERVIEW.md) | VIII | 16 | **1/16 Edited** |
-| 10 | [Cloud Architecture (supplements Part 09)](10_Cloud_Architecture/PART_OVERVIEW.md) | new | 15 | Not Started |
-| 11 | [AWS Well-Architected Framework (supplements Parts 09 and 10)](11_AWS_Well_Architected_Framework/PART_OVERVIEW.md) | new | 10 | Not Started |
-| 12 | [Kubernetes](12_Kubernetes/PART_OVERVIEW.md) | IX | 15 | Not Started |
-| 13 | [DevOps](13_DevOps/PART_OVERVIEW.md) | X | 17 | Not Started |
-| 14 | [Observability](14_Observability/PART_OVERVIEW.md) | XI | 13 | Not Started |
-| 15 | [Security](15_Security/PART_OVERVIEW.md) | XII | 16 | Not Started |
-| 16 | [AI, Machine Learning, and Generative AI](16_AI_and_GenAI/PART_OVERVIEW.md) | XIII | 31 | Not Started |
-| 17 | [AI Architecture (supplements Part 16)](17_AI_Architecture/PART_OVERVIEW.md) | new | 15 | Not Started |
-| 18 | [Enterprise Architecture](18_Enterprise_Architecture/PART_OVERVIEW.md) | XVI | 11 | Not Started |
-| 19 | [Performance Engineering](19_Performance_Engineering/PART_OVERVIEW.md) | XVII | 14 | Not Started |
-| 20 | [Architecture Patterns](20_Architecture_Patterns/PART_OVERVIEW.md) | XVIII | 18 | Not Started |
-| 21 | [Architecture Documentation](21_Architecture_Documentation/PART_OVERVIEW.md) | XIX | 11 | Not Started |
-| 22 | [Architectural Thinking and Decision Practice (supplements Part 01)](22_Architectural_Thinking_and_Decision_Practice/PART_OVERVIEW.md) | new | 10 | Not Started |
-| 23 | [Soft Skills](23_Soft_Skills/PART_OVERVIEW.md) | XX | 15 | Not Started |
-| 24 | [Real-World Case Studies](24_Real_World_Case_Studies/PART_OVERVIEW.md) | XXI | 25 | Not Started |
-| 25 | [Additional Architect Competencies](25_Additional_Architect_Competencies/PART_OVERVIEW.md) | new | 6 | Not Started |
-| 26 | [Appendices and Glossary](26_Appendices_and_Glossary/PART_OVERVIEW.md) | new | 5 | Not Started |
+| 09 | [Cloud Computing](09_Cloud_Computing/PART_OVERVIEW.md) | VIII | 16 | **16/16 Drafted** |
+| 10 | [Cloud Architecture (supplements Part 09)](10_Cloud_Architecture/PART_OVERVIEW.md) | new | 15 | **15/15 Drafted; all topics mapped** |
+| 11 | [AWS Well-Architected Framework (supplements Parts 09 and 10)](11_AWS_Well_Architected_Framework/PART_OVERVIEW.md) | new | 10 | **10/10 Drafted; all topics mapped** |
+| 12 | [Kubernetes](12_Kubernetes/PART_OVERVIEW.md) | IX | 15 | **15/15 Drafted; all topics mapped** |
+| 13 | [DevOps](13_DevOps/PART_OVERVIEW.md) | X | 17 | **17/17 Drafted** |
+| 14 | [Observability](14_Observability/PART_OVERVIEW.md) | XI | 13 | **13/13 Drafted** |
+| 15 | [Security](15_Security/PART_OVERVIEW.md) | XII | 16 | **16/16 Drafted** |
+| 16 | [AI, Machine Learning, and Generative AI](16_AI_and_GenAI/PART_OVERVIEW.md) | XIII | 31 | **31/31 Drafted** |
+| 17 | [AI Architecture (supplements Part 16)](17_AI_Architecture/PART_OVERVIEW.md) | new | 15 | **15/15 Drafted** |
+| 18 | [Enterprise Architecture](18_Enterprise_Architecture/PART_OVERVIEW.md) | XVI | 11 | **11/11 Drafted** |
+| 19 | [Performance Engineering](19_Performance_Engineering/PART_OVERVIEW.md) | XVII | 14 | **14/14 Drafted** |
+| 20 | [Architecture Patterns](20_Architecture_Patterns/PART_OVERVIEW.md) | XVIII | 18 | **18/18 Drafted** |
+| 21 | [Architecture Documentation](21_Architecture_Documentation/PART_OVERVIEW.md) | XIX | 11 | **11/11 Drafted** |
+| 22 | [Architectural Thinking and Decision Practice (supplements Part 01)](22_Architectural_Thinking_and_Decision_Practice/PART_OVERVIEW.md) | new | 10 | **10/10 Drafted** |
+| 23 | [Soft Skills](23_Soft_Skills/PART_OVERVIEW.md) | XX | 15 | **15/15 Drafted** |
+| 24 | [Real-World Case Studies](24_Real_World_Case_Studies/PART_OVERVIEW.md) | XXI | 25 | **25/25 Drafted (audit pending)** |
+| 25 | [Additional Architect Competencies](25_Additional_Architect_Competencies/PART_OVERVIEW.md) | new | 6 | **6/6 Drafted** |
+| 26 | [Appendices and Glossary](26_Appendices_and_Glossary/PART_OVERVIEW.md) | new | 5 | **5/5 Drafted** |
 
 **Total: ~391 planned chapter/topic entries** across 26 parts by the chapter
 counts in this table (the original ~180 "chapter" estimate corresponds more

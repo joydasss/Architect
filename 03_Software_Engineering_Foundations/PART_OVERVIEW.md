@@ -2,6 +2,8 @@
 
 Maps to the original catalog's **Part II — Software Engineering Foundations**.
 
+Topic map: [TOPIC_MAP.md](TOPIC_MAP.md)
+
 ## Chapters
 
 | Chapter | Status |

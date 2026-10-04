@@ -5,6 +5,8 @@ Operating Systems chapter set (called out in the chat's "Suggested Book
 Sequence" item 4 and its "I would also add..." paragraph, but not present in
 the original 21 named parts).
 
+Topic map: [TOPIC_MAP.md](TOPIC_MAP.md)
+
 ## Chapters — Networking
 
 | Chapter | Status |

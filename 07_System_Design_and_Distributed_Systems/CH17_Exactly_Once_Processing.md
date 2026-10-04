@@ -94,7 +94,7 @@ sequenceDiagram
     Worker--xBroker: acknowledgment lost
     Broker->>Worker: redeliver e-9
     Worker->>Store: claim e-9 again
-    Store-->>Worker: already committed; no second effect
+    Store-->>Worker: already committed, no second effect
     Worker-->>Broker: acknowledge duplicate
 ```
 
@@ -146,7 +146,7 @@ sequenceDiagram
     Op->>Sink: prepare output transaction 12
     Op-->>Coord: durable snapshot acknowledged
     Sink-->>Coord: prepared transaction acknowledged
-    Coord->>Sink: checkpoint 12 complete; commit
+    Coord->>Sink: checkpoint 12 complete, then commit
 ```
 
 **Decision implications.** Checkpoints fit long-running stateful computations whose source can replay and whose operator state can be snapshotted consistently. Choose checkpoint interval by balancing replay work, snapshot cost, and recovery point objective. Aligned barriers are straightforward under healthy flow but can stall behind a slow input; unaligned checkpoints help under backpressure but increase storage and restore work. Confirm the sink has a checkpoint-aware commit or idempotent write strategy before claiming end-to-end exactly-once output.

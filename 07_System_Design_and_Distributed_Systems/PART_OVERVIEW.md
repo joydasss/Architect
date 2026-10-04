@@ -3,6 +3,8 @@
 Maps to the original catalog's **Part IV — System Design** (which included a
 "Distributed Systems" subsection).
 
+Topic map: [TOPIC_MAP.md](TOPIC_MAP.md)
+
 ## Chapters
 
 | Chapter | Status |

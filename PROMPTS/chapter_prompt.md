@@ -4,17 +4,21 @@ Use once per chapter. This is the template wrapped by
 `.github/prompts/plan-chapter.prompt.md` and the `chapter-author` agent.
 
 ```text
-Write a complete textbook chapter on <Chapter Topic> for Solution Architects,
-following the 27-section template in STYLE_GUIDE.md exactly, in order.
+Write a substantive, self-contained chapter on <Chapter Topic> for Solution
+Architects, using the approved chapter entry in the part's `TOPIC_MAP.md` as
+the scope and depth contract. Follow `STYLE_GUIDE.md`; organize the chapter
+around the reader's learning journey. There is no mandatory section count or
+heading order.
 
-Cover beginner through expert level. Include history, why it exists, core
-concepts, internal implementation, architecture patterns, production
-architecture, complete code examples (referencing code/<language>/ rather than
-embedding large listings), performance, scalability, security, observability,
-failure scenarios, testing, common mistakes, best practices, anti-patterns,
-trade-off analysis, a comparison table, a real-world case study, interview
-questions, hands-on exercises, design exercises, an architecture review
-checklist, and a summary.
+Teach each central topic from its model and mechanisms through decisions,
+alternatives, consequences, operational and failure behavior, and concrete
+application. Treat supporting topics proportionately. Cover beginner through
+expert needs where relevant, including implementation, performance, security,
+testing, production scenarios, and trade-offs. Include code, comparisons,
+exercises, and checklists when they improve the reader's ability to apply the
+material; do not add filler to satisfy a section or page count. The finished
+chapter needs at least five distinct, substantive diagrams or visual models
+placed near the concepts they explain.
 
 Before writing, check CORE_CONCEPTS.md. If a concept used in this chapter is
 already owned by another chapter, write a 2-3 sentence recap and link to it
@@ -23,8 +27,8 @@ cross-cutting concept, note it at the end for a proposal entry in
 review/concept-proposals/<chapter-id>.md instead of writing directly to
 CORE_CONCEPTS.md.
 
-Include ASCII diagrams for byte/packet-level detail and note where Mermaid
-diagrams should go (produced separately via diagram-chapter.prompt.md).
-
-Target 25-50 pages.
+Use Mermaid inline for useful architecture, sequence, lifecycle, and decision
+views; use ASCII for byte- or packet-level detail. Link runnable examples under
+`code/<language>/` rather than embedding large listings. Page ranges in the
+style guide are planning signals, not quotas.
 ```

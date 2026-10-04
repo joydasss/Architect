@@ -4,6 +4,8 @@ Maps to the original catalog's **Part XV — Design Thinking** and
 **Part XIV — Product Management**, moved earlier in reading order per the
 chat's "Suggested Book Sequence" (item 2).
 
+Topic map: [TOPIC_MAP.md](TOPIC_MAP.md)
+
 ## Chapters — Design Thinking
 
 | Chapter | Status |

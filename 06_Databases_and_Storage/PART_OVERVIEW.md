@@ -2,6 +2,8 @@
 
 Maps to the original catalog's **Part VI — Databases**.
 
+Topic map: [TOPIC_MAP.md](TOPIC_MAP.md)
+
 ## Chapters — Relational
 
 | Chapter | Status |

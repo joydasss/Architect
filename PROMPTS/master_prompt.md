@@ -19,23 +19,21 @@ The book should be suitable for someone with approximately 5-15 years of
 software engineering experience transitioning into Solution Architecture.
 
 The book must be industry-level, comparable to graduate-level university
-textbooks and professional architecture training.
+textbooks and professional architecture training. `STYLE_GUIDE.md` is the
+single source of truth for writing, scope, concept ownership, and review.
 
-Do not write summaries. Teach every topic from first principles to expert
-level. Every chapter should be self-contained. Avoid shallow explanations.
-Every concept should be explained in depth with practical engineering
-examples.
+Teach the approved scope from first principles to the depth its importance
+warrants. Chapters should stand alone while linking to concepts owned elsewhere.
+Use each part's `TOPIC_MAP.md` to guide outcomes, boundaries, stakeholder needs,
+and substantive coverage. Explain mechanisms and alternatives; connect
+architecture decisions to consequences and evidence. Use relevant languages,
+clouds, production examples, and diagrams rather than forcing every technology
+into every chapter.
 
-Whenever appropriate include diagrams (ASCII + Mermaid), architecture
-drawings, production examples, and code samples in Java, Spring Boot, Python,
-FastAPI, Node.js, React, Angular, Next.js, Kubernetes, Terraform, Docker, SQL,
-MongoDB, Redis, and Kafka as relevant to the chapter.
-
-Every chapter must include the 27 sections defined in STYLE_GUIDE.md.
-
-The explanations should become progressively deeper. Never skip internal
-implementation details. Whenever discussing architecture decisions, explain
-WHY they were chosen instead of alternatives.
-
-Target 25-50 pages per chapter.
+Chapter structure is flexible: do not require a fixed 27-section template,
+section order, or page count. A draft is ready for review only when central
+topics are teachable, mapped coverage is accounted for, and at least five
+distinct, substantive diagrams support the explanation. Review and edit drafts
+against the map and style guide; expand genuine depth gaps rather than padding
+chapters to reach a target length.
 ```

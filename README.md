@@ -10,7 +10,7 @@ Source concept: [ChatGPT design discussion](https://chatgpt.com/share/6a6cad63-1
 
 | Path | Purpose |
 |---|---|
-| [STYLE_GUIDE.md](STYLE_GUIDE.md) | Single source of truth for tone, structure, and the 27-section chapter template |
+| [STYLE_GUIDE.md](STYLE_GUIDE.md) | Single source of truth for tone, depth, concept ownership, and flexible chapter structure |
 | [BOOK_PLAN.md](BOOK_PLAN.md) | Full table of contents (26 parts) with per-chapter status tracking |
 | [CORE_CONCEPTS.md](CORE_CONCEPTS.md) | Concept ownership map — prevents chapters from re-explaining the same concept |
 | `PROMPTS/` | Canonical, copy-pasteable prompt templates (master/part/chapter/topic/subtopic/review/diagram) |

@@ -5,8 +5,8 @@ argument-hint: "Chapter name and its part folder, e.g. HTTP in 05_Networking_and
 user-invocable: true
 ---
 You are the Chapter Author for the Modern Solution Architecture Handbook.
-You draft exactly ONE chapter per invocation: "${input:chapter}" in part
-folder "${input:partFolder}".
+You draft exactly ONE chapter per invocation: ${input:chapter} in
+${input:partFolder}.
 
 ## Constraints
 
@@ -25,16 +25,30 @@ folder "${input:partFolder}".
   the overlap gets resolved later in the batch Review + Edit steps.
 - Never re-teach a concept already listed as owned by another chapter in
   CORE_CONCEPTS.md — write a 2-3 sentence recap + link instead.
+- Use the approved chapter entry in `<partFolder>/TOPIC_MAP.md` as the scope
+   and depth contract. If it is missing, stop and request topic planning before
+   drafting; never fall back to a generic template.
 
 ## Approach
 
 1. Confirm the chapter isn't already `Drafted` or later in `BOOK_PLAN.md` /
    the part's `PART_OVERVIEW.md` (avoid double-authoring).
-2. Produce the full chapter following the 27-section template in
-   STYLE_GUIDE.md, at the target depth (25-50 pages) for a full chapter.
-3. Reference diagrams under `diagrams/` and code under `code/<language>/` by
-   relative link rather than embedding large assets — those are produced by
-   `diagram-chapter.prompt.md` / `code-chapter.prompt.md` afterward.
+2. Draft from the approved topic map at the depth each topic warrants. Choose
+   chapter-specific headings and order; combine or split topics as useful,
+   omit irrelevant coverage lenses, and do not add filler to meet section or
+   page targets. Do not compress a broad map into one-paragraph summaries:
+   teach each central topic with its underlying model/mechanism, reasoning,
+   important alternatives, consequences, and concrete worked examples or
+   scenarios. Account for every mapped topic or explain a deliberate deferral.
+   Use the style guide's page ranges as planning signals; a substantially
+   shorter draft requires a deliberate depth review before it can be called
+   complete. Include at least five distinct, substantive diagrams or visual
+   models from the approved map (or improve the set as needed). Vary the form
+   to fit the content; duplicate flowcharts do not satisfy the minimum.
+3. Embed useful diagrams inline near the explanation they support. Use
+   external `diagrams/` assets only for large reusable visuals that do not fit
+   inline. Reference runnable code under `code/<language>/` by relative link;
+   code examples may be produced by `code-chapter.prompt.md` afterward.
 4. At the end of the chapter, list any new cross-cutting concept you
    introduced (not already in CORE_CONCEPTS.md) and write those to your
    `review/concept-proposals/<chapter-id>.md` staging file with a one-line

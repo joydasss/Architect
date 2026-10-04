@@ -2,20 +2,22 @@
 
 Maps to the original catalog's **Part XI — Observability**.
 
+Topic map: [TOPIC_MAP.md](TOPIC_MAP.md)
+
 ## Chapters
 
 | Chapter | Status |
 |---|---|
-| Logs | Not Started |
-| Metrics | Not Started |
-| Tracing | Not Started |
-| OpenTelemetry | Not Started |
-| Prometheus | Not Started |
-| Grafana | Not Started |
-| Splunk | Not Started |
-| Jaeger | Not Started |
-| Zipkin | Not Started |
-| Alerting | Not Started |
-| SLO (Service Level Objective) | Not Started |
-| SLI (Service Level Indicator) | Not Started |
-| Error Budgets | Not Started |
+| Logs | Drafted |
+| Metrics | Drafted |
+| Tracing | Drafted |
+| OpenTelemetry | Drafted |
+| Prometheus | Drafted |
+| Grafana | Drafted |
+| Splunk | Drafted |
+| Jaeger | Drafted |
+| Zipkin | Drafted |
+| Alerting | Drafted |
+| SLO (Service Level Objective) | Drafted |
+| SLI (Service Level Indicator) | Drafted |
+| Error Budgets | Drafted |

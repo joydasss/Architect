@@ -103,9 +103,9 @@ sequenceDiagram
     Producer->>Log: append key=order-7 seq=11
     Producer->>Log: append key=order-7 seq=12
     Log-->>Consumer: deliver seq=12 first after retry path
-    Consumer->>Consumer: buffer 12; expected is 11
+    Consumer->>Consumer: buffer 12, expected is 11
     Log-->>Consumer: deliver seq=11
-    Consumer->>Consumer: apply 11; advance expected to 12
+    Consumer->>Consumer: apply 11, advance expected to 12
     Consumer->>Consumer: drain buffer and apply 12
 ```
 
