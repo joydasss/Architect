@@ -51,3 +51,57 @@ next batch.
 - **Mermaid preview** — `bierner.markdown-mermaid` extension (recommended in `.vscode/extensions.json`).
 - **Vale** — `.vale.ini` is scaffolded but needs a style package/vocabulary before it's useful; defer full rule authoring until more chapters exist.
 - **Pandoc build** — `scripts/build-book.ps1` concatenates chapters (in `BOOK_PLAN.md` order) into a combined PDF/EPUB under `build/`. Requires [Pandoc](https://pandoc.org/) and a LaTeX engine (for PDF) installed locally.
+
+### Headroom with VS Code Copilot (Windows)
+
+[Headroom](https://github.com/headroomlabs-ai/headroom) provides a local
+compression proxy for native VS Code Copilot chat and inline completions. Keep
+using Copilot's normal model picker; no custom model or MCP server is required.
+This does not configure Copilot CLI or other extensions that use their own
+endpoints.
+
+Prerequisites: Python 3.10 or newer, VS Code with Copilot enabled and signed in,
+and a GitHub account with Copilot access. Install the Python CLI (not the npm SDK)
+in the workspace's ignored virtual environment:
+
+```powershell
+# Create the environment only if .venv does not already exist.
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install "headroom-ai[proxy]"
+```
+
+In **Terminal > Run Task**, use the tasks in
+[.vscode/tasks.json](.vscode/tasks.json):
+
+1. **Headroom: Sign in to GitHub** - complete the separate GitHub device login.
+   Headroom manages its own credential outside the repository; do not copy
+   credentials into workspace settings.
+2. **Headroom: Check GitHub sign-in** - confirm authentication.
+3. **Headroom: Start Copilot proxy** - leave this task running while using
+   Copilot. It listens on `127.0.0.1:8787` and adds Headroom's managed endpoint
+   overrides to VS Code **user** settings, affecting other windows using those
+   settings too. It is not started automatically when the workspace opens.
+4. Verify the proxy from another terminal:
+
+   ```powershell
+   Invoke-RestMethod http://127.0.0.1:8787/health
+   ```
+
+   Check that health reports the Copilot API as the OpenAI upstream, then send a
+   Copilot chat prompt and confirm the request appears in Headroom's metrics.
+   `.\.venv\Scripts\headroom.exe savings` reports savings from actual traffic.
+
+**Stop and undo:** press `Ctrl+C` in the proxy task's terminal, then run
+**Headroom: Undo Copilot integration** to restore direct Copilot access.
+Stopping the proxy alone leaves the endpoint overrides in place, so Copilot
+requests fail until the proxy is restarted or the integration is undone.
+Undo removes Headroom's settings block, not its saved GitHub authorization.
+
+For a non-default VS Code profile, Insiders, portable VS Code, or a remote
+extension host, follow the
+[official integration guide](https://docs.headroomlabs.ai/docs/vscode-copilot).
+Use the same explicit `--settings-file` on both `wrap vscode` and `unwrap vscode`
+when targeting a different settings file; the tasks above use stable VS Code's
+default user settings. The extension host must be able to reach the proxy's
+loopback address. If port 8787 is occupied, stop the existing proxy or pass
+`--port 8788` to `wrap vscode` and use that port for the health check.
