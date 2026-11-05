@@ -1,0 +1,50 @@
+﻿=== 01_release_manifest_validator.py
+GOOD support-assistant@2026.10.3: PASS
+BAD support-assistant@2026.10.4: FAIL (8 errors)
+  - missing artifact: guardrails
+  - model: unpinned version 'latest'
+  - model: invalid digest 'sha256:abc'
+  - prompt expects tool schema 4 but manifest pins 3
+  - index built with embed-v3 but query embedder is embed-v2
+  - signature not verified
+  - eval report ran suite 20 but manifest pins 21
+  - tier >= 2 requires rollback_to
+=== 02_canary_decision_simulation.py
+Scenario A (healthy): canary true error rate 2.0%, baseline 2.0%
+  stage   1%: canary n=  100 errors=  2 | base n= 9900 errors=198 | z= 0.00 -> ADVANCE (too little evidence to reject)
+  stage   5%: canary n=  500 errors= 10 | base n= 9500 errors=190 | z= 0.00 -> ADVANCE
+  stage  25%: canary n= 2500 errors= 50 | base n= 7500 errors=150 | z= 0.00 -> ADVANCE
+  stage  50%: canary n= 5000 errors=100 | base n= 5000 errors=100 | z= 0.00 -> ADVANCE
+  result: promoted to 100 percent
+Scenario B (regression): canary true error rate 3.0%, baseline 2.0%
+  stage   1%: canary n=  100 errors=  3 | base n= 9900 errors=198 | z= 0.71 -> ADVANCE (too little evidence to reject)
+  stage   5%: canary n=  500 errors= 15 | base n= 9500 errors=190 | z= 1.54 -> ADVANCE
+  stage  25%: canary n= 2500 errors= 75 | base n= 7500 errors=150 | z= 2.92 -> ROLLBACK (z above limit)
+  result: rolled back, 100 percent of traffic returned to baseline
+=== 03_composed_gate_policy.py
+Candidate 1
+  quality  PASS  diff lower 95% bound -1.73 pp (limit -2.0 pp)
+  safety   PASS  violations 4/500 = 0.8%, critical 0
+  latency  PASS  p95 2.40s vs limit 2.52s
+  cost     FAIL  cost/1k $14.50 vs $11.00 = +31.8% (limit +25.0%)
+  fairness PASS  worst subgroup gap 4.0 pp (limit 5.0 pp)
+  security PASS  critical vulnerabilities 0
+  decision: NO-GO
+Candidate 2 (after routing easy requests to a smaller model)
+  quality  PASS  diff lower 95% bound -1.73 pp (limit -2.0 pp)
+  safety   PASS  violations 4/500 = 0.8%, critical 0
+  latency  PASS  p95 2.40s vs limit 2.52s
+  cost     PASS  cost/1k $12.80 vs $11.00 = +16.4% (limit +25.0%)
+  fairness PASS  worst subgroup gap 4.0 pp (limit 5.0 pp)
+  security PASS  critical vulnerabilities 0
+  decision: GO
+=== 04_lineage_and_retirement.py
+Upstream of prediction_p123: 14 artifacts
+Downstream of data_snap_2026_07 (revoke if rights withdrawn): ['adapter_v5', 'deployment_prod_eu', 'prediction_p123', 'release_2026.10.3', 'train_run_311']
+Downstream of embed_v2: ['deployment_prod_eu', 'index_88', 'prediction_p123', 'release_2026.10.3']
+Retiring base_model_x: 160,000 of 300,000 requests/day not migrated (53.3%)
+Blocked by: ['checkout-bot', 'hr-faq', 'shadow-notebook']
+Announce: 2026-11-02 Sunset: 2027-05-01
+  T-90 reminder: 2027-01-31
+  T-30 brownout 1 hour: 2027-04-01
+  T-7 final notice: 2027-04-24

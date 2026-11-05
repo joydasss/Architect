@@ -1,0 +1,64 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Headroom: Sign in to GitHub",
+            "type": "process",
+            "command": "${workspaceFolder}\\.venv\\Scripts\\headroom.exe",
+            "args": ["copilot-auth", "login"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "Headroom: Start Copilot proxy",
+            "type": "process",
+            "command": "${workspaceFolder}\\.venv\\Scripts\\headroom.exe",
+            "args": ["wrap", "vscode"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            },
+            "runOptions": {
+                "instanceLimit": 1
+            }
+        },
+        {
+            "label": "Headroom: Check GitHub sign-in",
+            "type": "process",
+            "command": "${workspaceFolder}\\.venv\\Scripts\\headroom.exe",
+            "args": ["copilot-auth", "status"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "Headroom: Undo Copilot integration",
+            "type": "process",
+            "command": "${workspaceFolder}\\.venv\\Scripts\\headroom.exe",
+            "args": ["unwrap", "vscode"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        }
+    ]
+}

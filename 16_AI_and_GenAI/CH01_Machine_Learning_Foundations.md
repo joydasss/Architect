@@ -1,6 +1,6 @@
 # Machine Learning Foundations
 
-Part: [16 — Artificial Intelligence, Machine Learning, and Generative AI](PART_OVERVIEW.md) · Status: Drafted
+Part: [16 — Artificial Intelligence, Machine Learning, and Generative AI](PART_OVERVIEW.md) · Status: Revised (in-depth rewrite)
 
 ## 1. Introduction
 
@@ -27,6 +27,11 @@ After studying this chapter, a reader should be able to:
 4. Explain gradient-based optimization well enough to diagnose a learning rate that is too high, too low, or defeated by badly scaled features.
 5. Decompose prediction error into bias, variance, and irreducible noise, and use that decomposition to decide whether to simplify the model, add data, or change the problem.
 6. Build and review a first end-to-end model with a baseline, a time-respecting split, and a cost-based decision rule.
+7. Use the probability, linear algebra, and information theory behind these methods (Bayes' rule, maximum likelihood and MAP estimation, singular values, cross-entropy) in worked calculations.
+8. Separate predictive from causal questions, recognise Simpson's paradox, and say when a randomized holdout is required.
+9. Check calibration, choose a response to uncertainty, and triage distribution shift and feedback loops.
+
+Sections 12 to 20 hold the supporting theory and practice for outcomes 7 to 9. The earlier sections are self-contained, so a reader who already knows the mathematics can go directly to Section 16 or Section 17.
 
 ## 2. Historical Evolution
 
@@ -81,7 +86,7 @@ flowchart TD
 
 The decision tree makes three points that are easy to lose in enthusiasm for a technique. First, the left branch is a legitimate and often best outcome: a lookup table or a threshold rule that a domain expert can read is cheaper, faster, and more debuggable than any model. Second, "no data" is a blocker rather than an inconvenience; collecting labels may be the largest part of the project, and a project that cannot obtain outcomes cannot be evaluated, which means it cannot be responsibly deployed. Third, the final gate asks about errors, not accuracy. Every model will be wrong on some inputs. If a wrong answer is catastrophic, irreversible, or unreviewable, the design must change (a human decides, the model only assists, the action is reversible) before any algorithm is chosen.
 
-A practical way to apply the tree is the **baseline ladder**: constant prediction (always the majority class or the historical average), then a hand-written rule, then a simple statistical model, then a more complex learned model. Each rung must demonstrate a measured gain over the previous one on the metric that reflects the real decision. Projects that jump straight to the top rung cannot tell whether the complexity is earning its keep, and they often discover late that the constant baseline was close to optimal for their cost structure, as the worked example in Section 12.3 shows.
+A practical way to apply the tree is the **baseline ladder**: constant prediction (always the majority class or the historical average), then a hand-written rule, then a simple statistical model, then a more complex learned model. Each rung must demonstrate a measured gain over the previous one on the metric that reflects the real decision. Projects that jump straight to the top rung cannot tell whether the complexity is earning its keep, and they often discover late that the constant baseline was close to optimal for their cost structure, as the worked example in Section 21.3 shows.
 
 Finally, learned models are appropriate only where error is tolerable in a probabilistic sense. A fraud screen can miss some fraud and flag some legitimate payments, provided the review process, the economics, and the customer experience absorb those errors. A rule that must hold for every input, such as "never ship to a sanctioned country", should remain a rule, possibly with a model proposing candidates for human review.
 
@@ -1014,9 +1019,583 @@ The biased predictor fails the slice test (accuracy 0.575 on the `south` slice a
 | Retraining as the default fix | Reproduces the defect if the cause is leakage, labels, or drift | Diagnose with the flowchart in Section 9.3 first |
 | Unowned features and thresholds | The debt of Section 10 accumulates unseen | Named owners and versioned configuration |
 
-## 12. Putting It Together
+## 12. Probability and Estimation for Machine Learning
 
-### 12.1 The workflow lifecycle
+Sections 4 to 9 used probability without stopping to build it: losses were derived as negative log-likelihoods, noise was assumed Gaussian, and the shift taxonomy was stated in terms of $P(x)$ and $P(y \mid x)$. This section collects the probability a practitioner needs so that those statements can be checked rather than memorized. General probability for system design stays with [Part 07](../07_System_Design_and_Distributed_Systems/PART_OVERVIEW.md); only what learning uses is covered here.
+
+### 12.1 Random variables, expectation, and variance
+
+A **random variable** is a quantity whose value depends on a chance process: the label of the next customer, the loss on the next prediction, the latency of the next request. Its **distribution** says how likely each value is. For a discrete variable $X$ the **expectation** is the probability-weighted average,
+
+$$
+\mathbb{E}[X] = \sum_x x\,P(X = x),
+$$
+
+and the **variance** measures spread around that average,
+
+$$
+\operatorname{Var}(X) = \mathbb{E}\big[(X - \mathbb{E}[X])^2\big] = \mathbb{E}[X^2] - \big(\mathbb{E}[X]\big)^2 .
+$$
+
+The **standard deviation** is the square root of the variance and carries the units of $X$. Two properties do most of the work in machine learning. Expectation is linear, so $\mathbb{E}[aX + bY] = a\,\mathbb{E}[X] + b\,\mathbb{E}[Y]$ even when $X$ and $Y$ are dependent. Variance of a sum of independent variables adds, so the average of $n$ independent draws has variance $\sigma^2 / n$. That last fact is why averaging many noisy estimates helps (it underlies ensembles and mini-batch gradients) and why a mini-batch of 256 examples has a gradient noise standard deviation only 16 times smaller than a single example, not 256 times.
+
+A small numeric case makes the formulas concrete. Suppose the loss $X$ from a payment is 0 with probability 0.98 and 100 with probability 0.02. Then $\mathbb{E}[X] = 0.98 \times 0 + 0.02 \times 100 = 2$, $\mathbb{E}[X^2] = 0.02 \times 10{,}000 = 200$, and $\operatorname{Var}(X) = 200 - 2^2 = 196$, so the standard deviation is 14. The expected loss per payment is 2, but a typical payment loses nothing and a rare one loses 100. Expected value governs the long-run average, while variance governs how long you must wait before the average is trustworthy. A model that ranks the 2% of risky payments well can change the expected loss a great deal even though most predictions concern payments that lose nothing.
+
+Training and evaluation are applications of the **law of large numbers**: the sample average of independent draws converges to the expectation as $n$ grows. Empirical risk $\hat{R}_S(f)$ is a sample average of losses, and true risk $R(f)$ is the expectation (Section 4.1). The Hoeffding bound of Section 6.2 quantifies how quickly the first approaches the second for one fixed model. The **central limit theorem** adds that, for large $n$, the sample average is approximately normally distributed around the expectation with standard deviation $\sigma / \sqrt{n}$. That is the basis for the intervals in [CH06](CH06_Model_Evaluation_Validation_and_Selection.md): to halve the width of an accuracy interval you need four times as many test examples.
+
+### 12.2 Conditional probability and Bayes' rule
+
+The **conditional probability** $P(A \mid B)$ is the probability of $A$ given that $B$ occurred, defined as $P(A \cap B) / P(B)$. A supervised model estimates $P(y \mid x)$ or a summary of it, such as its mean. **Bayes' rule** reverses the conditioning:
+
+$$
+P(A \mid B) = \frac{P(B \mid A)\,P(A)}{P(B)}, \qquad P(B) = P(B \mid A)\,P(A) + P(B \mid \lnot A)\,P(\lnot A).
+$$
+
+Here $P(A)$ is the **prior** (belief before seeing $B$), $P(B \mid A)$ is the **likelihood**, and $P(A \mid B)$ is the **posterior**. The rule matters in practice because the quantity you can measure is often the reverse of the quantity you need. A screening test has a known sensitivity $P(\text{positive} \mid \text{condition})$ and false positive rate $P(\text{positive} \mid \text{no condition})$, but the decision-maker wants $P(\text{condition} \mid \text{positive})$.
+
+Take a condition with 1% prevalence, a screen with 90% sensitivity, and a 5% false positive rate. Imagine 1,000 people:
+
+```mermaid
+flowchart TD
+    A["1000 people"] --> B["10 have the condition<br/>(1 percent prevalence)"]
+    A --> C["990 do not"]
+    B --> D["9 test positive<br/>(90 percent sensitivity)"]
+    B --> E["1 tests negative"]
+    C --> F["49.5 test positive<br/>(5 percent false positive rate)"]
+    C --> G["940.5 test negative"]
+    D --> H["58.5 positives in total<br/>9 are true, so 15.4 percent"]
+    F --> H
+```
+
+The diagram turns the formula into counting. Of 58.5 people who test positive, only 9 have the condition, so $P(\text{condition} \mid \text{positive}) = 9 / 58.5 = 0.1538$. A test that is "90% accurate" in the sense of sensitivity gives a positive result that is right about one time in six, because the condition is rare. If the prevalence were 10% the same test would give $0.09 / (0.09 + 0.045) = 0.6667$ (the script [01_probability_information_and_estimation.py](../code/python/ml-foundations-chapter/01_probability_information_and_estimation.py) prints both values). The implication for model evaluation is direct: the usefulness of a positive prediction depends on prevalence, which is why precision falls when a model trained at one base rate is deployed at a lower one, and why the label-shift correction in Section 9.6 adjusts prior odds.
+
+Bayes' rule also states a classification strategy. With posterior probabilities $P(y \mid x)$, the classifier that minimizes error picks the class with the largest posterior, and the resulting error is the Bayes risk of Section 4.1. Generative classifiers such as naive Bayes estimate the likelihood $P(x \mid y)$ and prior $P(y)$ and apply the rule; discriminative classifiers such as logistic regression estimate $P(y \mid x)$ directly. Discriminative models usually win when data is plentiful because they spend no capacity modelling $P(x)$, while generative models can win with little data when their assumptions hold.
+
+Two more definitions are used throughout the part. Variables $X$ and $Y$ are **independent** when $P(X, Y) = P(X)P(Y)$, so knowing one says nothing about the other. They are **conditionally independent given $Z$** when $P(X, Y \mid Z) = P(X \mid Z)P(Y \mid Z)$. Naive Bayes assumes features are conditionally independent given the class, a strong assumption that is often false but still produces usable rankings. Dependence between examples breaks the i.i.d. assumption, so a dataset with ten rows per customer has far fewer than $n$ independent observations, and intervals computed as if rows were independent are too narrow.
+
+### 12.3 Distributions that recur
+
+A few distributions cover most modelling choices, and each corresponds to an assumption about how the target arises.
+
+| Distribution | Describes | Parameters | Typical use in ML |
+|---|---|---|---|
+| Bernoulli | One yes/no outcome | success probability $p$ | Binary labels; log loss (Section 7.2) |
+| Binomial | Number of successes in $n$ Bernoulli trials | $n$, $p$ | Counting conversions in a test cell |
+| Categorical | One of $K$ classes | probabilities $p_1, \dots, p_K$ | Multi-class labels; softmax output |
+| Gaussian (normal) | Symmetric continuous noise | mean $\mu$, variance $\sigma^2$ | Regression noise; squared error (Section 7.1) |
+| Laplace | Continuous noise with heavy tails | location $\mu$, scale $b$ | Absolute-error loss (Section 7.3) |
+| Poisson | Count of events in an interval | rate $\lambda$ | Arrivals, ticket counts, click counts |
+| Beta | A probability between 0 and 1 | $\alpha, \beta$ | Prior for a Bernoulli rate; conversion-rate uncertainty |
+| Exponential, Weibull | Time until an event | rate or shape and scale | Survival and time-to-churn models |
+
+Two cautions apply. First, real data is rarely Gaussian in the tails: transaction values, latencies, and counts are skewed and heavy-tailed, so a squared-error model fitted to raw values is dominated by a few extreme rows and a log transform or robust loss is often warranted. Second, a distributional choice is a statement about the label, not about the features. Features can have any distribution; the Gaussian assumption in Section 7.1 concerns the noise around the prediction.
+
+### 12.4 Maximum likelihood estimation
+
+Maximum likelihood estimation (MLE) chooses the parameters under which the observed data is most probable. For independent examples the **likelihood** is a product, and the **log-likelihood** turns it into a sum that is easier to differentiate and numerically stable:
+
+$$
+\hat{\theta}_{\text{MLE}} = \arg\max_\theta \prod_{i=1}^{n} p(y_i \mid x_i; \theta) = \arg\max_\theta \sum_{i=1}^{n} \ln p(y_i \mid x_i; \theta) = \arg\min_\theta \; -\sum_{i=1}^{n} \ln p(y_i \mid x_i; \theta).
+$$
+
+The last form is why the training objective of Section 6.1 is called a negative log-likelihood: choosing a loss is choosing a probability model for the label, and Sections 7.1 and 7.2 derived the Gaussian and Bernoulli cases.
+
+Two short derivations show how the machinery works. For a Bernoulli rate $p$ with $k$ successes in $n$ trials, the log-likelihood is $k \ln p + (n - k)\ln(1 - p)$. Setting the derivative $k/p - (n-k)/(1-p)$ to zero gives $\hat{p} = k/n$. With 7 successes in 10 trials, $\hat{p} = 0.7$, the sample proportion, as intuition suggests. For a Gaussian with unknown mean and variance, the log-likelihood is $-\tfrac{n}{2}\ln(2\pi\sigma^2) - \tfrac{1}{2\sigma^2}\sum (x_i - \mu)^2$. The derivative with respect to $\mu$ gives the sample mean, and the derivative with respect to $\sigma^2$ gives $\hat{\sigma}^2 = \tfrac{1}{n}\sum(x_i - \hat{\mu})^2$. For the values $2, 4, 4, 6$ the mean is 4 and the maximum likelihood variance is $(4 + 0 + 0 + 4)/4 = 2$. That estimator divides by $n$ and is biased low: the unbiased version divides by $n - 1$ and gives $8/3 = 2.667$. The bias arises because the mean was fitted to the same data, which leaves fewer than $n$ free deviations. This is the simplest instance of the optimism of Section 6.2: parameters fitted to a sample describe that sample better than the population.
+
+MLE has good large-sample properties: under regularity conditions it is consistent (it converges to the true parameter if the model is correct) and asymptotically efficient. It has two practical weaknesses. With little data it can be extreme, as in 3 successes out of 3 trials, which gives $\hat{p} = 1$ and a model that assigns zero probability to failure. And when the model has more parameters than the data can determine, the likelihood can be made arbitrarily large by memorizing, which is overfitting expressed in likelihood terms.
+
+### 12.5 Maximum a posteriori estimation and regularization as a prior
+
+**Maximum a posteriori (MAP)** estimation adds a prior over parameters, $p(\theta)$, and maximizes the posterior. By Bayes' rule the posterior is proportional to likelihood times prior, so after taking logs,
+
+$$
+\hat{\theta}_{\text{MAP}} = \arg\max_\theta \Big[\sum_{i=1}^{n} \ln p(y_i \mid x_i; \theta) + \ln p(\theta)\Big].
+$$
+
+The log-prior acts as a penalty added to the negative log-likelihood, which is exactly the regularized objective of Section 6.3. Take a linear model with Gaussian noise of variance $\sigma^2$ and a zero-mean Gaussian prior $\theta_j \sim \mathcal{N}(0, \tau^2)$ on each weight. The negative log-posterior, up to constants, is
+
+$$
+\frac{1}{2\sigma^2}\sum_{i=1}^{n}(y_i - \theta^\top x_i)^2 + \frac{1}{2\tau^2}\lVert\theta\rVert_2^2 .
+$$
+
+Multiplying by $\sigma^2$ gives $\tfrac{1}{2}\sum (y_i - \theta^\top x_i)^2 + \tfrac{\sigma^2}{2\tau^2}\lVert\theta\rVert_2^2$, which is ridge regression with penalty strength $\lambda = \sigma^2/\tau^2$ on the summed (not averaged) loss. A tight prior (small $\tau$) means a strong belief that weights are small, hence a large $\lambda$. A Laplace prior on the weights produces the $\ell_1$ penalty and its tendency toward exact zeros. This gives the penalty a meaning that can be argued about: choosing $\lambda$ is stating how large you expect coefficients to be, relative to the noise.
+
+For the Bernoulli case, a Beta$(a, b)$ prior gives the MAP estimate $(k + a - 1)/(n + a + b - 2)$. With the Beta$(2, 2)$ prior and 7 successes in 10 trials this is $8/12 = 0.667$, slightly pulled toward 0.5 from the MLE of 0.7. For 3 successes in 3 trials the MLE is 1.0 and the MAP is $4/5 = 0.8$, which avoids the claim that failure is impossible. The prior acts like $a - 1$ and $b - 1$ imaginary prior observations, and its influence fades as $n$ grows. This is the same behavior as a regularizer: strong when data is scarce, negligible when data is abundant.
+
+A fully Bayesian treatment keeps the whole posterior rather than its peak, and averages predictions over it. That is the route to the uncertainty estimates discussed in Section 18; MAP is the cheap approximation that keeps only the mode.
+
+## 13. Linear Algebra and Matrix Calculus for Machine Learning
+
+Section 5.1 stacked examples into a design matrix $X$, and Section 8.9 wrote the least-squares solution in matrix form. This section supplies the linear algebra needed to read those formulas and to understand later chapters on embeddings and neural networks, where almost every operation is a matrix product.
+
+### 13.1 Vectors, dot products, and norms
+
+A **vector** $x \in \mathbb{R}^d$ is an ordered list of $d$ numbers. In machine learning it is an example's features, a model's weights, a gradient, or an embedding. The **dot product** $w^\top x = \sum_j w_j x_j$ is the building block of linear models: a prediction $\hat{y} = w^\top x + b$ is a weighted sum. Geometrically, $w^\top x = \lVert w\rVert\,\lVert x\rVert \cos\theta$ where $\theta$ is the angle between the vectors, so the dot product is large when the two point in similar directions. Dividing by both lengths gives the **cosine similarity**, which ignores magnitude. For $a = (1, 2)$ and $b = (2, 1)$ the dot product is 4, both lengths are $\sqrt{5}$, and the cosine is $4/5 = 0.8$. Cosine similarity is the standard way to compare embeddings, treated in [CH16](CH16_Embeddings_and_Semantic_Representations.md).
+
+A **norm** measures size. The $\ell_2$ norm is $\lVert x\rVert_2 = \sqrt{\sum x_j^2}$, the $\ell_1$ norm is $\sum |x_j|$, and the $\ell_\infty$ norm is $\max_j |x_j|$. For $x = (3, 4)$ these are 5, 7, and 4. The choice of norm is a choice of what counts as large. The $\ell_2$ penalty on weights discourages any single large weight and spreads weight across correlated features; the $\ell_1$ penalty charges the same price per unit of weight wherever it sits, which makes it cheaper to concentrate weight on a few features and leaves exact zeros. The geometric picture is that the set of weights with $\lVert w\rVert_1 \le t$ is a diamond with corners on the axes, and an elliptical loss contour is likely to first touch it at a corner, where some coordinates are zero. The $\ell_2$ ball is round and has no corners.
+
+### 13.2 Matrices as linear maps
+
+A matrix $A \in \mathbb{R}^{m \times d}$ maps vectors in $\mathbb{R}^d$ to vectors in $\mathbb{R}^m$ by $x \mapsto Ax$. A dense neural-network layer computes $Wx + b$ followed by a nonlinearity, so a network is a sequence of such maps. Matrix multiplication costs $O(mdk)$ operations for an $m \times d$ times $d \times k$ product, which is the reason accelerators optimized for dense matrix products dominate deep learning hardware (see [CH07](CH07_Deep_Learning_Foundations.md)). The matrix $X^\top X \in \mathbb{R}^{d \times d}$ for a design matrix $X$ collects the pairwise dot products of feature columns; divided by $n$ (after centering) it is the covariance matrix of the features.
+
+The **rank** of a matrix is the number of linearly independent columns. If one feature is an exact linear combination of others (a total equal to the sum of its parts), $X^\top X$ is not invertible and the least-squares solution is not unique; many weight vectors produce identical predictions. Near-dependence, called multicollinearity, produces an invertible but ill-conditioned matrix and unstable weights, the situation Section 8.5 described as poor conditioning.
+
+### 13.3 Eigenvalues, singular values, and low-rank structure
+
+An **eigenvector** of a square matrix $A$ is a nonzero vector $v$ with $Av = \lambda v$: the map only stretches it by the **eigenvalue** $\lambda$. For a symmetric matrix such as a covariance matrix or $X^\top X$, eigenvectors are orthogonal and eigenvalues are real and non-negative when the matrix is positive semidefinite. The eigenvalues of the Hessian of squared loss are the curvatures along the principal directions, which is why Section 8.4 bounded the stable learning rate by $2/\lambda_{\max}$ and why the condition number $\kappa = \lambda_{\max}/\lambda_{\min}$ controls the speed of gradient descent.
+
+The **singular value decomposition (SVD)** extends the idea to any rectangular matrix: $A = U\Sigma V^\top$ with orthogonal $U$ and $V$ and non-negative singular values $\sigma_1 \ge \sigma_2 \ge \cdots$ on the diagonal of $\Sigma$. Read it as a recipe: rotate with $V^\top$, stretch each axis by $\sigma_i$, and rotate with $U$. The truncation to the top $r$ singular values is the best rank-$r$ approximation in the least-squares sense (the Eckart-Young theorem).
+
+A tiny worked case: $A = \begin{pmatrix} 3 & 1 \\ 1 & 3 \end{pmatrix}$ is symmetric with eigenvalues 4 and 2, and eigenvectors proportional to $(1, 1)$ and $(1, -1)$. Because it is symmetric and positive definite, its singular values are also 4 and 2. The rank-1 approximation keeps only the first term, $4 \cdot \tfrac{1}{2}\begin{pmatrix}1 & 1\\ 1 & 1\end{pmatrix} = \begin{pmatrix}2 & 2\\ 2 & 2\end{pmatrix}$. The residual is $\begin{pmatrix}1 & -1\\ -1 & 1\end{pmatrix}$ with Frobenius norm $\sqrt{4} = 2$, which equals the discarded singular value, and the retained share of squared magnitude is $16/(16 + 4) = 80\%$. Principal component analysis (PCA) applies exactly this idea to centered data, keeping the directions of largest variance ([CH05](CH05_Unsupervised_Learning_and_Representation_Reduction.md)). Embedding compression, low-rank adaptation of large models, and recommender-system factorization are further uses of the same fact that many real matrices are close to low rank.
+
+### 13.4 Matrix calculus and the least-squares gradient
+
+Gradients of scalar functions with respect to vectors follow a few identities. For a constant vector $a$, $\nabla_w (a^\top w) = a$. For a symmetric matrix $A$, $\nabla_w (w^\top A w) = 2Aw$. With these, the least-squares objective $J(w) = \tfrac{1}{2n}\lVert Xw - y\rVert_2^2$ can be differentiated in a few lines. Expand $J(w) = \tfrac{1}{2n}\big(w^\top X^\top X w - 2 y^\top X w + y^\top y\big)$. Then
+
+$$
+\nabla_w J = \frac{1}{2n}\big(2X^\top X w - 2X^\top y\big) = \frac{1}{n}X^\top (Xw - y).
+$$
+
+This is the gradient used in Section 8.10, written as the transpose of the design matrix times the residual vector. Setting it to zero gives the normal equations $X^\top X\, w = X^\top y$. The Hessian is $\tfrac{1}{n}X^\top X$, which is positive semidefinite, so $J$ is convex (Section 8.1). Adding the ridge term $\tfrac{\lambda}{2}\lVert w\rVert^2$ changes the gradient to $\tfrac{1}{n}X^\top(Xw - y) + \lambda w$ and the solution to $w = (X^\top X + n\lambda I)^{-1}X^\top y$. Adding $n\lambda$ to the diagonal adds that constant to every eigenvalue of the matrix being inverted, so it can never be singular for $\lambda > 0$.
+
+The effect on conditioning can be computed. Suppose the Hessian $\tfrac{1}{n}X^\top X$ has eigenvalues 100 and 0.01, so $\kappa = 10{,}000$ and gradient descent must use a step below $2/100$ while the shallow direction shrinks its error by only a factor of $1 - 0.02 \times 0.01 = 0.9998$ per step, so reducing that error by half takes about 3,500 steps. With $\lambda = 0.1$ the eigenvalues become 100.1 and 0.11, so $\kappa = 100.1/0.11 \approx 910$, an eleven-fold improvement in conditioning. Regularization therefore helps in three distinct ways: it encodes a prior (Section 12.5), it reduces variance (Section 9.4), and it improves numerical conditioning.
+
+## 14. Information Theory and the Case for Cross-Entropy
+
+Section 7.2 derived log loss from a Bernoulli likelihood. Information theory gives a second, independent route to the same loss and explains why it is the default for classification, language modelling, and most generative training objectives.
+
+### 14.1 Entropy
+
+The **entropy** of a discrete distribution $p$ measures its average uncertainty, or the average number of bits needed to encode an outcome with an optimal code:
+
+$$
+H(p) = -\sum_{k} p_k \log_2 p_k .
+$$
+
+A fair coin has $H = 1$ bit. A distribution $(0.5, 0.25, 0.25)$ has $H = 0.5 \times 1 + 0.25 \times 2 + 0.25 \times 2 = 1.5$ bits: the likely symbol gets a one-bit code and the two rare ones get two bits. A deterministic outcome has $H = 0$. Entropy is largest for the uniform distribution, where nothing is predictable. Using natural logarithms gives units of nats instead of bits, and ML code almost always uses nats; the conversion is a constant factor of $\ln 2$.
+
+### 14.2 Cross-entropy and Kullback-Leibler divergence
+
+Suppose the true distribution is $p$ but we encode with a code optimized for a model distribution $q$. The average code length is the **cross-entropy**
+
+$$
+H(p, q) = -\sum_{k} p_k \log q_k ,
+$$
+
+and the extra cost over the optimum is the **Kullback-Leibler (KL) divergence**
+
+$$
+D_{\text{KL}}(p \,\Vert\, q) = \sum_k p_k \log\frac{p_k}{q_k} = H(p, q) - H(p) \;\ge\; 0 .
+$$
+
+KL divergence is zero only when $q = p$. It is not symmetric. With $p = (0.5, 0.25, 0.25)$ and $q$ uniform over three symbols, $H(p, q) = \log_2 3 = 1.585$ bits, so $D_{\text{KL}}(p \Vert q) = 1.585 - 1.5 = 0.085$ bits, while $D_{\text{KL}}(q \Vert p) = 0.0817$ bits (both from the script of Section 12). The asymmetry matters in practice. Minimizing $D_{\text{KL}}(p \Vert q)$ over $q$, as maximum likelihood does, punishes a model that assigns near-zero probability where the data has mass, so it tends to spread out and cover all modes. The reverse direction, used in some variational methods, punishes mass where the data has none and tends to lock onto a single mode.
+
+### 14.3 Why cross-entropy is the classification loss
+
+For a classification example the true distribution over classes is the one-hot label: all probability on the observed class $c$. Then the cross-entropy between label and the model's predicted distribution $q$ collapses to a single term:
+
+$$
+H(p, q) = -\sum_k p_k \ln q_k = -\ln q_c .
+$$
+
+This is the log loss of Section 7.2 and the negative log-likelihood of the categorical distribution. For a model that outputs probabilities $(0.7, 0.2, 0.1)$ when class 1 is correct, the loss is $-\ln 0.7 = 0.3567$ nats. Averaged over a dataset, the cross-entropy between the empirical label distribution and the model equals the negative log-likelihood divided by $n$. Because $H(p)$ of a one-hot label is zero, minimizing cross-entropy and minimizing KL divergence from the label distribution are the same problem. Three conclusions follow, and they are the reasons the loss is so widely used:
+
+1. **It is the maximum likelihood objective** for a categorical output, so it inherits the consistency and efficiency properties of Section 12.4.
+2. **It is a proper scoring rule** (Section 7.5): it is minimized in expectation by the true conditional probabilities, so it rewards honest probabilities that a decision rule can consume.
+3. **It has a well-behaved gradient.** Paired with the softmax or sigmoid link, the gradient with respect to the pre-activation is simply predicted probability minus label, which does not vanish when the model is confidently wrong (the 57-fold comparison in Section 7.2).
+
+The same expression is the training objective of language models: the "label" is the next token, the model outputs a distribution over a vocabulary, and the average cross-entropy per token is the quantity reported as loss. Its exponential, **perplexity**, is the effective number of equally likely choices the model is hesitating between; a per-token cross-entropy of 2 nats corresponds to a perplexity of $e^2 \approx 7.4$. [CH15](CH15_Large_Language_Model_Fundamentals_and_Inference.md) takes this further.
+
+### 14.4 Mutual information in one paragraph
+
+The **mutual information** $I(X; Y) = D_{\text{KL}}\big(P(X, Y) \Vert P(X)P(Y)\big)$ measures how far two variables are from independent, or how much knowing $X$ reduces uncertainty about $Y$. It is zero for independent variables and captures nonlinear dependence that correlation misses. It is used for feature screening and appears in contrastive representation learning objectives ([CH16](CH16_Embeddings_and_Semantic_Representations.md)). A feature with near-zero mutual information with the label is unlikely to help any model, but a feature can have low marginal information and still be informative in combination with others, so screening is a cheap filter and not a proof of uselessness.
+
+## 15. Learning Theory, Inductive Bias, and Optimization Geometry
+
+Section 8 treated optimization as a practical craft and Section 9 treated generalization empirically. This section adds the conceptual theory that explains why some choices work: what the loss surface looks like beyond one dimension, why no learner is best everywhere, and how the amount of data needed relates to the flexibility of the model. The treatment is conceptual. The bounds below are loose in practice and are used to build intuition and to compare design options, not to certify a deployed system.
+
+### 15.1 Local minima, saddle points, and flat regions
+
+In one dimension a point with zero gradient is a minimum, a maximum, or an inflection. In many dimensions there is another case. At a **saddle point** the gradient is zero but the surface curves up along some directions and down along others. The Hessian at a minimum has all eigenvalues non-negative; at a saddle it has both signs. The standard example is $f(x, y) = x^2 - y^2$, with gradient $(2x, -2y)$ and a saddle at the origin.
+
+Gradient descent on this function with step $\eta = 0.1$ updates $x \leftarrow x - 0.1 \times 2x = 0.8x$ and $y \leftarrow y + 0.1 \times 2y = 1.2y$. Starting at $(1.0, 0.01)$, the $x$ coordinate shrinks by a factor of 0.8 per step and the $y$ coordinate grows by a factor of 1.2:
+
+| Step | $x$ | $y$ | $f(x, y)$ |
+|---|---|---|---|
+| 0 | 1.00000 | 0.01000 | 0.99990 |
+| 5 | 0.32768 | 0.02488 | 0.10676 |
+| 10 | 0.10737 | 0.06192 | 0.00770 |
+| 20 | 0.01153 | 0.38338 | -0.14684 |
+| 30 | 0.00124 | 2.37376 | -5.63475 |
+
+(Values are printed by the script of Section 12 and can be checked: $0.8^{10} = 0.10737$ and $0.01 \times 1.2^{10} = 0.0619$.) The iterate approaches the saddle, where progress nearly stops because the gradient is tiny, and then escapes along the negative-curvature direction once the small $y$ component has grown. Had $y$ started at exactly zero, descent would have converged to the saddle and stayed. Real training is noisy and parameters are never exactly on the unstable manifold, which is one reason stochastic gradients help: gradient noise supplies the small push that exact descent lacks.
+
+Three practical statements follow, each stated with the level of evidence it deserves.
+
+- For **convex** objectives such as linear regression and logistic regression (Section 8.1), every local minimum is global and the question is only how fast descent gets there.
+- For **non-convex** models such as neural networks, the objective has many stationary points. Empirical and theoretical work suggests that in high dimensions saddle points and flat plateaus are more common obstacles than poor isolated local minima, and that good solutions found from different random starts often have similar training loss. Treat this as a working observation about common architectures, not as a guarantee.
+- **Flatness** is associated with generalization in some studies: a minimum whose loss changes little under small weight perturbations tends to be less sensitive to the difference between training and test data. The evidence is mixed and depends on how flatness is measured, so it is a heuristic for why noisy training with a moderate batch size is often preferred, not a rule.
+
+The architect's consequence is operational. Two training runs with different seeds will land at different solutions with slightly different behavior, even for identical code and data. Reproducibility requires recorded seeds (Section 8.8) and, for any decision that depends on a narrow margin between models, an estimate of seed-to-seed variation. A reported improvement smaller than that variation is not evidence.
+
+### 15.2 No free lunch and inductive bias
+
+Wolpert's no-free-lunch results for learning (1996) say that, averaged uniformly over all possible target functions, no learning algorithm outperforms any other, including random guessing, on cases outside the training set. The intuition is simple. If every labelling of unseen inputs is equally likely, then seeing the labels of some inputs tells you nothing about the others. Learning is possible only because real problems are not uniform over all functions: nearby inputs tend to have similar outputs, effects tend to be smooth or monotone, images have local structure, and language has syntax.
+
+An **inductive bias** is the set of assumptions a learner brings that make some generalizations preferred over others. Every model family encodes one:
+
+| Model family | Inductive bias | Works well when | Fails when |
+|---|---|---|---|
+| Linear / logistic regression | Outcome is a weighted sum of features (monotone, additive) | Effects are roughly additive and features are well engineered | Strong interactions or thresholds dominate |
+| Decision tree / gradient-boosted trees | Piecewise-constant regions defined by axis-aligned splits | Tabular data with interactions and mixed types | Smooth extrapolation beyond the training range |
+| $k$-nearest neighbours | Similar inputs have similar outputs under a chosen distance | Distance is meaningful and data is dense | High dimensions, irrelevant features |
+| Convolutional network | Local patterns matter and their position does not (translation equivariance) | Images, local signals | Global structure with no locality |
+| Recurrent network / Transformer | Sequence order matters (via state or positional information) | Text, time series, audio | Tiny data without pretraining |
+| Regularized models | Smaller weights are more plausible | Many weak features | The true signal needs large coefficients |
+
+The consequence for practice is that "which algorithm is best" has no general answer; the right question is which bias matches the structure of this problem, and the evidence is validation on a split that resembles deployment (Sections 5.3 and 9.6). The same reasoning explains why tree ensembles frequently outperform neural networks on small to medium tabular datasets and why the reverse holds for images and text: it is a match between bias and structure, not a ranking of sophistication. Pretrained models change the picture by importing a bias learned from a very large dataset, which is why transfer learning (Section 16) reduces the labelled data a new task needs.
+
+### 15.3 Probably approximately correct learning and capacity
+
+Probably approximately correct (PAC) learning, introduced by Valiant (1984), asks how many examples are enough to guarantee, with probability at least $1 - \delta$, that the learned hypothesis has true risk within $\epsilon$ of the best in its class. The core argument combines two earlier facts. Hoeffding's inequality (Section 6.2) bounds the gap between empirical and true risk for one fixed hypothesis. A **union bound** over all $|\mathcal{H}|$ hypotheses in a finite class, needed because the learner picks the one that looks best on the sample, multiplies the failure probability by $|\mathcal{H}|$. Solving for the gap gives, with probability at least $1 - \delta$ and for every $h \in \mathcal{H}$ simultaneously,
+
+$$
+R(h) \;\le\; \hat{R}_S(h) + \sqrt{\frac{\ln |\mathcal{H}| + \ln(1/\delta)}{2n}} \quad \text{(loss in } [0, 1]\text{)}.
+$$
+
+Take a class of $2^{20}$ hypotheses (say, any rule that can be written with 20 binary parameters), so $\ln|\mathcal{H}| = 20 \ln 2 = 13.86$, and a confidence of $\delta = 0.05$, so $\ln(1/\delta) = 3.00$. The numerator is about 16.86. With $n = 1{,}000$ examples the gap bound is $\sqrt{16.86/2000} = 0.092$. With $n = 10{,}000$ it is $\sqrt{16.86/20000} = 0.029$. Ten times the data shrinks the guaranteed gap by $\sqrt{10} \approx 3.2$, and the dependence on the class is only through its logarithm: doubling the number of binary parameters from 20 to 40 changes $\ln|\mathcal{H}|$ from 13.86 to 27.7, so the gap bound at $n = 1{,}000$ rises from 0.092 to 0.121, not to double.
+
+For infinite classes such as linear separators, the size of the class is replaced by the **Vapnik-Chervonenkis (VC) dimension** (Vapnik and Chervonenkis, 1971), the largest number of points the class can label in every possible way (shatter). A linear classifier in $d$ dimensions with a bias term has VC dimension $d + 1$. Bounds of the same shape hold with the VC dimension in place of $\ln|\mathcal{H}|$, up to a logarithmic factor in $n$. What practitioners should take from this is conceptual:
+
+- The data needed to trust training error grows with the capacity of the class and shrinks with the square root of $n$ in the gap, which is the sampling-gap story of Section 6.2.
+- Selection counts. Trying many models and keeping the best is a larger effective hypothesis class, so the gap bound grows with the number of candidates tried. This is why a validation set that has been reused for hundreds of comparisons is no longer an unbiased estimate and a final untouched test set is needed ([CH06](CH06_Model_Evaluation_Validation_and_Selection.md)).
+- The bounds are usually loose, often by orders of magnitude, and classical capacity measures do not explain why heavily overparameterized deep networks generalize (Section 9.5 discusses double descent). Treat them as qualitative design guidance: more parameters need more data or stronger bias, and the guarantee degrades with selection.
+
+## 16. Learning Problem Taxonomy and Its Architectural Consequences
+
+Section 4.2 defined the main setups by the signal available to the learner. This section extends that list to the variants a production architect meets and, for each, states what changes in data flow, infrastructure, and risk. The question to ask of a proposal is not "which algorithm" but "what is the training signal, who produces it, and how often does it change".
+
+```mermaid
+flowchart TD
+    A["Do you have labels for the target?"] -->|"Yes, plenty"| B["Supervised learning"]
+    A -->|"Yes, few"| C["Few labels: semi-supervised, transfer,<br/>or active learning"]
+    A -->|"No"| D["Can labels be derived from the data itself?"]
+    D -->|"Yes"| E["Self-supervised learning"]
+    D -->|"No"| F["Is there a reward from interaction?"]
+    F -->|"Yes"| G["Reinforcement learning"]
+    F -->|"No"| H["Unsupervised: clustering, density,<br/>dimensionality reduction"]
+    B --> I{"Does data arrive continuously<br/>or sit in separate silos?"}
+    I -->|"Stream"| J["Online learning"]
+    I -->|"Silos that cannot be pooled"| K["Federated learning"]
+    I -->|"Several related tasks"| L["Multi-task learning"]
+```
+
+The decision tree starts from the training signal because that is what determines the cost of the project. Labels are usually the most expensive input, so the first branches ask whether they exist, whether they are few, or whether the data can supply them. The second-level branches concern how data arrives, which determines the serving and retraining architecture.
+
+| Setup | Training signal | Typical use | Architectural consequence | Main risk |
+|---|---|---|---|---|
+| Supervised | Labelled examples | Fraud, churn, forecasting | A labelling pipeline, label-delay budget, and offline evaluation set | Label noise, selection, leakage (Section 5.2) |
+| Semi-supervised | Few labels plus many unlabelled examples | Document classification with a small labelled set | Pseudo-labelling or consistency training adds a training stage and a quality gate | Confirmation bias: the model reinforces its own errors |
+| Self-supervised | Labels manufactured from the data (masked or next token) | Pretraining language and vision models | Very large data pipeline and compute; the output is a reusable representation | Inherits data bias and contamination; evaluation is indirect |
+| Unsupervised | Structure in unlabelled data | Segmentation, anomaly detection | No ground truth, so validation depends on downstream use | Clusters that look meaningful but are not actionable |
+| Reinforcement | Reward from interaction | Bidding, control, recommendation slates | A simulator or safe exploration, logged action propensities | Reward hacking; data depends on the policy (Section 4.2) |
+| Online | A stream of examples, updated incrementally | Ad ranking, spam | Streaming feature pipeline, bounded model state, rollback | Feedback loops, catastrophic updates from a poisoned stream |
+| Active | Model chooses which examples to label | Expensive expert labels | A human-in-the-loop queue and a query strategy | Sampling bias: the labelled set is not representative |
+| Transfer | A pretrained model adapted to a new task | Most vision and language projects | Model registry, versioned base model, licence tracking | Negative transfer; hidden dependence on the base model |
+| Multi-task | Several related targets share a representation | Related predictions from one user history | One model serves several consumers, so a change affects all | Tasks interfere; one owner's change harms another |
+| Federated | Gradients from data that stays on devices or sites | Keyboards, hospitals | Coordination server, secure aggregation, heterogeneous clients | Non-i.i.d. client data, privacy leakage via updates |
+
+Four of these deserve a short elaboration because they change who owns what.
+
+**Semi-supervised and active learning** both attack label cost. Semi-supervised methods use the structure of unlabelled data, for example assuming that decision boundaries lie in low-density regions. Active learning spends the labelling budget where the model is least certain. Active learning produces a labelled set that is deliberately not a random sample of the population, so its error estimate is biased unless a separate random evaluation set is kept. The review rule is to maintain a random, never-queried test slice.
+
+**Online learning** updates the model after each example or small batch rather than retraining from scratch. It adapts quickly, but it moves the training loop into production: a bad batch of data, a bot attack, or a pipeline bug changes the live model within minutes. The mitigations are guard-rail checks on update size, a shadow model compared on a held-out stream, snapshots for rollback, and rate limits on any single source's influence.
+
+**Transfer learning** begins from a model pretrained on a large dataset and adapts it, either by training a new final layer on the target data or by fine-tuning all or part of the weights ([CH20](CH20_Fine_Tuning_PEFT_and_LoRA.md)). The architecture consequence is a new dependency: the base model's licence, training-data provenance, and update schedule become part of your system, and changing the base model changes behavior everywhere downstream.
+
+**Federated learning** trains across clients without centralizing raw data: each client computes an update on local data and a server aggregates them. It reduces data movement but does not by itself guarantee privacy, because model updates can leak information about training examples, which is why it is paired with secure aggregation and differential privacy when the data is sensitive ([CH30](CH30_AI_Data_Governance_Privacy_and_Provenance.md)). Clients differ in data distribution and availability, so convergence is slower and evaluation needs a plan for clients that never participate.
+
+## 17. Causal versus Predictive Modeling
+
+A supervised model learns the association between inputs and a target in the observed data. That is sufficient for many tasks (forecast demand, rank documents, flag likely fraud) and insufficient for others. This section states where the line is, because mixing the two is the source of some of the most expensive mistakes in applied machine learning.
+
+### 17.1 Three levels of question
+
+Judea Pearl describes a ladder with three rungs. **Association** asks what we expect to see: customers with many support tickets churn more. **Intervention** asks what happens if we act: if we call these customers, will they churn less? **Counterfactual** asks what would have happened otherwise: would this particular customer have stayed had we not called? A predictive model answers the first. Decisions are interventions, so the question the business needs answered is usually on the second rung. The two coincide only when the association is stable under the action, which is not guaranteed.
+
+A churn model illustrates the gap. Accounts with many tickets churn at high rates, so the model scores them high and the retention team calls them. Some of those accounts were unhappy and a call helps. Some had already decided to leave and no call will change that. Some would have stayed anyway. The model identifies who is likely to churn, but the value of the call depends on who is *persuadable*, which is a difference between outcomes with and without treatment. Modelling that difference directly is called **uplift modelling** (or heterogeneous treatment effect estimation), and it requires data in which some accounts were randomly called and others were not.
+
+### 17.2 Confounding
+
+A **confounder** is a variable that influences both the treatment and the outcome, creating an association that is not causal.
+
+```mermaid
+flowchart LR
+    S["Severity<br/>(confounder)"] --> T["Treatment chosen"]
+    S --> O["Outcome"]
+    T --> O
+```
+
+The diagram shows why observational comparisons mislead. Severity drives which treatment a clinician picks and also drives the outcome. Comparing outcomes between treatments mixes the effect of the treatment with the effect of who received it. In a business setting, replace severity with "customer value": high-value customers receive discounts, and they also buy more, so a model trained on logs concludes that discounts increase purchases. Recommending more discounts on that basis would give away margin to people who would have bought anyway.
+
+### 17.3 Simpson's paradox with numbers
+
+Simpson's paradox is the extreme case: a comparison reverses once a confounder is accounted for. The counts below follow the shape of a widely cited illustration based on kidney stone treatments and are used here as illustrative data. Treatment A and treatment B are compared by success rate:
+
+| | Mild cases | Severe cases | Overall |
+|---|---|---|---|
+| Treatment A | 81 of 87 = 93.1% | 192 of 263 = 73.0% | 273 of 350 = 78.0% |
+| Treatment B | 234 of 270 = 86.7% | 55 of 80 = 68.8% | 289 of 350 = 82.6% |
+
+A has the higher success rate in both groups, yet B has the higher rate overall. The reason is the mix: B was given mostly to mild cases (270 of 350) which succeed more often, while A was given mostly to severe cases (263 of 350). The overall rate mixes treatment quality with case mix. Standardizing to a common 50/50 mix gives A $0.5 \times 0.931 + 0.5 \times 0.730 = 0.831$ and B $0.5 \times 0.867 + 0.5 \times 0.688 = 0.777$, so after adjustment A is better by about 5.4 points (output of [02_simpson_calibration_and_shift.py](../code/python/ml-foundations-chapter/02_simpson_calibration_and_shift.py)).
+
+The lesson that matters most is that the data alone cannot say which comparison is right. If severity is a cause of treatment choice (a confounder, as drawn above), stratify by it. If instead the grouping variable is a *consequence* of the treatment, such as a post-treatment complication, then stratifying removes part of the treatment's effect and gives the wrong answer. The decision depends on the causal structure, which comes from domain knowledge or from an experiment, not from the table. This is the same segment-reversal hazard that Section 11.1 flagged for comparing model versions on unequal traffic mixes.
+
+### 17.4 Randomized experiments and observational data
+
+A **randomized controlled trial**, called an A/B test in product work, assigns the treatment by chance, so the groups differ only by the treatment in expectation and confounding is removed by design. Suppose 5,000 accounts are called and 5,000 are not, and 10.0% and 12.0% churn respectively. The difference is 2.0 percentage points. The standard error of the difference of two proportions is $\sqrt{0.12 \times 0.88/5000 + 0.10 \times 0.90/5000} = \sqrt{3.912 \times 10^{-5}} = 0.00626$, so a 95% interval is $0.020 \pm 1.96 \times 0.00626 = (0.0077, 0.0323)$. The effect is distinguishable from zero, and the plausible range supports a value estimate: between about 8 and 32 saved accounts per 1,000 called. Experiment design is covered in [Part 02](../02_Design_Thinking_and_Product_Management/CH27_A_B_Testing.md).
+
+Experiments are not always possible, because the action is unethical, too slow, too expensive, or already deployed. Observational methods then try to approximate one under stated assumptions: adjusting for measured confounders by regression or matching; inverse-propensity weighting, which reweights units by the inverse of their probability of receiving the treatment they received; instrumental variables; and difference-in-differences. All depend on assumptions that cannot be tested from the data alone, chiefly that no unmeasured confounder remains. Treat such estimates as hypotheses to confirm with an experiment on a small fraction of traffic when the stakes justify it.
+
+### 17.5 When prediction is enough, and when it is not
+
+Prediction is enough when the model's output is consumed without changing the process that generates the data, or when the action's effect is already known: demand forecasts for capacity planning, spam filtering, and quality inspection on a fixed line. It is not enough when the model drives an action that changes behavior, and the value depends on what would have happened otherwise: whom to call, what to discount, which treatment to recommend, which loan to offer. Also not enough are explanations used as causal claims. A feature importance score says which features the model used, not which features cause the outcome; removing a "driver" in the world can leave the outcome unchanged. The review question is: *does this decision depend on a difference between what happens with and without our action?* If yes, plan for randomized holdouts from the first deployment so that the data needed to estimate the effect exists.
+
+## 18. Uncertainty and Calibration
+
+A prediction without an uncertainty statement invites the consumer to treat it as certain. Most architectural decisions about fallbacks, human review, and abstention depend on how much to trust a particular output, so this section sets out where uncertainty comes from, how to check that probabilities mean what they say, and what a system can do with the answer. Calibration methods themselves are owned by [CH03](CH03_Regression_and_Classification.md) and evaluation metrics by [CH06](CH06_Model_Evaluation_Validation_and_Selection.md); this section gives the concepts and the architecture consequences.
+
+### 18.1 Aleatoric and epistemic uncertainty
+
+Two different things can make a prediction uncertain. **Aleatoric uncertainty** is randomness in the outcome that remains even with perfect knowledge of the process: whether a particular customer cancels given everything we can observe is partly chance. It corresponds to the irreducible error and Bayes risk of Section 4.1 and cannot be reduced by more data of the same kind. **Epistemic uncertainty** is uncertainty about the model itself, caused by limited data or by an input unlike the training examples. It shrinks as relevant data is added.
+
+The distinction changes the response. High aleatoric uncertainty means the honest output is a probability, and the system should be designed to act under risk (thresholds from costs, Section 7.4). High epistemic uncertainty means the model is extrapolating, and the right response is to abstain, escalate to a human, or collect data. A model that is confident on an out-of-distribution input is the dangerous case, and most standard models do exactly that: a softmax output can be near 1.0 on an input that resembles nothing in training, because the output layer normalizes scores into probabilities whether or not the input is familiar.
+
+A worked contrast shows epistemic uncertainty shrinking. Estimate a conversion rate with a uniform prior, Beta$(1, 1)$. After 3 conversions in 10 visits the posterior is Beta$(4, 8)$ with mean $4/12 = 0.333$ and standard deviation $\sqrt{ab/((a+b)^2(a+b+1))} = \sqrt{32/(144 \times 13)} = 0.131$. After 300 conversions in 1,000 visits it is Beta$(301, 701)$ with mean $0.300$ and standard deviation $0.014$. Both observed rates are close, but the first is almost useless for a decision and the second is precise. A point estimate hides that difference; a posterior shows it. The same applies to model scores for a customer segment with few examples: the score has the same form but far wider true uncertainty.
+
+### 18.2 Calibration
+
+A probabilistic classifier is **calibrated** if, among all cases it assigns probability $p$, a fraction $p$ turn out positive. Calibration matters whenever probabilities are used rather than only the ranking: cost-based thresholds (Section 7.4), expected-value calculations, risk-based pricing, and any display of a percentage to a user. A model can rank well, with high area under the curve (AUC), and still be badly calibrated, because ranking depends only on order.
+
+A **reliability table** groups predictions into bins of predicted probability and compares the mean prediction with the observed frequency. The following output comes from [02_simpson_calibration_and_shift.py](../code/python/ml-foundations-chapter/02_simpson_calibration_and_shift.py), which simulates an overconfident model by doubling the log-odds of the true probability (20,000 simulated cases):
+
+| Predicted bin | Cases | Mean prediction | Observed rate |
+|---|---|---|---|
+| [0.0, 0.2) | 6,666 | 0.060 | 0.167 |
+| [0.2, 0.4) | 2,314 | 0.293 | 0.382 |
+| [0.4, 0.6) | 2,020 | 0.501 | 0.510 |
+| [0.6, 0.8) | 2,343 | 0.704 | 0.608 |
+| [0.8, 1.0) | 6,657 | 0.940 | 0.833 |
+
+The pattern is the typical signature of overconfidence: predictions near 0.94 are right only 83% of the time and predictions near 0.06 are wrong 17% of the time. The weighted average gap across bins is the **expected calibration error (ECE)**, here 0.096 with ten equal-width bins. Using the raw scores in the cost rule of Section 7.4 would misprice both tails. A cost-based threshold of 0.1 (for $C_{FP} = 1$, $C_{FN} = 9$) applied to the scores would treat a score of 0.06 as safely below the threshold, while 16.7% of such cases are positive, well above 10%.
+
+Calibration is checked on held-out data and repaired by a monotone mapping fitted on separate data: Platt scaling (a logistic regression on the score) or isotonic regression (a fitted step function). Because the mapping is monotone, ranking metrics do not change while probability-based metrics improve. Overconfidence is common in modern neural networks trained with cross-entropy for many epochs, and well documented by Guo and colleagues (2017) in "On Calibration of Modern Neural Networks". Two architectural points follow. Recalibrate whenever the base rate or population shifts, since the mapping is only valid for the distribution it was fitted on. And version the calibrator with the model, because a model update without a matching calibrator silently changes what a threshold means.
+
+### 18.3 Ways to estimate uncertainty
+
+| Approach | Idea | Captures | Cost | Notes |
+|---|---|---|---|---|
+| Predicted probability | The model's own output | Aleatoric, if calibrated | None | Overconfident out of distribution |
+| Ensemble | Train several models, measure disagreement | Epistemic | $k$ times training and inference | A strong practical default |
+| Bootstrap | Retrain on resampled data | Sampling variability | $k$ times training | Gives intervals for parameters and predictions |
+| Monte Carlo dropout | Keep dropout on at inference, sample repeatedly | Approximate epistemic | Several forward passes | Quality varies; check against ensembles |
+| Bayesian model | Maintain a posterior over parameters | Both | Often high | Exact for small conjugate models (Section 18.1 example) |
+| Conformal prediction | Calibrate prediction sets or intervals on held-out data | Coverage guarantee | One calibration set | Distribution-free, assumes exchangeability |
+
+**Conformal prediction** deserves a short worked illustration because it provides a guarantee with weak assumptions. Hold out $n$ calibration examples, compute the absolute residual $|y_i - \hat{y}_i|$ for each, and take the $\lceil (n + 1)(1 - \alpha) \rceil$-th smallest residual as $q$. Then the interval $\hat{y} \pm q$ contains the true value with probability at least $1 - \alpha$ for a new example, if calibration and new examples are exchangeable. With $n = 19$ and $\alpha = 0.1$, $\lceil 20 \times 0.9 \rceil = 18$, so $q$ is the 18th smallest of 19 residuals. If residuals in sorted order end $\dots, 4.1, 5.0$ (the 18th is 4.1, the 19th is 5.0), every forecast is reported as $\hat{y} \pm 4.1$. The coverage statement fails when the future differs from the calibration data, which is the distribution shift problem of Section 19, so the guarantee must be re-checked in monitoring.
+
+### 18.4 What a system does with uncertainty
+
+Uncertainty is useful only if something consumes it. Four patterns recur, in increasing order of cost:
+
+1. **Threshold on confidence.** Act automatically above a high-confidence threshold and send the rest to a human or a simpler rule. The coverage-accuracy trade-off is explicit: raising the threshold lowers the share of cases automated and raises the accuracy on that share. Choose it from the cost of review versus the cost of error.
+2. **Abstain.** Return "unknown" for inputs flagged as out of distribution, using a novelty score, ensemble disagreement, or a simple range check on inputs. The check protects against the confident-but-wrong case.
+3. **Propagate.** Pass the distribution or interval downstream. A demand forecast of 1,000 plus or minus 200 supports a safety-stock decision that a point forecast of 1,000 cannot.
+4. **Explore.** Use uncertainty to choose what to try next, as in bandit methods and active learning (Section 16), which accept a short-term cost to reduce epistemic uncertainty.
+
+An architect should ask of any model output: is it a calibrated probability, a score with only ordinal meaning, or a point estimate? The answer determines which downstream rules are legitimate. A score with only ordinal meaning can feed a "top 100 accounts" list but cannot be multiplied by a dollar value to compute expected loss.
+
+## 19. Distribution Shift, Feedback Loops, and Performativity
+
+Section 9.6 introduced distribution shift and Section 10.3 introduced feedback loops. This section adds what each type of shift implies for architecture and monitoring, a numeric look at why importance weighting is fragile, and the case where the model changes the world it predicts.
+
+### 19.1 Types of shift and what they imply
+
+Write the joint distribution as $P(x, y) = P(y \mid x)\,P(x) = P(x \mid y)\,P(y)$. Each factorization suggests a kind of change.
+
+```mermaid
+flowchart TD
+    A["Production metric degrades"] --> B{"Did the input distribution P of x change?"}
+    B -->|"Yes, relationship unchanged"| C["Covariate shift<br/>Reweight, widen training coverage,<br/>monitor feature drift"]
+    B -->|"No"| D{"Did the base rate P of y change?"}
+    D -->|"Yes, P of x given y unchanged"| E["Label (prior) shift<br/>Adjust prior odds,<br/>recalibrate threshold"]
+    D -->|"No"| F{"Did P of y given x change?"}
+    F -->|"Yes"| G["Concept drift<br/>New labels, retrain,<br/>shorten refresh cycle"]
+    F -->|"No"| H["Check the pipeline:<br/>schema, units, missing data,<br/>training-serving skew"]
+```
+
+The decision tree is a triage order, and the last branch is there deliberately. Many "model drift" incidents turn out to be pipeline faults such as a changed unit, a renamed field, or a feature that silently became null, which reweighting or retraining would not fix and may mask.
+
+| Shift type | What changes | Example | Detectable without labels? | Typical remedy |
+|---|---|---|---|---|
+| Covariate | $P(x)$ | A new marketing channel brings younger users | Yes, by comparing feature distributions | Reweight, retrain on broader data, restrict to the supported region |
+| Label (prior) | $P(y)$ | Fraud rate doubles during a campaign | Partly, from score distribution | Adjust the prior odds and the threshold; recalibrate |
+| Concept | $P(y \mid x)$ | A policy change alters what customers do for the same features | No; needs labels or outcomes | New labels, retraining, faster refresh |
+| Upstream data change | The meaning of $x$ | A sensor firmware update rescales a feature | Yes, by schema and range checks | Fix the pipeline, contract tests |
+
+Two properties make shift an architecture concern rather than only a modelling one. First, shift in $P(x)$ is observable at serving time without labels, so it can be monitored cheaply and in real time, while concept drift is visible only when outcomes arrive, which may be weeks later (the label delay of Section 5.2). A monitoring design therefore uses fast proxy signals (feature and score distributions) for early warning and slow true-label metrics for confirmation. Second, the remedy has an operating cost: a retraining pipeline, a labelling process, and a rollback path ([CH29](CH29_MLOps_and_LLMOps.md)).
+
+### 19.2 Why importance weighting is fragile
+
+When only $P(x)$ shifts from a training density $P$ to a target density $Q$, the target risk can be estimated from training data by weighting each example by $w(x) = Q(x)/P(x)$. This is the correction used in Section 9.6. A numeric case shows its limit. In [02_simpson_calibration_and_shift.py](../code/python/ml-foundations-chapter/02_simpson_calibration_and_shift.py), a straight line is fitted to $y = x^2 + \varepsilon$ (noise standard deviation 0.3) with $x \sim \mathcal{N}(0, 1)$; the fitted line is $y = 1.001 - 0.027x$, a nearly flat line that is the best linear fit near the origin. Then the model is evaluated where $x \sim \mathcal{N}(1.5, 1)$:
+
+| Quantity | Value |
+|---|---|
+| Mean squared error on the training distribution | 2.057 |
+| Mean squared error on the shifted distribution (fresh sample) | 15.595 |
+| Importance-weighted estimate from training samples | 9.190 |
+| Effective sample size of the weights | 878 of 5,000 |
+
+The shifted error is more than seven times the training error, which is the main message: a model fitted to one region can be badly wrong in another when its form (a line) cannot represent the truth (a parabola) there. The importance-weighted estimate of 9.19 is also well below the true 15.6. The weights for these two Gaussians are $w(x) = e^{1.5x - 1.125}$, which have variance $e^{2.25} - 1 \approx 8.5$, so the theoretical effective sample size is about $5000/(1 + 8.5) \approx 530$. The weights are dominated by a few training points with large $x$, and the sample under-represents the tail where the shifted error is largest, so the estimate is both noisy and biased low. Reweighting is reliable only when the two distributions overlap well, and it cannot create information about regions the training data never visited. When the effective sample size is small, the honest conclusion is that the shifted performance cannot be estimated from the available data, and the response is to collect labelled data from the new region or to restrict the model to the region it supports.
+
+### 19.3 Feedback loops and performativity
+
+In the standard framing the world produces data and the model predicts it. When predictions drive actions, the model influences the data it will later learn from. Perdomo, Zrnic, Mendler-Dünner, and Hardt (2020) called this *performative prediction*: the data distribution depends on the deployed model.
+
+```mermaid
+flowchart LR
+    A["Model scores<br/>applicants or items"] --> B["Decision acts on<br/>the scores"]
+    B --> C["Outcomes observed<br/>only for acted-on cases"]
+    C --> D["Logged data<br/>becomes training data"]
+    D --> E["Retrained model"]
+    E --> A
+    B -.->|"Behavior changes<br/>in response"| F["World shifts<br/>(users adapt, adversaries probe)"]
+    F -.-> C
+```
+
+Three mechanisms sit in this loop, and each needs a different safeguard.
+
+**Selective labels.** Outcomes are observed only where the action was taken. A lender sees repayment only for approved applicants. If the model approves the 30% with the lowest predicted risk, the retraining data covers only that slice, and the model never learns how the rejected 70% would have behaved. Its estimate of its own accuracy is computed on the region where it is most confident. The safeguard is deliberate exploration: approve a small random sample of otherwise rejected cases to learn their outcomes. Per 10,000 applicants, 7,000 are rejected; approving 2% of them is 140 loans. If those 140 default at an illustrative 15% with a loss of 1,000 each, the expected cost is $140 \times 0.15 \times 1000 = 21{,}000$ before counting revenue from the loans that repay. That is the price of unbiased data on the rejection region, and it should be budgeted explicitly rather than avoided, since the alternative is a model that cannot be audited. Logging the probability with which each action was chosen allows later off-policy correction by inverse-propensity weighting.
+
+**Self-fulfilling and self-defeating predictions.** A prediction that triggers an intervention can cancel itself: a model that correctly predicts churn leads to a retention call, the customer stays, and the label becomes "did not churn", so the next model learns that those feature patterns are safe. The customers the model was best at identifying look like false positives. This is the reason Section 17 recommends a randomized holdout that receives no intervention: it preserves a clean label for the natural outcome.
+
+**Adaptation and gaming.** When a score determines outcomes people care about, they change their behavior to improve it. Spammers rewrite messages, applicants inflate features that are cheap to change, and sellers optimize for the ranking. The relationship between features and outcome then shifts because of the model. Features that are costly to manipulate and causally related to the outcome age better than features that are cheap to fake. The architectural consequences are a shorter refresh cycle for adversarial settings, monitoring of feature distributions for sudden moves in manipulable features, and review of which features are used for decisions about people (Section 10.3 and [CH31](CH31_Responsible_AI_and_Safety_Governance.md)).
+
+## 20. Data-Centric Practice, Project Lifecycle, and a Second Worked Example
+
+### 20.1 Data-centric machine learning
+
+Andrew Ng popularized the term *data-centric AI* for the practice of improving the data while holding the model fixed. The argument is practical. For a given architecture, errors are often traceable to inconsistent labels, missing coverage, or duplicated and contaminated rows, and fixing those is cheaper and more durable than tuning hyperparameters. A systematic loop looks like this:
+
+1. **Slice the errors.** Group validation errors by segment, source, label annotator, time, and input characteristics, and find the slices with disproportionate error (Section 11.2).
+2. **Read examples.** Inspect a few dozen errors per slice by hand. The categories that emerge (label error, ambiguous definition, missing feature, genuinely hard case) decide the fix.
+3. **Fix the cause.** Correct labels, clarify the labelling guideline, add data for the weak slice, remove duplicates, or add a feature.
+4. **Retrain and compare** on the same untouched test set, and record the change in a data version (Section 5.5).
+
+A back-of-the-envelope calculation shows why label review pays. Suppose 5% of training labels are wrong at random and a re-labelling sample of 200 rows shows that 11 disagree with an expert panel, so the estimated noise rate is $11/200 = 5.5\%$ with a standard error of about $\sqrt{0.055 \times 0.945/200} = 1.6$ points. If the achievable accuracy ceiling for a noise rate $\epsilon$ is roughly $1 - \epsilon$ (Section 5.4) then a model reporting 93% accuracy measured against these labels is within about one standard error of the roughly 94.5% ceiling a perfect classifier would reach, and extra tuning is largely wasted. In this situation reviewing the most confident disagreements between model and label is a better use of a day than another hyperparameter sweep; automated methods such as confident learning (Northcutt, Jiang, and Chuang, 2021) can rank suspect labels for human review.
+
+### 20.2 The project lifecycle and why projects fail
+
+Section 21.1 describes the workflow as stages. The state diagram shows where projects typically stall or loop back, since it is the loops that cost time.
+
+```mermaid
+stateDiagram-v2
+    [*] --> Framing
+    Framing --> DataAudit: decision and label defined
+    DataAudit --> Framing: labels unavailable
+    DataAudit --> Baseline: data sufficient
+    Baseline --> Modeling: baseline beats nothing
+    Baseline --> Stopped: rule is good enough
+    Modeling --> Evaluation
+    Evaluation --> DataAudit: error analysis finds data issues
+    Evaluation --> Modeling: underfit or overfit
+    Evaluation --> Pilot: meets decision criteria
+    Pilot --> Production: online metric confirms
+    Pilot --> Framing: no business effect
+    Production --> Monitoring
+    Monitoring --> DataAudit: drift or label change
+    Monitoring --> Retired: value gone
+    Stopped --> [*]
+    Retired --> [*]
+```
+
+The diagram makes two points. The most common backward edges, to Framing and to DataAudit, are cheap if they happen early and expensive if they happen after modelling. And there are two legitimate terminal states that are not production: stopping because a rule is good enough, and retiring a model whose value has gone. A team that treats those as failures will keep weak systems alive.
+
+Failure causes cluster, and they are mostly not algorithmic:
+
+| Cause | Symptom | Early check |
+|---|---|---|
+| The prediction does not map to a decision | Good offline metric, no business effect | Write the action and its value before modelling (Section 4.3) |
+| Label does not match the concept | Model optimizes the recorded proxy | Compare label definition with the decision, audit a sample |
+| Leakage | Excellent validation, poor production | Time-based split; ask when each feature becomes known ([CH02](CH02_Data_Preparation_Feature_Engineering_and_Leakage.md)) |
+| Evaluation set does not resemble deployment | Offline-online gap | Compare feature distributions of test set and production |
+| No baseline | Complexity without evidence | Section 20.3 |
+| Integration and ownership gaps | Model works in a notebook, never ships | Assign owners for data, model, and consumers early (Section 10) |
+| Over-investment in the model | Months on tuning, weeks on data | Time-box tuning; prioritize error analysis |
+| No monitoring or retraining plan | Silent decay | Define metrics, triggers, and a retirement criterion before launch |
+
+### 20.3 Choosing a first model and a baseline ladder
+
+Pick the first model by data type and constraint instead of fashion, and keep the ladder short. Section 21.3 works one ladder numerically; the selection guide below says where to start.
+
+| Situation | Start with | Then try | Reason |
+|---|---|---|---|
+| Tabular data, binary or numeric target | Majority class or mean, then logistic or linear regression with simple features | Gradient-boosted trees | Strong, cheap, interpretable baselines; trees capture interactions and thresholds |
+| Time series with strong seasonality | Seasonal naive (same period last cycle) | Regression with calendar features, then dedicated forecasting models | Seasonal naive is often hard to beat by much |
+| Text classification with labels | Bag-of-words with logistic regression | Fine-tuned pretrained encoder, or a prompted LLM with evaluation | Cheap baseline sets the bar for a more expensive model |
+| Images | Pretrained model with a new classification head | Fine-tune the backbone | Pretrained features need little labelled data |
+| Ranking or recommendation | Popularity, then recency-weighted popularity | Matrix factorization, then learned ranking | Popularity is a strong floor and hard to beat in cold-start |
+| Very little data | Rule or lookup | Regularized linear model, with a strong prior | Variance dominates; keep capacity low (Section 9) |
+
+For each rung, record the metric, the cost (training, inference, maintenance), and the decision value. Climb a rung only if the improvement in decision value exceeds the added cost with an interval that excludes zero. This turns "which model?" into an economic question, and it often stops the ladder early.
+
+### 20.4 Machine learning technical debt as a measurable list
+
+Section 10 explained the sources of hidden debt. The table converts them into checks that a review can run, each tied to an observable signal.
+
+| Debt item | Signal in the codebase or platform | Mitigation |
+|---|---|---|
+| Undeclared consumers | Anyone reads model output with no registered contract | Access control and a consumer registry |
+| Unstable data dependency | Upstream table changes without notice | Versioned data contracts and schema tests |
+| Feature with unknown owner | A feature with no documentation, no test, and no owner | Feature catalogue with owner and refresh time |
+| Underused features | Feature removal changes metrics by less than noise | Periodic ablation, then removal |
+| Training-serving skew | Offline and online feature values disagree on replay | Shared feature code or a feature store with point-in-time retrieval |
+| Glue code | More lines wrap a library than implement logic | Standard interfaces, in-house ownership of the wrapper |
+| Dead experimental branches | Config flags never turned off | Delete or archive; track in a register |
+| Hard-coded thresholds | Constants in service code | Externalized, versioned configuration with review |
+| Pipeline jungle | Many ad hoc joins and scripts producing features | Consolidate into a declared pipeline with lineage |
+
+The debt metric that matters most is *time to change safely*: how long it takes to alter one input and prove nothing else broke. When that number grows from days to weeks, the system is accruing debt faster than it creates value.
+
+### 20.5 Second worked example: forecasting support volume
+
+The churn example of Section 21.3 is a classification problem with a cost-based action. This example is a regression problem with a time structure and an asymmetric cost, and it uses the same discipline: frame, baseline, split in time, evaluate, decide.
+
+**Framing.** A support organisation staffs agents weekly. The prediction unit is a calendar day; the decision time is the last day of each week; the horizon is the next seven days; the label is the number of tickets created. The action is to schedule staff for each day. Understaffing costs three times as much per ticket as overstaffing (customers wait, overtime is paid), so the loss is asymmetric: three units per ticket under-forecast, one unit per ticket over-forecast. The optimal forecast for this loss is the quantile at $C_{\text{under}}/(C_{\text{under}} + C_{\text{over}}) = 3/4$ of the predictive distribution, an application of Section 7.4 to a numeric target.
+
+**Data.** The script [03_forecast_baseline_ladder.py](../code/python/ml-foundations-chapter/03_forecast_baseline_ladder.py) generates 392 days of illustrative data (fixed seed): a base level of 200 tickets that grows 0.35 per day, weekday multipliers from 1.25 on Monday to 0.45 on Sunday, and multiplicative noise with 6% standard deviation. Real data would need cleaning for outages and holidays; here the purpose is the method. The first 280 days are available at the first forecast origin and the last 112 days are the test period. Each week, models are refit on all data before the origin and forecast the next 7 days, a **rolling-origin** evaluation that never uses the future (Section 5.3).
+
+**Baseline ladder and results.** The output on the 112 test days is:
+
+| Method | MAE (tickets/day) | Asymmetric cost per day |
+|---|---|---|
+| Last value | 144.67 | 432.62 |
+| Same weekday last week | 19.39 | 42.52 |
+| Mean of last 4 same weekdays | 15.19 | 37.88 |
+| Linear: weekday indicators + trend | 19.40 | 41.73 |
+| Log-linear: weekday indicators + trend | 14.13 | 27.64 |
+
+Reading the table is the lesson. "Last value" ignores the weekly cycle, and Sunday's value used to forecast Monday is off by a factor of nearly three, so it is far the worst. A seasonal naive rule removes most of that error with no fitting at all. Averaging four weeks reduces the noise in the seasonal naive prediction but lags the growing trend. The linear model with weekday indicators and trend should in principle fix the lag, but it assumes the weekday effect is *additive*, while the data's weekday effect is *multiplicative* (it scales with the level), so as the level rises the additive weekday offsets become wrong and the model's MAE is no better than seasonal naive. Taking logarithms turns the multiplicative structure into an additive one, and the same linear model then fits it, reducing MAE to 14.13. That is inductive bias (Section 15.2) shown in numbers: the right transformation mattered more than a more complex algorithm.
+
+**Decision rule.** The loss is asymmetric, so a forecast tuned for squared or absolute error is not the best decision input. Multiplying the log-linear forecast by a safety margin gives the following asymmetric cost: 27.64 at a 0% margin, 23.02 at 5%, 31.78 at 10%, and 44.27 at 15%. The minimum is near 5%. This agrees with theory: for multiplicative noise with standard deviation 6%, the 75th percentile sits about $0.674 \times 6\% \approx 4\%$ above the median, so the best margin should be in the 4 to 5% range. The curve is asymmetric: too large a margin raises cost quickly because overstaffing is paid on every day, while the 0% margin pays three times for each ticket short. A margin chosen from the cost ratio and the forecast error distribution is a decision parameter that belongs in versioned configuration, not a constant in the code.
+
+**Rejected alternatives.** A deep sequence model was not tried, because with 280 days of data per fit the capacity is far above what the data supports (Section 9), and the simple model is within noise of the series' own variability: the test-period volume averages about 290 tickets/day, so 6% noise is a standard deviation near 17 tickets and a mean absolute deviation near 14, which makes an MAE of 14.13 close to the irreducible error. A second reason is operational: a weekly forecast that a manager can inspect and challenge is worth more than a marginal accuracy gain. A model with a predictive interval (Section 18.3) would be the next step if staffing needs a service-level guarantee.
+
+**Validation evidence and risks.** The comparison used a rolling origin on 16 forecast weeks, so the uncertainty of the cost estimate is not negligible; with this few weeks, a difference of 2 to 3 cost units between close methods should not be trusted, whereas the gap from 41.73 to 27.64 reflects a structural fix. A launch review would add a check for holidays and promotions (the covariate and concept shifts of Section 19), a fallback to the seasonal naive rule when the pipeline fails, and monitoring of the weekly asymmetric cost against the baseline so that the model is retired if it stops beating the rule.
+
+## 21. Putting It Together
+
+### 21.1 The workflow lifecycle
 
 The sections of this chapter compose into one workflow. The diagram shows it as a loop with explicit feedback edges, because evidence at a later stage routinely sends the work back to an earlier one.
 
@@ -1047,7 +1626,7 @@ stateDiagram-v2
 
 Three feedback edges carry most of the learning. The edge from evaluation to modeling is the bias-variance loop of Section 9.3. The edges from evaluation and monitoring back to data and framing are the ones teams skip: they correspond to leakage, label, and drift findings, whose fix is outside the model. The terminal state is deliberate; a model that no longer beats its baseline net of cost should be retired. Operating this loop at scale is the subject of [CH29](CH29_MLOps_and_LLMOps.md), and composing it into a platform is covered from Part 17 onward.
 
-### 12.2 Trade-off analysis
+### 21.2 Trade-off analysis
 
 The baseline ladder (Section 3) turns the simple-versus-complex choice into a sequence of measured decisions. The table lists the dimensions on which the rungs differ, and the question that settles each.
 
@@ -1062,7 +1641,7 @@ The baseline ladder (Section 3) turns the simple-versus-complex choice into a se
 
 The rule of thumb is to climb a rung only when its measured gain, on the decision metric and net of lifecycle cost, is larger than the uncertainty of the measurement.
 
-### 12.3 Worked example: the baseline ladder for subscription renewal
+### 21.3 Worked example: the baseline ladder for subscription renewal
 
 This extends the framing of Section 4.3. Every figure is **illustrative**, chosen so the arithmetic can be checked by hand; none is a measured result. Work per 1,000 active accounts at one decision date:
 
@@ -1089,7 +1668,7 @@ Scenario B is the case promised in Section 3. With $sV = \$30$ the break-even pr
 
 The model earns its keep when four conditions hold together: the break-even probability sits below the cancellation rate of the group it can isolate, the portfolio is large enough to cover its fixed cost, its gain over the rule is distinguishable from noise, and it survives drift under monitoring. It does not earn its keep when the value of a save is small relative to the cost of a call, when a rule already captures most of the achievable gain, or when the portfolio is small.
 
-### 12.4 Illustrative composite case study (hypothetical)
+### 21.4 Illustrative composite case study (hypothetical)
 
 The following composite is **hypothetical**. It is not drawn from a real organization or incident, and it contains no measurements. It shows how the chapter's pieces interact. A regional parcel carrier wants to predict delivery delay so it can notify customers in advance.
 
@@ -1100,9 +1679,9 @@ The following composite is **hypothetical**. It is not drawn from a real organiz
 - **Deployment.** Notifications change customer behavior, such as rebooking, which changes outcomes. The team keeps a small holdout that receives no notification so that the model's training data is not purely a record of its own influence (Section 10.3).
 - **Operation.** A routing policy change alters $P(y \mid x)$, which is concept drift (Section 9.6). A monitored delayed-label metric triggers review.
 
-The decision in this story is to ship the logistic model with a rule fallback and defer the ensemble until it beats the simpler rung on the time-ordered evaluation net of its extra maintenance, in the manner of Section 12.3.
+The decision in this story is to ship the logistic model with a rule fallback and defer the ensemble until it beats the simpler rung on the time-ordered evaluation net of its extra maintenance, in the manner of Section 21.3.
 
-### 12.5 Architect review checklist
+### 21.5 Architect review checklist
 
 Use the list as a gate before committing to a learned component. Each item can be answered with a document, a measurement, or an owner.
 
@@ -1122,7 +1701,7 @@ Use the list as a gate before committing to a learned component. Each item can b
 - The loss, the decision metric, and the threshold are aligned with error costs (Sections 7.4 and 7.6).
 - The baseline ladder is measured, the split respects time and grouping, and results carry intervals and slice breakdowns ([CH06](CH06_Model_Evaluation_Validation_and_Selection.md)).
 - Learning curves were used to diagnose bias versus variance before adding data or complexity (Section 9.3).
-- The expected value net of lifecycle cost has been computed, as in Section 12.3.
+- The expected value net of lifecycle cost has been computed, as in Section 21.3.
 
 **System and ownership**
 
@@ -1136,7 +1715,7 @@ Use the list as a gate before committing to a learned component. Each item can b
 - Input, score, and outcome drift are monitored, with retraining triggers and a retirement criterion ([CH29](CH29_MLOps_and_LLMOps.md)).
 - Code, data snapshot, configuration, and seeds are recorded for every released model (Section 8.8).
 
-## 13. Interview Questions
+## 22. Interview Questions
 
 1. **Why is training error an optimistic estimate of future error?** The parameters were chosen to minimize that very sample's loss, so the winner's training error is biased low, and more flexibility means more bias (Section 6.2). Use data that played no part in fitting or selection.
 2. **Sketch the bias-variance decomposition for squared error.** Write $y = f + \varepsilon$. Expanding the square, the cross term with independent zero-mean noise vanishes, leaving $\sigma^2 + \mathbb{E}[(f - \hat{f})^2]$. Adding and subtracting the average prediction $\bar{f}$ splits that into $(f - \bar{f})^2$ plus the variance of $\hat{f}$, with the new cross term zero by the definition of $\bar{f}$.
@@ -1149,34 +1728,56 @@ Use the list as a gate before committing to a learned component. Each item can b
 9. **What is hidden technical debt in ML systems?** From Sculley et al.: maintenance costs that conventional code does not have, arising from data dependencies, undeclared consumers, entanglement, feedback loops, pipeline jungles, and configuration. It is an experience-based argument, used as a risk checklist (Section 10).
 10. **A new model has a higher aggregate score than the old one, but you suspect it is not better. How do you check?** Report per-segment results with counts, compare on a common traffic mix or randomized assignment, and add intervals. Segment reversal can make an aggregate reflect the mix rather than the model (Section 11.1).
 
-## 14. Hands-on Exercises
+## 23. Hands-on Exercises
 
-All five run in a notebook with NumPy; plotting with Matplotlib is optional.
+Exercises 1 to 5 run in a notebook with NumPy (plotting with Matplotlib is optional). Exercises 6 to 12 are paper or short-script exercises on the material of Sections 12 to 20, and each ends with a brief answer.
 
 1. **Estimate bias and variance by simulation.** Take $f(x) = \sin(2\pi x)$ on $[0, 1]$, noise standard deviation 0.3, and $n = 30$ training points. For polynomial degrees 1, 3, and 9, draw 200 independent training sets, fit each with `np.polyfit`, and predict on a fixed grid. Estimate bias$^2$ and variance averaged over the grid, and check that $\sigma^2 + \text{bias}^2 + \text{variance}$ is close to the mean squared error on fresh noisy test points.
 2. **Draw learning curves.** For degrees 1 and 9 of the same setup, plot training and validation MSE for $n \in \{20, 40, 80, 160, 320, 640\}$. Label each curve as high bias, high variance, or near the floor, and compare with the regimes of Section 9.3.
 3. **Reweight under covariate shift.** Fit a straight line to $y = x^2 + \varepsilon$ using $x \sim \mathcal{N}(0, 1)$, then measure error on $x \sim \mathcal{N}(1.5, 1)$. Estimate the shifted error from training-distribution samples using weights $w(x) = Q(x)/P(x)$, compare it with the direct estimate, and report how the variance of the weights affects stability.
 4. **Construct a segment reversal.** Choose two models and two segments with unequal traffic mixes so that model B wins in both segments but loses overall. Verify the counts, compute the 50/50 standardized accuracy, and bootstrap an interval for each segment.
-5. **Rebuild the baseline ladder.** Implement $\text{EV} = \text{reached} \times sV - \text{calls} \times C$ and reproduce the table in Section 12.3. Sweep the save probability $s$ from 0.05 to 0.40 and find where each rung's EV crosses zero. The hand-computed answers are $s \approx 0.119$ for the model ($1000 / (28 \times 300)$) and $s \approx 0.167$ for the rule ($1000 / (20 \times 300)$).
+5. **Rebuild the baseline ladder.** Implement $\text{EV} = \text{reached} \times sV - \text{calls} \times C$ and reproduce the table in Section 21.3. Sweep the save probability $s$ from 0.05 to 0.40 and find where each rung's EV crosses zero. The hand-computed answers are $s \approx 0.119$ for the model ($1000 / (28 \times 300)$) and $s \approx 0.167$ for the rule ($1000 / (20 \times 300)$).
+6. **Bayes' rule with a base rate.** A fraud screen flags 80% of fraudulent payments and 2% of legitimate ones. Fraud prevalence is 0.5%. What fraction of flagged payments are fraudulent, and what happens at 5% prevalence? *Answer:* at 0.5%, flagged fraud is $0.8 \times 0.005 = 0.004$ and flagged legitimate is $0.02 \times 0.995 = 0.0199$, so precision is $0.004/0.0239 = 0.167$. At 5%, $0.04/(0.04 + 0.019) = 0.678$. The same model has very different precision at different base rates.
+7. **MAP shrinkage.** A new product has 2 conversions in 5 visits. Compute the MLE and the MAP estimate under a Beta$(2, 8)$ prior, which encodes a belief that conversion is near 20%. *Answer:* the MLE is $2/5 = 0.4$. The MAP is $(2 + 2 - 1)/(5 + 2 + 8 - 2) = 3/13 = 0.231$. The prior dominates because $n$ is small; with 200 conversions in 500 visits the MAP is $201/508 = 0.396$.
+8. **Entropy and cross-entropy.** A model assigns probabilities $(0.5, 0.3, 0.2)$ to three classes. Compute the log loss in nats when the true class is the second, and when it is the third. Which mistake costs more? *Answer:* $-\ln 0.3 = 1.204$ and $-\ln 0.2 = 1.609$. The less probable the true class under the model, the larger the loss, which is unbounded as the probability approaches zero.
+9. **Condition number and ridge.** The Hessian of a least-squares problem has eigenvalues 50 and 0.05. Compute the condition number, the largest stable learning rate, and the condition number after adding ridge strength 0.5. *Answer:* $\kappa = 1000$; the stable step is below $2/50 = 0.04$; with ridge the eigenvalues are 50.5 and 0.55, so $\kappa = 91.8$.
+10. **Sample size from a PAC-style bound.** Using the finite-class bound of Section 15.3 with $\ln|\mathcal{H}| = 13.86$ and $\delta = 0.05$, how many examples guarantee a gap of at most 0.05? *Answer:* solve $\sqrt{16.86/(2n)} \le 0.05$, so $n \ge 16.86/(2 \times 0.0025) = 3{,}372$. Halving the tolerated gap to 0.025 needs four times as many, 13,488.
+11. **Simpson's paradox by construction.** Make a table in which a new ranking model beats the old one in both the "new user" and "returning user" segments but loses overall. Then say what additional information decides whether the segment-level or the aggregate comparison is the right one. *Answer:* give the new model mostly new users (low conversion) and the old model mostly returning users (high conversion). The deciding information is the assignment mechanism: if segments were assigned by a rule that affects the outcome independently of the model, compare within segments or standardize; if the model's own behavior determines the segment, the segment is a mediator and the aggregate is the relevant comparison. Randomized assignment removes the ambiguity.
+12. **Choosing a margin.** Under-forecasting costs 4 per unit and over-forecasting costs 1 per unit. What quantile of the predictive distribution minimizes expected cost, and what margin above the median does it imply for normal errors with standard deviation 10? *Answer:* the quantile is $4/(4 + 1) = 0.8$. The 80th percentile of a normal lies $0.842$ standard deviations above the median, so the margin is about 8.4 units.
 
-## 15. Design and Architecture Review Questions
+## 24. Design and Architecture Review Questions
 
 1. A product team proposes a model to approve refunds automatically. Which framing, cost, reversibility, and fallback questions must be answered before any algorithm is chosen (Sections 3 and 4.3)?
 2. A vendor claims 97% accuracy for a fraud model. What evidence would you ask for about prevalence, baselines, label provenance, the evaluation population, intervals, and slices?
 3. The only available training data is the log of decisions made by an earlier rule-based system. Which selection and feedback problems does that create, and how would you mitigate them (Sections 5.2 and 10.3)?
 4. For an ML-enabled service, assign owners and a versioning scheme for source data, features, configuration, the model artifact, and downstream consumers. What breaks if one of them is unowned (Section 10)?
 5. Offline metrics improved but the online business metric is flat. List the hypotheses, the evidence that would separate them, and where [CH06](CH06_Model_Evaluation_Validation_and_Selection.md) covers online validation.
-6. Design the monitoring signals, retraining triggers, fallback, and retirement criterion for the retention model of Section 12.3, using [CH29](CH29_MLOps_and_LLMOps.md) for the operating mechanisms.
+6. Design the monitoring signals, retraining triggers, fallback, and retirement criterion for the retention model of Section 21.3, using [CH29](CH29_MLOps_and_LLMOps.md) for the operating mechanisms.
 
-## 16. Summary
+## 25. Summary
 
-Machine learning learns a function from examples under an explicit objective, and the chapter's six outcomes summarize how to reason about it.
+Machine learning learns a function from examples under an explicit objective, and the chapter's outcomes summarize how to reason about it.
 
 1. **Decide and frame.** Use a learned model only when it beats the simplest credible alternative net of lifecycle cost. Fix the prediction unit, decision time, horizon, label, and action first (Sections 3 and 4.3).
 2. **Training loss is a proxy.** Empirical risk is optimistically biased by selection, and the sampling, distribution, and objective gaps have different remedies (Sections 4 to 6).
 3. **Losses encode assumptions.** Squared error and log loss come from noise models, and cost-based thresholds follow from decision costs (Section 7).
 4. **Optimization is diagnosable.** Learning rate, conditioning, and feature scaling determine convergence (Section 8).
 5. **Error decomposes.** Expected squared error equals noise plus bias squared plus variance. Learning curves tell you whether to add data, simplify, regularize, or change the problem, and distribution shift can invalidate the whole analysis (Section 9).
-6. **Build and review end to end.** Climb the baseline ladder, test by slice and invariance, count the system around the model, and review against the checklist (Sections 10 to 12).
+6. **Build and review end to end.** Climb the baseline ladder, test by slice and invariance, count the system around the model, and review against the checklist (Sections 10, 11, and 21).
+
+7. **Mathematics gives the losses and penalties their meaning.** Squared error and log loss are maximum likelihood objectives, regularization is a prior, and cross-entropy is the divergence from the label distribution (Sections 12 to 14).
+8. **Theory sets expectations, not guarantees.** No algorithm is best everywhere, inductive bias must match the problem, and data needs grow with capacity and with the number of models tried (Section 15).
+9. **Prediction is not intervention.** Confounding and Simpson's paradox mean that decisions need randomized holdouts or explicit causal assumptions (Section 17).
+10. **Know how sure the model is.** Check calibration, separate aleatoric from epistemic uncertainty, and decide what the system does when confidence is low (Section 18).
+11. **Plan for change.** Triage shift by type, budget for exploration where labels are selective, and expect models to change the data they learn from (Section 19).
+12. **Fix data before tuning models.** Error analysis, short ladders, and measurable debt checks keep projects moving (Section 20).
 
 Behavior is defined by data, so data, labels, features, and configuration need owners, versions, tests, and monitoring. Treat the model as one component in a larger system.
+
+## 26. Code Examples
+
+- [01_probability_information_and_estimation.py](../code/python/ml-foundations-chapter/01_probability_information_and_estimation.py) prints the Bayes, MLE, MAP, entropy, KL, and saddle-point numbers of Sections 12, 14, and 15.
+- [02_simpson_calibration_and_shift.py](../code/python/ml-foundations-chapter/02_simpson_calibration_and_shift.py) prints the Simpson's paradox table, the reliability table, and the importance-weighting experiment of Sections 17 to 19.
+- [03_forecast_baseline_ladder.py](../code/python/ml-foundations-chapter/03_forecast_baseline_ladder.py) runs the rolling-origin baseline ladder and margin sweep of Section 20.5.
+
+All three use only the Python standard library and print the values quoted in the chapter.
